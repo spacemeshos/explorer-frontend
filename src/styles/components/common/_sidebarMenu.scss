@@ -39,6 +39,46 @@
             }
           }
         }
+        &.layers {
+          color: $blue;
+          .icon {
+            svg {
+              fill: $blue;
+            }
+          }
+        }
+        &.txns {
+          color: $confirmedColor;
+          .icon {
+            svg {
+              fill: $confirmedColor;
+            }
+          }
+        }
+        &.rewards {
+          color: $rewardsColor;
+          .icon {
+            svg {
+              fill: $rewardsColor;
+            }
+          }
+        }
+        &.accounts {
+          color: $accountsColor;
+          .icon {
+            svg {
+              fill: $accountsColor;
+            }
+          }
+        }
+        &.smesher {
+          color: $processingColor;
+          .icon {
+            svg {
+              fill: $processingColor;
+            }
+          }
+        }
       }
     }
   }
