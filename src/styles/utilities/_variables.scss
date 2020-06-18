@@ -10,12 +10,17 @@ $white: #FFFFFF;
 $dark: #252429;
 $green: #65B042;
 
-// site color
+// site main color
 $processingColor: #AA58B1;
 $conflictingColor: #F79F53;
+$blue: #1776E3;
+$confirmedColor: #65B042;
+$approvedColor: #8EC376;
+$pendingColor: #BC83C1;
+$insufficientBalanceColor: #F2B47F;
+$accountsColor: #DF32AF;
+$rewardsColor: #24AEA6;
 
-
-///
 
 $blue: #1776E3;
 $tile_title_bottom_border: #797979;
@@ -44,10 +49,4 @@ $main-font-family: 'NeubauGrotesk', sans-serif;
 $code-pro-font-family: 'Source Code Pro', monospace;
 
 
-:export {
-  barChart: $bar_chart;
-  green: $green;
-  grey: $grey;
-  mapGeographiesFill: $map_geographies_fill;
-  mapGeographiesStroke: $map_geographies_stroke;
-}
+:export {}
