@@ -1,0 +1,21 @@
+.logo {
+  margin-right: 20px;
+
+  &-wrap {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    svg {
+      width: 10px;
+      height: 14px;
+      margin-top: 7px;
+      @include theme-aware('fill', 'logoTextColor');
+    }
+  }
+
+  &-text {
+    font-size: 26px;
+    @include theme-aware('color', 'logoTextColor');
+  }
+}

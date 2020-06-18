@@ -1,0 +1,24 @@
+$themes: (
+  light: (
+    backgroundColor: $grey,
+    logoTextColor: $dark,
+    logoSvgFill: $dark,
+    navBarSeparator: $dark,
+    dropDownBackground: $white,
+    dropDownOption: $dark,
+    sideBarBackground: $sideBarGrey,
+    corner-box-border: $dark,
+    color-background: $grey,
+  ),
+  dark: (
+    backgroundColor: $dark,
+    logoTextColor: $white,
+    logoSvgFill: $white,
+    navBarSeparator: $white,
+    dropDownBackground: $dark,
+    dropDownOption: $white,
+    sideBarBackground: $sideBarDark,
+    corner-box-border: $white,
+    color-background: $dark,
+  )
+);

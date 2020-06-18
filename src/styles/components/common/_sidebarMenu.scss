@@ -1,0 +1,45 @@
+.sidebarMenu {
+  padding: 10px 0;
+  @include theme-aware('background-color', 'sideBarBackground');
+
+  &-list {
+    list-style: none;
+
+    .item {
+      font-size: 14px;
+      text-transform: uppercase;
+      padding: 3px 20px;
+
+      &-link {
+        display: flex;
+        color: $menuGrey;
+
+        .icon {
+          margin-right: 5px;
+            svg {
+              fill: $menuGrey;
+            }
+        }
+      }
+
+      &-link:hover {
+        &.overview {
+          color: $processingColor;
+          .icon {
+            svg {
+              fill: $processingColor;
+            }
+          }
+        }
+        &.epochs {
+          color: $conflictingColor;
+          .icon {
+            svg {
+              fill: $conflictingColor;
+            }
+          }
+        }
+      }
+    }
+  }
+}

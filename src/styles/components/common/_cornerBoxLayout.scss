@@ -1,0 +1,31 @@
+.cornerBox {
+  width: 100%;
+  display: inline-block;
+  position: relative;
+  border: 3px solid;
+  @include theme-aware('border-color', 'corner-box-border');
+  z-index: 1;
+  padding: 4px;
+}
+
+.cornerBox:before,
+.cornerBox:after {
+  content: "";
+  z-index: -1;
+  display: block;
+  position: absolute;
+  @include theme-aware('background-color', 'color-background');
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.cornerBox:before {
+  width: calc(100% + 7px);
+  height: calc(100% - 12px);
+  z-index: 1;
+}
+.cornerBox:after {
+  height: calc(100% + 7px);
+  width: calc(100% - 12px);
+  z-index: 1;
+}

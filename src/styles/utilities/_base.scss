@@ -1,0 +1,38 @@
+body {
+  position: relative;
+  font-family: $code-pro-font-family;;
+  //@include theme-aware('color', 'body-color-font');
+  @include theme-aware('background-color', 'backgroundColor');
+  transition: background-color .25s ease;
+}
+
+* {
+  outline: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 18px;
+}
+
+a {
+  color: $blue;
+  &:hover {
+    text-decoration: none;
+  }
+  &:visited {
+    text-decoration: none;
+  }
+  &:link{
+    text-decoration: none;
+  }
+  &:active{
+    text-decoration: none;
+  }
+}
+
+p {
+  margin: 0;
+}
