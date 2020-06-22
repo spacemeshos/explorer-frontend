@@ -1,26 +1,30 @@
 // Colors HEX
+$lightBackground: #F3F3F3;
+$textColor: #9A9A9A;
 $grey: #EEEEEE;
 $secondGrey: #DDDDDD;
 $sideBarGrey: #DBDBDB;
-$sideBarDark: #323031;
+$darkBackground: #323031;
+$searchColor: #404040;
 $menuGrey: #C4C4C4;
 $lightGrey: #F3F3F3;
+$searchBackgroundLight: #E9E9E9;
+$searchBackgroundDark: #323031;
 
 $white: #FFFFFF;
 $dark: #252429;
 $green: #65B042;
 
 // site main color
-$processingColor: #AA58B1;
-$conflictingColor: #F79F53;
-$blue: #1776E3;
-$confirmedColor: #65B042;
-$approvedColor: #8EC376;
-$pendingColor: #BC83C1;
-$insufficientBalanceColor: #F2B47F;
-$accountsColor: #DF32AF;
+$overviewColor: #AA58B1;
+$epochColor: #F79F53;
+$layerColor: #1776E3;
+$transactionColor: #65B042;
 $rewardsColor: #24AEA6;
-
+$accountsColor: #DF32AF;
+$smesherColor: #252429;
+$blockColor: #1744E3;
+$smartWalletColor: #DF3266;
 
 $blue: #1776E3;
 $tile_title_bottom_border: #797979;
@@ -49,4 +53,14 @@ $main-font-family: 'NeubauGrotesk', sans-serif;
 $code-pro-font-family: 'Source Code Pro', monospace;
 
 
-:export {}
+:export {
+  overviewColor: $overviewColor;
+  epochColor: $epochColor;
+  layerColor: $layerColor;
+  transactionColor: $transactionColor;
+  rewardsColor: $rewardsColor;
+  accountsColor: $accountsColor;
+  smesherColor: $smesherColor;
+  blockColor: $blockColor;
+  smartWalletColor: $smartWalletColor;
+}

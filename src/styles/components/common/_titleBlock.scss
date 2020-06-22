@@ -1,0 +1,23 @@
+.titleBlock {
+  display: flex;
+  flex: 2;
+  justify-content: space-between;
+  height: 76px;
+  @include theme-aware('background-color', 'backgroundInfoBlock');
+
+  &-wrap {
+    padding: 14px 24px;
+  }
+
+  &-title {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-style: normal;
+  }
+
+  &-desc {
+    margin-top: 5px;
+    font-size: 16px;
+    @include theme-aware('color', 'titleDescColor');
+  }
+}

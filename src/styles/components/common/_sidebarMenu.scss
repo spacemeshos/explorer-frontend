@@ -24,34 +24,34 @@
 
       &-link:hover {
         &.overview {
-          color: $processingColor;
+          color: $overviewColor;
           .icon {
             svg {
-              fill: $processingColor;
+              fill: $overviewColor;
             }
           }
         }
         &.epochs {
-          color: $conflictingColor;
+          color: $epochColor;
           .icon {
             svg {
-              fill: $conflictingColor;
+              fill: $epochColor;
             }
           }
         }
         &.layers {
-          color: $blue;
+          color: $layerColor;
           .icon {
             svg {
-              fill: $blue;
+              fill: $layerColor;
             }
           }
         }
         &.txns {
-          color: $confirmedColor;
+          color: $transactionColor;
           .icon {
             svg {
-              fill: $confirmedColor;
+              fill: $transactionColor;
             }
           }
         }
@@ -71,11 +71,19 @@
             }
           }
         }
-        &.smesher {
-          color: $processingColor;
+        &.apps {
+          color: $smartWalletColor;
           .icon {
             svg {
-              fill: $processingColor;
+              fill: $smartWalletColor;
+            }
+          }
+        }
+        &.smesher {
+          color: $smesherColor;
+          .icon {
+            svg {
+              fill: $smesherColor;
             }
           }
         }

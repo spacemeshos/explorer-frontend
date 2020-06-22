@@ -1,6 +1,6 @@
 $themes: (
   light: (
-    backgroundColor: $grey,
+    backgroundColor: $lightBackground,
     logoTextColor: $dark,
     logoSvgFill: $dark,
     navBarSeparator: $dark,
@@ -8,7 +8,14 @@ $themes: (
     dropDownOption: $dark,
     sideBarBackground: $sideBarGrey,
     corner-box-border: $dark,
-    color-background: $grey,
+    color-background: $lightBackground,
+    backgroundInfoBlock: $grey,
+    titleInfoBlock: $textColor,
+    searchBackground: $searchBackgroundLight,
+    searchDecoration: url('../../assets/Bitmap_StripSmall.svg'),
+    tableTextColor: $textColor,
+    titleDescColor: $textColor,
+    countTextColor: $dark,
   ),
   dark: (
     backgroundColor: $dark,
@@ -17,8 +24,15 @@ $themes: (
     navBarSeparator: $white,
     dropDownBackground: $dark,
     dropDownOption: $white,
-    sideBarBackground: $sideBarDark,
+    sideBarBackground: $darkBackground,
     corner-box-border: $white,
     color-background: $dark,
+    backgroundInfoBlock: $darkBackground,
+    titleInfoBlock: $white,
+    searchDecoration: url('../../assets/Bitmap_StripSmall_Invert.svg'),
+    searchBackground: $searchBackgroundDark,
+    tableTextColor: $white,
+    titleDescColor: $white,
+    countTextColor: $white,
   )
 );
