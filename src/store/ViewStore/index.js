@@ -6,6 +6,17 @@ import {
   decorate,
 } from 'mobx';
 
+import {
+  OVERVIEW,
+  EPOCHS,
+  LAYERS,
+  TXNS,
+  REWARDS,
+  ACCOUNTS,
+  SMESHER,
+  SMART_WALLET,
+} from '../../config/constants';
+
 class ViewStore {
   constructor(apiFetch: Object) {
     this.fetch = apiFetch;
@@ -21,18 +32,20 @@ class ViewStore {
 
   get currentPath() {
     switch (this.currentView.name) {
-      case 'overview': return '/';
-      case 'epochs':
+      case OVERVIEW: return '/';
+      case EPOCHS:
         return this.buildUrlString(this.currentView);
-      case 'layers':
+      case LAYERS:
         return this.buildUrlString(this.currentView);
-      case 'txns':
+      case TXNS:
         return this.buildUrlString(this.currentView);
-      case 'rewards':
+      case REWARDS:
         return this.buildUrlString(this.currentView);
-      case 'accounts':
+      case ACCOUNTS:
         return this.buildUrlString(this.currentView);
-      case 'smesher':
+      case SMESHER:
+        return this.buildUrlString(this.currentView);
+      case SMART_WALLET:
         return this.buildUrlString(this.currentView);
       default:
         return '/not-found';

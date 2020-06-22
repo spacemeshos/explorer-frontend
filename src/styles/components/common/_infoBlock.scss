@@ -1,0 +1,38 @@
+.infoBlock {
+  @include theme-aware('background-color', 'backgroundInfoBlock');
+  margin-bottom: 15px;
+  &-list {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &-item {
+    padding: 0 30px;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &-number {
+      color: $overviewColor;
+      font-size: 20px;
+    }
+    &-title {
+      @include theme-aware('color', 'titleInfoBlock');
+      color: #9A9A9A;
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+  }
+
+  &-item:first-child {
+    align-items: flex-start;
+  }
+
+  &-item:last-child {
+    align-items: flex-end;
+  }
+
+  &-item:not(:last-child) {
+    border-right: 1px solid $secondGrey;
+  }
+}

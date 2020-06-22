@@ -25,8 +25,13 @@
 // Components
 @import "./components/common/cornerBoxLayout";
 @import "./components/common/sidebarMenu";
+@import "./components/common/infoBlock";
+@import "./components/common/titleBlock";
+@import "./components/common/countBlock";
+@import "./components/common/table";
 
 // Pages
+@import "./pages/pageContainer";
 @import "./pages/page";
 
 // Layout

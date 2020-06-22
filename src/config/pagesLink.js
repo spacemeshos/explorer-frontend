@@ -30,6 +30,11 @@ export const pagesLink = [
     icon: 'accounts',
   },
   {
+    title: 'smart wallet',
+    page: 'apps',
+    icon: 'apps',
+  },
+  {
     title: 'smesher',
     page: 'smesher',
     icon: 'smesher',

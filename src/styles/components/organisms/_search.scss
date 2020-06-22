@@ -1,9 +1,71 @@
 .search {
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
   margin-top: 38px;
   width: 100%;
   height: 58px;
+  @include theme-aware('background-color', 'searchBackground');
   background-color: #E9E9E9;
+
+  svg {
+    position: absolute;
+    left: 30px;
+  }
+
+  input[type=text] {
+    font-family: $code-pro-font-family;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: $searchColor;
+  }
+
+  &-input {
+    font-family: $code-pro-font-family;
+    width: 100%;
+    height: 34px;
+    margin: 0 20px;
+    border: 1px solid $dark;
+    padding-left: 30px;
+  }
+  &-input::placeholder {
+    font-size: 16px;
+    text-transform: uppercase;
+    color: $searchColor;
+  }
+
+  &-button {
+    font-family: $code-pro-font-family;
+    position: absolute;
+    border: none;
+    background: none;
+    right: 25px;
+    font-size: 16px;
+    color: $searchColor;
+    padding: 0 10px 0 20px;
+    border-left: 1px solid $searchColor;
+  }
+}
+
+.search:before {
+  content: '';
+  position: absolute;
+  @include theme-aware('background', 'searchDecoration');
+  transform: rotate(90deg);
+  top: 27px;
+  left: -28px;
+  width: 58px;
+  height: 4px;
+}
+
+.search:after {
+  content: '';
+  position: absolute;
+  @include theme-aware('background', 'searchDecoration');
+  transform: rotate(90deg);
+  top: 27px;
+  right: -28px;
+  width: 58px;
+  height: 4px;
 }

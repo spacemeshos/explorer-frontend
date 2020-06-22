@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { observer } from 'mobx-react';
 
-import Box from '../../components/common/Box';
+import Page from '../Page';
 import SidebarMenu from '../../components/common/SidebarMenu';
 import CornerBoxWrapper from '../../components/common/CornerBoxWrapper';
 
@@ -11,9 +11,10 @@ type Props = {
   store: Object,
 };
 
-const PageBuilder = (props: Props) => {
-  const { store } = props;
-  console.log('Page store', store);
+const PageContainer = (props: Props) => {
+  const { store, uiStore } = props;
+  console.log(props);
+
   return (
     <div className="container">
       <div className="grid">
@@ -22,7 +23,7 @@ const PageBuilder = (props: Props) => {
         </aside>
         <section className="main">
           <CornerBoxWrapper>
-            <Box name={store.currentView.name} />
+            <Page name={store.currentView.name} uiStore={uiStore}/>
           </CornerBoxWrapper>
         </section>
       </div>
@@ -30,4 +31,4 @@ const PageBuilder = (props: Props) => {
   );
 };
 
-export default observer(PageBuilder);
+export default observer(PageContainer);

@@ -1,26 +1,9 @@
-.container {
-  margin-top: 25px;
-  max-width: 1200px;
-}
-
-.grid {
-  color: white;
-  display: flex;
-}
-
-.sidebar {
-  width: 184px;
-  margin-right: 12px;
-}
-
-.main {
-  width: 100%;
-}
-
-.box {
+.page {
   color: $dark;
   position: relative;
   z-index: 2;
-  height: 200px;
   width: 100%;
+  &-wrap {
+    display: flex;
+  }
 }

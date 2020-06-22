@@ -1,6 +1,6 @@
 body {
   position: relative;
-  font-family: $code-pro-font-family;;
+  font-family: $code-pro-font-family;
   //@include theme-aware('color', 'body-color-font');
   @include theme-aware('background-color', 'backgroundColor');
   transition: background-color .25s ease;

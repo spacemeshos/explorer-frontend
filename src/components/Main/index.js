@@ -7,11 +7,11 @@ import NotFound from '../../pages/NotFound';
 
 import '../../styles/Main.scss';
 import Layout from '../Layout';
-import PageBuilder from '../../pages/PageBuilder';
+import PageContainer from '../../pages/PageContainer';
 
 import { pagesLink } from '../../config/pagesLink';
 
-const renderCurrentView = (store) => {
+const renderCurrentView = (store, uiStore) => {
   const view = store.currentView;
   const isPageExist = pagesLink.map((i) => i.page).find((j) => j === view.name);
 
@@ -19,12 +19,12 @@ const renderCurrentView = (store) => {
     return <NotFound />;
   }
 
-  return <PageBuilder store={store} />;
+  return <PageContainer store={store} uiStore={uiStore}/>;
 };
 
 const Main = observer(({ store, uiStore }) => (
   <Layout uiStore={uiStore}>
-    { renderCurrentView(store) }
+    { renderCurrentView(store, uiStore) }
   </Layout>
 ));
 

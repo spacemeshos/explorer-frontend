@@ -1,0 +1,18 @@
+.container {
+  margin-top: 25px;
+  max-width: 1200px;
+}
+
+.grid {
+  color: white;
+  display: flex;
+}
+
+.sidebar {
+  flex: 1;
+  margin-right: 12px;
+}
+
+.main {
+  flex: 6;
+}
