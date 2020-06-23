@@ -1,6 +1,8 @@
 // @flow
 import * as React from 'react';
 
+import { inject } from 'mobx-react';
+
 import { nanoid } from 'nanoid';
 
 import MenuItem from './MenuItem';

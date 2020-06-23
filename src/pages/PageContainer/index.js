@@ -13,7 +13,6 @@ type Props = {
 
 const PageContainer = (props: Props) => {
   const { store, uiStore } = props;
-  console.log(props);
 
   return (
     <div className="container">
@@ -23,7 +22,7 @@ const PageContainer = (props: Props) => {
         </aside>
         <section className="main">
           <CornerBoxWrapper>
-            <Page name={store.currentView.name} uiStore={uiStore}/>
+            <Page viewStore={store} uiStore={uiStore}/>
           </CornerBoxWrapper>
         </section>
       </div>

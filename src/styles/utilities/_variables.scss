@@ -26,6 +26,15 @@ $smesherColor: #252429;
 $blockColor: #1744E3;
 $smartWalletColor: #DF3266;
 
+// status color
+$confirmed: #65B042;
+$approved: #8EC376;
+$processing: #AA58B1;
+$pending: #BC83C1;
+$conflicting: #F79F53;
+$insufficientFunds: #F2B47F;
+$rejected: #EC5C3d;
+
 $blue: #1776E3;
 $tile_title_bottom_border: #797979;
 $map_background: #c4c4c485;
@@ -55,9 +64,11 @@ $code-pro-font-family: 'Source Code Pro', monospace;
 
 :export {
   overviewColor: $overviewColor;
+  overviewBgColor: rgba(223, 50, 175, 0.2);
   epochColor: $epochColor;
   layerColor: $layerColor;
   transactionColor: $transactionColor;
+  transactionBgColor: rgba(101, 176, 66, 0.2);
   rewardsColor: $rewardsColor;
   accountsColor: $accountsColor;
   smesherColor: $smesherColor;
