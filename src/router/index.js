@@ -6,6 +6,7 @@ export const startRouter = (store) => {
   const router = sheetRouter([
     ['/', () => store.showOverview()],
     ['/:page', (page) => store.showPage(page)],
+    ['/:page/:id', (page) => store.showDetailPage(page)],
   ]);
 
   router(window.location.pathname, window.location.search);
@@ -13,9 +14,8 @@ export const startRouter = (store) => {
   // update url on state changes
   autorun(() => {
     const path = store.currentPath;
-    console.log('path', path);
     if (path !== window.location.pathname) {
-      window.history.pushState(null, null, path);
+      window.history.pushState(window.history.state, null, path);
     }
   });
 };

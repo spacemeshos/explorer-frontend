@@ -19,7 +19,10 @@ export const getColorByPageName = (pageName: string) => {
     case LAYERS:
       return colors.layerColor;
     case TXNS:
-      return colors.transactionColor;
+      return {
+        textColor: colors.transactionColor,
+        bgColor: colors.transactionBgColor,
+      };
     case REWARDS:
       return colors.rewardsColor;
     case ACCOUNTS:
@@ -29,7 +32,9 @@ export const getColorByPageName = (pageName: string) => {
     case SMART_WALLET:
       return colors.smartWalletColor;
     default:
-      return colors.overviewColor;
+      return {
+        textColor: colors.overviewColor,
+        bgColor: colors.overviewBgColor,
+      }
   }
-
 };

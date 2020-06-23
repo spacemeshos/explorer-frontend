@@ -1,0 +1,29 @@
+.txnsStatus {
+  display: flex;
+  height: 26px;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: 20px;
+  padding: 4px;
+  color: $white;
+  text-transform: uppercase;
+  justify-content: center;
+
+  &.approved {
+    background-color: $approved;
+  }
+
+  &.confirmed {
+    background-color: $confirmed;
+  }
+
+  &.insufficientFunds {
+    background-color: $insufficientFunds;
+  }
+
+  &.conflicting {
+    background-color: $conflicting;
+  }
+
+}

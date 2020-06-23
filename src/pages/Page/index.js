@@ -1,30 +1,96 @@
 // @flow
 import * as React from 'react';
-import InfoBlock from "../../components/common/InfoBlock";
-import TitleBlock from "../../components/common/TitleBlock";
-import CountBlock from "../../components/common/CountBlock";
-import Table from '../../components/common/Table';
 
-import { getColorByPageName } from "../../helper/getColorByPageName";
+import { observer } from 'mobx-react';
+
+import InfoBlock from '../../components/common/InfoBlock';
+import TitleBlock from '../../components/common/TitleBlock';
+import CountBlock from '../../components/common/CountBlock';
+import Table from '../../components/common/Table';
+import TxnsStatus from '../../components/common/TxnsStatus';
+import Details from '../../components/common/Details';
+
+import { getColorByPageName } from '../../helper/getColorByPageName';
+import {
+  OVERVIEW,
+  EPOCHS,
+  LAYERS,
+  TXNS,
+  REWARDS,
+  ACCOUNTS,
+  SMESHER,
+  SMART_WALLET,
+} from '../../config/constants';
+import longFormHash from '../../helper/longFormHash';
 
 type Props = {
-  name: string;
   uiStore: Object,
+  viewStore: Object,
 }
 
 const Page = (props: Props) => {
-  const { name, uiStore } = props;
+
+  const { uiStore, viewStore } = props;
+
+  const { name, id, supPage } = viewStore.currentView;
+
+  const renderCurrentPage = () => {
+    const isMainPage = name && !id && !supPage;
+    const isDetailsPage = name && id && !supPage;
+    const isSubPage = name && id && supPage;
+
+
+    if (isMainPage) {
+      switch (name) {
+        case OVERVIEW:
+          return (
+            <>
+              <InfoBlock/>
+              <div className="page-wrap">
+                <TitleBlock title="Latest Transaction" color={getColorByPageName(name)}
+                            desc="Most recent global transactions." uiStore={uiStore}/>
+                <CountBlock color={getColorByPageName(name)}/>
+              </div>
+              <Table viewStore={viewStore}/>
+            </>
+          );
+        case TXNS:
+          return (
+            <>
+              <div className="page-wrap">
+                <TitleBlock title="Transactions" color={getColorByPageName(name)}
+                            desc="Transactions across the entire mesh" uiStore={uiStore}/>
+                <CountBlock color={getColorByPageName(name)}/>
+              </div>
+              <Table viewStore={viewStore}/>
+            </>
+          );
+      }
+    }
+
+    if (isDetailsPage) {
+      switch (name) {
+        case TXNS:
+          return (
+            <>
+              <div className="page-wrap">
+                <TitleBlock title={`Transactions ${longFormHash(id)} - details`} color={getColorByPageName(name)}
+                            desc="Transactions across the entire mesh" uiStore={uiStore}/>
+                <CountBlock color={getColorByPageName(name)}/>
+              </div>
+              <TxnsStatus status="approved"/>
+              <Details/>
+            </>
+          );
+      }
+    }
+  };
+
   return (
     <div className="page">
-      {name === 'overview' && <InfoBlock />}
-      <div className="page-wrap">
-      <TitleBlock title="Latest Transaction" titleColor={getColorByPageName(name)} desc="Most recent global transactions." uiStore={uiStore}/>
-      <CountBlock numberColor={getColorByPageName(name)} bgColor={getColorByPageName(name)}/>
-      </div>
-      {/*{`Page name: ${name}`}*/}
-      <Table />
+      { renderCurrentPage() }
     </div>
   )
 };
 
-export default Page;
+export default observer(Page);

@@ -1,0 +1,44 @@
+.details {
+  font-size: 16px;
+  color: $textColor;
+  @include theme-aware('background-color', 'sideBarBackground');
+
+  &-list {
+    max-width: 100%;
+    padding: 14px 18px 14px 24px;
+    overflow-x: hidden;
+    list-style: none;
+
+    .item {
+      padding: 10px 0;
+      &-name {
+      }
+
+      &-value {
+
+      }
+    }
+
+    .item:before {
+      float: left;
+      width: 0;
+      white-space: nowrap;
+      content:
+      "...................."
+      "...................."
+      "...................."
+      "...................."
+    }
+  }
+
+  &-list span:first-child {
+    padding-right: 0.33em;
+    @include theme-aware('background-color', 'sideBarBackground');
+  }
+
+  &-list span+span {
+    float: right;
+    padding-left: 0.33em;
+    @include theme-aware('background-color', 'sideBarBackground');
+  }
+}

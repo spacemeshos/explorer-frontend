@@ -5,7 +5,7 @@ import TransactionsRow from './TransactionsRow';
 import { nanoid } from 'nanoid';
 
 type Props = {
-
+  viewStore: Object,
 };
 
 const transactionTableConfig = [
@@ -81,17 +81,18 @@ const transactionTableData = [
 ];
 
 const Table = (props: Props) => {
+  const { viewStore } = props;
 
   const renderTableData = () => {
     return (
-      <TransactionsRow key={nanoid()} data={transactionTableData} config={transactionTableConfig}/>
+      <TransactionsRow key={nanoid()} data={transactionTableData} config={transactionTableConfig} viewStore={viewStore}/>
     )
   };
 
   return (
     <div className="table">
       <div className="tr th">
-        { transactionTableConfig.map(item => <div className="td">{item.fieldName}</div>) }
+        { transactionTableConfig.map(item => <div key={nanoid()} className="td">{item.fieldName}</div>) }
       </div>
       { renderTableData() }
     </div>

@@ -53,6 +53,9 @@ class ViewStore {
   }
 
   buildUrlString(data: Object) {
+    if (data.name && data.id) {
+      return `/${data.name}/${data.id}`;
+    }
     return `/${data.name}`;
   }
 
@@ -69,6 +72,10 @@ class ViewStore {
   }
 
   showDetailPage({ page, id }) {
+
+    console.log('page', page);
+    console.log('id', id);
+
     this.currentView = {
       name: page,
       id,

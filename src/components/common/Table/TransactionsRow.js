@@ -4,29 +4,32 @@ import * as React from 'react';
 import StatusIcon from '../StatusIcon';
 import shortFormHash from '../../../helper/shortFormHash';
 import longFormHash from '../../../helper/longFormHash';
+import { nanoid } from 'nanoid';
 
 type Props = {
   data: Array<object>,
+  viewStore: Object,
 };
 
 const TransactionsRow = (props: Props) => {
-  const { data } = props;
+  const { data, viewStore } = props;
 
-  const onClickHandler = (e) => {
+  const onClickHandler = (e, pageName: string, id: string) => {
     e.preventDefault();
+    viewStore.showDetailPage({page: pageName, id})
   };
 
   return (
     data.map(item => (
-      <div className="tr">
+      <div key={nanoid()} className="tr">
         <div className="td">
           <StatusIcon status="confirmed" />
-          <a href="/" onClick={onClickHandler}>
+          <a href={`txns/${item.id}`} onClick={(e) => onClickHandler(e, 'txns', item.id)}>
             {shortFormHash(item.id)}
           </a>
         </div>
         <div className="td">
-          <a href="/" onClick={onClickHandler}>
+          <a href={`layer/${item.layer}`} onClick={onClickHandler}>
             {item.layer}
           </a>
         </div>
