@@ -1,0 +1,33 @@
+.amountBlock {
+  display: flex;
+  flex: 1;
+  margin-left: 15px;
+  align-items: flex-end;
+  padding: 0 10px 14px 10px;
+  height: 76px;
+
+  &-number {
+    font-size: 72px;
+    line-height: 52px;
+  }
+
+  &-unit {
+    font-size: 12px;
+    text-transform: uppercase;
+    @include theme-aware('color', 'countTextColor');
+  }
+
+  &-timeWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 12px;
+    padding: 0 8px;
+    @include theme-aware('color', 'countTextColor');
+
+    &-timeAgo {
+      font-weight: 700;
+    }
+  }
+}

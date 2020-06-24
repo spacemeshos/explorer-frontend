@@ -1,21 +1,26 @@
 .details {
   font-size: 16px;
   color: $textColor;
-  @include theme-aware('background-color', 'sideBarBackground');
+  @include theme-aware('background-color', 'searchBackground');
 
   &-list {
     max-width: 100%;
     padding: 14px 18px 14px 24px;
-    overflow-x: hidden;
     list-style: none;
 
     .item {
       padding: 10px 0;
       &-name {
+        padding-right: 5px;
+        @include theme-aware('background-color', 'searchBackground');
       }
 
       &-value {
-
+        position: relative;
+        color: $hashColor;
+        float: right;
+        padding-left: 5px;
+        @include theme-aware('background-color', 'searchBackground');
       }
     }
 
@@ -24,21 +29,8 @@
       width: 0;
       white-space: nowrap;
       content:
-      "...................."
-      "...................."
-      "...................."
-      "...................."
+      "................................................."
+      "................................................."
     }
-  }
-
-  &-list span:first-child {
-    padding-right: 0.33em;
-    @include theme-aware('background-color', 'sideBarBackground');
-  }
-
-  &-list span+span {
-    float: right;
-    padding-left: 0.33em;
-    @include theme-aware('background-color', 'sideBarBackground');
   }
 }
