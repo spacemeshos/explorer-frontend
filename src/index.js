@@ -11,6 +11,7 @@ import Main from './components/Main';
 
 const viewStore = new ViewStore(fetchAPI);
 const uiStore = new UiStore();
+
 startRouter(viewStore);
 
 ReactDOM.render(

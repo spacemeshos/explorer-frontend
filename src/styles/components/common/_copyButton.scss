@@ -1,0 +1,31 @@
+.copyButton {
+  margin-left: 10px;
+  cursor: pointer;
+  position: relative;
+
+  &-message {
+    position: absolute;
+    right: -74px;
+    top: 26px;
+    width: 165px;
+    height: 34px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 32px;
+    color: $white;
+    text-transform: uppercase;
+    background-color: $blockColor;
+    z-index: 1;
+
+    &.arrow-top:after{
+      content: " ";
+      position: absolute;
+      right: 70px;
+      top: -9px;
+      border-top: none;
+      border-right: 9px solid transparent;
+      border-left: 9px solid transparent;
+      border-bottom: 9px solid $blockColor;
+    }
+  }
+}

@@ -16,6 +16,7 @@ $themes: (
     tableTextColor: $textColor,
     titleDescColor: $textColor,
     countTextColor: $dark,
+    countBlockTextColor: $countBlockTextColor,
   ),
   dark: (
     backgroundColor: $dark,
@@ -34,5 +35,6 @@ $themes: (
     tableTextColor: $white,
     titleDescColor: $white,
     countTextColor: $white,
+    countBlockTextColor: $countBlockTextColor,
   )
 );

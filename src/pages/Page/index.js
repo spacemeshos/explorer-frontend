@@ -5,7 +5,8 @@ import { observer } from 'mobx-react';
 
 import InfoBlock from '../../components/common/InfoBlock';
 import TitleBlock from '../../components/common/TitleBlock';
-import CountBlock from '../../components/common/CountBlock';
+import AmountBlock from '../../components/common/CountBlock/AmountBlock';
+import CountTxnsBlock from '../../components/common/CountBlock/CountTxnsBlock';
 import Table from '../../components/common/Table';
 import TxnsStatus from '../../components/common/TxnsStatus';
 import Details from '../../components/common/Details';
@@ -21,6 +22,7 @@ import {
   SMESHER,
   SMART_WALLET,
 } from '../../config/constants';
+
 import longFormHash from '../../helper/longFormHash';
 
 type Props = {
@@ -49,7 +51,7 @@ const Page = (props: Props) => {
               <div className="page-wrap">
                 <TitleBlock title="Latest Transaction" color={getColorByPageName(name)}
                             desc="Most recent global transactions." uiStore={uiStore}/>
-                <CountBlock color={getColorByPageName(name)}/>
+                <AmountBlock value="32" color={getColorByPageName(name)}/>
               </div>
               <Table viewStore={viewStore}/>
             </>
@@ -60,7 +62,7 @@ const Page = (props: Props) => {
               <div className="page-wrap">
                 <TitleBlock title="Transactions" color={getColorByPageName(name)}
                             desc="Transactions across the entire mesh" uiStore={uiStore}/>
-                <CountBlock color={getColorByPageName(name)}/>
+                <AmountBlock value="32" color={getColorByPageName(name)}/>
               </div>
               <Table viewStore={viewStore}/>
             </>
@@ -76,7 +78,7 @@ const Page = (props: Props) => {
               <div className="page-wrap">
                 <TitleBlock title={`Transactions ${longFormHash(id)} - details`} color={getColorByPageName(name)}
                             desc="Transactions across the entire mesh" uiStore={uiStore}/>
-                <CountBlock color={getColorByPageName(name)}/>
+                <CountTxnsBlock value="999,999.224" color={getColorByPageName(name)}/>
               </div>
               <TxnsStatus status="approved"/>
               <Details/>
