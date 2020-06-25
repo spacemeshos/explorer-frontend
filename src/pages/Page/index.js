@@ -5,8 +5,7 @@ import { observer } from 'mobx-react';
 
 import InfoBlock from '../../components/common/InfoBlock';
 import TitleBlock from '../../components/common/TitleBlock';
-import AmountBlock from '../../components/common/CountBlock/AmountBlock';
-import CountTxnsBlock from '../../components/common/CountBlock/CountTxnsBlock';
+import { AmountBlock, CountTxnsBlock } from '../../components/common/CountBlock';
 import Table from '../../components/common/Table';
 import TxnsStatus from '../../components/common/TxnsStatus';
 import Details from '../../components/common/Details';
@@ -51,7 +50,29 @@ const Page = (props: Props) => {
               <div className="page-wrap">
                 <TitleBlock title="Latest Transaction" color={getColorByPageName(name)}
                             desc="Most recent global transactions." uiStore={uiStore}/>
-                <AmountBlock value="32" color={getColorByPageName(name)}/>
+                <AmountBlock value="32" unit="txns" color={getColorByPageName(name)}/>
+              </div>
+              <Table viewStore={viewStore}/>
+            </>
+          );
+        case EPOCHS:
+          return (
+            <>
+              <div className="page-wrap">
+                <TitleBlock title="Epochs" color={getColorByPageName(name)}
+                            desc="Epochs across the entire mesh" uiStore={uiStore}/>
+                <AmountBlock value="167" unit="epochs" color={getColorByPageName(name)}/>
+              </div>
+              <Table viewStore={viewStore}/>
+            </>
+          );
+        case LAYERS:
+          return (
+            <>
+              <div className="page-wrap">
+                <TitleBlock title="Layers" color={getColorByPageName(name)}
+                            desc="Epochs across the entire mesh" uiStore={uiStore}/>
+                <AmountBlock value="137" unit="layers" color={getColorByPageName(name)}/>
               </div>
               <Table viewStore={viewStore}/>
             </>
@@ -62,7 +83,7 @@ const Page = (props: Props) => {
               <div className="page-wrap">
                 <TitleBlock title="Transactions" color={getColorByPageName(name)}
                             desc="Transactions across the entire mesh" uiStore={uiStore}/>
-                <AmountBlock value="32" color={getColorByPageName(name)}/>
+                <AmountBlock value="32" unit="txns" color={getColorByPageName(name)}/>
               </div>
               <Table viewStore={viewStore}/>
             </>

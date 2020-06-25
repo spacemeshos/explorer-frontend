@@ -22,7 +22,7 @@
         }
       }
 
-      &-link:hover {
+      &-link:hover, .active {
         &.overview {
           color: $overviewColor;
           .icon {

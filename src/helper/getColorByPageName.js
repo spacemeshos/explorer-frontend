@@ -15,9 +15,15 @@ import * as colors from '../styles/utilities/_variables.scss';
 export const getColorByPageName = (pageName: string) => {
   switch(pageName) {
     case EPOCHS:
-      return colors.epochColor;
+      return {
+        textColor: colors.epochColor,
+        bgColor: colors.epochBgColor,
+      };
     case LAYERS:
-      return colors.layerColor;
+      return {
+        textColor: colors.layerColor,
+        bgColor: colors.layerBgColor,
+      };
     case TXNS:
       return {
         textColor: colors.transactionColor,

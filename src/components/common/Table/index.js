@@ -3,31 +3,13 @@ import * as React from 'react';
 import TransactionsRow from './TransactionsRow';
 
 import { nanoid } from 'nanoid';
+import EpochsRow from './EpochsRow';
+
+import tableFieldConfig from './config/tableFieldConfig';
 
 type Props = {
   viewStore: Object,
 };
-
-const transactionTableConfig = [
-  {
-    fieldName: 'id'
-  },
-  {
-    fieldName: 'layer'
-  },
-  {
-    fieldName: 'value'
-  },
-  {
-    fieldName: 'from',
-  },
-  {
-    fieldName: 'to'
-  },
-  {
-    fieldName: 'type'
-  },
-];
 
 const transactionTableData = [
   {
@@ -80,19 +62,44 @@ const transactionTableData = [
   },
 ];
 
+const epochTableData = [
+  {
+    id: '126812',
+    started: '31 days ago',
+    ended: '14 days ago',
+    layers: '123',
+    transactions: '3867',
+    smeshers: '126',
+    rewards: '320 SMH',
+    total: '32 SMH'
+  },
+];
+
 const Table = (props: Props) => {
   const { viewStore } = props;
+  const { name } = viewStore.currentView;
 
   const renderTableData = () => {
-    return (
-      <TransactionsRow key={nanoid()} data={transactionTableData} config={transactionTableConfig} viewStore={viewStore}/>
-    )
+    switch(name) {
+      case 'overview':
+        return (
+          <TransactionsRow key={nanoid()} data={transactionTableData} config={tableFieldConfig[name]} viewStore={viewStore}/>
+        );
+      case 'epochs':
+        return (
+          <EpochsRow key={nanoid()} data={epochTableData} config={tableFieldConfig[name]} viewStore={viewStore}/>
+        );
+      case 'txns':
+        return (
+          <TransactionsRow key={nanoid()} data={transactionTableData} config={tableFieldConfig[name]} viewStore={viewStore}/>
+        );
+    }
   };
 
   return (
     <div className="table">
       <div className="tr th">
-        { transactionTableConfig.map(item => <div key={nanoid()} className="td">{item.fieldName}</div>) }
+        { tableFieldConfig[name].map(item => <div key={nanoid()} className="td">{item.fieldName}</div>) }
       </div>
       { renderTableData() }
     </div>

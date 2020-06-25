@@ -1,7 +1,5 @@
 // @flow
-import * as React from 'react';
-
-import { inject } from 'mobx-react';
+import React, { useState } from 'react';
 
 import { nanoid } from 'nanoid';
 
@@ -14,10 +12,13 @@ type Props = {
 
 const SidebarMenu = (props: Props) => {
   const { store } = props;
+  const pageName = window.location.pathname === '/' ? 'overview' : window.location.pathname.slice(1);
+  const [activePage, setActivePage] = useState(pageName);
 
   const onClickHandler = (e, page) => {
     e.preventDefault();
     store.showPage({ page });
+    setActivePage(page);
   };
 
   return (
@@ -30,6 +31,7 @@ const SidebarMenu = (props: Props) => {
             title={item.title}
             page={item.page}
             icon={item.icon}
+            activePage={activePage}
           />
         ))}
       </ul>
