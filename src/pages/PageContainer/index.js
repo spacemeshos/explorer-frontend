@@ -14,6 +14,8 @@ type Props = {
 const PageContainer = (props: Props) => {
   const { store, uiStore } = props;
 
+
+
   return (
     <div className="container">
       <div className="grid">
