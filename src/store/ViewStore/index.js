@@ -27,7 +27,7 @@ class ViewStore {
   currentView = {
     name: null,
     id: null,
-    supPage: null,
+    subPage: null,
   };
 
   get currentPath() {
@@ -53,10 +53,13 @@ class ViewStore {
   }
 
   buildUrlString(data: Object) {
-    if (data.name && data.id) {
+    if (data.name && data.id && data.subPage) {
+      return `/${data.name}/${data.id}/${data.subPage}`;
+    } else if (data.name && data.id) {
       return `/${data.name}/${data.id}`;
+    } else {
+      return `/${data.name}`;
     }
-    return `/${data.name}`;
   }
 
   showOverview() {
@@ -72,13 +75,17 @@ class ViewStore {
   }
 
   showDetailPage({ page, id }) {
-
-    console.log('page', page);
-    console.log('id', id);
-
     this.currentView = {
       name: page,
       id,
+    };
+  }
+
+  showSubPage({page, id, subPage}) {
+    this.currentView = {
+      name: page,
+      id,
+      subPage,
     };
   }
 }
@@ -86,7 +93,9 @@ class ViewStore {
 decorate(ViewStore, {
   currentView: observable,
   currentPath: computed,
-  showDocument: action,
+  showPage: action,
+  showDetailPage: action,
+  showSubPage: action,
 });
 
 export default ViewStore;

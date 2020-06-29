@@ -12,7 +12,7 @@ type Props = {
 
 const SidebarMenu = (props: Props) => {
   const { store } = props;
-  const pageName = window.location.pathname === '/' ? 'overview' : window.location.pathname.slice(1);
+  const pageName = window.location.pathname === '/' ? 'overview' : window.location.pathname.split('/')[1];
   const [activePage, setActivePage] = useState(pageName);
 
   const onClickHandler = (e, page) => {

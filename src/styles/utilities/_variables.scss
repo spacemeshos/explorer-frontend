@@ -74,8 +74,11 @@ $code-pro-font-family: 'Source Code Pro', monospace;
   transactionColor: $transactionColor;
   transactionBgColor: rgba(101, 176, 66, 0.2);
   rewardsColor: $rewardsColor;
+  rewardsBgColor: rgba(36, 174, 166, 0.2);
   accountsColor: $accountsColor;
+  accountsBgColor: rgba(223, 50, 175, 0.2);
   smesherColor: $smesherColor;
+  smesherBgColor: $grey;
   blockColor: $blockColor;
   smartWalletColor: $smartWalletColor;
 }

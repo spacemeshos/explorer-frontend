@@ -30,13 +30,25 @@ export const getColorByPageName = (pageName: string) => {
         bgColor: colors.transactionBgColor,
       };
     case REWARDS:
-      return colors.rewardsColor;
+      return {
+        textColor: colors.rewardsColor,
+        bgColor: colors.rewardsBgColor,
+      };
     case ACCOUNTS:
-      return colors.accountsColor;
-    case SMESHER:
-      return colors.smesherColor;
+      return {
+        textColor: colors.accountsColor,
+        bgColor: colors.accountsBgColor,
+      };
     case SMART_WALLET:
-      return colors.smartWalletColor;
+      return {
+        textColor: colors.accountsColor,
+        bgColor: colors.accountsBgColor,
+      };
+    case SMESHER:
+      return {
+        textColor: colors.smesherColor,
+        bgColor: colors.smesherBgColor,
+      };
     default:
       return {
         textColor: colors.overviewColor,
