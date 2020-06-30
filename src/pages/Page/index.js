@@ -9,6 +9,9 @@ import { AmountBlock, CountTxnsBlock } from '../../components/common/CountBlock'
 import Table from '../../components/common/Table';
 import TxnsStatus from '../../components/common/TxnsStatus';
 import { DetailsTxns, DetailsEpoch } from '../../components/common/Details';
+import DetailsEmptyPage from '../../components/common/Details/DetailsEmptyPage';
+import DetailsLayer from '../../components/common/Details/DetailsLayer';
+import RenderSubPage from '../RenderPage/RenderSubPage';
 
 import { getColorByPageName } from '../../helper/getColorByPageName';
 import {
@@ -20,9 +23,12 @@ import {
   ACCOUNTS,
   SMESHER,
   SMART_WALLET,
+  NOT_FOUND,
 } from '../../config/constants';
 
 import longFormHash from '../../helper/longFormHash';
+import DetailReward from "../../components/common/Details/DetailReward";
+import DetailAccount from "../../components/common/Details/DetailAccount";
 
 type Props = {
   uiStore: Object,
@@ -55,7 +61,7 @@ const Page = (props: Props) => {
                 />
                 <AmountBlock value="32" unit="txns" color={getColorByPageName(name)}/>
               </div>
-              <Table viewStore={viewStore}/>
+              <Table name={name} viewStore={viewStore}/>
             </>
           );
         case EPOCHS:
@@ -70,7 +76,7 @@ const Page = (props: Props) => {
                 />
                 <AmountBlock value="167" unit="epochs" color={getColorByPageName(name)}/>
               </div>
-              <Table viewStore={viewStore}/>
+              <Table name={name} viewStore={viewStore}/>
             </>
           );
         case LAYERS:
@@ -85,7 +91,7 @@ const Page = (props: Props) => {
                 />
                 <AmountBlock value="137" unit="layers" color={getColorByPageName(name)}/>
               </div>
-              <Table viewStore={viewStore}/>
+              <Table name={name} viewStore={viewStore}/>
             </>
           );
         case TXNS:
@@ -100,7 +106,7 @@ const Page = (props: Props) => {
                 />
                 <AmountBlock value="32" unit="txns" color={getColorByPageName(name)}/>
               </div>
-              <Table viewStore={viewStore}/>
+              <Table name={name} viewStore={viewStore}/>
             </>
           );
         case REWARDS:
@@ -115,7 +121,7 @@ const Page = (props: Props) => {
                 />
                 <AmountBlock value="325" unit="rewards distributed" color={getColorByPageName(name)}/>
               </div>
-              <Table viewStore={viewStore}/>
+              <Table name={name} viewStore={viewStore}/>
             </>
           );
         case ACCOUNTS:
@@ -130,7 +136,7 @@ const Page = (props: Props) => {
                 />
                 <AmountBlock value="325" unit="accnts" color={getColorByPageName(name)}/>
               </div>
-              <Table viewStore={viewStore}/>
+              <Table name={name} viewStore={viewStore}/>
             </>
           );
         case SMART_WALLET:
@@ -145,7 +151,7 @@ const Page = (props: Props) => {
                 />
                 <AmountBlock value="325" unit="accnts" color={getColorByPageName(name)}/>
               </div>
-              <Table viewStore={viewStore}/>
+              <Table name={name} viewStore={viewStore}/>
             </>
           );
         case SMESHER:
@@ -160,7 +166,7 @@ const Page = (props: Props) => {
                 />
                 <AmountBlock value="000" unit="txns" color={getColorByPageName(name)}/>
               </div>
-              <Table viewStore={viewStore}/>
+              <Table name={name} viewStore={viewStore}/>
             </>
           );
       }
@@ -195,6 +201,7 @@ const Page = (props: Props) => {
                 />
                 <AmountBlock value="137" unit="layers" color={getColorByPageName(name)}/>
               </div>
+              <DetailsLayer viewStore={viewStore}/>
             </>
           );
         case TXNS:
@@ -213,7 +220,64 @@ const Page = (props: Props) => {
               <DetailsTxns/>
             </>
           );
+        case ACCOUNTS:
+          return (
+            <>
+              <div className="page-wrap">
+                <TitleBlock
+                  title="Address details"
+                  color={getColorByPageName(name)}
+                  desc="Details for this address"
+                  uiStore={uiStore}
+                />
+                <AmountBlock value="325" unit="accnts" color={getColorByPageName(name)}/>
+              </div>
+              <DetailAccount viewStore={viewStore}/>
+            </>
+          );
+        case REWARDS:
+          return (
+            <>
+              <div className="page-wrap">
+                <TitleBlock
+                  title={`Mining reward ${longFormHash(id)} - details`}
+                  color={getColorByPageName(name)}
+                  desc="Specific details for this reward."
+                  uiStore={uiStore}
+                />
+                <AmountBlock value="325" unit="smh" color={getColorByPageName(name)}/>
+              </div>
+              <DetailReward viewStore={viewStore}/>
+            </>
+          );
+        case NOT_FOUND:
+          return (
+            <>
+              <div className="page-wrap">
+                <TitleBlock
+                  title={`${longFormHash(id)}`}
+                  color={getColorByPageName(name)}
+                  desc="search returned no result. try again or return home"
+                  uiStore={uiStore}
+                />
+                <AmountBlock value="000" unit="txns" color={getColorByPageName(name)}/>
+              </div>
+              <DetailsEmptyPage/>
+            </>
+          );
       }
+    }
+
+    if (isSubPage) {
+      return (
+        <RenderSubPage
+          viewStore={viewStore}
+          uiStore={uiStore}
+          name={name}
+          id={id}
+          subPage={subPage}
+        />
+      )
     }
   };
 

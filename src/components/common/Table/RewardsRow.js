@@ -28,22 +28,22 @@ const RewardsRow = (props: Props) => {
     data.map(item => (
       <div key={nanoid()} className="tr">
         <div className="td">
-          <a href={`${REWARDS}/${item.id}`} onClick={(e) => onClickHandler(e, REWARDS, item.id)}>
+          <a href={`/${REWARDS}/${item.id}`} onClick={(e) => onClickHandler(e, REWARDS, item.id)}>
             {shortFormHash(item.id)}
           </a>
         </div>
         <div className="td">
-          <a href={`${ACCOUNTS}/${item.id}`} onClick={(e) => onClickHandler(e, ACCOUNTS, item.id)}>
+          <a href={`/${ACCOUNTS}/${item.id}`} onClick={(e) => onClickHandler(e, ACCOUNTS, item.id)}>
             {longFormHash(item.account)}
           </a>
         </div>
         <div className="td">
-          <a href={`${SMESHER}/${item.id}`} onClick={(e) => onClickHandler(e, SMESHER, item.id)}>
+          <a href={`/${SMESHER}/${item.id}`} onClick={(e) => onClickHandler(e, SMESHER, item.id)}>
             {longFormHash(item.smesher)}
           </a>
         </div>
         <div className="td">
-          <a href={`${LAYERS}/${item.id}`} onClick={(e) => onClickHandler(e, LAYERS, item.id)}>
+          <a href={`/${LAYERS}/${item.id}`} onClick={(e) => onClickHandler(e, LAYERS, item.id)}>
             {item.layer}
           </a>
         </div>

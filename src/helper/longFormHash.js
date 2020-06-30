@@ -1,7 +1,9 @@
-const longFormHash = (hash) => {
-  if(typeof hash === 'undefined')
+const longFormHash = (value) => {
+  if(typeof value === 'undefined')
     return "?";
-  return hash.substr(0, 6) + '...' + hash.substr(-4);
+  if(value.length < 10)
+    return value;
+  return value.substr(0, 6) + '...' + value.substr(-4);
 };
 
 export default longFormHash;

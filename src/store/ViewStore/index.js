@@ -15,6 +15,7 @@ import {
   ACCOUNTS,
   SMESHER,
   SMART_WALLET,
+  NOT_FOUND,
 } from '../../config/constants';
 
 class ViewStore {
@@ -47,8 +48,10 @@ class ViewStore {
         return this.buildUrlString(this.currentView);
       case SMART_WALLET:
         return this.buildUrlString(this.currentView);
+      case NOT_FOUND:
+        return this.buildUrlString(this.currentView);
       default:
-        return '/not-found';
+        return '/404';
     }
   }
 
@@ -74,6 +77,12 @@ class ViewStore {
     };
   }
 
+  showSearchResult(searchString) {
+    const page = this.defineIdType(searchString);
+    page ? this.showDetailPage({page, id: searchString}) : this.showDetailPage({page: NOT_FOUND, id:searchString});
+    console.log('this.currentView', this.currentView.name);
+  }
+
   showDetailPage({ page, id }) {
     this.currentView = {
       name: page,
@@ -88,11 +97,27 @@ class ViewStore {
       subPage,
     };
   }
+
+  linkHandler(e, page, id, subPage) {
+    e.preventDefault();
+    if (subPage) {
+      this.showSubPage({page, id, subPage})
+    } else {
+      this.showDetailPage({page, id})
+    }
+  }
+
+  defineIdType(value) {
+    return false;
+  }
+
 }
 
 decorate(ViewStore, {
   currentView: observable,
   currentPath: computed,
+  linkHandler: action,
+  showSearchResult: action,
   showPage: action,
   showDetailPage: action,
   showSubPage: action,

@@ -2,8 +2,13 @@
 import * as React from 'react';
 
 import CopyButton from '../CopyButton';
-import { EPOCHS, LAYERS } from '../../../config/constants';
-
+import {
+  EPOCHS,
+  LAYERS,
+  REWARDS,
+  SMESHER,
+  TXNS
+} from '../../../config/constants';
 
 type Props = {
   viewStore: Object,
@@ -41,23 +46,23 @@ const DetailsEpoch = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Total Layers</span>
-          <span className="item-value"><a href={`/${EPOCHS}/126812/${LAYERS}`} onClick={(e) =>onClickHandler(e, EPOCHS, '126812', LAYERS)}>167</a></span>
+          <span className="item-value"><a href={`/${EPOCHS}/126812/${LAYERS}`} onClick={(e) => onClickHandler(e, EPOCHS, '126812', LAYERS)}>167</a></span>
         </li>
         <li className="item">
           <span className="item-name">Total Rewards number</span>
-          <span className="item-value">320</span>
+          <span className="item-value"><a href={`/${EPOCHS}/320/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, '320', REWARDS)}>320</a></span>
         </li>
         <li className="item">
           <span className="item-name">Total Rewards value</span>
-          <span className="item-value">1200</span>
+          <span className="item-value"><a href={`/${EPOCHS}/1200/${REWARDS}`} onClick={(e) =>onClickHandler(e, EPOCHS, '1200', REWARDS)}>1200</a></span>
         </li>
         <li className="item">
           <span className="item-name">Smeshers</span>
-          <span className="item-value">1224</span>
+          <span className="item-value"><a href={`/${EPOCHS}/1200/${SMESHER}`} onClick={(e) => onClickHandler(e, EPOCHS, '1224', SMESHER)}>1224</a></span>
         </li>
         <li className="item">
           <span className="item-name">Transactions</span>
-          <span className="item-value">55555</span>
+          <span className="item-value"><a href={`/${EPOCHS}/1200/${TXNS}`} onClick={(e) => onClickHandler(e, EPOCHS, '1224', TXNS)}>1200</a></span>
         </li>
       </ul>
     </div>

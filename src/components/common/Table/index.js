@@ -8,11 +8,13 @@ import RewardsRow from './RewardsRow';
 import AccountsRow from './AccountsRow';
 import SmesherRow from './SmesherRow';
 
-import {ACCOUNTS, EPOCHS, OVERVIEW, REWARDS, SMART_WALLET, SMESHER, TXNS} from '../../../config/constants';
+import {ACCOUNTS, EPOCHS, LAYERS, OVERVIEW, REWARDS, SMART_WALLET, SMESHER, TXNS} from '../../../config/constants';
 import tableFieldConfig from './config/tableFieldConfig';
+import LayersRow from "./LayersRow";
 
 type Props = {
   viewStore: Object,
+  name: string,
 };
 
 const transactionTableData = [
@@ -129,6 +131,16 @@ const epochTableData = [
   },
 ];
 
+const layerTableData = [
+  {
+    id: '126812',
+    transactions: '123',
+    age: '14 days ago',
+    txnValue: '123',
+    atxValue: '3867',
+  },
+];
+
 const rewardsTableData = [
   {
     id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
@@ -161,8 +173,7 @@ const smesherTableData = [
 ];
 
 const Table = (props: Props) => {
-  const { viewStore } = props;
-  const { name } = viewStore.currentView;
+  const { viewStore, name} = props;
 
   const renderTableData = () => {
     switch(name) {
@@ -173,6 +184,10 @@ const Table = (props: Props) => {
       case EPOCHS:
         return (
           <EpochsRow key={nanoid()} data={epochTableData} config={tableFieldConfig[name]} viewStore={viewStore}/>
+        );
+      case LAYERS:
+        return (
+          <LayersRow key={nanoid()} data={layerTableData} config={tableFieldConfig[name]} viewStore={viewStore}/>
         );
       case TXNS:
         return (

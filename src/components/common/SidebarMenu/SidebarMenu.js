@@ -1,25 +1,24 @@
 // @flow
 import React, { useState } from 'react';
-
+import { observer } from 'mobx-react';
 import { nanoid } from 'nanoid';
 
 import MenuItem from './MenuItem';
 import { pagesLink } from '../../../config/pagesLink';
 
 type Props = {
-  store: Object
+  viewStore: Object,
 };
 
 const SidebarMenu = (props: Props) => {
-  const { store } = props;
-  const pageName = window.location.pathname === '/' ? 'overview' : window.location.pathname.split('/')[1];
-  const [activePage, setActivePage] = useState(pageName);
+  const { viewStore } = props;
 
   const onClickHandler = (e, page) => {
     e.preventDefault();
-    store.showPage({ page });
-    setActivePage(page);
+    viewStore.showPage({ page });
   };
+
+  const activePage = viewStore.currentPath.split('/')[1];
 
   return (
     <div className="sidebarMenu">
@@ -39,4 +38,4 @@ const SidebarMenu = (props: Props) => {
   );
 };
 
-export default SidebarMenu;
+export default observer(SidebarMenu);
