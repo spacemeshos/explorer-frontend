@@ -8,21 +8,22 @@ import SidebarMenu from '../../components/common/SidebarMenu';
 import CornerBoxWrapper from '../../components/common/CornerBoxWrapper';
 
 type Props = {
-  store: Object,
+  viewStore: Object,
+  uiStore: Object,
 };
 
 const PageContainer = (props: Props) => {
-  const { store, uiStore } = props;
+  const { viewStore, uiStore } = props;
 
   return (
     <div className="container">
       <div className="grid">
         <aside className="sidebar">
-          <SidebarMenu store={store} />
+          <SidebarMenu viewStore={viewStore}/>
         </aside>
         <section className="main">
           <CornerBoxWrapper>
-            <Page viewStore={store} uiStore={uiStore}/>
+            <Page viewStore={viewStore} uiStore={uiStore}/>
           </CornerBoxWrapper>
         </section>
       </div>

@@ -5,6 +5,7 @@ import StatusIcon from '../StatusIcon';
 import shortFormHash from '../../../helper/shortFormHash';
 import longFormHash from '../../../helper/longFormHash';
 import { nanoid } from 'nanoid';
+import {ACCOUNTS, LAYERS, TXNS} from "../../../config/constants";
 
 type Props = {
   data: Array<object>,
@@ -24,24 +25,24 @@ const TransactionsRow = (props: Props) => {
       <div key={nanoid()} className="tr">
         <div className="td">
           <StatusIcon status="confirmed" />
-          <a href={`txns/${item.id}`} onClick={(e) => onClickHandler(e, 'txns', item.id)}>
+          <a href={`/${TXNS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, TXNS, item.id)}>
             {shortFormHash(item.id)}
           </a>
         </div>
         <div className="td">
-          <a href={`layer/${item.layer}`} onClick={onClickHandler}>
+          <a href={`/${LAYERS}/${item.layer}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.layer)}>
             {item.layer}
           </a>
         </div>
         <div className="td">{item.value}</div>
         <div className="td">
-          <a href="/" onClick={onClickHandler}>
+          <a href={`/${ACCOUNTS}/${item.from}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.from)}>
             {longFormHash(item.from)}
           </a>
           <div className="arrow">-></div>
         </div>
         <div className="td">
-          <a href="/" onClick={onClickHandler}>
+          <a href={`/${ACCOUNTS}/${item.to}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.to)}>
             {longFormHash(item.to)}
           </a>
         </div>

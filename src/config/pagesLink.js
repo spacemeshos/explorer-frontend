@@ -26,8 +26,8 @@ export const pagesLink = [
   },
   {
     title: 'accounts',
-    page: 'accounts',
-    icon: 'accounts',
+    page: 'address',
+    icon: 'address',
   },
   {
     title: 'smart wallet',

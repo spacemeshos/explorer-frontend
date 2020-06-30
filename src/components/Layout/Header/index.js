@@ -1,16 +1,13 @@
 // @flow
-import * as React from 'react';
+import React, { useContext } from 'react';
 
 import { observer } from 'mobx-react';
+import { StoreContext } from '../../../contextProviders/StoreContext';
 
 import Logo from '../../common/Logo';
 import NavBar from '../../common/NavBar';
 import Switcher from '../../common/Switcher';
 import DropDown from '../../common/DropDown';
-
-type Props = {
-  uiStore: Object,
-}
 
 const links = [
   {
@@ -27,8 +24,9 @@ const links = [
   },
 ];
 
-const Header = (props: Props) => {
-  const { uiStore } = props;
+const Header = () => {
+  const store = useContext(StoreContext);
+  const { uiStore } = store;
 
   return (
     <div className="header">
