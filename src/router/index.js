@@ -6,8 +6,10 @@ import { autorun } from 'mobx';
 export const startRouter = (store) => {
   const router = sheetRouter([
     ['/', () => store.showOverview()],
-    ['/:page', (page) => store.showPage(page)],
-    ['/:page/:id', (page) => store.showDetailPage(page)],
+    ['/:page', (params) => store.showPage(params)],
+    ['/:page/:id', (params) => store.showDetailPage(params), [
+      ['/:subPage', (params) => store.showSubPage(params)],
+    ]],
   ]);
 
   // set path to route

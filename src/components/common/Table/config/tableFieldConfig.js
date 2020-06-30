@@ -93,5 +93,78 @@ export default {
       fieldName: 'atx value'
     },
   ],
-
+  [REWARDS]: [
+    {
+      fieldName: 'rewards'
+    },
+    {
+      fieldName: 'account'
+    },
+    {
+      fieldName: 'smesher'
+    },
+    {
+      fieldName: 'layer'
+    },
+    {
+      fieldName: 'space'
+    },
+    {
+      fieldName: 'value'
+    },
+  ],
+  [ACCOUNTS]: [
+    {
+      fieldName: 'id'
+    },
+    {
+      fieldName: 'sent'
+    },
+    {
+      fieldName: 'recieved'
+    },
+    {
+      fieldName: 'Last Active'
+    },
+    {
+      fieldName: 'awards'
+    },
+    {
+      fieldName: 'balance'
+    },
+  ],
+  [SMART_WALLET]: [
+    {
+      fieldName: 'id'
+    },
+    {
+      fieldName: 'sent'
+    },
+    {
+      fieldName: 'recieved'
+    },
+    {
+      fieldName: 'Last Active'
+    },
+    {
+      fieldName: 'awards'
+    },
+    {
+      fieldName: 'balance'
+    },
+  ],
+  [SMESHER]: [
+    {
+      fieldName: 'id'
+    },
+    {
+      fieldName: 'Rewards Account'
+    },
+    {
+      fieldName: 'Committed space'
+    },
+    {
+      fieldName: 'Total Atx Txns'
+    },
+  ],
 }
