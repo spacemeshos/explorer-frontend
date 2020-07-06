@@ -19,11 +19,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .cornerBox:before {
   width: calc(100% + 7px);
   height: calc(100% - 12px);
   z-index: 1;
 }
+
 .cornerBox:after {
   height: calc(100% + 7px);
   width: calc(100% - 12px);

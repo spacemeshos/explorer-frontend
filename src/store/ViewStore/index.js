@@ -15,6 +15,7 @@ import {
   ACCOUNTS,
   SMESHER,
   SMART_WALLET,
+  BLOCKS,
   NOT_FOUND,
 } from '../../config/constants';
 
@@ -47,6 +48,8 @@ class ViewStore {
       case SMESHER:
         return this.buildUrlString(this.currentView);
       case SMART_WALLET:
+        return this.buildUrlString(this.currentView);
+      case BLOCKS:
         return this.buildUrlString(this.currentView);
       case NOT_FOUND:
         return this.buildUrlString(this.currentView);

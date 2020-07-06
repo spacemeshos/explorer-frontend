@@ -1,0 +1,19 @@
+.timeBlock {
+  color: $dark;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  @include theme-aware('background-color', 'backgroundInfoBlock');
+
+  &-item {
+    padding: 15px;
+    .name {
+      font-size: 14px;
+      @include theme-aware('color', 'titleInfoBlock');
+    }
+    .value {
+      font-size: 14px;
+      color: $layerColor
+    }
+  }
+}

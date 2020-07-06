@@ -6,16 +6,13 @@
   @include theme-aware('background-color', 'backgroundInfoBlock');
 }
 
-.th {
-  @include theme-aware('color', 'titleInfoBlock');
-  text-transform: uppercase;
-}
-
 .th > .td {
   font-size: 14px;
   font-weight: normal;
   white-space: normal;
   justify-content: center;
+  @include theme-aware('color', 'titleInfoBlock');
+  text-transform: uppercase;
 }
 
 .tr {

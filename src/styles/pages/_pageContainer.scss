@@ -15,4 +15,14 @@
 
 .main {
   flex: 6;
+
+  .browseAll-link {
+    padding: 5px 0 0 35px;
+    a {
+      font-size: 14px;
+      color: $browser_all;
+      text-decoration: underline;
+    }
+
+  }
 }
