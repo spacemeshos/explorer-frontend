@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 import CopyButton from '../CopyButton';
-import {ATXS, REWARDS, SMESHER} from "../../../config/constants";
+import {ACCOUNTS, ATXS, REWARDS, SMESHER} from "../../../config/constants";
 
 type Props = {
   viewStore: Object,
@@ -24,8 +24,10 @@ const DetailAccount = (props: Props) => {
         <li className="item">
           <span className="item-name">Rewards Account</span>
           <span className="item-value">
-            0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8
-            <CopyButton value="0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8"/>
+            <a href={`/${ACCOUNTS}/0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8')}>
+              0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8
+              <CopyButton value="0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8"/>
+            </a>
           </span>
         </li>
         <li className="item">

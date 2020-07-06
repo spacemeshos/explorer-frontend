@@ -8,7 +8,8 @@ import CornerBoxWrapper from '../../components/common/CornerBoxWrapper';
 import RenderMainPage from "../RenderPage/RenderMainPage";
 import RenderDetailPage from "../RenderPage/RenderDetailPage";
 import RenderSubPage from "../RenderPage/RenderSubPage";
-import {OVERVIEW, TXNS} from "../../config/constants";
+import {LAYERS, OVERVIEW, TXNS} from "../../config/constants";
+import TimeBlock from "../../components/common/TimeBlock";
 
 type Props = {
   viewStore: Object,
@@ -17,6 +18,7 @@ type Props = {
 
 const PageContainer = (props: Props) => {
   const { viewStore, uiStore } = props;
+  const name = viewStore.currentView.name;
 
   const renderCurrentPage = () => {
     const { name, id, subPage } = viewStore.currentView;
@@ -60,11 +62,18 @@ const PageContainer = (props: Props) => {
     }
   };
 
+  const showTimeBlock = name === LAYERS;
+
   return (
     <div className="container">
       <div className="grid">
         <aside className="sidebar">
           <SidebarMenu viewStore={viewStore}/>
+            {showTimeBlock && (
+              <CornerBoxWrapper>
+                <TimeBlock />
+              </CornerBoxWrapper>
+            )}
         </aside>
         <section className="main">
           <CornerBoxWrapper>

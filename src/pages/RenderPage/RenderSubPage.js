@@ -114,6 +114,22 @@ const RenderSubPage = (props: Props) => {
       }
       break;
     case LAYERS:
+      if (subPage === TXNS) {
+        return (
+          <>
+            <div className="page-wrap">
+              <TitleBlock
+                title={`Layer ${id} - Transactions`}
+                color={getColorByPageName(name)}
+                desc={`Transactions within Layer ${id}`}
+                uiStore={uiStore}
+              />
+              <AmountBlock value="167" unit="txns" color={getColorByPageName(name)}/>
+            </div>
+            <Table name={subPage} viewStore={viewStore}/>
+          </>
+        )
+      }
       if (subPage === ATXS) {
         return (
           <>
@@ -141,6 +157,22 @@ const RenderSubPage = (props: Props) => {
                 uiStore={uiStore}
               />
               <AmountBlock value="137" unit="layer blocks" color={getColorByPageName(name)}/>
+            </div>
+            <Table name={subPage} viewStore={viewStore}/>
+          </>
+        )
+      }
+      if (subPage === REWARDS) {
+        return (
+          <>
+            <div className="page-wrap">
+              <TitleBlock
+                title={`Layer ${id} - Rewards`}
+                color={getColorByPageName(name)}
+                desc={`Rewards within Layer ${id}`}
+                uiStore={uiStore}
+              />
+              <AmountBlock value="167" unit="awards" color={getColorByPageName(name)}/>
             </div>
             <Table name={subPage} viewStore={viewStore}/>
           </>
