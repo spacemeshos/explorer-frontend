@@ -28,7 +28,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "flow": "flow",
-    "eslint": "eslint . --ext .js"
+    "eslint-file": "eslint"
   },
   "eslintConfig": {
     "extends": "react-app"

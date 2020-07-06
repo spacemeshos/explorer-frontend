@@ -20,6 +20,8 @@ const TxnsStatus = (props: Props) => {
         return 'Error - insufficient funds';
       case 'conflicting':
         return 'conflicting';
+      default:
+        break;
     }
   };
 

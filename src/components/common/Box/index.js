@@ -5,6 +5,11 @@ type Props = {
   name: string;
 }
 
-const Box = (props: Props) => <div className="box">{`Page name: ${props.name}`}</div>;
+const Box = (props: Props) => {
+  const { name } = props;
+  return (
+    <div className="box">{`Page name: ${name}`}</div>
+  );
+};
 
 export default Box;

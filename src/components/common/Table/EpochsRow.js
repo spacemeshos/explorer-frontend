@@ -25,9 +25,9 @@ const EpochsRow = (props: Props) => {
         <div className="td">{item.started}</div>
         <div className="td">{item.ended}</div>
         <div className="td"><a href={`/${EPOCHS}/${item.id}/${LAYERS}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, item.id, LAYERS)}>{item.layers}</a></div>
-        <div className="td"><a href={`/${TXNS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, TXNS, item.id)}>{item.transactions}</a></div>
+        <div className="td"><a href={`/${EPOCHS}/${item.id}/${TXNS}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, item.id, TXNS)}>{item.transactions}</a></div>
         <div className="td">{item.smeshers}</div>
-        <div className="td"><a href={`/${REWARDS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, REWARDS, item.id)}>{item.rewards}</a></div>
+        <div className="td"><a href={`/${EPOCHS}/${item.id}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, item.id, REWARDS)}>{item.rewards}</a></div>
         <div className="td">{item.total}</div>
       </div>
     ))

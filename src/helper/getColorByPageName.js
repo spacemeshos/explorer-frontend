@@ -7,6 +7,7 @@ import {
   ACCOUNTS,
   SMESHER,
   SMART_WALLET,
+  BLOCKS,
   NOT_FOUND,
 } from '../config/constants';
 
@@ -49,6 +50,11 @@ export const getColorByPageName = (pageName: string) => {
       return {
         textColor: colors.smesherColor,
         bgColor: colors.smesherBgColor,
+      };
+    case BLOCKS:
+      return {
+        textColor: colors.layerColor,
+        bgColor: colors.layerBgColor,
       };
     case NOT_FOUND:
       return {

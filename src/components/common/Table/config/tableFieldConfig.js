@@ -7,6 +7,8 @@ import {
   ACCOUNTS,
   SMESHER,
   SMART_WALLET,
+  ATXS,
+  BLOCKS,
 } from '../../../../config/constants';
 
 export default {
@@ -75,6 +77,13 @@ export default {
     {
       fieldName: 'type'
     },
+  ],
+  [ATXS]: [
+    {fieldName: 'id'},
+    {fieldName: 'value'},
+    {fieldName: 'age'},
+    {fieldName: 'from'},
+    {fieldName: 'type'},
   ],
   [LAYERS]: [
     {
@@ -165,6 +174,23 @@ export default {
     },
     {
       fieldName: 'Total Atx Txns'
+    },
+  ],
+  [BLOCKS]: [
+    {
+      fieldName: 'block'
+    },
+    {
+      fieldName: 'smesher'
+    },
+    {
+      fieldName: 'transactions'
+    },
+    {
+      fieldName: 'age'
+    },
+    {
+      fieldName: 'txn value'
     },
   ],
 }

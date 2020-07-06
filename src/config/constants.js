@@ -8,5 +8,5 @@ export const ACCOUNTS = 'address';
 export const SMART_WALLET = 'apps';
 export const SMESHER = 'smesher';
 export const ATXS = 'atxs';
-export const BLOCK = 'block';
+export const BLOCKS = 'blocks';
 export const NOT_FOUND = 'not-found';

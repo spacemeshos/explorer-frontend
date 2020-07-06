@@ -6,7 +6,7 @@ import {
   EPOCHS,
   LAYERS,
   REWARDS,
-  BLOCK,
+  BLOCKS,
   TXNS
 } from '../../../config/constants';
 
@@ -63,7 +63,7 @@ const DetailsLayer = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Blocks</span>
-          <span className="item-value"><a href={`/${LAYERS}/000000/${BLOCK}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, '000000', BLOCK)}>14 blocks</a></span>
+          <span className="item-value"><a href={`/${LAYERS}/000000/${BLOCKS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, '000000', BLOCKS)}>14 blocks</a></span>
         </li>
       </ul>
     </div>
