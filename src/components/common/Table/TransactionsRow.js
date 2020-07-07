@@ -1,11 +1,13 @@
 // @flow
 import * as React from 'react';
 
+import { nanoid } from 'nanoid';
 import StatusIcon from '../StatusIcon';
 import shortFormHash from '../../../helper/shortFormHash';
 import longFormHash from '../../../helper/longFormHash';
-import { nanoid } from 'nanoid';
-import {ACCOUNTS, LAYERS, TXNS} from "../../../config/constants";
+import {
+  ACCOUNTS, LAYERS, TXNS,
+} from '../../../config/constants';
 
 type Props = {
   data: Array<object>,
@@ -16,7 +18,7 @@ const TransactionsRow = (props: Props) => {
   const { data, viewStore } = props;
 
   return (
-    data.map(item => (
+    data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
           <StatusIcon status="confirmed" />
@@ -34,7 +36,7 @@ const TransactionsRow = (props: Props) => {
           <a href={`/${ACCOUNTS}/${item.from}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.from)}>
             {longFormHash(item.from)}
           </a>
-          <div className="arrow">-></div>
+          <div className="arrow">-&gt;</div>
         </div>
         <div className="td">
           <a href={`/${ACCOUNTS}/${item.to}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.to)}>
@@ -44,7 +46,7 @@ const TransactionsRow = (props: Props) => {
         <div className="td">{item.type.toUpperCase()}</div>
       </div>
     ))
-  )
+  );
 };
 
 export default TransactionsRow;

@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 
 import shortFormHash from '../../../helper/longFormHash';
 
-import {ACCOUNTS, SMESHER} from '../../../config/constants';
+import { ACCOUNTS, SMESHER } from '../../../config/constants';
 
 type Props = {
   data: Array<object>,
@@ -16,11 +16,11 @@ const SmesherRow = (props: Props) => {
 
   const onClickHandler = (e, pageName: string, id: string) => {
     e.preventDefault();
-    viewStore.showDetailPage({page: pageName, id})
+    viewStore.showDetailPage({ page: pageName, id });
   };
 
   return (
-    data.map(item => (
+    data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
           <a href={`${SMESHER}/${item.id}`} onClick={(e) => onClickHandler(e, SMESHER, item.id)}>
@@ -32,11 +32,19 @@ const SmesherRow = (props: Props) => {
             {shortFormHash(item.rewardsAccount)}
           </a>
         </div>
-        <div className="td">{item.committedSpace} GB</div>
-        <div className="td">{item.totalAtxTxns} SMH</div>
+        <div className="td">
+          {item.committedSpace}
+          {' '}
+          GB
+        </div>
+        <div className="td">
+          {item.totalAtxTxns}
+          {' '}
+          SMH
+        </div>
       </div>
     ))
-  )
+  );
 };
 
 export default SmesherRow;

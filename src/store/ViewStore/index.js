@@ -61,11 +61,10 @@ class ViewStore {
   buildUrlString(data: Object) {
     if (data.name && data.id && data.subPage) {
       return `/${data.name}/${data.id}/${data.subPage}`;
-    } else if (data.name && data.id) {
+    } if (data.name && data.id) {
       return `/${data.name}/${data.id}`;
-    } else {
-      return `/${data.name}`;
     }
+    return `/${data.name}`;
   }
 
   showOverview() {
@@ -82,7 +81,7 @@ class ViewStore {
 
   showSearchResult(searchString) {
     const page = this.defineIdType(searchString);
-    page ? this.showDetailPage({page, id: searchString}) : this.showDetailPage({page: NOT_FOUND, id:searchString});
+    page ? this.showDetailPage({ page, id: searchString }) : this.showDetailPage({ page: NOT_FOUND, id: searchString });
     console.log('this.currentView', this.currentView.name);
   }
 
@@ -93,7 +92,7 @@ class ViewStore {
     };
   }
 
-  showSubPage({page, id, subPage}) {
+  showSubPage({ page, id, subPage }) {
     this.currentView = {
       name: page,
       id,
@@ -104,16 +103,15 @@ class ViewStore {
   linkHandler(e, page, id, subPage) {
     e.preventDefault();
     if (subPage) {
-      this.showSubPage({page, id, subPage})
+      this.showSubPage({ page, id, subPage });
     } else {
-      this.showDetailPage({page, id})
+      this.showDetailPage({ page, id });
     }
   }
 
   defineIdType(value) {
     return false;
   }
-
 }
 
 decorate(ViewStore, {

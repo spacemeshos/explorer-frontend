@@ -3,13 +3,13 @@ import * as React from 'react';
 
 import TitleBlock from '../../components/common/TitleBlock';
 import { AmountBlock, CountTxnsBlock } from '../../components/common/CountBlock';
-import { DetailsEpoch, DetailsTxns } from "../../components/common/Details";
-import DetailsLayer from "../../components/common/Details/DetailsLayer";
-import longFormHash from "../../helper/longFormHash";
-import TxnsStatus from "../../components/common/TxnsStatus";
-import DetailAccount from "../../components/common/Details/DetailAccount";
-import DetailReward from "../../components/common/Details/DetailReward";
-import DetailsEmptyPage from "../../components/common/Details/DetailsEmptyPage";
+import { DetailsEpoch, DetailsTxns } from '../../components/common/Details';
+import DetailsLayer from '../../components/common/Details/DetailsLayer';
+import longFormHash from '../../helper/longFormHash';
+import TxnsStatus from '../../components/common/TxnsStatus';
+import DetailAccount from '../../components/common/Details/DetailAccount';
+import DetailReward from '../../components/common/Details/DetailReward';
+import DetailsEmptyPage from '../../components/common/Details/DetailsEmptyPage';
 
 import { getColorByPageName } from '../../helper/getColorByPageName';
 import {
@@ -22,8 +22,8 @@ import {
   NOT_FOUND,
   BLOCKS,
 } from '../../config/constants';
-import DetailsBlock from "../../components/common/Details/DetailBlock";
-import DetailSmesher from "../../components/common/Details/DetailSmesher";
+import DetailsBlock from '../../components/common/Details/DetailBlock';
+import DetailSmesher from '../../components/common/Details/DetailSmesher';
 
 type Props = {
   name: string,
@@ -45,9 +45,9 @@ const RenderDetailPage = (props: Props) => {
               desc="Specific details for this epoch"
               uiStore={uiStore}
             />
-            <AmountBlock value="167" unit="epochs" color={getColorByPageName(name)}/>
+            <AmountBlock value="167" unit="epochs" color={getColorByPageName(name)} />
           </div>
-          <DetailsEpoch viewStore={viewStore}/>
+          <DetailsEpoch viewStore={viewStore} />
         </>
       );
     case LAYERS:
@@ -60,9 +60,9 @@ const RenderDetailPage = (props: Props) => {
               desc="Epochs across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock value="137" unit="layers" color={getColorByPageName(name)}/>
+            <AmountBlock value="137" unit="layers" color={getColorByPageName(name)} />
           </div>
-          <DetailsLayer viewStore={viewStore}/>
+          <DetailsLayer viewStore={viewStore} />
         </>
       );
     case TXNS:
@@ -75,10 +75,10 @@ const RenderDetailPage = (props: Props) => {
               desc="Transactions across the entire mesh"
               uiStore={uiStore}
             />
-            <CountTxnsBlock value="999,999.224" color={getColorByPageName(name)}/>
+            <CountTxnsBlock value="999,999.224" color={getColorByPageName(name)} />
           </div>
-          <TxnsStatus status="approved"/>
-          <DetailsTxns/>
+          <TxnsStatus status="approved" />
+          <DetailsTxns />
         </>
       );
     case ACCOUNTS:
@@ -91,9 +91,9 @@ const RenderDetailPage = (props: Props) => {
               desc="Details for this address"
               uiStore={uiStore}
             />
-            <AmountBlock value="325" unit="accnts" color={getColorByPageName(name)}/>
+            <AmountBlock value="325" unit="accnts" color={getColorByPageName(name)} />
           </div>
-          <DetailAccount viewStore={viewStore}/>
+          <DetailAccount viewStore={viewStore} />
         </>
       );
     case SMESHER:
@@ -106,9 +106,9 @@ const RenderDetailPage = (props: Props) => {
               desc="Specific details for this smesher"
               uiStore={uiStore}
             />
-            <AmountBlock value="325" unit="accnts" color={getColorByPageName(name)}/>
+            <AmountBlock value="325" unit="accnts" color={getColorByPageName(name)} />
           </div>
-          <DetailSmesher viewStore={viewStore}/>
+          <DetailSmesher viewStore={viewStore} />
         </>
       );
     case REWARDS:
@@ -121,9 +121,9 @@ const RenderDetailPage = (props: Props) => {
               desc="Specific details for this reward."
               uiStore={uiStore}
             />
-            <AmountBlock value="325" unit="smh" color={getColorByPageName(name)}/>
+            <AmountBlock value="325" unit="smh" color={getColorByPageName(name)} />
           </div>
-          <DetailReward viewStore={viewStore}/>
+          <DetailReward viewStore={viewStore} />
         </>
       );
     case BLOCKS:
@@ -131,14 +131,14 @@ const RenderDetailPage = (props: Props) => {
         <>
           <div className="page-wrap">
             <TitleBlock
-              title={`Specific details for this block`}
+              title="Specific details for this block"
               color={getColorByPageName(name)}
               desc="Specific details for this reward."
               uiStore={uiStore}
             />
-            <AmountBlock value="123" unit="txns" color={getColorByPageName(name)}/>
+            <AmountBlock value="123" unit="txns" color={getColorByPageName(name)} />
           </div>
-          <DetailsBlock viewStore={viewStore}/>
+          <DetailsBlock viewStore={viewStore} />
         </>
       );
     case NOT_FOUND:
@@ -151,9 +151,9 @@ const RenderDetailPage = (props: Props) => {
               desc="search returned no result. try again or return home"
               uiStore={uiStore}
             />
-            <AmountBlock value="000" unit="txns" color={getColorByPageName(name)}/>
+            <AmountBlock value="000" unit="txns" color={getColorByPageName(name)} />
           </div>
-          <DetailsEmptyPage/>
+          <DetailsEmptyPage />
         </>
       );
     default:

@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 
 import MenuItem from './MenuItem';
 import { pagesLink } from '../../../config/pagesLink';
-import {BLOCKS, LAYERS} from "../../../config/constants";
+import { BLOCKS, LAYERS } from '../../../config/constants';
 
 type Props = {
   viewStore: Object,
@@ -23,7 +23,7 @@ const SidebarMenu = (props: Props) => {
   let activePage = currentPath !== '/' ? currentPath.split('/')[1] : 'overview';
 
   if (currentPath !== '/' && currentPath.split('/')[1] === BLOCKS) {
-    activePage = LAYERS
+    activePage = LAYERS;
   }
 
   return (

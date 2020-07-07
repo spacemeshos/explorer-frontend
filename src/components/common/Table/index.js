@@ -18,12 +18,12 @@ import {
   SMESHER,
   TXNS,
   ATXS,
-  BLOCKS
+  BLOCKS,
 } from '../../../config/constants';
 import tableFieldConfig from './config/tableFieldConfig';
-import LayersRow from "./LayersRow";
+import LayersRow from './LayersRow';
 import AtxsRow from './AtxsRow';
-import BlocksRow from "./BlocksRow";
+import BlocksRow from './BlocksRow';
 
 type Props = {
   viewStore: Object,
@@ -37,7 +37,7 @@ const transactionTableData = [
     value: 32,
     from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
-    type: 'smh'
+    type: 'smh',
   },
   {
     id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
@@ -45,7 +45,7 @@ const transactionTableData = [
     value: 12,
     from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
-    type: 'smh'
+    type: 'smh',
   },
   {
     id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
@@ -53,7 +53,7 @@ const transactionTableData = [
     value: 12,
     from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
-    type: 'smh'
+    type: 'smh',
   },
   {
     id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
@@ -61,7 +61,7 @@ const transactionTableData = [
     value: 12,
     from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
-    type: 'smh'
+    type: 'smh',
   },
   {
     id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
@@ -69,7 +69,7 @@ const transactionTableData = [
     value: 12,
     from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
-    type: 'smh'
+    type: 'smh',
   },
   {
     id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
@@ -77,7 +77,7 @@ const transactionTableData = [
     value: 12,
     from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
-    type: 'smh'
+    type: 'smh',
   },
 ];
 
@@ -90,7 +90,7 @@ const epochTableData = [
     transactions: '3867',
     smeshers: '126',
     rewards: '320 SMH',
-    total: '32 SMH'
+    total: '32 SMH',
   },
   {
     id: '126812',
@@ -100,7 +100,7 @@ const epochTableData = [
     transactions: '3867',
     smeshers: '126',
     rewards: '320 SMH',
-    total: '32 SMH'
+    total: '32 SMH',
   },
   {
     id: '126812',
@@ -110,7 +110,7 @@ const epochTableData = [
     transactions: '3867',
     smeshers: '126',
     rewards: '320 SMH',
-    total: '32 SMH'
+    total: '32 SMH',
   },
   {
     id: '126812',
@@ -120,7 +120,7 @@ const epochTableData = [
     transactions: '3867',
     smeshers: '126',
     rewards: '320 SMH',
-    total: '32 SMH'
+    total: '32 SMH',
   },
   {
     id: '126812',
@@ -130,7 +130,7 @@ const epochTableData = [
     transactions: '3867',
     smeshers: '126',
     rewards: '320 SMH',
-    total: '32 SMH'
+    total: '32 SMH',
   },
   {
     id: '126812',
@@ -140,7 +140,7 @@ const epochTableData = [
     transactions: '3867',
     smeshers: '126',
     rewards: '320 SMH',
-    total: '32 SMH'
+    total: '32 SMH',
   },
 ];
 
@@ -202,53 +202,53 @@ const blocksTableData = [
     transaction: '162',
     age: '2 minutes ago',
     txnValue: '32',
-  }
+  },
 ];
 
 const Table = (props: Props) => {
-  const { viewStore, name} = props;
+  const { viewStore, name } = props;
 
   const renderTableData = () => {
-    switch(name) {
+    switch (name) {
       case OVERVIEW:
         return (
-          <TransactionsRow key={nanoid()} data={transactionTableData} config={tableFieldConfig[name]} viewStore={viewStore}/>
+          <TransactionsRow key={nanoid()} data={transactionTableData} config={tableFieldConfig[name]} viewStore={viewStore} />
         );
       case EPOCHS:
         return (
-          <EpochsRow key={nanoid()} data={epochTableData} config={tableFieldConfig[name]} viewStore={viewStore}/>
+          <EpochsRow key={nanoid()} data={epochTableData} config={tableFieldConfig[name]} viewStore={viewStore} />
         );
       case LAYERS:
         return (
-          <LayersRow key={nanoid()} data={layerTableData} config={tableFieldConfig[name]} viewStore={viewStore}/>
+          <LayersRow key={nanoid()} data={layerTableData} config={tableFieldConfig[name]} viewStore={viewStore} />
         );
       case TXNS:
         return (
-          <TransactionsRow key={nanoid()} data={transactionTableData} config={tableFieldConfig[name]} viewStore={viewStore}/>
+          <TransactionsRow key={nanoid()} data={transactionTableData} config={tableFieldConfig[name]} viewStore={viewStore} />
         );
       case REWARDS:
         return (
-          <RewardsRow key={nanoid()} data={rewardsTableData} config={tableFieldConfig[name]} viewStore={viewStore}/>
+          <RewardsRow key={nanoid()} data={rewardsTableData} config={tableFieldConfig[name]} viewStore={viewStore} />
         );
       case ACCOUNTS:
         return (
-          <AccountsRow key={nanoid()} data={accountsTableData} config={tableFieldConfig[name]} viewStore={viewStore}/>
+          <AccountsRow key={nanoid()} data={accountsTableData} config={tableFieldConfig[name]} viewStore={viewStore} />
         );
       case SMART_WALLET:
         return (
-          <AccountsRow key={nanoid()} data={accountsTableData} config={tableFieldConfig[name]} viewStore={viewStore}/>
+          <AccountsRow key={nanoid()} data={accountsTableData} config={tableFieldConfig[name]} viewStore={viewStore} />
         );
       case SMESHER:
         return (
-          <SmesherRow key={nanoid()} data={smesherTableData} config={tableFieldConfig[name]} viewStore={viewStore}/>
+          <SmesherRow key={nanoid()} data={smesherTableData} config={tableFieldConfig[name]} viewStore={viewStore} />
         );
       case ATXS:
         return (
-          <AtxsRow key={nanoid()} data={atxsTableData} config={tableFieldConfig[name]} viewStore={viewStore}/>
+          <AtxsRow key={nanoid()} data={atxsTableData} config={tableFieldConfig[name]} viewStore={viewStore} />
         );
       case BLOCKS:
         return (
-          <BlocksRow key={nanoid()} data={blocksTableData} config={tableFieldConfig[name]} viewStore={viewStore}/>
+          <BlocksRow key={nanoid()} data={blocksTableData} config={tableFieldConfig[name]} viewStore={viewStore} />
         );
       default:
         break;
@@ -258,7 +258,7 @@ const Table = (props: Props) => {
   return (
     <div className="table">
       <div className="tr th">
-        { tableFieldConfig[name].map(item => <div key={nanoid()} className="td">{item.fieldName}</div>) }
+        { tableFieldConfig[name].map((item) => <div key={nanoid()} className="td">{item.fieldName}</div>) }
       </div>
       { renderTableData() }
     </div>

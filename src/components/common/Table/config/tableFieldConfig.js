@@ -14,183 +14,183 @@ import {
 export default {
   [OVERVIEW]: [
     {
-      fieldName: 'id'
+      fieldName: 'id',
     },
     {
-      fieldName: 'layer'
+      fieldName: 'layer',
     },
     {
-      fieldName: 'value'
+      fieldName: 'value',
     },
     {
       fieldName: 'from',
     },
     {
-      fieldName: 'to'
+      fieldName: 'to',
     },
     {
-      fieldName: 'type'
+      fieldName: 'type',
     },
   ],
   [EPOCHS]: [
     {
-      fieldName: 'epoch id'
+      fieldName: 'epoch id',
     },
     {
-      fieldName: 'started'
+      fieldName: 'started',
     },
     {
-      fieldName: 'ended'
+      fieldName: 'ended',
     },
     {
-      fieldName: 'layers'
+      fieldName: 'layers',
     },
     {
-      fieldName: 'transactions'
+      fieldName: 'transactions',
     },
     {
-      fieldName: 'smeshers'
+      fieldName: 'smeshers',
     },
     {
-      fieldName: 'rewards'
+      fieldName: 'rewards',
     },
     {
-      fieldName: 'total smc'
+      fieldName: 'total smc',
     },
   ],
   [TXNS]: [
     {
-      fieldName: 'id'
+      fieldName: 'id',
     },
     {
-      fieldName: 'layer'
+      fieldName: 'layer',
     },
     {
-      fieldName: 'value'
+      fieldName: 'value',
     },
     {
       fieldName: 'from',
     },
     {
-      fieldName: 'to'
+      fieldName: 'to',
     },
     {
-      fieldName: 'type'
+      fieldName: 'type',
     },
   ],
   [ATXS]: [
-    {fieldName: 'id'},
-    {fieldName: 'value'},
-    {fieldName: 'age'},
-    {fieldName: 'from'},
-    {fieldName: 'type'},
+    { fieldName: 'id' },
+    { fieldName: 'value' },
+    { fieldName: 'age' },
+    { fieldName: 'from' },
+    { fieldName: 'type' },
   ],
   [LAYERS]: [
     {
-      fieldName: 'id'
+      fieldName: 'id',
     },
     {
-      fieldName: 'transactions'
+      fieldName: 'transactions',
     },
     {
-      fieldName: 'age'
+      fieldName: 'age',
     },
     {
-      fieldName: 'txn value'
+      fieldName: 'txn value',
     },
     {
-      fieldName: 'atx value'
+      fieldName: 'atx value',
     },
   ],
   [REWARDS]: [
     {
-      fieldName: 'rewards'
+      fieldName: 'rewards',
     },
     {
-      fieldName: 'account'
+      fieldName: 'account',
     },
     {
-      fieldName: 'smesher'
+      fieldName: 'smesher',
     },
     {
-      fieldName: 'layer'
+      fieldName: 'layer',
     },
     {
-      fieldName: 'space'
+      fieldName: 'space',
     },
     {
-      fieldName: 'value'
+      fieldName: 'value',
     },
   ],
   [ACCOUNTS]: [
     {
-      fieldName: 'id'
+      fieldName: 'id',
     },
     {
-      fieldName: 'sent'
+      fieldName: 'sent',
     },
     {
-      fieldName: 'recieved'
+      fieldName: 'recieved',
     },
     {
-      fieldName: 'Last Active'
+      fieldName: 'Last Active',
     },
     {
-      fieldName: 'awards'
+      fieldName: 'awards',
     },
     {
-      fieldName: 'balance'
+      fieldName: 'balance',
     },
   ],
   [SMART_WALLET]: [
     {
-      fieldName: 'id'
+      fieldName: 'id',
     },
     {
-      fieldName: 'sent'
+      fieldName: 'sent',
     },
     {
-      fieldName: 'recieved'
+      fieldName: 'recieved',
     },
     {
-      fieldName: 'Last Active'
+      fieldName: 'Last Active',
     },
     {
-      fieldName: 'awards'
+      fieldName: 'awards',
     },
     {
-      fieldName: 'balance'
+      fieldName: 'balance',
     },
   ],
   [SMESHER]: [
     {
-      fieldName: 'id'
+      fieldName: 'id',
     },
     {
-      fieldName: 'Rewards Account'
+      fieldName: 'Rewards Account',
     },
     {
-      fieldName: 'Committed space'
+      fieldName: 'Committed space',
     },
     {
-      fieldName: 'Total Atx Txns'
+      fieldName: 'Total Atx Txns',
     },
   ],
   [BLOCKS]: [
     {
-      fieldName: 'block'
+      fieldName: 'block',
     },
     {
-      fieldName: 'smesher'
+      fieldName: 'smesher',
     },
     {
-      fieldName: 'transactions'
+      fieldName: 'transactions',
     },
     {
-      fieldName: 'age'
+      fieldName: 'age',
     },
     {
-      fieldName: 'txn value'
+      fieldName: 'txn value',
     },
   ],
-}
+};

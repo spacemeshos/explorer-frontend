@@ -22,13 +22,13 @@ const DetailAtxs = (props: Props) => {
           <span className="item-name">ID</span>
           <span className="item-value">
             <a href="/">0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8</a>
-            <CopyButton value="0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8"/>
+            <CopyButton value="0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8" />
           </span>
         </li>
         <li className="item">
           <span className="item-name">Total Atx</span>
           <span className="item-value">
-             200
+            200
           </span>
         </li>
         <li className="item">

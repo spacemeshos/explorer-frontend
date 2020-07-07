@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'mobx-react-lite/batchingForReactDom'
+import 'mobx-react-lite/batchingForReactDom';
 
 import ViewStore from './store/ViewStore';
 import UiStore from './store/UiStore';
