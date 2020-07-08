@@ -6,6 +6,8 @@ import {
   decorate,
 } from 'mobx';
 
+import { fromPromise } from 'mobx-utils';
+
 import {
   OVERVIEW,
   EPOCHS,
@@ -25,11 +27,13 @@ class ViewStore {
   }
 
   fetch = null;
+  networks = [];
 
   currentView = {
     name: null,
     id: null,
     subPage: null,
+    data: null,
   };
 
   get currentPath() {
@@ -70,12 +74,14 @@ class ViewStore {
   showOverview() {
     this.currentView = {
       name: 'overview',
+      data: fromPromise(this.fetch('/networks'))
     };
   }
 
   showPage({ page }) {
     this.currentView = {
       name: page,
+      data: fromPromise(this.fetch(`/${page}`))
     };
   }
 
@@ -83,6 +89,12 @@ class ViewStore {
     const page = this.defineIdType(searchString);
     page ? this.showDetailPage({ page, id: searchString }) : this.showDetailPage({ page: NOT_FOUND, id: searchString });
     console.log('this.currentView', this.currentView.name);
+  }
+
+  getNetworks() {
+    this.fetch(`/networks`).then(data => {
+      this.networks = data.map(item => ({value: item.domain, label: item.name}))
+    });
   }
 
   showDetailPage({ page, id }) {
@@ -116,7 +128,9 @@ class ViewStore {
 
 decorate(ViewStore, {
   currentView: observable,
+  networks: observable,
   currentPath: computed,
+  getNetworks: action,
   linkHandler: action,
   showSearchResult: action,
   showPage: action,

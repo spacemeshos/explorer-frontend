@@ -101,7 +101,7 @@ const RenderDetailPage = (props: Props) => {
         <>
           <div className="page-wrap">
             <TitleBlock
-              title={`Smesher ${id} details`}
+              title={`Smesher ${longFormHash(id)} details`}
               color={getColorByPageName(name)}
               desc="Specific details for this smesher"
               uiStore={uiStore}
