@@ -24,6 +24,7 @@ import tableFieldConfig from './config/tableFieldConfig';
 import LayersRow from './LayersRow';
 import AtxsRow from './AtxsRow';
 import BlocksRow from './BlocksRow';
+import AppRow from './AppRow';
 
 type Props = {
   viewStore: Object,
@@ -205,6 +206,21 @@ const blocksTableData = [
   },
 ];
 
+const smartWalletData = [
+  {
+    address: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
+    name: 'SM W #1',
+    created: '3 days ago',
+    balance: '11',
+  },
+  {
+    address: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
+    name: 'SM W #1',
+    created: '3 days ago',
+    balance: '11',
+  }
+];
+
 const Table = (props: Props) => {
   const { viewStore, name } = props;
 
@@ -236,7 +252,7 @@ const Table = (props: Props) => {
         );
       case SMART_WALLET:
         return (
-          <AccountsRow key={nanoid()} data={accountsTableData} config={tableFieldConfig[name]} viewStore={viewStore} />
+          <AppRow key={nanoid()} data={smartWalletData} config={tableFieldConfig[name]} viewStore={viewStore} />
         );
       case SMESHER:
         return (

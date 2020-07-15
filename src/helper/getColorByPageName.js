@@ -43,8 +43,8 @@ export const getColorByPageName = (pageName: string) => {
       };
     case SMART_WALLET:
       return {
-        textColor: colors.accountsColor,
-        bgColor: colors.accountsBgColor,
+        textColor: colors.smartWalletColor,
+        bgColor: colors.smartWalletBgColor,
       };
     case SMESHER:
       return {

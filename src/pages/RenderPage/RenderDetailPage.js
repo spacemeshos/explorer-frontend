@@ -21,9 +21,12 @@ import {
   ACCOUNTS,
   NOT_FOUND,
   BLOCKS,
+  SMART_WALLET,
 } from '../../config/constants';
+
 import DetailsBlock from '../../components/common/Details/DetailBlock';
 import DetailSmesher from '../../components/common/Details/DetailSmesher';
+import DetailApp from '../../components/common/Details/DetailApp';
 
 type Props = {
   name: string,
@@ -94,6 +97,21 @@ const RenderDetailPage = (props: Props) => {
             <AmountBlock value="325" unit="accnts" color={getColorByPageName(name)} />
           </div>
           <DetailAccount viewStore={viewStore} />
+        </>
+      );
+    case SMART_WALLET:
+      return (
+        <>
+          <div className="page-wrap">
+            <TitleBlock
+              title="Smart Wallet - My Sm Smart wallet 1"
+              color={getColorByPageName(name)}
+              desc="A smart wallet app"
+              uiStore={uiStore}
+            />
+            <AmountBlock value="325" unit="smh" color={getColorByPageName(name)} />
+          </div>
+          <DetailApp viewStore={viewStore} />
         </>
       );
     case SMESHER:

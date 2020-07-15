@@ -144,19 +144,13 @@ export default {
   ],
   [SMART_WALLET]: [
     {
-      fieldName: 'id',
+      fieldName: 'address',
     },
     {
-      fieldName: 'sent',
+      fieldName: 'name',
     },
     {
-      fieldName: 'recieved',
-    },
-    {
-      fieldName: 'Last Active',
-    },
-    {
-      fieldName: 'awards',
+      fieldName: 'created',
     },
     {
       fieldName: 'balance',
