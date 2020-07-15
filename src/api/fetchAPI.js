@@ -1,27 +1,13 @@
 // @flow
+// const testApi = 'https://5f058f8fee44800016d3829a.mockapi.io/api/v1';
 const API_URL = process.env.REACT_APP_API_URL || '';
 
-export function fetchAPI(path, options, type) {
+export function fetchAPI(path, options) {
   const fetchOptions = {};
-  fetchOptions.method = options.method || 'GET';
+  fetchOptions.method = options && (options.method || 'GET');
 
-  fetchOptions.headers = {
-    ...fetchOptions.headers,
-  };
-
-  if (type !== 'image') {
-    fetchOptions.headers = {
-      ...fetchOptions.headers,
-      'Content-Type': 'application/json',
-    };
-  }
-
-  if (options.headers) {
+  if (options && options.headers) {
     fetchOptions.headers = { ...fetchOptions.headers, ...options.headers };
-  }
-
-  if (options.body && type !== 'image') {
-    fetchOptions.body = JSON.stringify(options.body);
   }
 
   return fetch(`${API_URL}/${path}`, fetchOptions)

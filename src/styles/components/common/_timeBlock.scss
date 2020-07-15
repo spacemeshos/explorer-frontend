@@ -3,10 +3,10 @@
   position: relative;
   z-index: 2;
   width: 100%;
+  padding: 15px;
   @include theme-aware('background-color', 'backgroundInfoBlock');
 
   &-item {
-    padding: 15px;
     .name {
       font-size: 14px;
       @include theme-aware('color', 'titleInfoBlock');
@@ -15,5 +15,8 @@
       font-size: 14px;
       color: $layerColor
     }
+  }
+  &-item:nth-child(2) {
+    padding-top: 5px;
   }
 }

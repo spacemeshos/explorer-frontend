@@ -2,7 +2,7 @@
 export const OVERVIEW = 'overview';
 export const EPOCHS = 'epochs';
 export const LAYERS = 'layers';
-export const TXNS = 'txns';
+export const TXNS = 'txs';
 export const REWARDS = 'rewards';
 export const ACCOUNTS = 'address';
 export const SMART_WALLET = 'apps';

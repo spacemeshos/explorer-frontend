@@ -10,8 +10,8 @@ const TxnsStatus = (props: Props) => {
 
   const txnsStatusClass = `txnsStatus ${status}`;
 
-  const getStatusText = (status) => {
-    switch(status) {
+  const getStatusText = (data) => {
+    switch (data) {
       case 'approved':
         return 'success';
       case 'confirmed':

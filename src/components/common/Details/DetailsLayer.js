@@ -7,7 +7,7 @@ import {
   LAYERS,
   REWARDS,
   BLOCKS,
-  TXNS
+  TXNS,
 } from '../../../config/constants';
 
 type Props = {
@@ -24,13 +24,13 @@ const DetailsLayer = (props: Props) => {
           <span className="item-name">Layer Number</span>
           <span className="item-value">
             <a href="/">000000</a>
-            <CopyButton value="000000"/>
+            <CopyButton value="000000" />
           </span>
         </li>
         <li className="item">
           <span className="item-name">Layer Start Timestamp</span>
           <span className="item-value">
-             2 minutes ago - Jun/25/2019 - 05:13:39 PM +UTC)
+            2 minutes ago - Jun/25/2019 - 05:13:39 PM +UTC)
           </span>
         </li>
         <li className="item">
@@ -57,8 +57,9 @@ const DetailsLayer = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Hash</span>
-          <span className="item-value">0x52hsgj2jwyb23wbwew32874682734g2hj3g23
-          <CopyButton value="0x52hsgj2jwyb23wbwew32874682734g2hj3g23"/>
+          <span className="item-value">
+            0x52hsgj2jwyb23wbwew32874682734g2hj3g23
+            <CopyButton value="0x52hsgj2jwyb23wbwew32874682734g2hj3g23" />
           </span>
         </li>
         <li className="item">

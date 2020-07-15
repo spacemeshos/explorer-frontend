@@ -1,9 +1,9 @@
 // @flow
 import * as React from 'react';
 
-import longFormHash from '../../../helper/longFormHash';
 import { nanoid } from 'nanoid';
-import { ACCOUNTS, BLOCKS } from "../../../config/constants";
+import longFormHash from '../../../helper/longFormHash';
+import { ACCOUNTS, BLOCKS } from '../../../config/constants';
 
 type Props = {
   data: Array<object>,
@@ -14,7 +14,7 @@ const BlocksRow = (props: Props) => {
   const { data, viewStore } = props;
 
   return (
-    data.map(item => (
+    data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
           <a href={`/${BLOCKS}/${item.block}`} onClick={(e) => viewStore.linkHandler(e, BLOCKS, item.block)}>
@@ -31,7 +31,7 @@ const BlocksRow = (props: Props) => {
         <div className="td">{item.txnValue}</div>
       </div>
     ))
-  )
+  );
 };
 
 export default BlocksRow;

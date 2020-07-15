@@ -1,11 +1,11 @@
 // @flow
 import * as React from 'react';
 
+import { nanoid } from 'nanoid';
 import StatusIcon from '../StatusIcon';
 import shortFormHash from '../../../helper/shortFormHash';
 import longFormHash from '../../../helper/longFormHash';
-import { nanoid } from 'nanoid';
-import { ACCOUNTS, TXNS } from "../../../config/constants";
+import { ACCOUNTS, TXNS } from '../../../config/constants';
 
 type Props = {
   data: Array<object>,
@@ -16,7 +16,7 @@ const AtxsRow = (props: Props) => {
   const { data, viewStore } = props;
 
   return (
-    data.map(item => (
+    data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
           <StatusIcon status="confirmed" />
@@ -24,7 +24,11 @@ const AtxsRow = (props: Props) => {
             {shortFormHash(item.id)}
           </a>
         </div>
-        <div className="td">{item.value} SMH</div>
+        <div className="td">
+          {item.value}
+          {' '}
+          SMH
+        </div>
         <div className="td">{item.age}</div>
         <div className="td">
           <a href={`/${ACCOUNTS}/${item.from}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.from)}>
@@ -34,7 +38,7 @@ const AtxsRow = (props: Props) => {
         <div className="td">{longFormHash(item.type)}</div>
       </div>
     ))
-  )
+  );
 };
 
 export default AtxsRow;

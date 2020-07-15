@@ -1,20 +1,24 @@
 // @flow
 import * as React from 'react';
 
-type Props = {
-
-};
-
-const TimeBlock = (props: Props) => {
-  const epoch = 123123123;
-  const layer = 123123;
+const TimeBlock = () => {
+  const epoch = 123123121123;
+  const layer = null;
 
   return (
     <div className="timeBlock">
-      <div className="timeBlock-item">
-        <div className="name">Epoch</div>
-        <div className="value">{epoch}</div>
-      </div>
+      {epoch && (
+        <div className="timeBlock-item">
+          <div className="name">Epoch</div>
+          <div className="value">{epoch}</div>
+        </div>
+      )}
+      {layer && (
+        <div className="timeBlock-item">
+          <div className="name">Layer</div>
+          <div className="value">{layer}</div>
+        </div>
+      )}
     </div>
   );
 };

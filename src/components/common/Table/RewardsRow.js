@@ -8,7 +8,7 @@ import {
   ACCOUNTS,
   LAYERS,
   REWARDS,
-  SMESHER
+  SMESHER,
 } from '../../../config/constants';
 
 type Props = {
@@ -21,11 +21,11 @@ const RewardsRow = (props: Props) => {
 
   const onClickHandler = (e, pageName: string, id: string) => {
     e.preventDefault();
-    viewStore.showDetailPage({page: pageName, id})
+    viewStore.showDetailPage({ page: pageName, id });
   };
 
   return (
-    data.map(item => (
+    data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
           <a href={`/${REWARDS}/${item.id}`} onClick={(e) => onClickHandler(e, REWARDS, item.id)}>
@@ -47,11 +47,19 @@ const RewardsRow = (props: Props) => {
             {item.layer}
           </a>
         </div>
-        <div className="td">{item.space} GB</div>
-        <div className="td">{item.value} SMH</div>
+        <div className="td">
+          {item.space}
+          {' '}
+          GB
+        </div>
+        <div className="td">
+          {item.value}
+          {' '}
+          SMH
+        </div>
       </div>
     ))
-  )
+  );
 };
 
 export default RewardsRow;

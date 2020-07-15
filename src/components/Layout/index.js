@@ -19,7 +19,7 @@ const Layout = (props: Props) => {
     <StoreContext.Provider value={{ viewStore, uiStore }}>
       <div className="wrapper">
         <Header />
-        <Search viewStore={viewStore}/>
+        <Search viewStore={viewStore} />
         { children }
       </div>
     </StoreContext.Provider>

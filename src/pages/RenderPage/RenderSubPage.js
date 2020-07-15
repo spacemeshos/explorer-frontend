@@ -17,7 +17,7 @@ import {
   ATXS,
   BLOCKS, ACCOUNTS,
 } from '../../config/constants';
-import longFormHash from "../../helper/longFormHash";
+import longFormHash from '../../helper/longFormHash';
 
 type Props = {
   name: string,
@@ -30,7 +30,7 @@ type Props = {
 const RenderSubPage = (props: Props) => {
   const { name, id, subPage, uiStore, viewStore } = props;
 
-  switch(name) {
+  switch (name) {
     case EPOCHS:
       if (subPage === LAYERS) {
         return (
@@ -42,11 +42,11 @@ const RenderSubPage = (props: Props) => {
                 desc={`Layers contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="167" unit="layers" color={getColorByPageName(name)}/>
+              <AmountBlock value="167" unit="layers" color={getColorByPageName(name)} />
             </div>
-            <Table name={subPage} viewStore={viewStore}/>
+            <Table name={subPage} viewStore={viewStore} />
           </>
-        )
+        );
       }
       if (subPage === TXNS) {
         return (
@@ -58,11 +58,11 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="167" unit="txns since genesis" color={getColorByPageName(name)}/>
+              <AmountBlock value="167" unit="txns since genesis" color={getColorByPageName(name)} />
             </div>
-            <Table name={subPage} viewStore={viewStore}/>
+            <Table name={subPage} viewStore={viewStore} />
           </>
-        )
+        );
       }
       if (subPage === SMESHER) {
         return (
@@ -71,14 +71,14 @@ const RenderSubPage = (props: Props) => {
               <TitleBlock
                 title={`Epoch ${id} - Participating Smashers`}
                 color={getColorByPageName(name)}
-                desc={`Smeshers submitting at least one honest block`}
+                desc="Smeshers submitting at least one honest block"
                 uiStore={uiStore}
               />
-              <AmountBlock value="167" unit="smeshers in the epoch" color={getColorByPageName(name)}/>
+              <AmountBlock value="167" unit="smeshers in the epoch" color={getColorByPageName(name)} />
             </div>
-            <Table name={subPage} viewStore={viewStore}/>
+            <Table name={subPage} viewStore={viewStore} />
           </>
-        )
+        );
       }
       if (subPage === ATXS) {
         return (
@@ -90,11 +90,11 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="167" unit="txns since genesis" color={getColorByPageName(name)}/>
+              <AmountBlock value="167" unit="txns since genesis" color={getColorByPageName(name)} />
             </div>
-            <Table name={subPage} viewStore={viewStore}/>
+            <Table name={subPage} viewStore={viewStore} />
           </>
-        )
+        );
       }
       if (subPage === REWARDS) {
         return (
@@ -106,11 +106,11 @@ const RenderSubPage = (props: Props) => {
                 desc={`Rewards contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="167" unit="awards" color={getColorByPageName(name)}/>
+              <AmountBlock value="167" unit="awards" color={getColorByPageName(name)} />
             </div>
-            <Table name={subPage} viewStore={viewStore}/>
+            <Table name={subPage} viewStore={viewStore} />
           </>
-        )
+        );
       }
       break;
     case LAYERS:
@@ -124,11 +124,11 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions within Layer ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="167" unit="txns" color={getColorByPageName(name)}/>
+              <AmountBlock value="167" unit="txns" color={getColorByPageName(name)} />
             </div>
-            <Table name={subPage} viewStore={viewStore}/>
+            <Table name={subPage} viewStore={viewStore} />
           </>
-        )
+        );
       }
       if (subPage === ATXS) {
         return (
@@ -140,11 +140,11 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions within layer ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="137" unit="txns" color={getColorByPageName(name)}/>
+              <AmountBlock value="137" unit="txns" color={getColorByPageName(name)} />
             </div>
-            <Table name={subPage} viewStore={viewStore}/>
+            <Table name={subPage} viewStore={viewStore} />
           </>
-        )
+        );
       }
       if (subPage === BLOCKS) {
         return (
@@ -156,11 +156,11 @@ const RenderSubPage = (props: Props) => {
                 desc={`Blocks within layer ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="137" unit="layer blocks" color={getColorByPageName(name)}/>
+              <AmountBlock value="137" unit="layer blocks" color={getColorByPageName(name)} />
             </div>
-            <Table name={subPage} viewStore={viewStore}/>
+            <Table name={subPage} viewStore={viewStore} />
           </>
-        )
+        );
       }
       if (subPage === REWARDS) {
         return (
@@ -172,11 +172,11 @@ const RenderSubPage = (props: Props) => {
                 desc={`Rewards within Layer ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="167" unit="awards" color={getColorByPageName(name)}/>
+              <AmountBlock value="167" unit="awards" color={getColorByPageName(name)} />
             </div>
-            <Table name={subPage} viewStore={viewStore}/>
+            <Table name={subPage} viewStore={viewStore} />
           </>
-        )
+        );
       }
       break;
     case SMESHER:
@@ -187,14 +187,14 @@ const RenderSubPage = (props: Props) => {
               <TitleBlock
                 title={`Smesher ${id} - ATX Details`}
                 color={getColorByPageName(name)}
-                desc={`Smesher details for this ATX`}
+                desc="Smesher details for this ATX"
                 uiStore={uiStore}
               />
-              <AmountBlock value="000" unit="txns" color={getColorByPageName(name)}/>
+              <AmountBlock value="000" unit="txns" color={getColorByPageName(name)} />
             </div>
-            <DetailAtxs viewStore={viewStore}/>
+            <DetailAtxs viewStore={viewStore} />
           </>
-        )
+        );
       }
       if (subPage === REWARDS) {
         return (
@@ -203,14 +203,14 @@ const RenderSubPage = (props: Props) => {
               <TitleBlock
                 title={`Smesher ${id} - Details`}
                 color={getColorByPageName(name)}
-                desc={`Smesher details for this reward`}
+                desc="Smesher details for this reward"
                 uiStore={uiStore}
               />
-              <AmountBlock value="000" unit="txns" color={getColorByPageName(name)}/>
+              <AmountBlock value="000" unit="txns" color={getColorByPageName(name)} />
             </div>
-            <DetailReward viewStore={viewStore}/>
+            <DetailReward viewStore={viewStore} />
           </>
-        )
+        );
       }
       break;
     case ACCOUNTS:
@@ -224,11 +224,11 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions contained within account ${longFormHash('0x0klsda7as8asbadskjhkjdjyuye32423423')}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="000" unit="txns" color={getColorByPageName(name)}/>
+              <AmountBlock value="000" unit="txns" color={getColorByPageName(name)} />
             </div>
-            <Table name={subPage} viewStore={viewStore}/>
+            <Table name={subPage} viewStore={viewStore} />
           </>
-        )
+        );
       }
       if (subPage === REWARDS) {
         return (
@@ -240,11 +240,11 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions contained within account ${longFormHash('0x0klsda7as8asbadskjhkjdjyuye32423423')}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="000" unit="txns" color={getColorByPageName(name)}/>
+              <AmountBlock value="000" unit="txns" color={getColorByPageName(name)} />
             </div>
-            <Table name={subPage} viewStore={viewStore}/>
+            <Table name={subPage} viewStore={viewStore} />
           </>
-        )
+        );
       }
       break;
     default:

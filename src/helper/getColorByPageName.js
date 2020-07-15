@@ -15,7 +15,7 @@ import {
 import * as colors from '../styles/utilities/_variables.scss';
 
 export const getColorByPageName = (pageName: string) => {
-  switch(pageName) {
+  switch (pageName) {
     case EPOCHS:
       return {
         textColor: colors.epochColor,
@@ -43,8 +43,8 @@ export const getColorByPageName = (pageName: string) => {
       };
     case SMART_WALLET:
       return {
-        textColor: colors.accountsColor,
-        bgColor: colors.accountsBgColor,
+        textColor: colors.smartWalletColor,
+        bgColor: colors.smartWalletBgColor,
       };
     case SMESHER:
       return {
@@ -65,6 +65,6 @@ export const getColorByPageName = (pageName: string) => {
       return {
         textColor: colors.overviewColor,
         bgColor: colors.overviewBgColor,
-      }
+      };
   }
 };

@@ -11,8 +11,8 @@ const AmountBlock = (props: Props) => {
   const { color, unit, value } = props;
 
   return (
-    <div style={{backgroundColor: color.bgColor}} className="amountBlock">
-      <span style={{color: color.textColor}} className="amountBlock-number">{value}</span>
+    <div style={{ backgroundColor: color.bgColor }} className="amountBlock">
+      <span style={{ color: color.textColor }} className="amountBlock-number">{value}</span>
       <p className="amountBlock-unit">{unit}</p>
       <div className="amountBlock-timeWrap">
         <p>000/00/0000</p>

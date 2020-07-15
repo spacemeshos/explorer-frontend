@@ -22,13 +22,13 @@ const DetailsBlock = (props: Props) => {
           <span className="item-name">Block Number</span>
           <span className="item-value">
             <a href="/">123123</a>
-            <CopyButton value="123123"/>
+            <CopyButton value="123123" />
           </span>
         </li>
         <li className="item">
           <span className="item-name">Block start Timestamp</span>
           <span className="item-value">
-             31 days ago (Jun-25-2019 05:13:39 PM +UTC)
+            31 days ago (Jun-25-2019 05:13:39 PM +UTC)
           </span>
         </li>
         <li className="item">
@@ -65,7 +65,7 @@ const DetailsBlock = (props: Props) => {
           <span className="item-name">Hash</span>
           <span className="item-value">
             0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8
-            <CopyButton value="0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8"/>
+            <CopyButton value="0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8" />
           </span>
         </li>
       </ul>

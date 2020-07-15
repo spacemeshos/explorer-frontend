@@ -4,7 +4,9 @@ import { nanoid } from 'nanoid';
 
 import shortFormHash from '../../../helper/longFormHash';
 
-import {ATXS, LAYERS, REWARDS, TXNS} from '../../../config/constants';
+import {
+  ATXS, LAYERS, REWARDS, TXNS,
+} from '../../../config/constants';
 
 type Props = {
   data: Array<object>,
@@ -17,14 +19,14 @@ const LayersRow = (props: Props) => {
   const onClickHandler = (e, pageName: string, id: string, subPage: string) => {
     e.preventDefault();
     if (subPage) {
-      viewStore.showSubPage({page: pageName, id, subPage})
+      viewStore.showSubPage({ page: pageName, id, subPage });
     } else {
-      viewStore.showDetailPage({page: pageName, id})
+      viewStore.showDetailPage({ page: pageName, id });
     }
   };
 
   return (
-    data.map(item => (
+    data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
           <a href={`/${LAYERS}/${item.id}`} onClick={(e) => onClickHandler(e, LAYERS, item.id)}>
@@ -36,20 +38,27 @@ const LayersRow = (props: Props) => {
             {item.transactions}
           </a>
         </div>
-        <div className="td">{item.age} </div>
+        <div className="td">
+          {item.age}
+          {' '}
+        </div>
         <div className="td">
           <a href={`/${LAYERS}/${item.id}/${ATXS}`} onClick={(e) => onClickHandler(e, LAYERS, item.id, ATXS)}>
-            {item.txnValue} SMH
+            {item.txnValue}
+            {' '}
+            SMH
           </a>
         </div>
         <div className="td">
           <a href={`/${LAYERS}/${item.id}/${REWARDS}`} onClick={(e) => onClickHandler(e, LAYERS, item.id, REWARDS)}>
-            {item.atxValue} SMH
+            {item.atxValue}
+            {' '}
+            SMH
           </a>
         </div>
       </div>
     ))
-  )
+  );
 };
 
 export default LayersRow;

@@ -6,6 +6,8 @@ import {
   decorate,
 } from 'mobx';
 
+import { fromPromise } from 'mobx-utils';
+
 import {
   OVERVIEW,
   EPOCHS,
@@ -25,11 +27,13 @@ class ViewStore {
   }
 
   fetch = null;
+  networks = [];
 
   currentView = {
     name: null,
     id: null,
     subPage: null,
+    data: null,
   };
 
   get currentPath() {
@@ -61,29 +65,36 @@ class ViewStore {
   buildUrlString(data: Object) {
     if (data.name && data.id && data.subPage) {
       return `/${data.name}/${data.id}/${data.subPage}`;
-    } else if (data.name && data.id) {
+    } if (data.name && data.id) {
       return `/${data.name}/${data.id}`;
-    } else {
-      return `/${data.name}`;
     }
+    return `/${data.name}`;
   }
 
   showOverview() {
     this.currentView = {
       name: 'overview',
+      data: fromPromise(this.fetch('/networks'))
     };
   }
 
   showPage({ page }) {
     this.currentView = {
       name: page,
+      data: fromPromise(this.fetch(`/${page}`))
     };
   }
 
   showSearchResult(searchString) {
     const page = this.defineIdType(searchString);
-    page ? this.showDetailPage({page, id: searchString}) : this.showDetailPage({page: NOT_FOUND, id:searchString});
+    page ? this.showDetailPage({ page, id: searchString }) : this.showDetailPage({ page: NOT_FOUND, id: searchString });
     console.log('this.currentView', this.currentView.name);
+  }
+
+  getNetworks() {
+    this.fetch(`/networks`).then(data => {
+      this.networks = data.map(item => ({value: item.domain, label: item.name}))
+    });
   }
 
   showDetailPage({ page, id }) {
@@ -93,7 +104,7 @@ class ViewStore {
     };
   }
 
-  showSubPage({page, id, subPage}) {
+  showSubPage({ page, id, subPage }) {
     this.currentView = {
       name: page,
       id,
@@ -104,21 +115,22 @@ class ViewStore {
   linkHandler(e, page, id, subPage) {
     e.preventDefault();
     if (subPage) {
-      this.showSubPage({page, id, subPage})
+      this.showSubPage({ page, id, subPage });
     } else {
-      this.showDetailPage({page, id})
+      this.showDetailPage({ page, id });
     }
   }
 
   defineIdType(value) {
     return false;
   }
-
 }
 
 decorate(ViewStore, {
   currentView: observable,
+  networks: observable,
   currentPath: computed,
+  getNetworks: action,
   linkHandler: action,
   showSearchResult: action,
   showPage: action,
