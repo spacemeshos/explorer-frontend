@@ -58,3 +58,24 @@
     right: 280px;
   }
 }
+
+.preloader {
+  height: 13px;
+  width: 100%;
+  text-indent: -9999px;
+  border-radius: 10px;
+  @include theme-aware('background-color', 'tableTextColor');
+  animation: light-pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes light-pulse {
+  0% {
+    background-color: $preloaderTextColor70;
+  }
+  50% {
+    background-color: $preloaderTextColor100;
+  }
+  100% {
+    background-color: $preloaderTextColor70;
+  }
+}

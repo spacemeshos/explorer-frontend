@@ -9,9 +9,7 @@ import RenderDetailPage from '../RenderPage/RenderDetailPage';
 import RenderSubPage from '../RenderPage/RenderSubPage';
 import TimeBlock from '../../components/common/TimeBlock';
 
-import {
-  LAYERS, OVERVIEW, TXNS,
-} from '../../config/constants';
+import { LAYERS, OVERVIEW, TXNS } from '../../config/constants';
 
 type Props = {
   viewStore: Object,
@@ -31,12 +29,7 @@ const PageContainer = (props: Props) => {
 
     if (isMainPage) {
       return (
-        <RenderMainPage
-          viewStore={viewStore}
-          uiStore={uiStore}
-          name={name}
-          id={id}
-        />
+        <RenderMainPage viewStore={viewStore} uiStore={uiStore} />
       );
     }
 

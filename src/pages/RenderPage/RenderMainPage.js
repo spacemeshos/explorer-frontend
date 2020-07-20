@@ -1,5 +1,6 @@
 // @flow
 import * as React from 'react';
+import { toJS } from 'mobx';
 
 import InfoBlock from '../../components/common/InfoBlock';
 import TitleBlock from '../../components/common/TitleBlock';
@@ -20,19 +21,19 @@ import {
 } from '../../config/constants';
 
 type Props = {
-  name: string,
-  id: string,
   uiStore: Object,
   viewStore: Object,
 };
 
 const RenderMainPage = (props: Props) => {
-  const { name, uiStore, viewStore } = props;
+  const { uiStore, viewStore } = props;
+  const { name, data } = viewStore.currentView;
+
   switch (name) {
     case OVERVIEW:
       return (
         <>
-          <InfoBlock />
+          <InfoBlock data={data}/>
           <div className="page-wrap">
             <TitleBlock
               title="Latest Transaction"

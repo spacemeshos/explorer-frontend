@@ -1,10 +1,12 @@
 // @flow
 import * as React from 'react';
 import { nanoid } from 'nanoid';
+import { observer } from 'mobx-react';
 
 import shortFormHash from '../../../helper/longFormHash';
 
 import { ACCOUNTS, SMESHER } from '../../../config/constants';
+import RowPreloader from './RowPreloader';
 
 type Props = {
   data: Array<object>,
@@ -14,37 +16,44 @@ type Props = {
 const SmesherRow = (props: Props) => {
   const { data, viewStore } = props;
 
-  const onClickHandler = (e, pageName: string, id: string) => {
-    e.preventDefault();
-    viewStore.showDetailPage({ page: pageName, id });
-  };
-
-  return (
-    data.map((item) => (
-      <div key={nanoid()} className="tr">
-        <div className="td">
-          <a href={`${SMESHER}/${item.id}`} onClick={(e) => onClickHandler(e, SMESHER, item.id)}>
-            {item.id}
-          </a>
-        </div>
-        <div className="td">
-          <a href={`${ACCOUNTS}/${item.id}`} onClick={(e) => onClickHandler(e, ACCOUNTS, item.id)}>
-            {shortFormHash(item.rewardsAccount)}
-          </a>
-        </div>
-        <div className="td">
-          {item.committedSpace}
-          {' '}
-          GB
-        </div>
-        <div className="td">
-          {item.totalAtxTxns}
-          {' '}
-          SMH
-        </div>
-      </div>
-    ))
-  );
+  return data.case({
+    pending: () => {
+      return <RowPreloader rowCount={7}/>
+    },
+    fulfilled: (value) => {
+      return (
+        value.map((item) => (
+          <div key={nanoid()} className="tr">
+            <div className="td">
+              <a href={`${SMESHER}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, item.id)}>
+                {item.id}
+              </a>
+            </div>
+            <div className="td">
+              <a href={`${ACCOUNTS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.id)}>
+                {shortFormHash(item.rewardsAccount)}
+              </a>
+            </div>
+            <div className="td">
+              {item.committedSpace}
+              {' '}
+              GB
+            </div>
+            <div className="td">
+              {item.totalAtxTxns}
+              {' '}
+              SMH
+            </div>
+          </div>
+        ))
+      );
+    },
+    rejected: () => {
+      return (
+        <div>No result...</div>
+      )
+    },
+  })
 };
 
-export default SmesherRow;
+export default observer(SmesherRow);

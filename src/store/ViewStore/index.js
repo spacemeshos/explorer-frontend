@@ -7,6 +7,7 @@ import {
 } from 'mobx';
 
 import { fromPromise } from 'mobx-utils';
+import { overviewMocker, transactionMocker, getMockerByPage } from '../../helper/mocker';
 
 import {
   OVERVIEW,
@@ -28,6 +29,7 @@ class ViewStore {
 
   fetch = null;
   networks = [];
+  transactions = [];
 
   currentView = {
     name: null,
@@ -71,17 +73,19 @@ class ViewStore {
     return `/${data.name}`;
   }
 
+  // TODO: change overviewMocker() to this.fetch('/your url') for getting real data
   showOverview() {
     this.currentView = {
-      name: 'overview',
-      data: fromPromise(this.fetch('/networks'))
+      name: OVERVIEW,
+      data: fromPromise(overviewMocker()),
     };
+    this.transactions = fromPromise(transactionMocker());
   }
 
   showPage({ page }) {
     this.currentView = {
       name: page,
-      data: fromPromise(this.fetch(`/${page}`))
+      data: fromPromise(getMockerByPage(page))
     };
   }
 

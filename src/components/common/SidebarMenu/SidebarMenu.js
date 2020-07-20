@@ -17,11 +17,11 @@ const SidebarMenu = (props: Props) => {
 
   const onClickHandler = (e, page) => {
     e.preventDefault();
-    viewStore.showPage({ page });
+    page !== OVERVIEW ? viewStore.showPage({ page }) : viewStore.showOverview();
   };
 
   let activePage = currentPath !== '/' ? currentPath.split('/')[1] : OVERVIEW;
-
+console.log(' activePage',  activePage);
   if (currentPath !== '/' && currentPath.split('/')[1] === BLOCKS) {
     activePage = LAYERS;
   }
