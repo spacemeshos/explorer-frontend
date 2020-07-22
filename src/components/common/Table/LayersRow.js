@@ -41,14 +41,12 @@ const LayersRow = (props: Props) => {
             </div>
             <div className="td">
               <a href={`/${LAYERS}/${item.id}/${ATXS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.id, ATXS)}>
-                {item.txnValue}
-                SMH
+                {item.txnValue} SMH
               </a>
             </div>
             <div className="td">
               <a href={`/${LAYERS}/${item.id}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.id, REWARDS)}>
-                {item.atxValue}
-                SMH
+                {item.atxValue} SMH
               </a>
             </div>
           </div>

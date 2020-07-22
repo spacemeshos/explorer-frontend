@@ -1,17 +1,6 @@
 import moment from 'moment';
 import {ACCOUNTS, EPOCHS, LAYERS, REWARDS, SMART_WALLET, SMESHER, TXNS} from "../config/constants";
 
-
-const layer = {
-  id: 123123,
-  number: 2,
-  status: 2, //LAYER_STATUS_UNSPECIFIED = 0,LAYER_STATUS_APPROVED = 1, LAYER_STATUS_CONFIRMED = 2
-  hash: 2,
-  blocks: 234,
-  activations: 23,
-  root_state_hash: 2312,
-};
-
 const overviewData = {
   networks: [
     {
@@ -32,11 +21,14 @@ const overviewData = {
   layers: 126873,
   activeSmeshers: 521,
 };
+
 const transactionsData = [
   {
     id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     layer: 187291,
     value: 32,
+    amount: 123,
+    start_time: moment('2020-07-19').unix(),
     from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
     type: 'smh',
@@ -45,6 +37,8 @@ const transactionsData = [
     id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     layer: 187291,
     value: 12,
+    amount: 123,
+    start_time: moment('2020-07-19').unix(),
     from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
     type: 'smh',
@@ -53,6 +47,8 @@ const transactionsData = [
     id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     layer: 187291,
     value: 12,
+    amount: 123,
+    start_time: moment('2020-07-19').unix(),
     from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
     type: 'smh',
@@ -61,6 +57,8 @@ const transactionsData = [
     id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     layer: 187291,
     value: 12,
+    amount: 123,
+    start_time: moment('2020-07-19').unix(),
     from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
     type: 'smh',
@@ -69,6 +67,8 @@ const transactionsData = [
     id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     layer: 187291,
     value: 12,
+    amount: 123,
+    start_time: moment('2020-07-19').unix(),
     from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
     type: 'smh',
@@ -77,6 +77,8 @@ const transactionsData = [
     id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     layer: 187291,
     value: 12,
+    amount: 123,
+    start_time: moment('2020-07-19').unix(),
     from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
     type: 'smh',

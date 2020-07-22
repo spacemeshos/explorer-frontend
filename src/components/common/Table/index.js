@@ -31,82 +31,6 @@ type Props = {
   name: string,
 };
 
-const transactionTableData = [
-  {
-    id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
-    layer: 187291,
-    value: 32,
-    from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
-    to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
-    type: 'smh',
-  },
-  {
-    id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
-    layer: 187291,
-    value: 12,
-    from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
-    to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
-    type: 'smh',
-  },
-  {
-    id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
-    layer: 187291,
-    value: 12,
-    from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
-    to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
-    type: 'smh',
-  },
-  {
-    id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
-    layer: 187291,
-    value: 12,
-    from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
-    to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
-    type: 'smh',
-  },
-  {
-    id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
-    layer: 187291,
-    value: 12,
-    from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
-    to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
-    type: 'smh',
-  },
-  {
-    id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
-    layer: 187291,
-    value: 12,
-    from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
-    to: '0x00cC5CE08f8838Af8b9602e26914Ea00bd42f10b',
-    type: 'smh',
-  },
-];
-
-const epochTableData = [
-
-];
-
-const layerTableData = [
-];
-
-const rewardsTableData = [
-];
-
-const accountsTableData = [
-  {
-    id: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
-    sent: '32',
-    recieved: '32',
-    lastActive: '2 hrs ago',
-    awards: '320',
-    balance: '11',
-  },
-];
-
-const smesherTableData = [
-
-];
-
 const atxsTableData = [
   {
     id: '126812',
@@ -127,21 +51,16 @@ const blocksTableData = [
   },
 ];
 
-const smartWalletData = [
-
-];
-
 const Table = (props: Props) => {
   const { viewStore, name } = props;
 
   const renderTableData = () => {
     switch (name) {
       case OVERVIEW:
-        const transactionData = viewStore.transactions;
         return (
           <TransactionsRow
             key={nanoid()}
-            data={transactionData}
+            data={viewStore.currentView.data}
             config={tableFieldConfig[name]}
             viewStore={viewStore}
           />
@@ -157,7 +76,12 @@ const Table = (props: Props) => {
         );
       case LAYERS:
         return (
-          <LayersRow key={nanoid()} data={viewStore.currentView.data} config={tableFieldConfig[name]} viewStore={viewStore} />
+          <LayersRow
+            key={nanoid()}
+            data={viewStore.currentView.data}
+            config={tableFieldConfig[name]}
+            viewStore={viewStore}
+          />
         );
       case TXNS:
         return (

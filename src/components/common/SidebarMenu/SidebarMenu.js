@@ -21,7 +21,7 @@ const SidebarMenu = (props: Props) => {
   };
 
   let activePage = currentPath !== '/' ? currentPath.split('/')[1] : OVERVIEW;
-console.log(' activePage',  activePage);
+
   if (currentPath !== '/' && currentPath.split('/')[1] === BLOCKS) {
     activePage = LAYERS;
   }

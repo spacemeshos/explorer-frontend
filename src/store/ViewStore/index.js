@@ -29,7 +29,7 @@ class ViewStore {
 
   fetch = null;
   networks = [];
-  transactions = [];
+  mainInfo = [];
 
   currentView = {
     name: null,
@@ -77,9 +77,9 @@ class ViewStore {
   showOverview() {
     this.currentView = {
       name: OVERVIEW,
-      data: fromPromise(overviewMocker()),
+      data: fromPromise(transactionMocker()),
     };
-    this.transactions = fromPromise(transactionMocker());
+    this.mainInfo = fromPromise(overviewMocker());
   }
 
   showPage({ page }) {
