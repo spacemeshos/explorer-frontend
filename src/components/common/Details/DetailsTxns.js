@@ -52,7 +52,7 @@ const DetailsTxns = () => {
         <li className="item">
           <span className="item-name">Fee</span>
           <span className="item-value">
-            <a onClick={toggleHandler}>
+            <a className="dropDownLink" onClick={toggleHandler}>
               200 cent
               <span className={arrowClass} />
             </a>

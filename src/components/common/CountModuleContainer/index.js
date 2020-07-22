@@ -3,7 +3,7 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import { getColorByPageName } from "../../../helper/getColorByPageName";
 import { AmountBlock } from '../CountBlock';
-import { LAYERS, OVERVIEW } from "../../../config/constants";
+import { LAYERS, OVERVIEW } from '../../../config/constants';
 
 type Props = {
   unit: string,
@@ -30,19 +30,12 @@ const CountModuleContainer = (props: Props) => {
     }
   };
 
-
   return data.case({
-    pending: () => {
-      return (
-        <AmountBlock number={number} startTime={startTime} unit={unit} color={getColorByPageName(name)} />
-      )
-    },
+    pending: () => <AmountBlock number={number} startTime={startTime} unit={unit} color={getColorByPageName(name)} />,
     fulfilled: (value) => {
-     setParams(value);
+      setParams(value);
 
-     return (
-       <AmountBlock number={number} startTime={startTime} unit={unit} color={getColorByPageName(name)} />
-     )
+      return <AmountBlock number={number} startTime={startTime} unit={unit} color={getColorByPageName(name)} />
     },
   });
 };

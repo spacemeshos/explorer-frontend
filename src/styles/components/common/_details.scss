@@ -25,6 +25,10 @@
         padding-left: 5px;
         @include theme-aware('background-color', 'searchBackground');
 
+        .dropDownLink {
+          margin-right: 18px;
+        }
+
         a {
           cursor: pointer;
           position: relative;
