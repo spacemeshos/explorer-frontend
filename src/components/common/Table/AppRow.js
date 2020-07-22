@@ -18,7 +18,7 @@ const AppRow = (props: Props) => {
 
   return data.case({
     pending: () => {
-      return <RowPreloader rowCount={7}/>
+      return <RowPreloader rowCount={2}/>
     },
     fulfilled: (value) => {
       return (

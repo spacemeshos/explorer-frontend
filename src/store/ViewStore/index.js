@@ -92,7 +92,6 @@ class ViewStore {
   showSearchResult(searchString) {
     const page = this.defineIdType(searchString);
     page ? this.showDetailPage({ page, id: searchString }) : this.showDetailPage({ page: NOT_FOUND, id: searchString });
-    console.log('this.currentView', this.currentView.name);
   }
 
   getNetworks() {
