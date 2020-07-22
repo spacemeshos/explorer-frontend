@@ -1,6 +1,6 @@
 // @flow
-// const testApi = 'https://5f058f8fee44800016d3829a.mockapi.io/api/v1';
-const API_URL = process.env.REACT_APP_API_URL || '';
+const testApi = 'https://5f058f8fee44800016d3829a.mockapi.io/api/v1';
+const API_URL = process.env.REACT_APP_API_URL || testApi;
 
 export function fetchAPI(path, options) {
   const fetchOptions = {};
