@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import shortFormHash from '../../../helper/longFormHash';
 
 import { SMART_WALLET } from '../../../config/constants';
-import RowPreloader from './RowPreloader';
+import Loader from '../Loader';
 
 type Props = {
   data: Array<object>,
@@ -18,7 +18,7 @@ const AppRow = (props: Props) => {
 
   return data.case({
     pending: () => {
-      return <RowPreloader rowCount={2}/>
+      return <Loader size={100}/>
     },
     fulfilled: (value) => {
       return (

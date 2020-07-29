@@ -5,13 +5,13 @@ import { observer } from "mobx-react";
 
 import shortFormHash from '../../../helper/shortFormHash';
 import longFormHash from '../../../helper/longFormHash';
-import RowPreloader from './RowPreloader';
 import {
   ACCOUNTS,
   LAYERS,
   REWARDS,
   SMESHER,
 } from '../../../config/constants';
+import Loader from '../Loader';
 
 type Props = {
   data: Array<object>,
@@ -23,7 +23,7 @@ const RewardsRow = (props: Props) => {
 
   return data.case({
     pending: () => {
-      return <RowPreloader rowCount={7}/>
+      return <Loader size={100}/>
     },
     fulfilled: (value) => {
       return (

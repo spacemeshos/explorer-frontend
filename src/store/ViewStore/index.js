@@ -103,6 +103,7 @@ class ViewStore {
   showDetailPage({ page, id }) {
     this.currentView = {
       name: page,
+      data: fromPromise(getMockerByPage(page)),
       id,
     };
   }
@@ -110,6 +111,7 @@ class ViewStore {
   showSubPage({ page, id, subPage }) {
     this.currentView = {
       name: page,
+      data: fromPromise(getMockerByPage(subPage)),
       id,
       subPage,
     };
