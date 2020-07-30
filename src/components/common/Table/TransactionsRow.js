@@ -6,9 +6,9 @@ import { nanoid } from 'nanoid';
 import StatusIcon from '../StatusIcon';
 import shortFormHash from '../../../helper/shortFormHash';
 import longFormHash from '../../../helper/longFormHash';
-import RowPreloader from './RowPreloader';
 
 import { ACCOUNTS, LAYERS, TXNS } from '../../../config/constants';
+import Loader from '../Loader';
 
 type Props = {
   data: Array<object>,
@@ -20,7 +20,7 @@ const TransactionsRow = (props: Props) => {
 
  return data.case({
    pending: () => {
-     return <RowPreloader rowCount={7}/>
+     return <Loader size={100}/>
    },
    fulfilled: (value) => {
      return value.map((item) => (

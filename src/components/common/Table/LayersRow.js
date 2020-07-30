@@ -8,7 +8,7 @@ import shortFormHash from '../../../helper/longFormHash';
 import {
   ATXS, LAYERS, REWARDS, TXNS,
 } from '../../../config/constants';
-import RowPreloader from './RowPreloader';
+import Loader from '../Loader';
 
 type Props = {
   data: Array<object>,
@@ -20,7 +20,7 @@ const LayersRow = (props: Props) => {
 
   return data.case({
     pending: () => {
-      return <RowPreloader rowCount={7}/>
+      return <Loader size={100}/>
     },
     fulfilled: (value) => {
       return (

@@ -94,7 +94,12 @@ const Table = (props: Props) => {
         );
       case REWARDS:
         return (
-          <RewardsRow key={nanoid()} data={viewStore.currentView.data} config={tableFieldConfig[name]} viewStore={viewStore} />
+          <RewardsRow
+            key={nanoid()}
+            data={viewStore.currentView.data}
+            config={tableFieldConfig[name]}
+            viewStore={viewStore}
+          />
         );
       case ACCOUNTS:
         return (

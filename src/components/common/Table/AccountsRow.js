@@ -3,10 +3,11 @@ import * as React from 'react';
 import { nanoid } from 'nanoid';
 import { observer } from 'mobx-react';
 
+import Loader from '../Loader';
+
 import shortFormHash from '../../../helper/longFormHash';
 
 import { ACCOUNTS } from '../../../config/constants';
-import RowPreloader from './RowPreloader';
 
 type Props = {
   data: Array<object>,
@@ -18,7 +19,7 @@ const AccountsRow = (props: Props) => {
 
   return data.case({
     pending: () => {
-      return <RowPreloader rowCount={7}/>
+      return <Loader size={100}/>
     },
     fulfilled: (value) => {
       return (
