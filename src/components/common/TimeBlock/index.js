@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 const TimeBlock = () => {
-  const epoch = 123123121123;
+  const epoch = '0';
   const layer = null;
 
   return (
