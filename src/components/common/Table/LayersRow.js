@@ -9,6 +9,7 @@ import {
   ATXS, LAYERS, REWARDS, TXNS,
 } from '../../../config/constants';
 import Loader from '../Loader';
+import NoData from '../NoData';
 
 type Props = {
   data: Array<object>,
@@ -22,9 +23,9 @@ const LayersRow = (props: Props) => {
     pending: () => {
       return <Loader size={100}/>
     },
-    fulfilled: (value) => {
+    fulfilled: ({ data }) => {
       return (
-        value.map((item) => (
+        data.length !== 0 ?data.map((item) => (
           <div key={nanoid()} className="tr">
             <div className="td">
               <a href={`/${LAYERS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.id)}>
@@ -50,10 +51,10 @@ const LayersRow = (props: Props) => {
               </a>
             </div>
           </div>
-        ))
+        )) : (<NoData />)
       );
     },
-    rejected: () => {},
+    rejected: () => (<NoData />),
   });
 };
 

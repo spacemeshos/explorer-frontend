@@ -1,5 +1,6 @@
 // @flow
-const testApi = 'https://5f058f8fee44800016d3829a.mockapi.io/api/v1';
+// TODO set env var on Server
+const testApi = 'http://134.122.64.118:5000';
 const API_URL = process.env.REACT_APP_API_URL || testApi;
 
 export function fetchAPI(path, options) {

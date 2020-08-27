@@ -14,12 +14,12 @@ const overviewData = {
       "name": "TestNet 0.2 'TweedleDee'"
     },
   ],
-  transactions: 3222,
-  smeshingRewards: 523,
-  security: 421431432,
-  epochs: 17,
-  layers: 126873,
-  activeSmeshers: 521,
+  transactions: 0,
+  smeshingRewards: 0,
+  security: 0,
+  epochs: 0,
+  layers: 0,
+  activeSmeshers: 0,
 };
 
 const transactionsData = [

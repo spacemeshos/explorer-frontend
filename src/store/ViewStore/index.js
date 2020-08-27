@@ -77,7 +77,7 @@ class ViewStore {
   showOverview() {
     this.currentView = {
       name: OVERVIEW,
-      data: fromPromise(transactionMocker()),
+      data: fromPromise(this.fetch('txs')),
     };
     this.mainInfo = fromPromise(overviewMocker());
   }
@@ -85,7 +85,7 @@ class ViewStore {
   showPage({ page }) {
     this.currentView = {
       name: page,
-      data: fromPromise(getMockerByPage(page))
+      data: fromPromise(this.fetch(page))
     };
   }
 
@@ -95,9 +95,10 @@ class ViewStore {
   }
 
   getNetworks() {
-    this.fetch(`/networks`).then(data => {
-      this.networks = data.map(item => ({value: item.domain, label: item.name}))
-    });
+    // TODO uncomment when will be available
+    // this.fetch(`networks`).then(data => {
+    //   this.networks = data.map(item => ({value: item.domain, label: item.name}))
+    // });
   }
 
   showDetailPage({ page, id }) {
@@ -126,7 +127,7 @@ class ViewStore {
     }
   }
 
-  defineIdType(value) {
+  static defineIdType(value) {
     return false;
   }
 }

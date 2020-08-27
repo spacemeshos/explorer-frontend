@@ -10,6 +10,7 @@ import {
   TXNS,
 } from '../../../config/constants';
 import Loader from '../Loader';
+import NoData from '../NoData';
 
 type Props = {
   data: Array<object>,
@@ -23,9 +24,9 @@ const EpochsRow = (props: Props) => {
     pending: () => {
       return <Loader size={100}/>
     },
-    fulfilled: (value) => {
+    fulfilled: ({ data }) => {
       return (
-        value.map((item) => (
+        data.length !== 0 ? data.map((item) => (
           <div key={nanoid()} className="tr">
             <div className="td"><a href={`/${EPOCHS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, item.id)}>{item.id}</a></div>
             <div className="td">{item.started}</div>
@@ -36,10 +37,10 @@ const EpochsRow = (props: Props) => {
             <div className="td"><a href={`/${EPOCHS}/${item.id}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, item.id, REWARDS)}>{item.rewards}</a></div>
             <div className="td">{item.total}</div>
           </div>
-        ))
+        )) : (<NoData />)
       );
     },
-    rejected: () => {},
+    rejected: () => (<NoData />),
   });
 };
 

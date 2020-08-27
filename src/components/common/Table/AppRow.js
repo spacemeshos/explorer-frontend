@@ -7,6 +7,7 @@ import shortFormHash from '../../../helper/longFormHash';
 
 import { SMART_WALLET } from '../../../config/constants';
 import Loader from '../Loader';
+import NoData from '../NoData';
 
 type Props = {
   data: Array<object>,
@@ -20,9 +21,9 @@ const AppRow = (props: Props) => {
     pending: () => {
       return <Loader size={100}/>
     },
-    fulfilled: (value) => {
+    fulfilled: ({data}) => {
       return (
-        value.map((item) => (
+        data.length !== 0 ? data.map((item) => (
           <div key={nanoid()} className="tr">
             <div className="td">
               <a href={`${SMART_WALLET}/${item.address}`} onClick={(e) => viewStore.linkHandler(e, SMART_WALLET, item.address)}>
@@ -40,10 +41,10 @@ const AppRow = (props: Props) => {
               SMH
             </div>
           </div>
-        ))
+        )) : (<NoData />)
       );
     },
-    rejected: () => {},
+    rejected: () => (<NoData />),
   })
 };
 

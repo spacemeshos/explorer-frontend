@@ -59,7 +59,7 @@ const RenderMainPage = (props: Props) => {
               desc="Epochs across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number="231" startTime={1595253553} unit="epochs" color={getColorByPageName(name)} />
+            <AmountBlock number="000" startTime={0} unit="epochs" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -89,7 +89,7 @@ const RenderMainPage = (props: Props) => {
               desc="Transactions across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number="231" startTime={1595253553} unit="txs" color={getColorByPageName(name)} />
+            <AmountBlock number="000" startTime={0} unit="txs" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -104,7 +104,7 @@ const RenderMainPage = (props: Props) => {
               desc="Rewards across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number="231" startTime={1595253553} unit="rewards distributed" color={getColorByPageName(name)} />
+            <AmountBlock number="000" startTime={0} unit="rewards distributed" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -119,7 +119,7 @@ const RenderMainPage = (props: Props) => {
               desc="Accounts across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number="231" startTime={1595253553} unit="accnts" color={getColorByPageName(name)} />
+            <AmountBlock number="000" startTime={0} unit="accnts" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -134,7 +134,7 @@ const RenderMainPage = (props: Props) => {
               desc="Smart Wallets across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number="231" startTime={1595253553} unit="accnts" color={getColorByPageName(name)} />
+            <AmountBlock number="000" startTime={0} unit="accnts" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -149,7 +149,7 @@ const RenderMainPage = (props: Props) => {
               desc="Specific details for this awards"
               uiStore={uiStore}
             />
-            <AmountBlock number="000" startTime={1595253553} unit="txns" color={getColorByPageName(name)} />
+            <AmountBlock number="000" startTime={0} unit="txns" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
