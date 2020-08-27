@@ -12,6 +12,7 @@ import {
   SMESHER,
 } from '../../../config/constants';
 import Loader from '../Loader';
+import NoData from '../NoData';
 
 type Props = {
   data: Array<object>,
@@ -25,9 +26,9 @@ const RewardsRow = (props: Props) => {
     pending: () => {
       return <Loader size={100}/>
     },
-    fulfilled: (value) => {
+    fulfilled: ({ data }) => {
       return (
-        value.map((item) => (
+        data.length !== 0 ? data.map((item) => (
           <div key={nanoid()} className="tr">
             <div className="td">
               <a href={`/${REWARDS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, REWARDS, item.id)}>
@@ -58,10 +59,10 @@ const RewardsRow = (props: Props) => {
               SMH
             </div>
           </div>
-        ))
+        )) : (<NoData />)
       );
     },
-    rejected: () => {},
+    rejected: () => (<NoData/>)
   });
 };
 

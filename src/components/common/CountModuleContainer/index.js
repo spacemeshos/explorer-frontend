@@ -17,16 +17,22 @@ const CountModuleContainer = (props: Props) => {
   let number = null;
   let startTime = null;
 
-  const setParams = (data) => {
-    switch (name) {
-      case OVERVIEW:
-        number = data[0].amount;
-        startTime = data[0].start_time;
-        return;
-      case LAYERS:
-        number = data[0].number;
-        startTime = data[0].start_time;
-        return;
+  const setParams = ({ data }) => {
+
+    if (data && data.length === 0) {
+      number = "0";
+      startTime = "0";
+    } else {
+      switch (name) {
+        case OVERVIEW:
+          number = data[0].amount;
+          startTime = data[0].start_time;
+          return;
+        case LAYERS:
+          number = data[0].number;
+          startTime = data[0].start_time;
+          return;
+      }
     }
   };
 

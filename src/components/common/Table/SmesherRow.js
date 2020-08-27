@@ -7,6 +7,7 @@ import shortFormHash from '../../../helper/longFormHash';
 
 import { ACCOUNTS, SMESHER } from '../../../config/constants';
 import Loader from '../Loader';
+import NoData from '../NoData';
 
 type Props = {
   data: Array<object>,
@@ -20,9 +21,9 @@ const SmesherRow = (props: Props) => {
     pending: () => {
       return <Loader size={100}/>
     },
-    fulfilled: (value) => {
+    fulfilled: ({ data }) => {
       return (
-        value.map((item) => (
+        data.length !== 0 ? data.map((item) => (
           <div key={nanoid()} className="tr">
             <div className="td">
               <a href={`${SMESHER}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, item.id)}>
@@ -45,14 +46,10 @@ const SmesherRow = (props: Props) => {
               SMH
             </div>
           </div>
-        ))
+        )) : (<NoData/>)
       );
     },
-    rejected: () => {
-      return (
-        <div>No result...</div>
-      )
-    },
+    rejected: () => (<NoData/>),
   })
 };
 

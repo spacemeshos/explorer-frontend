@@ -9,6 +9,7 @@ import longFormHash from '../../../helper/longFormHash';
 
 import { ACCOUNTS, LAYERS, TXNS } from '../../../config/constants';
 import Loader from '../Loader';
+import NoData from '../NoData';
 
 type Props = {
   data: Array<object>,
@@ -22,35 +23,37 @@ const TransactionsRow = (props: Props) => {
    pending: () => {
      return <Loader size={100}/>
    },
-   fulfilled: (value) => {
-     return value.map((item) => (
-       <div key={nanoid()} className="tr">
-         <div className="td">
-           <StatusIcon status="confirmed" />
-           <a href={`/${TXNS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, TXNS, item.id)}>
-             {shortFormHash(item.id)}
-           </a>
+   fulfilled: ({ data }) => {
+     return (
+       data.length !== 0 ? data.map((item) => (
+         <div key={nanoid()} className="tr">
+           <div className="td">
+             <StatusIcon status="confirmed" />
+             <a href={`/${TXNS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, TXNS, item.id)}>
+               {shortFormHash(item.id)}
+             </a>
+           </div>
+           <div className="td">
+             <a href={`/${LAYERS}/${item.layer}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.layer)}>
+               {item.layer}
+             </a>
+           </div>
+           <div className="td">{item.value}</div>
+           <div className="td">
+             <a href={`/${ACCOUNTS}/${item.from}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.from)}>
+               {longFormHash(item.from)}
+             </a>
+             <div className="arrow">-&gt;</div>
+           </div>
+           <div className="td">
+             <a href={`/${ACCOUNTS}/${item.to}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.to)}>
+               {longFormHash(item.to)}
+             </a>
+           </div>
+           <div className="td">{item.type.toUpperCase()}</div>
          </div>
-         <div className="td">
-           <a href={`/${LAYERS}/${item.layer}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.layer)}>
-             {item.layer}
-           </a>
-         </div>
-         <div className="td">{item.value}</div>
-         <div className="td">
-           <a href={`/${ACCOUNTS}/${item.from}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.from)}>
-             {longFormHash(item.from)}
-           </a>
-           <div className="arrow">-&gt;</div>
-         </div>
-         <div className="td">
-           <a href={`/${ACCOUNTS}/${item.to}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.to)}>
-             {longFormHash(item.to)}
-           </a>
-         </div>
-         <div className="td">{item.type.toUpperCase()}</div>
-       </div>
-     ))
+       )) : (<NoData />)
+     )
    },
    rejected: () => {},
  })

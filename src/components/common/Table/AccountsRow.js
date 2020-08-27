@@ -8,6 +8,7 @@ import Loader from '../Loader';
 import shortFormHash from '../../../helper/longFormHash';
 
 import { ACCOUNTS } from '../../../config/constants';
+import NoData from '../NoData';
 
 type Props = {
   data: Array<object>,
@@ -21,9 +22,9 @@ const AccountsRow = (props: Props) => {
     pending: () => {
       return <Loader size={100}/>
     },
-    fulfilled: (value) => {
+    fulfilled: ({ data }) => {
       return (
-        value.map((item) => (
+        data.length !== 0 ?data.map((item) => (
           <div key={nanoid()} className="tr">
             <div className="td">
               <a href={`${ACCOUNTS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.id)}>
@@ -48,10 +49,10 @@ const AccountsRow = (props: Props) => {
               SMH
             </div>
           </div>
-        ))
+        )) : (<NoData />)
       );
     },
-    rejected: () => {},
+    rejected: () => (<NoData />),
   })
 };
 
