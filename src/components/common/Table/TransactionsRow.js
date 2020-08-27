@@ -55,7 +55,7 @@ const TransactionsRow = (props: Props) => {
        )) : (<NoData />)
      )
    },
-   rejected: () => {},
+   rejected: () => (<NoData />),
  })
 };
 
