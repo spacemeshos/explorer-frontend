@@ -1,6 +1,6 @@
 // @flow
 // TODO set env var on Server
-const testApi = 'http://134.122.64.118:5000';
+const testApi = 'https://stage-explore.spacemesh.io/api';
 const API_URL = process.env.REACT_APP_API_URL || testApi;
 
 export function fetchAPI(path, options) {
