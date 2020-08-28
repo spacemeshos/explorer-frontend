@@ -20,6 +20,7 @@ import {
   SMART_WALLET,
 } from '../../config/constants';
 import CountModuleContainer from "../../components/common/CountModuleContainer";
+import RewardsRightColumn from '../../components/common/RewardsRightColumn';
 
 type Props = {
   uiStore: Object,
@@ -104,7 +105,7 @@ const RenderMainPage = (props: Props) => {
               desc="Rewards across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number="000" startTime={0} unit="rewards distributed" color={getColorByPageName(name)} />
+            <RewardsRightColumn color={getColorByPageName(name)}/>
           </div>
           <Table name={name} viewStore={viewStore} />
         </>

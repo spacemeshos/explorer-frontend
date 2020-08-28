@@ -1,0 +1,25 @@
+.rightColumn {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 15px 10px;
+  margin-left: 15px;
+
+  &-number {
+    font-size: 60px;
+    line-height: 47px;
+    align-self: end;
+  }
+
+  &-desc {
+    font-size: 12px;
+    text-transform: uppercase;
+    align-self: end;
+    @include theme-aware('color', 'countTextColor');
+  }
+
+  &-data {
+    font-size: 12px;
+    align-self: end;
+    @include theme-aware('color', 'countTextColor');
+  }
+}
