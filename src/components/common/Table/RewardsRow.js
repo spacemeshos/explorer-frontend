@@ -13,6 +13,7 @@ import {
 } from '../../../config/constants';
 import Loader from '../Loader';
 import NoData from '../NoData';
+import { smhCoinConverter } from '../../../helper/converter';
 
 type Props = {
   data: Array<object>,
@@ -36,17 +37,17 @@ const RewardsRow = (props: Props) => {
               </a>
             </div>
             <div className="td">
-              <a href={`/${ACCOUNTS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.id)}>
-                {longFormHash(item.account)}
+              <a href={`/${ACCOUNTS}/${item.coinbase}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.coinbase)}>
+                {longFormHash(item.coinbase)}
               </a>
             </div>
             <div className="td">
-              <a href={`/${SMESHER}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, item.id)}>
+              <a href={`/${SMESHER}/${item.smesher}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, item.smesher)}>
                 {longFormHash(item.smesher)}
               </a>
             </div>
             <div className="td">
-              <a href={`/${LAYERS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.id)}>
+              <a href={`/${LAYERS}/${item.layer}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.layer)}>
                 {item.layer}
               </a>
             </div>
@@ -55,8 +56,7 @@ const RewardsRow = (props: Props) => {
               GB
             </div>
             <div className="td">
-              {item.value}
-              SMH
+              {smhCoinConverter(item.total)}
             </div>
           </div>
         )) : (<NoData />)
