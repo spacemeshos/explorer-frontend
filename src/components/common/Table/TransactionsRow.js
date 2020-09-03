@@ -24,6 +24,7 @@ const TransactionsRow = (props: Props) => {
      return <Loader size={100}/>
    },
    fulfilled: ({ data }) => {
+
      return (
        data.length !== 0 ? data.map((item) => (
          <div key={nanoid()} className="tr">
@@ -38,19 +39,19 @@ const TransactionsRow = (props: Props) => {
                {item.layer}
              </a>
            </div>
-           <div className="td">{item.value}</div>
+           <div className="td">{item.amount}</div>
            <div className="td">
-             <a href={`/${ACCOUNTS}/${item.from}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.from)}>
-               {longFormHash(item.from)}
+             <a href={`/${ACCOUNTS}/${item.sender}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.from)}>
+               {longFormHash(item.sender)}
              </a>
              <div className="arrow">-&gt;</div>
            </div>
            <div className="td">
-             <a href={`/${ACCOUNTS}/${item.to}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.to)}>
-               {longFormHash(item.to)}
+             <a href={`/${ACCOUNTS}/${item.receiver}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.to)}>
+               {longFormHash(item.receiver)}
              </a>
            </div>
-           <div className="td">{item.type.toUpperCase()}</div>
+           <div className="td">{item.type}</div>
          </div>
        )) : (<NoData />)
      )
