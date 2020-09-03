@@ -10,6 +10,8 @@ import {
 } from '../../../config/constants';
 import Loader from '../Loader';
 import NoData from '../NoData';
+import moment from 'moment';
+import {smhCoinConverter} from '../../../helper/converter';
 
 type Props = {
   data: Array<object>,
@@ -24,30 +26,31 @@ const LayersRow = (props: Props) => {
       return <Loader size={100}/>
     },
     fulfilled: ({ data }) => {
+      console.log(data);
       return (
         data.length !== 0 ?data.map((item) => (
           <div key={nanoid()} className="tr">
             <div className="td">
-              <a href={`/${LAYERS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.id)}>
-                {shortFormHash(item.id)}
+              <a href={`/${LAYERS}/${item.number}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.number)}>
+                {item.number}
               </a>
             </div>
             <div className="td">
-              <a href={`/${LAYERS}/${item.id}/${TXNS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.id, TXNS)}>
-                {item.transactions}
+              <a href={`/${LAYERS}/${item.txs}/${TXNS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.txs, TXNS)}>
+                {item.txs}
               </a>
             </div>
             <div className="td">
-              {item.age}
+              { moment.unix(item.end).fromNow() }
             </div>
             <div className="td">
               <a href={`/${LAYERS}/${item.id}/${ATXS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.id, ATXS)}>
-                {item.txnValue} SMH
+                {smhCoinConverter(item.txsamount)}
               </a>
             </div>
             <div className="td">
               <a href={`/${LAYERS}/${item.id}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.id, REWARDS)}>
-                {item.atxValue} SMH
+                {smhCoinConverter(item.atxssize)}
               </a>
             </div>
           </div>
