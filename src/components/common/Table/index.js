@@ -25,6 +25,10 @@ import LayersRow from './LayersRow';
 import AtxsRow from './AtxsRow';
 import BlocksRow from './BlocksRow';
 import AppRow from './AppRow';
+import RewardsRowEx from './RewardsRowEx';
+import {useEffect, useState} from "react";
+import {toJS} from 'mobx';
+import {observer} from 'mobx-react';
 
 type Props = {
   viewStore: Object,
@@ -53,6 +57,25 @@ const blocksTableData = [
 
 const Table = (props: Props) => {
   const { viewStore, name } = props;
+  const data = toJS(viewStore.currentView.data);
+
+  const [isFetching, setIsFetching] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
+    setIsFetching(true);
+    console.log('Fetch more list items!');
+  };
+
+  useEffect(() => {
+    if (!isFetching) return;
+    viewStore.getPaginationData(name, 1);
+  }, [isFetching]);
 
   const renderTableData = () => {
     switch (name) {
@@ -94,9 +117,9 @@ const Table = (props: Props) => {
         );
       case REWARDS:
         return (
-          <RewardsRow
+          <RewardsRowEx
             key={nanoid()}
-            data={viewStore.currentView.data}
+            data={data}
             config={tableFieldConfig[name]}
             viewStore={viewStore}
           />
@@ -137,4 +160,4 @@ const Table = (props: Props) => {
   );
 };
 
-export default Table;
+export default observer(Table);

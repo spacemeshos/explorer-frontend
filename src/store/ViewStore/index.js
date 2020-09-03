@@ -3,7 +3,7 @@ import {
   observable,
   computed,
   action,
-  decorate,
+  decorate, toJS, runInAction,
 } from 'mobx';
 
 import { fromPromise } from 'mobx-utils';
@@ -19,7 +19,7 @@ import {
   SMESHER,
   SMART_WALLET,
   BLOCKS,
-  NOT_FOUND,
+  NOT_FOUND, STATUS_LOADING, STATUS_SUCCESS, STATUS_ERROR,
 } from '../../config/constants';
 
 class ViewStore {
@@ -36,6 +36,8 @@ class ViewStore {
     id: null,
     subPage: null,
     data: null,
+    pagination: null,
+    state: STATUS_LOADING,
   };
 
   get currentPath() {
@@ -82,16 +84,61 @@ class ViewStore {
     this.mainInfo = fromPromise(overviewMocker());
   }
 
-  showPage({ page }) {
-    this.currentView = {
-      name: page,
-      data: fromPromise(this.fetch(page))
-    };
+  async showPage({ page }) {
+    this.currentView.data = null;
+    this.currentView.pagination = null;
+    this.currentView.name = page;
+
+    try {
+      const rawData = await this.fetch(page);
+      runInAction(() => {
+        this.currentView.state = STATUS_SUCCESS;
+        this.currentView.data = rawData.data;
+        this.currentView.pagination = rawData.pagination;
+      })
+    } catch (e) {
+      this.currentView.state = STATUS_ERROR;
+    }
   }
 
   showSearchResult(searchString) {
     const page = this.defineIdType(searchString);
     page ? this.showDetailPage({ page, id: searchString }) : this.showDetailPage({ page: NOT_FOUND, id: searchString });
+  }
+
+  getPaginationData(page, pageNumber) {
+    console.log('getPaginationData page');
+    const pageSize = 20;
+    //this.currentView.state = STATUS_LOADING;
+
+
+    this.fetch(`${page}?page=${pageNumber}&pagesize=${pageSize}`).then(
+      (result) => {
+        console.log('result', result);
+        this.currentView.name = page;
+        this.currentView.data = [...this.currentView.data, ...result.data];
+        this.currentView.state = STATUS_SUCCESS;
+      },
+      (error) => {
+        this.currentView.state = STATUS_ERROR;
+      }
+    );
+
+
+
+    //console.log('this.currentView.data', this.currentView.data.value.data = []);
+    //console.log('this.currentView.data', this.currentView.data.value.data);
+
+    // this.fetch(`${page}?page=${pageNumber}&pagesize=${pageSize}`).then((result) => {
+    //   this.currentView.data.value.data = [...this.currentView.data.value.data, ...result.data]
+    // });
+    //this.currentView.data.then();
+    // const previousArray = this.currentView.data.value.data;
+    //
+    // this.currentView = {
+    //   name: page,
+    //   data: fromPromise(this.fetch(`${page}?page=${pageNumber}&pagesize=${pageSize}`)),
+    // };
   }
 
   getNetworks() {
@@ -134,10 +181,12 @@ class ViewStore {
 
 decorate(ViewStore, {
   currentView: observable,
+  dataArray: observable,
   networks: observable,
   currentPath: computed,
   getNetworks: action,
   linkHandler: action,
+  getPaginationData: action,
   showSearchResult: action,
   showPage: action,
   showDetailPage: action,
