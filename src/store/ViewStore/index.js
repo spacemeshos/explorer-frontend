@@ -109,14 +109,13 @@ class ViewStore {
   getPaginationData(page, pageNumber) {
     console.log('getPaginationData page');
     const pageSize = 20;
-    //this.currentView.state = STATUS_LOADING;
-
 
     this.fetch(`${page}?page=${pageNumber}&pagesize=${pageSize}`).then(
       (result) => {
         console.log('result', result);
         this.currentView.name = page;
         this.currentView.data = [...this.currentView.data, ...result.data];
+        this.currentView.pagination = result.pagination;
         this.currentView.state = STATUS_SUCCESS;
       },
       (error) => {
@@ -124,21 +123,6 @@ class ViewStore {
       }
     );
 
-
-
-    //console.log('this.currentView.data', this.currentView.data.value.data = []);
-    //console.log('this.currentView.data', this.currentView.data.value.data);
-
-    // this.fetch(`${page}?page=${pageNumber}&pagesize=${pageSize}`).then((result) => {
-    //   this.currentView.data.value.data = [...this.currentView.data.value.data, ...result.data]
-    // });
-    //this.currentView.data.then();
-    // const previousArray = this.currentView.data.value.data;
-    //
-    // this.currentView = {
-    //   name: page,
-    //   data: fromPromise(this.fetch(`${page}?page=${pageNumber}&pagesize=${pageSize}`)),
-    // };
   }
 
   getNetworks() {

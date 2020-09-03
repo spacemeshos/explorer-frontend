@@ -1,6 +1,8 @@
 // @flow
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import { toJS } from 'mobx';
+import { observer } from 'mobx-react';
 
 import TransactionsRow from './TransactionsRow';
 import EpochsRow from './EpochsRow';
@@ -25,10 +27,6 @@ import LayersRow from './LayersRow';
 import AtxsRow from './AtxsRow';
 import BlocksRow from './BlocksRow';
 import AppRow from './AppRow';
-import RewardsRowEx from './RewardsRowEx';
-import {useEffect, useState} from "react";
-import {toJS} from 'mobx';
-import {observer} from 'mobx-react';
 
 type Props = {
   viewStore: Object,
@@ -57,16 +55,18 @@ const blocksTableData = [
 
 const Table = (props: Props) => {
   const { viewStore, name } = props;
+
   const data = toJS(viewStore.currentView.data);
+  const pagination = toJS(viewStore.currentView.pagination);
 
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', pageEndDetection);
+    return () => window.removeEventListener('scroll', pageEndDetection);
   }, []);
 
-  const handleScroll = () => {
+  const pageEndDetection = () => {
     if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
     setIsFetching(true);
     console.log('Fetch more list items!');
@@ -74,7 +74,8 @@ const Table = (props: Props) => {
 
   useEffect(() => {
     if (!isFetching) return;
-    viewStore.getPaginationData(name, 1);
+    pagination.hasNext && viewStore.getPaginationData(name, pagination.next);
+    setIsFetching(false);
   }, [isFetching]);
 
   const renderTableData = () => {
@@ -117,7 +118,7 @@ const Table = (props: Props) => {
         );
       case REWARDS:
         return (
-          <RewardsRowEx
+          <RewardsRow
             key={nanoid()}
             data={data}
             config={tableFieldConfig[name]}
