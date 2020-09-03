@@ -30,7 +30,6 @@ const divideNumber = (number) => {
 };
 
 export const smhCoinConverter = (amount: number) => {
-  console.log('--------------->>>>>>>>>', amount);
   let v = 0;
   let unit = 'SMH';
 
