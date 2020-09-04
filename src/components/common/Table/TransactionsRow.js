@@ -18,7 +18,7 @@ const TransactionsRow = (props: Props) => {
   const { data, viewStore } = props;
 
   return (
-    data && data.length !== 0 && data.map((item) => (
+    data && data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
           <StatusIcon status="confirmed" />

@@ -37,7 +37,7 @@ class ViewStore {
     subPage: null,
     data: null,
     pagination: null,
-    state: STATUS_LOADING,
+    status: STATUS_LOADING,
   };
 
   get currentPath() {
@@ -75,23 +75,22 @@ class ViewStore {
     return `/${data.name}`;
   }
 
-  // TODO: change overviewMocker() to this.fetch('/your url') for getting real data
   async showOverview() {
     this.currentView.data = null;
     this.currentView.pagination = null;
     this.currentView.name = OVERVIEW;
-
+    this.currentView.status = STATUS_LOADING;
     try {
       const rawData = await this.fetch('txs');
       this.mainInfo = await overviewMocker();
 
       runInAction(() => {
-        this.currentView.state = STATUS_SUCCESS;
+        this.currentView.status = STATUS_SUCCESS;
         this.currentView.data = rawData.data;
         this.currentView.pagination = rawData.pagination;
       })
     } catch (e) {
-      this.currentView.state = STATUS_ERROR;
+      this.currentView.status = STATUS_ERROR;
     }
   }
 
@@ -99,16 +98,16 @@ class ViewStore {
     this.currentView.data = null;
     this.currentView.pagination = null;
     this.currentView.name = page;
-
+    this.currentView.status = STATUS_LOADING;
     try {
       const rawData = await this.fetch(page);
       runInAction(() => {
-        this.currentView.state = STATUS_SUCCESS;
+        this.currentView.status = STATUS_SUCCESS;
         this.currentView.data = rawData.data;
         this.currentView.pagination = rawData.pagination;
       })
     } catch (e) {
-      this.currentView.state = STATUS_ERROR;
+      this.currentView.status = STATUS_ERROR;
     }
   }
 
@@ -126,10 +125,10 @@ class ViewStore {
         this.currentView.name = page;
         this.currentView.data = [...this.currentView.data, ...result.data];
         this.currentView.pagination = result.pagination;
-        this.currentView.state = STATUS_SUCCESS;
+        this.currentView.status = STATUS_SUCCESS;
       },
       (error) => {
-        this.currentView.state = STATUS_ERROR;
+        this.currentView.status = STATUS_ERROR;
       }
     );
   }

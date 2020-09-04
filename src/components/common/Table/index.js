@@ -20,13 +20,15 @@ import {
   SMESHER,
   TXNS,
   ATXS,
-  BLOCKS,
+  BLOCKS, STATUS_LOADING, STATUS_SUCCESS, STATUS_ERROR,
 } from '../../../config/constants';
 import tableFieldConfig from './config/tableFieldConfig';
 import LayersRow from './LayersRow';
 import AtxsRow from './AtxsRow';
 import BlocksRow from './BlocksRow';
 import AppRow from './AppRow';
+import Loader from '../Loader';
+import NoData from '../NoData';
 
 type Props = {
   viewStore: Object,
@@ -57,6 +59,7 @@ const Table = (props: Props) => {
   const { viewStore, name } = props;
 
   const data = toJS(viewStore.currentView.data);
+  const status = toJS(viewStore.currentView.status);
   const pagination = toJS(viewStore.currentView.pagination);
 
   const [isFetching, setIsFetching] = useState(false);
@@ -74,7 +77,9 @@ const Table = (props: Props) => {
 
   useEffect(() => {
     if (!isFetching) return;
-    pagination.hasNext && viewStore.getPaginationData(name, pagination.next);
+    pagination
+    && pagination.hasNext
+    && viewStore.getPaginationData(name, pagination.next);
     setIsFetching(false);
   }, [isFetching]);
 
@@ -84,7 +89,7 @@ const Table = (props: Props) => {
         return (
           <TransactionsRow
             key={nanoid()}
-            data={data}
+            data={data.slice(0,7)}
             config={tableFieldConfig[name]}
             viewStore={viewStore}
           />
@@ -155,7 +160,7 @@ const Table = (props: Props) => {
       <div className="tr th">
         { tableFieldConfig[name].map((item) => <div key={nanoid()} className="td">{item.fieldName}</div>) }
       </div>
-      { renderTableData() }
+      { status === STATUS_LOADING ? (<Loader size={100} />) : status === STATUS_ERROR ? (<NoData />) : renderTableData() }
     </div>
 
   );
