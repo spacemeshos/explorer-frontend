@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import TitleBlock from '../../components/common/TitleBlock';
 import { AmountBlock, CountTxnsBlock } from '../../components/common/CountBlock';
-import { DetailsEpoch, DetailsTxns } from '../../components/common/Details';
+import { DetailsEpoch, DetailsCoinTxns } from '../../components/common/Details';
 import DetailsLayer from '../../components/common/Details/DetailsLayer';
 import longFormHash from '../../helper/longFormHash';
 import TxnsStatus from '../../components/common/TxnsStatus';
@@ -27,6 +27,9 @@ import {
 import DetailsBlock from '../../components/common/Details/DetailBlock';
 import DetailSmesher from '../../components/common/Details/DetailSmesher';
 import DetailApp from '../../components/common/Details/DetailApp';
+import {toJS} from 'mobx';
+import {observer} from 'mobx-react';
+import Loader from '../../components/common/Loader';
 
 type Props = {
   name: string,
@@ -37,6 +40,11 @@ type Props = {
 
 const RenderDetailPage = (props: Props) => {
   const { name, id, uiStore, viewStore } = props;
+
+  const data = toJS(viewStore.currentView.data);
+  const status = toJS(viewStore.currentView.status);
+  const pagination = toJS(viewStore.currentView.pagination);
+
   switch (name) {
     case EPOCHS:
       return (
@@ -58,14 +66,14 @@ const RenderDetailPage = (props: Props) => {
         <>
           <div className="page-wrap">
             <TitleBlock
-              title={`Layers ${id} - details`}
+              title={`Layer ${id} - details`}
               color={getColorByPageName(name)}
-              desc="Epochs across the entire mesh"
+              desc="Layers across the entire mesh"
               uiStore={uiStore}
             />
             <AmountBlock value="137" unit="layers" color={getColorByPageName(name)} />
           </div>
-          <DetailsLayer viewStore={viewStore} />
+          <DetailsLayer data={data} viewStore={viewStore}/>
         </>
       );
     case TXNS:
@@ -78,10 +86,14 @@ const RenderDetailPage = (props: Props) => {
               desc="Transactions across the entire mesh"
               uiStore={uiStore}
             />
-            <CountTxnsBlock value="999,999.224" color={getColorByPageName(name)} />
+            <CountTxnsBlock value="000" color={getColorByPageName(name)} />
           </div>
-          <TxnsStatus status="approved" />
-          <DetailsTxns />
+          {data ? (
+            <>
+              <TxnsStatus status="approved" />
+              <DetailsCoinTxns data={data} viewStore={viewStore} id={id}/>
+            </>
+          ): (<Loader size={100} />)}
         </>
       );
     case ACCOUNTS:
@@ -179,4 +191,4 @@ const RenderDetailPage = (props: Props) => {
   }
 };
 
-export default RenderDetailPage;
+export default observer(RenderDetailPage);

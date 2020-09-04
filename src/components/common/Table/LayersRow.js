@@ -11,7 +11,6 @@ import {
 } from '../../../config/constants';
 import moment from 'moment';
 import {smhCoinConverter} from '../../../helper/converter';
-import Loader from '../Loader';
 
 type Props = {
   data: Array<object>,
@@ -40,6 +39,11 @@ const LayersRow = (props: Props) => {
         <div className="td">
           <a href={`/${LAYERS}/${item.id}/${ATXS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.id, ATXS)}>
             {smhCoinConverter(item.txsamount)}
+          </a>
+        </div>
+        <div className="td">
+          <a href={`/${LAYERS}/${item.atxssize}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.atxssize, REWARDS)}>
+            {smhCoinConverter(item.atxssize)}
           </a>
         </div>
         <div className="td">

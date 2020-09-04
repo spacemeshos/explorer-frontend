@@ -71,7 +71,7 @@ const RenderMainPage = (props: Props) => {
             <TitleBlock
               title="Layers"
               color={getColorByPageName(name)}
-              desc="Epochs across the entire mesh"
+              desc="Layers across the entire mesh"
               uiStore={uiStore}
             />
             <CountModuleContainer viewStore={viewStore} unit="layers"/>

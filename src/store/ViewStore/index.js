@@ -77,13 +77,15 @@ class ViewStore {
 
   async showOverview() {
     this.currentView.data = null;
+    this.currentView.id = null;
     this.currentView.pagination = null;
     this.currentView.name = OVERVIEW;
     this.currentView.status = STATUS_LOADING;
+
     try {
       const rawData = await this.fetch('txs');
       this.mainInfo = await overviewMocker();
-
+       console.log('rawData', rawData);
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
         this.currentView.data = rawData.data;
@@ -98,6 +100,7 @@ class ViewStore {
     this.currentView.data = null;
     this.currentView.pagination = null;
     this.currentView.name = page;
+    this.currentView.id = null;
     this.currentView.status = STATUS_LOADING;
     try {
       const rawData = await this.fetch(page);
@@ -140,12 +143,23 @@ class ViewStore {
     // });
   }
 
-  showDetailPage({ page, id }) {
-    this.currentView = {
-      name: page,
-      data: fromPromise(getMockerByPage(page)),
-      id,
-    };
+  async showDetailPage({ page, id }) {
+    this.currentView.data = null;
+    this.currentView.pagination = null;
+    this.currentView.name = page;
+    this.currentView.id = id;
+    this.currentView.status = STATUS_LOADING;
+
+    try {
+      const rawData = await this.fetch(`${page}/${id}`);
+      console.log('rawData', rawData);
+      runInAction(() => {
+        this.currentView.status = STATUS_SUCCESS;
+        this.currentView.data = rawData.data[0];
+      })
+    } catch (e) {
+      this.currentView.status = STATUS_ERROR;
+    }
   }
 
   showSubPage({ page, id, subPage }) {
@@ -174,7 +188,6 @@ class ViewStore {
 decorate(ViewStore, {
   currentView: observable,
   mainInfo: observable,
-  dataArray: observable,
   networks: observable,
   currentPath: computed,
   getNetworks: action,

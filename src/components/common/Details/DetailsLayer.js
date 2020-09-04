@@ -10,61 +10,65 @@ import {
   TXNS,
 } from '../../../config/constants';
 
+import {timeAgo, timeWithFormat} from '../../../helper/formatter';
+
 type Props = {
+  data: Object,
   viewStore: Object,
 };
 
 const DetailsLayer = (props: Props) => {
-  const { viewStore } = props;
+  const { data, viewStore } = props;
 
+  console.log('data', data);
   return (
     <div className="details">
       <ul className="details-list">
         <li className="item">
           <span className="item-name">Layer Number</span>
           <span className="item-value">
-            <a href="/">000000</a>
+            <a href="/">{data ? data.number : '00000'}</a>
             <CopyButton value="000000" />
           </span>
         </li>
         <li className="item">
           <span className="item-name">Layer Start Timestamp</span>
           <span className="item-value">
-            2 minutes ago - Jun/25/2019 - 05:13:39 PM +UTC)
+            {data && `${timeAgo(data.start)} - ${timeWithFormat(data.start)}`}
           </span>
         </li>
         <li className="item">
           <span className="item-name">Layer End Timestamp</span>
           <span className="item-value">
-            2 minutes ago - Jun/25/2019 - 05:13:39 PM +UTC)
+             {data && `${timeAgo(data.end)} - ${timeWithFormat(data.end)}`}
           </span>
         </li>
         <li className="item">
           <span className="item-name">Total Transactions</span>
-          <span className="item-value"><a href={`/${LAYERS}/000000/${TXNS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, '000000', TXNS)}>137 txns</a></span>
+          <span className="item-value"><a href={`/${LAYERS}/000000/${TXNS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, '000000', TXNS)}>{data ? data.txs : '0000'}</a></span>
         </li>
         <li className="item">
           <span className="item-name">Total Rewards </span>
-          <span className="item-value"><a href={`/${LAYERS}/320/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, '320', REWARDS)}>1000 (32 SMH)</a></span>
+          <span className="item-value"><a href={`/${LAYERS}/320/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, '320', REWARDS)}>--</a></span>
         </li>
         <li className="item">
           <span className="item-name">Finality</span>
-          <span className="item-value">98,8%</span>
+          <span className="item-value">--</span>
         </li>
         <li className="item">
           <span className="item-name">Epoch</span>
-          <span className="item-value"><a href={`/${EPOCHS}/1200`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, '1224')}>1224</a></span>
+          <span className="item-value"><a href={`/${EPOCHS}/1200`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, '1224')}>--</a></span>
         </li>
         <li className="item">
           <span className="item-name">Hash</span>
           <span className="item-value">
-            0x52hsgj2jwyb23wbwew32874682734g2hj3g23
+            --
             <CopyButton value="0x52hsgj2jwyb23wbwew32874682734g2hj3g23" />
           </span>
         </li>
         <li className="item">
           <span className="item-name">Blocks</span>
-          <span className="item-value"><a href={`/${LAYERS}/000000/${BLOCKS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, '000000', BLOCKS)}>14 blocks</a></span>
+          <span className="item-value"><a href={`/${LAYERS}/000000/${BLOCKS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, '000000', BLOCKS)}>-- blocks</a></span>
         </li>
       </ul>
     </div>
