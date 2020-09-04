@@ -45,7 +45,6 @@ const RenderMainPage = (props: Props) => {
               uiStore={uiStore}
             />
             <CountModuleContainer viewStore={viewStore} unit="txs"/>
-
           </div>
           <Table name={name} viewStore={viewStore} />
         </>

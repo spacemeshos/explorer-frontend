@@ -7,7 +7,7 @@ import {
 } from 'mobx';
 
 import { fromPromise } from 'mobx-utils';
-import { overviewMocker, transactionMocker, getMockerByPage } from '../../helper/mocker';
+import { overviewMocker, getMockerByPage } from '../../helper/mocker';
 
 import {
   OVERVIEW,
@@ -76,12 +76,23 @@ class ViewStore {
   }
 
   // TODO: change overviewMocker() to this.fetch('/your url') for getting real data
-  showOverview() {
-    this.currentView = {
-      name: OVERVIEW,
-      data: fromPromise(this.fetch('txs')),
-    };
-    this.mainInfo = fromPromise(overviewMocker());
+  async showOverview() {
+    this.currentView.data = null;
+    this.currentView.pagination = null;
+    this.currentView.name = OVERVIEW;
+
+    try {
+      const rawData = await this.fetch('txs');
+      this.mainInfo = await overviewMocker();
+
+      runInAction(() => {
+        this.currentView.state = STATUS_SUCCESS;
+        this.currentView.data = rawData.data;
+        this.currentView.pagination = rawData.pagination;
+      })
+    } catch (e) {
+      this.currentView.state = STATUS_ERROR;
+    }
   }
 
   async showPage({ page }) {
@@ -112,7 +123,6 @@ class ViewStore {
 
     this.fetch(`${page}?page=${pageNumber}&pagesize=${pageSize}`).then(
       (result) => {
-        console.log('result', result);
         this.currentView.name = page;
         this.currentView.data = [...this.currentView.data, ...result.data];
         this.currentView.pagination = result.pagination;
@@ -122,7 +132,6 @@ class ViewStore {
         this.currentView.state = STATUS_ERROR;
       }
     );
-
   }
 
   getNetworks() {
@@ -165,6 +174,7 @@ class ViewStore {
 
 decorate(ViewStore, {
   currentView: observable,
+  mainInfo: observable,
   dataArray: observable,
   networks: observable,
   currentPath: computed,

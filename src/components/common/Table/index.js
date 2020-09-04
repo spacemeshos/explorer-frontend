@@ -84,7 +84,7 @@ const Table = (props: Props) => {
         return (
           <TransactionsRow
             key={nanoid()}
-            data={viewStore.currentView.data}
+            data={data}
             config={tableFieldConfig[name]}
             viewStore={viewStore}
           />
