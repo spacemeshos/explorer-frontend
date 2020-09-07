@@ -105,10 +105,12 @@ class ViewStore {
     this.currentView.status = STATUS_LOADING;
     try {
       const rawData = await this.fetch(page);
+      const rawNetworkInfo = await this.fetch('network-info');
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
         this.currentView.data = rawData.data;
         this.currentView.pagination = rawData.pagination;
+        this.mainInfo = rawNetworkInfo.data[0];
       })
     } catch (e) {
       this.currentView.status = STATUS_ERROR;

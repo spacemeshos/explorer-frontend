@@ -6,6 +6,7 @@ import { observer } from 'mobx-react';
 import shortFormHash from '../../../helper/longFormHash';
 
 import { ACCOUNTS, SMESHER } from '../../../config/constants';
+import {byteConverter} from '../../../helper/converter';
 
 type Props = {
   data: Array<Object>,
@@ -20,22 +21,19 @@ const SmesherRow = (props: Props) => {
       <div key={nanoid()} className="tr">
         <div className="td">
           <a href={`${SMESHER}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, item.id)}>
-            {item.id}
+            {shortFormHash(item.id)}
           </a>
         </div>
         <div className="td">
           <a href={`${ACCOUNTS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.id)}>
-            {shortFormHash(item.rewardsAccount)}
+            {shortFormHash(item.id)}
           </a>
         </div>
         <div className="td">
-          {item.committedSpace}
-          {' '}
-          GB
+          {byteConverter(item.cSize)}
         </div>
         <div className="td">
           {item.totalAtxTxns}
-          {' '}
           SMH
         </div>
       </div>

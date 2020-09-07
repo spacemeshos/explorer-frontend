@@ -20,7 +20,6 @@ type Props = {
 const DetailsLayer = (props: Props) => {
   const { data, viewStore } = props;
 
-  console.log('data', data);
   return (
     <div className="details">
       <ul className="details-list">

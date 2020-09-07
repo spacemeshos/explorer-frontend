@@ -37,8 +37,8 @@ export const pagesLink = [
     icon: 'apps',
   },
   {
-    title: 'smesher',
+    title: 'smeshers',
     page: SMESHER,
-    icon: 'smesher',
+    icon: 'smeshers',
   },
 ];
