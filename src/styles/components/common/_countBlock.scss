@@ -1,82 +1,35 @@
 .countBlock {
-  display: flex;
-  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 1fr 2fr;
+  padding: 15px 10px;
   margin-left: 15px;
-  padding-bottom: 10px;
 
   &-number {
-    margin-left: 10px;
-    align-self: flex-end;
-    .value {
-      font-size: 60px;
-      line-height: 52px;
-    }
-    .unit {
-      font-size: 12px;
-      text-transform: uppercase;
-      @include theme-aware('color', 'countBlockTextColor');
-    }
+    font-size: 60px;
+    line-height: 47px;
+    justify-self: center;
+    align-self: end;
+  }
+
+  &-unit {
+    font-size: 12px;
+    align-self: end;
+    text-transform: uppercase;
+    @include theme-aware('color', 'countBlockTextColor');
   }
 
   &-badge {
-    margin-left: 15px;
-    align-self: flex-end;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    align-self: end;
+    justify-self: center;
   }
 
   &-time {
-    align-self: flex-end;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
     font-size: 12px;
-    padding: 0 8px 2px 0;
-    @include theme-aware('color', 'countBlockTextColor');
-
-    &.timeAgo {
-      font-weight: 700;
-    }
+    align-self: end;
+    justify-self: end;
+    text-align: end;
+    text-transform: uppercase;
+    @include theme-aware('color', 'countTextColor');
   }
-}
-
-.countBlockLong {
-  display: flex;
-  flex: 1;
-  margin-left: 15px;
-  flex-direction: row;
-
-  &-column {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin-left: 10px;
-    width: 100%;
-    .number {
-      .value {
-        font-size: 20px;
-      }
-      .unit {
-        font-size: 12px;
-        @include theme-aware('color', 'countBlockTextColor');
-      }
-    }
-    .time {
-      font-size: 12px;
-      @include theme-aware('color', 'countBlockTextColor');
-    }
-  }
-
-  &-badge {
-    margin-right: 15px;
-    align-self: flex-end;
-    display: flex;
-    flex-direction: column;
-    width: 40%;
-    align-items: flex-end;
-    height: 100%;
-    justify-content: center;
-  }
-
 }

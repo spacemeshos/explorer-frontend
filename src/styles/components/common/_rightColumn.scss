@@ -20,6 +20,7 @@
   &-data {
     font-size: 12px;
     align-self: end;
+    text-transform: uppercase;
     @include theme-aware('color', 'countTextColor');
   }
 }

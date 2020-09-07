@@ -17,6 +17,17 @@ type Props = {
 const TransactionsRow = (props: Props) => {
   const { data, viewStore } = props;
 
+  const typeOfTxns = (type) => {
+    switch(type) {
+      case 0:
+        return 'Coin';
+      case 1:
+        return 'ATX';
+      case 2:
+        return 'Smart Contract';
+    }
+  };
+
   return (
     data && data.map((item) => (
       <div key={nanoid()} className="tr">
@@ -43,7 +54,7 @@ const TransactionsRow = (props: Props) => {
             {longFormHash(item.receiver)}
           </a>
         </div>
-        <div className="td">{item.type}</div>
+        <div className="td">{typeOfTxns(item.type)}</div>
       </div>
     ))
   );

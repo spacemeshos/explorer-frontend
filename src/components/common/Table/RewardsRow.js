@@ -25,8 +25,8 @@ const RewardsRow = (props: Props) => {
     data && data.length !== 0 && data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
-          <a href={`/${REWARDS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, REWARDS, item.id)}>
-            {shortFormHash(item.id)}
+          <a href={`/${REWARDS}/${item._id}`} onClick={(e) => viewStore.linkHandler(e, REWARDS, item._id)}>
+            {shortFormHash(item._id)}
           </a>
         </div>
         <div className="td">

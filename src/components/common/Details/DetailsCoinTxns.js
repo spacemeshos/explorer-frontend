@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import SmoothCollapse from 'react-smooth-collapse';
 
 import CopyButton from '../CopyButton';
+import { ACCOUNTS } from '../../../config/constants';
+import {smhCoinConverter} from '../../../helper/converter';
 
 type Props = {
   id: string,
@@ -30,14 +32,14 @@ const DetailsCoinTxns = (props: Props) => {
         <li className="item">
           <span className="item-name">To</span>
           <span className="item-value">
-            <a href="/">{data.receiver}</a>
+            <a href={`/${ACCOUNTS}/${data.receiver}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, data.receiver)}>{data.receiver}</a>
             <CopyButton value={data.receiver} />
           </span>
         </li>
         <li className="item">
           <span className="item-name">From</span>
           <span className="item-value">
-            <a href="/">{data.sender}</a>
+            <a href={`/${ACCOUNTS}/${data.sender}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, data.sender)}>{data.sender}</a>
             <CopyButton value={data.sender} />
           </span>
         </li>
@@ -47,9 +49,7 @@ const DetailsCoinTxns = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Value</span>
-          <span className="item-value">
-            <a href="/">--</a>
-          </span>
+          <span className="item-value">{smhCoinConverter(data.amount)}</span>
         </li>
         <li className="item">
           <span className="item-name">Counter</span>

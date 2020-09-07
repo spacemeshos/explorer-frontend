@@ -45,11 +45,19 @@ const DetailsLayer = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Total Transactions</span>
-          <span className="item-value"><a href={`/${LAYERS}/000000/${TXNS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, '000000', TXNS)}>{data ? data.txs : '0000'}</a></span>
+          <span className="item-value"><a href={`/${LAYERS}/000000/${TXNS}`} onClick={(e) => {
+            // TODO remove after implementation
+            e.preventDefault();
+            // viewStore.linkHandler(e, LAYERS, '000000', TXNS)
+          }}>{data ? data.txs : '0000'}</a></span>
         </li>
         <li className="item">
           <span className="item-name">Total Rewards </span>
-          <span className="item-value"><a href={`/${LAYERS}/320/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, '320', REWARDS)}>--</a></span>
+          <span className="item-value"><a href={`/${LAYERS}/320/${REWARDS}`} onClick={(e) => {
+            // TODO remove after implementation
+            e.preventDefault();
+            // viewStore.linkHandler(e, LAYERS, '320', REWARDS)
+          }}>--</a></span>
         </li>
         <li className="item">
           <span className="item-name">Finality</span>
@@ -57,7 +65,11 @@ const DetailsLayer = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Epoch</span>
-          <span className="item-value"><a href={`/${EPOCHS}/1200`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, '1224')}>--</a></span>
+          <span className="item-value"><a href={`/${EPOCHS}/1200`} onClick={(e) => {
+            // TODO remove after implementation
+            e.preventDefault();
+            //viewStore.linkHandler(e, EPOCHS, '1224')
+          }}>--</a></span>
         </li>
         <li className="item">
           <span className="item-name">Hash</span>
@@ -68,7 +80,11 @@ const DetailsLayer = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Blocks</span>
-          <span className="item-value"><a href={`/${LAYERS}/000000/${BLOCKS}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, '000000', BLOCKS)}>-- blocks</a></span>
+          <span className="item-value"><a href={`/${LAYERS}/000000/${BLOCKS}`} onClick={(e) => {
+            // TODO remove after implementation
+            e.preventDefault();
+            // viewStore.linkHandler(e, LAYERS, '000000', BLOCKS)
+          }}>-- blocks</a></span>
         </li>
       </ul>
     </div>

@@ -29,7 +29,7 @@ const divideNumber = (number) => {
   return `${dividedNumber.trim()}.${decimals}`;
 };
 
-export const smhCoinConverter = (amount: number) => {
+export const smhCoinConverter = (amount: number, returnObject: boolean) => {
   let v = 0;
   let unit = 'SMH';
 
@@ -52,6 +52,5 @@ export const smhCoinConverter = (amount: number) => {
 
   // truncate to 3 decimals and truncate trailing fractional 0s
   const s = parseFloat(v.toFixed(3)).toString();
-  //return { value: s, unit };
-  return `${s} ${unit}`;
+  return returnObject ? { value: s, unit } : `${s} ${unit}`;
 };

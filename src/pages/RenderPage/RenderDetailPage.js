@@ -86,7 +86,7 @@ const RenderDetailPage = (props: Props) => {
               desc="Transactions across the entire mesh"
               uiStore={uiStore}
             />
-            <CountTxnsBlock value="000" color={getColorByPageName(name)} />
+            <CountTxnsBlock data={data} color={getColorByPageName(name)} />
           </div>
           {data ? (
             <>
