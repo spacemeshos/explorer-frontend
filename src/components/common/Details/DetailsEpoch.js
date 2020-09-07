@@ -9,18 +9,23 @@ import {
   SMESHER,
   TXNS,
 } from '../../../config/constants';
+import { timeAgo, timeWithFormat } from '../../../helper/formatter';
+import getValueFromStatsObject from '../../../helper/getValueFromStatsObject';
 
 type Props = {
+  data: Object,
   viewStore: Object,
 };
 
 const DetailsEpoch = (props: Props) => {
-  const { viewStore } = props;
+  const { data, viewStore } = props;
 
   const onClickHandler = (e, pageName: string, id: string, subPage: string) => {
     e.preventDefault();
     viewStore.showSubPage({ page: pageName, id, subPage });
   };
+
+  const stats = data && getValueFromStatsObject(data.stats);
 
   return (
     <div className="details">
@@ -28,41 +33,41 @@ const DetailsEpoch = (props: Props) => {
         <li className="item">
           <span className="item-name">Epoch Number</span>
           <span className="item-value">
-            <a href="/">123123</a>
-            <CopyButton value="123123" />
+            <a href="/">{data && data.number}</a>
+            <CopyButton value={data && data.number} />
           </span>
         </li>
         <li className="item">
           <span className="item-name">Started</span>
           <span className="item-value">
-            31 days ago (Jun-25-2019 05:13:39 PM +UTC)
+             {data && `${timeAgo(data.start)} ${timeWithFormat(data.start)}`}
           </span>
         </li>
         <li className="item">
           <span className="item-name">Ended</span>
           <span className="item-value">
-            31 days ago (Jun-25-2019 05:13:39 PM +UTC)
+             {data && `${timeAgo(data.end)} ${timeWithFormat(data.end)}`}
           </span>
         </li>
         <li className="item">
           <span className="item-name">Total Layers</span>
-          <span className="item-value"><a href={`/${EPOCHS}/126812/${LAYERS}`} onClick={(e) => onClickHandler(e, EPOCHS, '126812', LAYERS)}>167</a></span>
+          <span className="item-value"><a href={`/${EPOCHS}/126812/${LAYERS}`} onClick={(e) => onClickHandler(e, EPOCHS, '126812', LAYERS)}>{data && data.layers}</a></span>
         </li>
         <li className="item">
           <span className="item-name">Total Rewards number</span>
-          <span className="item-value"><a href={`/${EPOCHS}/320/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, '320', REWARDS)}>320</a></span>
+          <span className="item-value"><a href={`/${EPOCHS}/320/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, '320', REWARDS)}>{data && stats.rewards}</a></span>
         </li>
         <li className="item">
           <span className="item-name">Total Rewards value</span>
-          <span className="item-value"><a href={`/${EPOCHS}/1200/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, '1200', REWARDS)}>1200</a></span>
+          <span className="item-value"><a href={`/${EPOCHS}/1200/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, '1200', REWARDS)}>--</a></span>
         </li>
         <li className="item">
           <span className="item-name">Smeshers</span>
-          <span className="item-value"><a href={`/${EPOCHS}/1200/${SMESHER}`} onClick={(e) => onClickHandler(e, EPOCHS, '1224', SMESHER)}>1224</a></span>
+          <span className="item-value"><a href={`/${EPOCHS}/1200/${SMESHER}`} onClick={(e) => onClickHandler(e, EPOCHS, '1224', SMESHER)}>{data && stats.smeshers}</a></span>
         </li>
         <li className="item">
           <span className="item-name">Transactions</span>
-          <span className="item-value"><a href={`/${EPOCHS}/1200/${TXNS}`} onClick={(e) => onClickHandler(e, EPOCHS, '1224', TXNS)}>1200</a></span>
+          <span className="item-value"><a href={`/${EPOCHS}/1200/${TXNS}`} onClick={(e) => onClickHandler(e, EPOCHS, '1224', TXNS)}>{data && stats.transactions}</a></span>
         </li>
       </ul>
     </div>

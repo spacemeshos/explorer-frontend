@@ -22,6 +22,9 @@ import {
 import CountModuleContainer from "../../components/common/CountModuleContainer";
 import RewardsRightColumn from '../../components/common/RewardsRightColumn';
 import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
+import {toJS} from 'mobx';
+import isEmpty from '../../helper/isEmpty';
+import getValueFromStatsObject from '../../helper/getValueFromStatsObject';
 
 type Props = {
   uiStore: Object,
@@ -32,6 +35,9 @@ const RenderMainPage = (props: Props) => {
   const { uiStore, viewStore } = props;
   const { name } = viewStore.currentView;
   const mainInfo = viewStore.mainInfo;
+
+  const value = toJS(mainInfo);
+  const stats = !isEmpty(value) && getValueFromStatsObject(value.stats);
 
   switch (name) {
     case OVERVIEW:
@@ -47,8 +53,7 @@ const RenderMainPage = (props: Props) => {
             />
             <RightCountBlock
               color={getColorByPageName(name)}
-              number="000"
-              colornumber="000"
+              number={stats.transactions}
               caption="txns since genesis"
               coinCaption="total txns value since genesis"
               coins={0}
@@ -67,7 +72,7 @@ const RenderMainPage = (props: Props) => {
               desc="Epochs across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number="000" startTime={0} unit="epochs" color={getColorByPageName(name)} />
+            <AmountBlock number={value && value.number} startTime={value.start} unit="epochs" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -82,7 +87,7 @@ const RenderMainPage = (props: Props) => {
               desc="Layers across the entire mesh"
               uiStore={uiStore}
             />
-            <CountModuleContainer viewStore={viewStore} unit="layers"/>
+            <AmountBlock number={value && value.layers} startTime={value.layerstart} unit="epochs" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -97,7 +102,7 @@ const RenderMainPage = (props: Props) => {
               desc="Transactions across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number="000" startTime={0} unit="txs" color={getColorByPageName(name)} />
+            <AmountBlock number={stats.transactions} startTime={0} unit="txs" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -112,7 +117,7 @@ const RenderMainPage = (props: Props) => {
               desc="Rewards across the entire mesh"
               uiStore={uiStore}
             />
-            <RewardsRightColumn color={getColorByPageName(name)}/>
+            <RewardsRightColumn number={stats.rewards} color={getColorByPageName(name)}/>
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -127,7 +132,7 @@ const RenderMainPage = (props: Props) => {
               desc="Accounts across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number="000" startTime={0} unit="accnts" color={getColorByPageName(name)} />
+            <AmountBlock number={stats.accounts} startTime={0} unit="accnts" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -157,7 +162,7 @@ const RenderMainPage = (props: Props) => {
               desc="Specific details for this awards"
               uiStore={uiStore}
             />
-            <AmountBlock number="000" startTime={0} unit="txns" color={getColorByPageName(name)} />
+            <AmountBlock number={stats.smeshers} startTime={0} unit="txns" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>

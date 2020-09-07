@@ -30,6 +30,8 @@ import DetailApp from '../../components/common/Details/DetailApp';
 import {toJS} from 'mobx';
 import {observer} from 'mobx-react';
 import Loader from '../../components/common/Loader';
+import isEmpty from '../../helper/isEmpty';
+import getValueFromStatsObject from '../../helper/getValueFromStatsObject';
 
 type Props = {
   name: string,
@@ -44,6 +46,9 @@ const RenderDetailPage = (props: Props) => {
   const data = toJS(viewStore.currentView.data);
   const status = toJS(viewStore.currentView.status);
   const pagination = toJS(viewStore.currentView.pagination);
+  const mainInfo = viewStore.mainInfo;
+  const value = toJS(mainInfo);
+  const stats = !isEmpty(value) && getValueFromStatsObject(value.stats);
 
   switch (name) {
     case EPOCHS:
@@ -56,9 +61,9 @@ const RenderDetailPage = (props: Props) => {
               desc="Specific details for this epoch"
               uiStore={uiStore}
             />
-            <AmountBlock value="167" unit="epochs" color={getColorByPageName(name)} />
+            <AmountBlock number={value && value.number} startTime={value.start} unit="epochs" color={getColorByPageName(name)} />
           </div>
-          <DetailsEpoch viewStore={viewStore} />
+          <DetailsEpoch data={data} viewStore={viewStore} />
         </>
       );
     case LAYERS:
@@ -71,7 +76,7 @@ const RenderDetailPage = (props: Props) => {
               desc="Layers across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock value="137" unit="layers" color={getColorByPageName(name)} />
+            <AmountBlock number={value && value.layers} startTime={value.layerstart} unit="epochs" color={getColorByPageName(name)} />
           </div>
           <DetailsLayer data={data} viewStore={viewStore}/>
         </>
