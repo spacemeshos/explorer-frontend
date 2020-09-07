@@ -36,14 +36,9 @@ const CountModuleContainer = (props: Props) => {
     }
   };
 
-  return data.case({
-    pending: () => <AmountBlock number={0} startTime={0} unit={unit} color={getColorByPageName(name)} />,
-    fulfilled: (value) => {
-      setParams(value);
-
-      return <AmountBlock number={0} startTime={0} unit={unit} color={getColorByPageName(name)} />
-    },
-  });
+  return (
+    <AmountBlock number={0} startTime={0} unit={unit} color={getColorByPageName(name)} />
+  )
 };
 
 export default observer(CountModuleContainer);

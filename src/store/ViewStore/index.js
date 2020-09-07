@@ -3,11 +3,11 @@ import {
   observable,
   computed,
   action,
-  decorate,
+  decorate, toJS, runInAction,
 } from 'mobx';
 
 import { fromPromise } from 'mobx-utils';
-import { overviewMocker, transactionMocker, getMockerByPage } from '../../helper/mocker';
+import { overviewMocker, getMockerByPage } from '../../helper/mocker';
 
 import {
   OVERVIEW,
@@ -19,7 +19,7 @@ import {
   SMESHER,
   SMART_WALLET,
   BLOCKS,
-  NOT_FOUND,
+  NOT_FOUND, STATUS_LOADING, STATUS_SUCCESS, STATUS_ERROR,
 } from '../../config/constants';
 
 class ViewStore {
@@ -36,6 +36,8 @@ class ViewStore {
     id: null,
     subPage: null,
     data: null,
+    pagination: null,
+    status: STATUS_LOADING,
   };
 
   get currentPath() {
@@ -73,25 +75,65 @@ class ViewStore {
     return `/${data.name}`;
   }
 
-  // TODO: change overviewMocker() to this.fetch('/your url') for getting real data
-  showOverview() {
-    this.currentView = {
-      name: OVERVIEW,
-      data: fromPromise(this.fetch('txs')),
-    };
-    this.mainInfo = fromPromise(overviewMocker());
+  async showOverview() {
+    this.currentView.data = null;
+    this.currentView.id = null;
+    this.currentView.pagination = null;
+    this.currentView.name = OVERVIEW;
+    this.currentView.status = STATUS_LOADING;
+
+    try {
+      const rawData = await this.fetch('txs');
+      this.mainInfo = await overviewMocker();
+       console.log('rawData', rawData);
+      runInAction(() => {
+        this.currentView.status = STATUS_SUCCESS;
+        this.currentView.data = rawData.data;
+        this.currentView.pagination = rawData.pagination;
+      })
+    } catch (e) {
+      this.currentView.status = STATUS_ERROR;
+    }
   }
 
-  showPage({ page }) {
-    this.currentView = {
-      name: page,
-      data: fromPromise(this.fetch(page))
-    };
+  async showPage({ page }) {
+    this.currentView.data = null;
+    this.currentView.pagination = null;
+    this.currentView.name = page;
+    this.currentView.id = null;
+    this.currentView.status = STATUS_LOADING;
+    try {
+      const rawData = await this.fetch(page);
+      runInAction(() => {
+        this.currentView.status = STATUS_SUCCESS;
+        this.currentView.data = rawData.data;
+        this.currentView.pagination = rawData.pagination;
+      })
+    } catch (e) {
+      this.currentView.status = STATUS_ERROR;
+    }
   }
 
   showSearchResult(searchString) {
     const page = this.defineIdType(searchString);
     page ? this.showDetailPage({ page, id: searchString }) : this.showDetailPage({ page: NOT_FOUND, id: searchString });
+  }
+
+  getPaginationData(page, pageNumber) {
+    console.log('getPaginationData page');
+    const pageSize = 20;
+
+    this.fetch(`${page}?page=${pageNumber}&pagesize=${pageSize}`).then(
+      (result) => {
+        this.currentView.name = page;
+        this.currentView.data = [...this.currentView.data, ...result.data];
+        this.currentView.pagination = result.pagination;
+        this.currentView.status = STATUS_SUCCESS;
+      },
+      (error) => {
+        this.currentView.status = STATUS_ERROR;
+      }
+    );
   }
 
   getNetworks() {
@@ -101,12 +143,23 @@ class ViewStore {
     // });
   }
 
-  showDetailPage({ page, id }) {
-    this.currentView = {
-      name: page,
-      data: fromPromise(getMockerByPage(page)),
-      id,
-    };
+  async showDetailPage({ page, id }) {
+    this.currentView.data = null;
+    this.currentView.pagination = null;
+    this.currentView.name = page;
+    this.currentView.id = id;
+    this.currentView.status = STATUS_LOADING;
+
+    try {
+      const rawData = await this.fetch(`${page}/${id}`);
+      console.log('rawData', rawData);
+      runInAction(() => {
+        this.currentView.status = STATUS_SUCCESS;
+        this.currentView.data = rawData.data[0];
+      })
+    } catch (e) {
+      this.currentView.status = STATUS_ERROR;
+    }
   }
 
   showSubPage({ page, id, subPage }) {
@@ -134,10 +187,12 @@ class ViewStore {
 
 decorate(ViewStore, {
   currentView: observable,
+  mainInfo: observable,
   networks: observable,
   currentPath: computed,
   getNetworks: action,
   linkHandler: action,
+  getPaginationData: action,
   showSearchResult: action,
   showPage: action,
   showDetailPage: action,

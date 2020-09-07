@@ -3,7 +3,7 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import { byteConverter } from '../../../helper/converter';
 import Loader from '../Loader';
-
+import {toJS} from 'mobx';
 
 type Props = {
   data: Object,
@@ -11,7 +11,7 @@ type Props = {
 
 const InfoBlock = (props: Props) => {
   const { data } = props;
-  const { value } = data;
+  const value = toJS(data);
 
   return (
     <div className="infoBlock">

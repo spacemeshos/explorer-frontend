@@ -10,3 +10,9 @@ export const SMESHER = 'smesher';
 export const ATXS = 'atxs';
 export const BLOCKS = 'blocks';
 export const NOT_FOUND = 'not-found';
+
+// status
+export const STATUS_LOADING = 'loading';
+export const STATUS_SUCCESS = 'success';
+export const STATUS_ERROR = 'error';
+

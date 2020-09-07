@@ -21,6 +21,7 @@ import {
 } from '../../config/constants';
 import CountModuleContainer from "../../components/common/CountModuleContainer";
 import RewardsRightColumn from '../../components/common/RewardsRightColumn';
+import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
 
 type Props = {
   uiStore: Object,
@@ -44,8 +45,14 @@ const RenderMainPage = (props: Props) => {
               desc="Most recent global transactions."
               uiStore={uiStore}
             />
-            <CountModuleContainer viewStore={viewStore} unit="txs"/>
-
+            <RightCountBlock
+              color={getColorByPageName(name)}
+              number="000"
+              colornumber="000"
+              caption="txns since genesis"
+              coinCaption="total txns value since genesis"
+              coins={0}
+            />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -72,7 +79,7 @@ const RenderMainPage = (props: Props) => {
             <TitleBlock
               title="Layers"
               color={getColorByPageName(name)}
-              desc="Epochs across the entire mesh"
+              desc="Layers across the entire mesh"
               uiStore={uiStore}
             />
             <CountModuleContainer viewStore={viewStore} unit="layers"/>

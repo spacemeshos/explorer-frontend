@@ -101,6 +101,9 @@ export default {
     {
       fieldName: 'atx value',
     },
+    {
+      fieldName: 'rewards',
+    },
   ],
   [REWARDS]: [
     {

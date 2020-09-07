@@ -19,7 +19,7 @@ const links = [
     title: 'community forums',
   },
   {
-    href: '/',
+    href: 'https://stage-dash.spacemesh.io/',
     title: 'dashboard',
   },
 ];

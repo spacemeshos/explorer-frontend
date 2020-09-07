@@ -1,4 +1,4 @@
 import DetailsEpoch from './DetailsEpoch';
-import DetailsTxns from './DetailsTxns';
+import DetailsCoinTxns from './DetailsCoinTxns';
 
-export { DetailsEpoch, DetailsTxns };
+export { DetailsEpoch, DetailsCoinTxns };
