@@ -160,7 +160,7 @@ const Table = (props: Props) => {
       <div className="tr th">
         { tableFieldConfig[name].map((item) => <div key={nanoid()} className="td">{item.fieldName}</div>) }
       </div>
-      { data && renderTableData() }
+      { data ? renderTableData() : <Loader size={100}/>}
     </div>
 
   );
