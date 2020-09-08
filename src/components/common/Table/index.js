@@ -161,6 +161,7 @@ const Table = (props: Props) => {
         { tableFieldConfig[name].map((item) => <div key={nanoid()} className="td">{item.fieldName}</div>) }
       </div>
       { data ? renderTableData() : <Loader size={100}/>}
+      { status === STATUS_SUCCESS && data.length === 0 && <NoData />}
     </div>
 
   );

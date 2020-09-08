@@ -24,8 +24,8 @@ const PageContainer = (props: Props) => {
     const { name, id, subPage } = viewStore.currentView;
 
     const isMainPage = name && !id && !subPage;
-    const isDetailsPage = name && id && !subPage;
-    const isSubPage = name && id && subPage;
+    const isDetailsPage = name && id  && !subPage;
+    const isSubPage = name && (id || id === 0) && subPage;
 
     if (isMainPage) {
       return (

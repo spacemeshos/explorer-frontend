@@ -19,7 +19,6 @@ import {
   ACCOUNTS,
   SMART_WALLET,
 } from '../../config/constants';
-import CountModuleContainer from "../../components/common/CountModuleContainer";
 import RewardsRightColumn from '../../components/common/RewardsRightColumn';
 import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
 import {toJS} from 'mobx';
@@ -87,7 +86,7 @@ const RenderMainPage = (props: Props) => {
               desc="Layers across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number={value && value.layers} startTime={value.layerstart} unit="epochs" color={getColorByPageName(name)} />
+            <AmountBlock number={value && value.layers} startTime={value.layerstart} unit="layers" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>

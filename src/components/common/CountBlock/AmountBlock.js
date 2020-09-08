@@ -13,7 +13,6 @@ type Props = {
 const AmountBlock = (props: Props) => {
   const { color, unit, number, startTime } = props;
   const fromNow = startTime ? moment.unix(startTime).fromNow() : '0000000 AGO';
-  console.log('AmountBlock', number);
 
   return (
     <div style={{ backgroundColor: color.bgColor }} className="amountBlock">

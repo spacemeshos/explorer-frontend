@@ -25,22 +25,31 @@ const EpochsRow = (props: Props) => {
         <div className="td"><a href={`/${EPOCHS}/${item.number}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, item.number)}>{item.number}</a></div>
         <div className="td">{moment.unix(item.start).fromNow()}</div>
         <div className="td">{moment.unix(item.end).fromNow()}</div>
-        <div className="td"><a href={`/${EPOCHS}/${item.layers}/${LAYERS}`} onClick={(e) => {
-          // TODO remove after implementation
-          e.preventDefault();
-          //viewStore.linkHandler(e, EPOCHS, item.layers, LAYERS)
-        }}>{item.layers}</a></div>
-        <div className="td"><a href={`/${EPOCHS}/${item.stats.current.transactions}/${TXNS}`} onClick={(e) => {
-          // TODO remove after implementation
-          e.preventDefault();
-         //viewStore.linkHandler(e, EPOCHS, item.item.stats.current.transactions, TXNS)
-        }}>{item.stats.current.transactions}</a></div>
+        <div className="td">
+          <a
+            href={`/${EPOCHS}/${item.number}/${LAYERS}`}
+            onClick={(e) => {viewStore.linkHandler(e, EPOCHS, item.number, LAYERS)}}
+          >
+            {item.layers}
+          </a>
+        </div>
+        <div className="td">
+          <a
+            href={`/${EPOCHS}/${item.number}/${TXNS}`}
+            onClick={(e) => { viewStore.linkHandler(e, EPOCHS, item.number, TXNS)}}
+          >
+            {item.stats.current.transactions}
+          </a>
+        </div>
         <div className="td">{item.stats.current.smeshers}</div>
-        <div className="td"><a href={`/${EPOCHS}/${item.id}/${REWARDS}`} onClick={(e) => {
-          // TODO remove after implementation
-          e.preventDefault();
-         //viewStore.linkHandler(e, EPOCHS, item.id, REWARDS)
-        }}>{item.stats.current.rewards}</a></div>
+        <div className="td">
+          <a
+            href={`/${EPOCHS}/${item.number}/${REWARDS}`}
+            onClick={(e) => {viewStore.linkHandler(e, EPOCHS, item.number, REWARDS)}}
+          >
+            {item.stats.current.rewards}
+          </a>
+        </div>
         <div className="td">--</div>
       </div>
     ))

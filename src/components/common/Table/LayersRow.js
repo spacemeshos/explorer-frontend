@@ -29,10 +29,8 @@ const LayersRow = (props: Props) => {
           </a>
         </div>
         <div className="td">
-          <a href={`/${LAYERS}/${item.txs}/${TXNS}`} onClick={(e) => {
-            // TODO remove after implementation
-            e.preventDefault();
-            //viewStore.linkHandler(e, LAYERS, item.txs, TXNS)
+          <a href={`/${LAYERS}/${item.number}/${TXNS}`} onClick={(e) => {
+            viewStore.linkHandler(e, LAYERS, item.number, TXNS)
           }}>
             {item.txs}
           </a>
@@ -41,28 +39,22 @@ const LayersRow = (props: Props) => {
           { moment.unix(item.start).fromNow() }
         </div>
         <div className="td">
-          <a href={`/${LAYERS}/${item.txsamount}/${ATXS}`} onClick={(e) => {
-            // TODO remove after implementation
-            e.preventDefault();
-            //viewStore.linkHandler(e, LAYERS, item.id, ATXS)
+          <a href={`/${LAYERS}/${item.number}/${TXNS}`} onClick={(e) => {
+            viewStore.linkHandler(e, LAYERS, item.number, TXNS)
           }}>
             {smhCoinConverter(item.txsamount)}
           </a>
         </div>
         <div className="td">
-          <a href={`/${LAYERS}/${item.atxssize}/${REWARDS}`} onClick={(e) => {
-            // TODO remove after implementation
-            e.preventDefault();
-            //viewStore.linkHandler(e, LAYERS, item.atxssize, REWARDS)
+          <a href={`/${LAYERS}/${item.number}/${ATXS}`} onClick={(e) => {
+            viewStore.linkHandler(e, LAYERS, item.number, ATXS)
           }}>
             {smhCoinConverter(item.atxssize)}
           </a>
         </div>
         <div className="td">
-          <a href={`/${LAYERS}/${item.rewards}/${REWARDS}`} onClick={(e) => {
-            // TODO remove after implementation
-            e.preventDefault();
-            //viewStore.linkHandler(e, LAYERS, item.rewards, REWARDS)
+          <a href={`/${LAYERS}/${item.number}/${REWARDS}`} onClick={(e) => {
+            viewStore.linkHandler(e, LAYERS, item.number, REWARDS)
           }}>
             {smhCoinConverter(item.rewards)}
           </a>

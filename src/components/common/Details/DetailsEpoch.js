@@ -33,41 +33,48 @@ const DetailsEpoch = (props: Props) => {
         <li className="item">
           <span className="item-name">Epoch Number</span>
           <span className="item-value">
-            <a href="/">{data && data.number}</a>
-            <CopyButton value={data && data.number} />
+            {data.number}
+            <CopyButton value={data.number} />
           </span>
         </li>
         <li className="item">
           <span className="item-name">Started</span>
           <span className="item-value">
-             {data && `${timeAgo(data.start)} ${timeWithFormat(data.start)}`}
+             {`${timeAgo(data.start)} ${timeWithFormat(data.start)}`}
           </span>
         </li>
         <li className="item">
           <span className="item-name">Ended</span>
           <span className="item-value">
-             {data && `${timeAgo(data.end)} ${timeWithFormat(data.end)}`}
+             {`${timeAgo(data.end)} ${timeWithFormat(data.end)}`}
           </span>
         </li>
         <li className="item">
           <span className="item-name">Total Layers</span>
-          <span className="item-value"><a href={`/${EPOCHS}/126812/${LAYERS}`} onClick={(e) => onClickHandler(e, EPOCHS, '126812', LAYERS)}>{data && data.layers}</a></span>
+          <span className="item-value">
+            <a
+              href={`/${EPOCHS}/${data.number}/${LAYERS}`}
+              onClick={(e) => viewStore.linkHandler(e, EPOCHS, data.number, LAYERS)}
+            >
+              {data.layers}
+            </a>
+          </span>
         </li>
         <li className="item">
           <span className="item-name">Total Rewards number</span>
-          <span className="item-value"><a href={`/${EPOCHS}/320/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, '320', REWARDS)}>{data && stats.rewards}</a></span>
+          <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, REWARDS)}>{stats.rewards}</a></span>
         </li>
         <li className="item">
           <span className="item-name">Total Rewards value</span>
-          <span className="item-value"><a href={`/${EPOCHS}/1200/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, '1200', REWARDS)}>--</a></span>
+          <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, REWARDS)}>--</a></span>
         </li>
         <li className="item">
           <span className="item-name">Smeshers</span>
-          <span className="item-value"><a href={`/${EPOCHS}/1200/${SMESHER}`} onClick={(e) => onClickHandler(e, EPOCHS, '1224', SMESHER)}>{data && stats.smeshers}</a></span>
+          <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${SMESHER}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, SMESHER)}>{stats.smeshers}</a></span>
         </li>
         <li className="item">
           <span className="item-name">Transactions</span>
-          <span className="item-value"><a href={`/${EPOCHS}/1200/${TXNS}`} onClick={(e) => onClickHandler(e, EPOCHS, '1224', TXNS)}>{data && stats.transactions}</a></span>
+          <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${TXNS}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, TXNS)}>{stats.transactions}</a></span>
         </li>
       </ul>
     </div>
