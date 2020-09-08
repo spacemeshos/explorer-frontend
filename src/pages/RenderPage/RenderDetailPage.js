@@ -63,7 +63,7 @@ const RenderDetailPage = (props: Props) => {
             />
             <AmountBlock number={value && value.number} startTime={value.start} unit="epochs" color={getColorByPageName(name)} />
           </div>
-          <DetailsEpoch data={data} viewStore={viewStore} />
+          {data && <DetailsEpoch data={data} viewStore={viewStore} />}
         </>
       );
     case LAYERS:
@@ -76,7 +76,7 @@ const RenderDetailPage = (props: Props) => {
               desc="Layers across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number={value && value.layers} startTime={value.layerstart} unit="epochs" color={getColorByPageName(name)} />
+            <AmountBlock number={value && value.layers} startTime={value.layerstart} unit="layers" color={getColorByPageName(name)} />
           </div>
           <DetailsLayer data={data} viewStore={viewStore}/>
         </>
@@ -143,7 +143,7 @@ const RenderDetailPage = (props: Props) => {
             />
             <AmountBlock value="325" unit="accnts" color={getColorByPageName(name)} />
           </div>
-          <DetailSmesher viewStore={viewStore} />
+          {data && <DetailSmesher data={data} viewStore={viewStore} />}
         </>
       );
     case REWARDS:
@@ -158,7 +158,7 @@ const RenderDetailPage = (props: Props) => {
             />
             <AmountBlock value="325" unit="smh" color={getColorByPageName(name)} />
           </div>
-          <DetailReward viewStore={viewStore} />
+          {data && <DetailReward data={data} viewStore={viewStore} />}
         </>
       );
     case BLOCKS:

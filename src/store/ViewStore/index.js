@@ -67,7 +67,7 @@ class ViewStore {
   }
 
   buildUrlString(data: Object) {
-    if (data.name && data.id && data.subPage) {
+    if (data.name && (data.id || data.id === 0) && data.subPage) {
       return `/${data.name}/${data.id}/${data.subPage}`;
     } if (data.name && data.id) {
       return `/${data.name}/${data.id}`;
@@ -76,9 +76,7 @@ class ViewStore {
   }
 
   async showOverview() {
-    this.currentView.data = null;
-    this.currentView.id = null;
-    this.currentView.pagination = null;
+    this.resetCurrentView();
     this.currentView.name = OVERVIEW;
     this.currentView.status = STATUS_LOADING;
 
@@ -98,11 +96,10 @@ class ViewStore {
   }
 
   async showPage({ page }) {
-    this.currentView.data = null;
-    this.currentView.pagination = null;
+    this.resetCurrentView();
     this.currentView.name = page;
-    this.currentView.id = null;
     this.currentView.status = STATUS_LOADING;
+
     try {
       const rawData = await this.fetch(page);
       const rawNetworkInfo = await this.fetch('network-info');
@@ -123,7 +120,6 @@ class ViewStore {
   }
 
   getPaginationData(page, pageNumber) {
-    console.log('getPaginationData page');
     const pageSize = 20;
 
     this.fetch(`${page}?page=${pageNumber}&pagesize=${pageSize}`).then(
@@ -147,34 +143,61 @@ class ViewStore {
   }
 
   async showDetailPage({ page, id }) {
-    this.currentView.data = null;
-    this.currentView.pagination = null;
+    this.resetCurrentView();
     this.currentView.name = page;
     this.currentView.id = id;
     this.currentView.status = STATUS_LOADING;
 
     try {
       const rawData = await this.fetch(`${page}/${id}`);
-      console.log('rawData', rawData);
+      const rawNetworkInfo = await this.fetch('network-info');
+
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
         this.currentView.data = rawData.data[0];
+        this.mainInfo = rawNetworkInfo.data[0];
       })
     } catch (e) {
       this.currentView.status = STATUS_ERROR;
     }
   }
 
-  showSubPage({ page, id, subPage }) {
-    this.currentView = {
-      name: page,
-      data: fromPromise(getMockerByPage(subPage)),
-      id,
-      subPage,
-    };
+  async showSubPage({ page, id, subPage }) {
+    this.resetCurrentView();
+    this.currentView.name = page;
+    this.currentView.id = id;
+    this.currentView.subPage = subPage;
+    this.currentView.status = STATUS_LOADING;
+
+    try {
+      const rawData = await this.fetch(`${page}/${id}/${subPage}`);
+      const rawNetworkInfo = await this.fetch('network-info');
+
+      runInAction(() => {
+        this.currentView.status = STATUS_SUCCESS;
+        this.currentView.data = rawData.data;
+        this.mainInfo = rawNetworkInfo.data[0];
+      })
+    } catch (e) {
+      this.currentView.status = STATUS_ERROR;
+    }
+  }
+
+  resetCurrentView() {
+    return this.currentView = {
+      name: null,
+      id: null,
+      subPage: null,
+      data: null,
+      pagination: null,
+      status: STATUS_LOADING,
+    }
   }
 
   linkHandler(e, page, id, subPage) {
+    console.log(page);
+    console.log(id);
+    console.log(subPage);
     e.preventDefault();
     if (subPage) {
       this.showSubPage({ page, id, subPage });

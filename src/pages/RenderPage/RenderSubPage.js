@@ -1,5 +1,7 @@
 // @flow
 import * as React from 'react';
+import { toJS } from 'mobx';
+import { observer } from 'mobx-react';
 
 import TitleBlock from '../../components/common/TitleBlock';
 import { getColorByPageName } from '../../helper/getColorByPageName';
@@ -18,6 +20,8 @@ import {
   BLOCKS, ACCOUNTS,
 } from '../../config/constants';
 import longFormHash from '../../helper/longFormHash';
+import isEmpty from '../../helper/isEmpty';
+import getValueFromStatsObject from '../../helper/getValueFromStatsObject';
 
 type Props = {
   name: string,
@@ -29,6 +33,10 @@ type Props = {
 
 const RenderSubPage = (props: Props) => {
   const { name, id, subPage, uiStore, viewStore } = props;
+
+  const mainInfo = viewStore.mainInfo;
+  const value = toJS(mainInfo);
+  const stats = !isEmpty(value) && getValueFromStatsObject(value.stats);
 
   switch (name) {
     case EPOCHS:
@@ -42,7 +50,7 @@ const RenderSubPage = (props: Props) => {
                 desc={`Layers contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="167" unit="layers" color={getColorByPageName(name)} />
+              <AmountBlock number={value && value.layers} startTime={value.layerstart} unit="epochs" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -58,7 +66,7 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="167" unit="txns since genesis" color={getColorByPageName(name)} />
+              <AmountBlock number={value && value.layers} startTime={value.layerstart} unit="epochs" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -74,7 +82,7 @@ const RenderSubPage = (props: Props) => {
                 desc="Smeshers submitting at least one honest block"
                 uiStore={uiStore}
               />
-              <AmountBlock value="167" unit="smeshers in the epoch" color={getColorByPageName(name)} />
+              <AmountBlock number={stats.smeshers} startTime={value.start} unit="smeshers in the epoch" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -106,7 +114,7 @@ const RenderSubPage = (props: Props) => {
                 desc={`Rewards contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="167" unit="awards" color={getColorByPageName(name)} />
+              <AmountBlock number={value && value.layers} startTime={value.layerstart} unit="epochs" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -124,7 +132,7 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions within Layer ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="167" unit="txns" color={getColorByPageName(name)} />
+              <AmountBlock number={stats.transactions} unit="txns" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -252,4 +260,4 @@ const RenderSubPage = (props: Props) => {
   }
 };
 
-export default RenderSubPage;
+export default observer(RenderSubPage);

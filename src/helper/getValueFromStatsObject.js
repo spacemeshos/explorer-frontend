@@ -1,5 +1,4 @@
 const getValueFromStatsObject = (object) => {
-  console.log(object);
   return object['current'];
 };
 
