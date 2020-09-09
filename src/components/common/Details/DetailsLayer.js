@@ -7,7 +7,7 @@ import {
   LAYERS,
   REWARDS,
   BLOCKS,
-  TXNS,
+  TXNS, SMESHER,
 } from '../../../config/constants';
 
 import {timeAgo, timeWithFormat} from '../../../helper/formatter';
@@ -26,37 +26,43 @@ const DetailsLayer = (props: Props) => {
         <li className="item">
           <span className="item-name">Layer Number</span>
           <span className="item-value">
-            <a href="/">{data ? data.number : '00000'}</a>
-            <CopyButton value="000000" />
+            {data.number}
+            <CopyButton value={data.number} />
           </span>
         </li>
         <li className="item">
           <span className="item-name">Layer Start Timestamp</span>
           <span className="item-value">
-            {data && `${timeAgo(data.start)} - ${timeWithFormat(data.start)}`}
+            {`${timeAgo(data.start)} - ${timeWithFormat(data.start)}`}
           </span>
         </li>
         <li className="item">
           <span className="item-name">Layer End Timestamp</span>
           <span className="item-value">
-             {data && `${timeAgo(data.end)} - ${timeWithFormat(data.end)}`}
+             {`${timeAgo(data.end)} - ${timeWithFormat(data.end)}`}
           </span>
         </li>
         <li className="item">
           <span className="item-name">Total Transactions</span>
-          <span className="item-value"><a href={`/${LAYERS}/000000/${TXNS}`} onClick={(e) => {
-            // TODO remove after implementation
-            e.preventDefault();
-            // viewStore.linkHandler(e, LAYERS, '000000', TXNS)
-          }}>{data ? data.txs : '0000'}</a></span>
+          <span className="item-value">
+            <a
+              href={`/${LAYERS}/${data.number}/${TXNS}`}
+              onClick={(e) => { viewStore.linkHandler(e, LAYERS, data.number, TXNS)}}
+            >
+              {data.txs}
+            </a>
+          </span>
         </li>
         <li className="item">
           <span className="item-name">Total Rewards </span>
-          <span className="item-value"><a href={`/${LAYERS}/320/${REWARDS}`} onClick={(e) => {
-            // TODO remove after implementation
-            e.preventDefault();
-            // viewStore.linkHandler(e, LAYERS, '320', REWARDS)
-          }}>--</a></span>
+          <span className="item-value">
+            <a
+              href={`/${LAYERS}/${data.number}/${REWARDS}`}
+              onClick={(e) => {viewStore.linkHandler(e, LAYERS, data.number, REWARDS)}}
+            >
+              {data.rewards}
+            </a>
+          </span>
         </li>
         <li className="item">
           <span className="item-name">Finality</span>
@@ -64,11 +70,18 @@ const DetailsLayer = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Epoch</span>
-          <span className="item-value"><a href={`/${EPOCHS}/1200`} onClick={(e) => {
-            // TODO remove after implementation
-            e.preventDefault();
-            //viewStore.linkHandler(e, EPOCHS, '1224')
-          }}>--</a></span>
+          <span className="item-value">
+            <a
+              href={`/${LAYERS}/${data.number}/${EPOCHS}`}
+              onClick={(e) => {viewStore.linkHandler(e, LAYERS, data.number, EPOCHS)}}
+            >
+              --
+            </a>
+          </span>
+        </li>
+        <li className="item">
+          <span className="item-name">Smeshers</span>
+          <span className="item-value"><a href={`/${LAYERS}/${data.number}/${SMESHER}`} onClick={(e) => {viewStore.linkHandler(e, LAYERS, data.number, SMESHER)}}>--</a></span>
         </li>
         <li className="item">
           <span className="item-name">Hash</span>
@@ -79,11 +92,13 @@ const DetailsLayer = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Blocks</span>
-          <span className="item-value"><a href={`/${LAYERS}/000000/${BLOCKS}`} onClick={(e) => {
-            // TODO remove after implementation
-            e.preventDefault();
-            // viewStore.linkHandler(e, LAYERS, '000000', BLOCKS)
-          }}>-- blocks</a></span>
+          <span className="item-value">
+            <a
+              href={`/${LAYERS}/${data.number}/${BLOCKS}`}
+              onClick={(e) => {viewStore.linkHandler(e, LAYERS, data.number, BLOCKS)}}>
+              -- blocks
+            </a>
+          </span>
         </li>
       </ul>
     </div>

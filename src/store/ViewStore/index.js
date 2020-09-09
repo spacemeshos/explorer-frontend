@@ -69,7 +69,7 @@ class ViewStore {
   buildUrlString(data: Object) {
     if (data.name && (data.id || data.id === 0) && data.subPage) {
       return `/${data.name}/${data.id}/${data.subPage}`;
-    } if (data.name && data.id) {
+    } if (data.name && (data.id || data.id === 0) && !data.subPage) {
       return `/${data.name}/${data.id}`;
     }
     return `/${data.name}`;
@@ -82,13 +82,12 @@ class ViewStore {
 
     try {
       const rawData = await this.fetch('txs');
-      const rawNetworkInfo = await this.fetch('network-info');
+      this.mainInfo = await this.fetch('network-info');
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
         this.currentView.data = rawData.data;
         this.currentView.pagination = rawData.pagination;
-        this.mainInfo = rawNetworkInfo.data[0];
       })
     } catch (e) {
       this.currentView.status = STATUS_ERROR;
@@ -102,12 +101,12 @@ class ViewStore {
 
     try {
       const rawData = await this.fetch(page);
-      const rawNetworkInfo = await this.fetch('network-info');
+      this.mainInfo = await this.fetch('network-info');
+
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
         this.currentView.data = rawData.data;
         this.currentView.pagination = rawData.pagination;
-        this.mainInfo = rawNetworkInfo.data[0];
       })
     } catch (e) {
       this.currentView.status = STATUS_ERROR;
@@ -121,6 +120,8 @@ class ViewStore {
 
   getPaginationData(page, pageNumber) {
     const pageSize = 20;
+
+    if (page === OVERVIEW) return;
 
     this.fetch(`${page}?page=${pageNumber}&pagesize=${pageSize}`).then(
       (result) => {
@@ -150,12 +151,11 @@ class ViewStore {
 
     try {
       const rawData = await this.fetch(`${page}/${id}`);
-      const rawNetworkInfo = await this.fetch('network-info');
+      this.mainInfo = await this.fetch('network-info');
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
         this.currentView.data = rawData.data[0];
-        this.mainInfo = rawNetworkInfo.data[0];
       })
     } catch (e) {
       this.currentView.status = STATUS_ERROR;
@@ -171,12 +171,11 @@ class ViewStore {
 
     try {
       const rawData = await this.fetch(`${page}/${id}/${subPage}`);
-      const rawNetworkInfo = await this.fetch('network-info');
+      this.mainInfo = await this.fetch('network-info');
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
         this.currentView.data = rawData.data;
-        this.mainInfo = rawNetworkInfo.data[0];
       })
     } catch (e) {
       this.currentView.status = STATUS_ERROR;
@@ -195,9 +194,6 @@ class ViewStore {
   }
 
   linkHandler(e, page, id, subPage) {
-    console.log(page);
-    console.log(id);
-    console.log(subPage);
     e.preventDefault();
     if (subPage) {
       this.showSubPage({ page, id, subPage });

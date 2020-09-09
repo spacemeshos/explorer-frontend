@@ -1,7 +1,21 @@
 // @flow
 import * as React from 'react';
+import { toJS } from 'mobx';
+import isEmpty from '../../../helper/isEmpty';
+import getValueFromStatsObject from '../../../helper/getValueFromStatsObject';
+import { observer } from 'mobx-react';
 
-const TimeBlock = () => {
+const Props = {
+  viewStore: Object
+};
+
+const TimeBlock = (props: Props) => {
+  const { viewStore } = props;
+
+  const value = toJS(viewStore);
+
+  // console.log('TimeBlock value--->>>>>>>', value);
+  // const stats = !isEmpty(value) && getValueFromStatsObject(value.stats);
   const epoch = '0';
   const layer = null;
 
@@ -23,4 +37,4 @@ const TimeBlock = () => {
   );
 };
 
-export default TimeBlock;
+export default observer(TimeBlock);

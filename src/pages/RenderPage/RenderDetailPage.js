@@ -32,6 +32,8 @@ import {observer} from 'mobx-react';
 import Loader from '../../components/common/Loader';
 import isEmpty from '../../helper/isEmpty';
 import getValueFromStatsObject from '../../helper/getValueFromStatsObject';
+import {smhCoinConverter} from '../../helper/converter';
+import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
 
 type Props = {
   name: string,
@@ -44,11 +46,13 @@ const RenderDetailPage = (props: Props) => {
   const { name, id, uiStore, viewStore } = props;
 
   const data = toJS(viewStore.currentView.data);
-  const status = toJS(viewStore.currentView.status);
-  const pagination = toJS(viewStore.currentView.pagination);
-  const mainInfo = viewStore.mainInfo;
-  const value = toJS(mainInfo);
-  const stats = !isEmpty(value) && getValueFromStatsObject(value.stats);
+  const { epoch, layer, network } = toJS(viewStore.mainInfo);
+
+  //const status = toJS(viewStore.currentView.status);
+  //const pagination = toJS(viewStore.currentView.pagination);
+  // const mainInfo = viewStore.mainInfo;
+  // const value = toJS(mainInfo);
+  // const stats = !isEmpty(value) && getValueFromStatsObject(value.stats);
 
   switch (name) {
     case EPOCHS:
@@ -61,7 +65,7 @@ const RenderDetailPage = (props: Props) => {
               desc="Specific details for this epoch"
               uiStore={uiStore}
             />
-            <AmountBlock number={value && value.number} startTime={value.start} unit="epochs" color={getColorByPageName(name)} />
+            <AmountBlock number={data && (data.layers)} startTime={data && data.start} unit="layers" color={getColorByPageName(name)} />
           </div>
           {data && <DetailsEpoch data={data} viewStore={viewStore} />}
         </>
@@ -76,9 +80,15 @@ const RenderDetailPage = (props: Props) => {
               desc="Layers across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number={value && value.layers} startTime={value.layerstart} unit="layers" color={getColorByPageName(name)} />
+            <RightCountBlock
+              color={getColorByPageName(name)}
+              number={data && data.txs}
+              caption="txns"
+              coinCaption="total coin rewards"
+              coins={data && smhCoinConverter(data.txsamount)}
+            />
           </div>
-          <DetailsLayer data={data} viewStore={viewStore}/>
+          {data && <DetailsLayer data={data} viewStore={viewStore}/>}
         </>
       );
     case TXNS:
@@ -91,7 +101,7 @@ const RenderDetailPage = (props: Props) => {
               desc="Transactions across the entire mesh"
               uiStore={uiStore}
             />
-            <CountTxnsBlock data={data} color={getColorByPageName(name)} />
+            <CountTxnsBlock amount={data && data.amount} startTime={0} color={getColorByPageName(name)} />
           </div>
           {data ? (
             <>
@@ -151,12 +161,12 @@ const RenderDetailPage = (props: Props) => {
         <>
           <div className="page-wrap">
             <TitleBlock
-              title={`Mining reward ${longFormHash(id)} - details`}
+              title={`Smeshing Reward ${longFormHash(id)} - details`}
               color={getColorByPageName(name)}
               desc="Specific details for this reward."
               uiStore={uiStore}
             />
-            <AmountBlock value="325" unit="smh" color={getColorByPageName(name)} />
+            <AmountBlock number={epoch && epoch.stats.cumulative.rewards} startTime={0} unit="smh" color={getColorByPageName(name)} />
           </div>
           {data && <DetailReward data={data} viewStore={viewStore} />}
         </>
@@ -173,7 +183,7 @@ const RenderDetailPage = (props: Props) => {
             />
             <AmountBlock value="123" unit="txns" color={getColorByPageName(name)} />
           </div>
-          <DetailsBlock viewStore={viewStore} />
+          {data && <DetailsBlock data={data} viewStore={viewStore} />}
         </>
       );
     case NOT_FOUND:

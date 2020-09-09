@@ -20,7 +20,7 @@ const AmountBlock = (props: Props) => {
       <p className="amountBlock-unit">{unit}</p>
       <div className="amountBlock-timeWrap">
         <p>{startTime ? moment.unix(startTime).format('L') : '00/00/0000'}</p>
-        <p>{startTime ? moment.unix(startTime).utc().format('LTS') : '00:00:00 PM' }</p>
+        <p>{startTime ? moment.unix(startTime).utc().format('LTS') : '00:00:00 PM' } + UTC</p>
         <p className="amountBlock-timeWrap-timeAgo">{fromNow}</p>
       </div>
     </div>

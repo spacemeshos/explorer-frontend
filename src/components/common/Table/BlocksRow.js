@@ -17,18 +17,18 @@ const BlocksRow = (props: Props) => {
     data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
-          <a href={`/${BLOCKS}/${item.block}`} onClick={(e) => viewStore.linkHandler(e, BLOCKS, item.block)}>
-            {item.block}
+          <a href={`/${BLOCKS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, BLOCKS, item.id)}>
+            {longFormHash(item.id)}
           </a>
         </div>
         <div className="td">
-          <a href={`/${ACCOUNTS}/${item.smesher}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.smesher)}>
-            {longFormHash(item.smesher)}
+          <a href="">
+            --
           </a>
         </div>
-        <div className="td">{item.transaction}</div>
-        <div className="td">{item.age}</div>
-        <div className="td">{item.txnValue}</div>
+        <div className="td">--</div>
+        <div className="td">--</div>
+        <div className="td">--</div>
       </div>
     ))
   );
