@@ -30,8 +30,6 @@ import DetailApp from '../../components/common/Details/DetailApp';
 import {toJS} from 'mobx';
 import {observer} from 'mobx-react';
 import Loader from '../../components/common/Loader';
-import isEmpty from '../../helper/isEmpty';
-import getValueFromStatsObject from '../../helper/getValueFromStatsObject';
 import {smhCoinConverter} from '../../helper/converter';
 import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
 
@@ -46,13 +44,7 @@ const RenderDetailPage = (props: Props) => {
   const { name, id, uiStore, viewStore } = props;
 
   const data = toJS(viewStore.currentView.data);
-  const { epoch, layer, network } = toJS(viewStore.mainInfo);
-
-  //const status = toJS(viewStore.currentView.status);
-  //const pagination = toJS(viewStore.currentView.pagination);
-  // const mainInfo = viewStore.mainInfo;
-  // const value = toJS(mainInfo);
-  // const stats = !isEmpty(value) && getValueFromStatsObject(value.stats);
+  const { epoch } = toJS(viewStore.mainInfo);
 
   switch (name) {
     case EPOCHS:
@@ -181,7 +173,13 @@ const RenderDetailPage = (props: Props) => {
               desc="Specific details for this reward."
               uiStore={uiStore}
             />
-            <AmountBlock value="123" unit="txns" color={getColorByPageName(name)} />
+            <RightCountBlock
+              color={getColorByPageName(name)}
+              number={epoch && epoch.stats.cumulative.txs}
+              caption="txns"
+              coinCaption="total coin rewards"
+              coins={epoch && smhCoinConverter(epoch && epoch.stats.cumulative.txsamount)}
+            />
           </div>
           {data && <DetailsBlock data={data} viewStore={viewStore} />}
         </>

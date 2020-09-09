@@ -72,8 +72,8 @@ const DetailsLayer = (props: Props) => {
           <span className="item-name">Epoch</span>
           <span className="item-value">
             <a
-              href={`/${LAYERS}/${data.number}/${EPOCHS}`}
-              onClick={(e) => {viewStore.linkHandler(e, LAYERS, data.number, EPOCHS)}}
+              href={`/${EPOCHS}`}
+              onClick={(e) => {viewStore.linkHandler(e, EPOCHS)}}
             >
               --
             </a>

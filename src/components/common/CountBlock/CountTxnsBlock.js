@@ -2,7 +2,7 @@
 import * as React from 'react';
 import Badge from '../Badge';
 import { smhCoinConverter } from '../../../helper/converter';
-import moment from './AmountBlock';
+import moment from 'moment';
 
 type Props = {
   color: string,
