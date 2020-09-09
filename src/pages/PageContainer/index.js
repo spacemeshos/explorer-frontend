@@ -10,6 +10,7 @@ import RenderSubPage from '../RenderPage/RenderSubPage';
 import TimeBlock from '../../components/common/TimeBlock';
 
 import { LAYERS, OVERVIEW, TXNS } from '../../config/constants';
+import isEmpty from '../../helper/isEmpty';
 
 type Props = {
   viewStore: Object,
@@ -23,9 +24,9 @@ const PageContainer = (props: Props) => {
   const renderCurrentPage = () => {
     const { name, id, subPage } = viewStore.currentView;
 
-    const isMainPage = name && !id && !subPage;
-    const isDetailsPage = name && id  && !subPage;
-    const isSubPage = name && (id || id === 0) && subPage;
+    const isMainPage = name && isEmpty(id) && isEmpty(subPage);
+    const isDetailsPage = name && !isEmpty(id)  && isEmpty(subPage);
+    const isSubPage = name && !isEmpty(id) && !isEmpty(subPage);
 
     if (isMainPage) {
       return (
@@ -66,7 +67,7 @@ const PageContainer = (props: Props) => {
           <SidebarMenu viewStore={viewStore} />
           {showTimeBlock && (
           <CornerBoxWrapper>
-            <TimeBlock />
+            <TimeBlock viewStore={viewStore}/>
           </CornerBoxWrapper>
           )}
         </aside>

@@ -148,7 +148,7 @@ const Table = (props: Props) => {
         );
       case BLOCKS:
         return (
-          <BlocksRow key={nanoid()} data={blocksTableData} config={tableFieldConfig[name]} viewStore={viewStore} />
+          <BlocksRow key={nanoid()} data={data} config={tableFieldConfig[name]} viewStore={viewStore} />
         );
       default:
         break;

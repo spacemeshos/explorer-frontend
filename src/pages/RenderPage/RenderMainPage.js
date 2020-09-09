@@ -22,8 +22,7 @@ import {
 import RewardsRightColumn from '../../components/common/RewardsRightColumn';
 import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
 import {toJS} from 'mobx';
-import isEmpty from '../../helper/isEmpty';
-import getValueFromStatsObject from '../../helper/getValueFromStatsObject';
+import {smhCoinConverter} from '../../helper/converter';
 
 type Props = {
   uiStore: Object,
@@ -33,16 +32,21 @@ type Props = {
 const RenderMainPage = (props: Props) => {
   const { uiStore, viewStore } = props;
   const { name } = viewStore.currentView;
-  const mainInfo = viewStore.mainInfo;
 
-  const value = toJS(mainInfo);
-  const stats = !isEmpty(value) && getValueFromStatsObject(value.stats);
+  const { epoch, layer, network } = toJS(viewStore.mainInfo);
 
   switch (name) {
     case OVERVIEW:
       return (
         <>
-          <InfoBlock data={mainInfo}/>
+          <InfoBlock
+            transactions={epoch && epoch.stats.cumulative.transactions}
+            rewards={epoch && epoch.stats.cumulative.rewards}
+            security={epoch && epoch.stats.cumulative.security}
+            epoch={epoch && epoch.number}
+            layer={epoch && layer.number}
+            smeshers={epoch && epoch.stats.cumulative.smeshers}
+          />
           <div className="page-wrap">
             <TitleBlock
               title="Latest Transaction"
@@ -52,10 +56,10 @@ const RenderMainPage = (props: Props) => {
             />
             <RightCountBlock
               color={getColorByPageName(name)}
-              number={stats.transactions}
+              number={epoch && epoch.stats.cumulative.transactions}
               caption="txns since genesis"
               coinCaption="total txns value since genesis"
-              coins={0}
+              coins={epoch && smhCoinConverter(epoch.stats.cumulative.txnamount)}
             />
           </div>
           <Table name={name} viewStore={viewStore} />
@@ -71,7 +75,7 @@ const RenderMainPage = (props: Props) => {
               desc="Epochs across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number={value && value.number} startTime={value.start} unit="epochs" color={getColorByPageName(name)} />
+            <AmountBlock number={epoch && epoch.number} startTime={network && network.genesis} unit="epochs" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -86,7 +90,7 @@ const RenderMainPage = (props: Props) => {
               desc="Layers across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number={value && value.layers} startTime={value.layerstart} unit="layers" color={getColorByPageName(name)} />
+            <AmountBlock number={layer && layer.number} startTime={layer && layer.start} unit="layers" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -101,7 +105,13 @@ const RenderMainPage = (props: Props) => {
               desc="Transactions across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number={stats.transactions} startTime={0} unit="txs" color={getColorByPageName(name)} />
+            <RightCountBlock
+              color={getColorByPageName(name)}
+              number={epoch && epoch.stats.cumulative.transactions}
+              caption="txns since genesis"
+              coinCaption="total txns value since genesis"
+              coins={epoch && smhCoinConverter(epoch.stats.cumulative.txnamount)}
+            />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -116,7 +126,7 @@ const RenderMainPage = (props: Props) => {
               desc="Rewards across the entire mesh"
               uiStore={uiStore}
             />
-            <RewardsRightColumn number={stats.rewards} color={getColorByPageName(name)}/>
+            <RewardsRightColumn number={epoch && epoch.stats.cumulative.numrewards} coin={epoch && epoch.stats.cumulative.rewards} color={getColorByPageName(name)}/>
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -131,7 +141,7 @@ const RenderMainPage = (props: Props) => {
               desc="Accounts across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number={stats.accounts} startTime={0} unit="accnts" color={getColorByPageName(name)} />
+            <AmountBlock number={0} startTime={0} unit="accnts" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -161,7 +171,7 @@ const RenderMainPage = (props: Props) => {
               desc="Specific details for this awards"
               uiStore={uiStore}
             />
-            <AmountBlock number={stats.smeshers} startTime={0} unit="txns" color={getColorByPageName(name)} />
+            <AmountBlock number={epoch && epoch.stats.cumulative.transactions} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>

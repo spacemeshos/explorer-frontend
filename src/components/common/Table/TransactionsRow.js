@@ -44,13 +44,21 @@ const TransactionsRow = (props: Props) => {
         </div>
         <div className="td">{item.amount}</div>
         <div className="td">
-          <a href={`/${ACCOUNTS}/${item.sender}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.from)}>
+          <a href={`/${ACCOUNTS}/${item.sender}`} onClick={(e) => {
+            // TODO uncomment after backend implementation
+            e.preventDefault()
+            //viewStore.linkHandler(e, ACCOUNTS, item.sender)
+          }}>
             {longFormHash(item.sender)}
           </a>
           <div className="arrow">-&gt;</div>
         </div>
         <div className="td">
-          <a href={`/${ACCOUNTS}/${item.receiver}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.to)}>
+          <a href={`/${ACCOUNTS}/${item.receiver}`} onClick={(e) => {
+           // TODO uncomment after backend implementation
+            e.preventDefault()
+           // viewStore.linkHandler(e, ACCOUNTS, item.receiver)
+          }}>
             {longFormHash(item.receiver)}
           </a>
         </div>
