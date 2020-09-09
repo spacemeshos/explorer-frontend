@@ -20,7 +20,7 @@ import {
   SMESHER,
   TXNS,
   ATXS,
-  BLOCKS, STATUS_LOADING, STATUS_SUCCESS, STATUS_ERROR,
+  BLOCKS, STATUS_SUCCESS,
 } from '../../../config/constants';
 import tableFieldConfig from './config/tableFieldConfig';
 import LayersRow from './LayersRow';
@@ -42,16 +42,6 @@ const atxsTableData = [
     age: '2 minutes ago',
     from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
     type: 'SMH',
-  },
-];
-
-const blocksTableData = [
-  {
-    block: '126812',
-    smesher: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
-    transaction: '162',
-    age: '2 minutes ago',
-    txnValue: '32',
   },
 ];
 
@@ -144,7 +134,7 @@ const Table = (props: Props) => {
         );
       case ATXS:
         return (
-          <AtxsRow key={nanoid()} data={atxsTableData} config={tableFieldConfig[name]} viewStore={viewStore} />
+          <AtxsRow key={nanoid()} data={viewStore.currentView.data} config={tableFieldConfig[name]} viewStore={viewStore} />
         );
       case BLOCKS:
         return (

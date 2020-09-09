@@ -25,17 +25,16 @@ const AtxsRow = (props: Props) => {
           </a>
         </div>
         <div className="td">
-          {item.value}
-          {' '}
+          --
           SMH
         </div>
         <div className="td">{item.age}</div>
         <div className="td">
-          <a href={`/${ACCOUNTS}/${item.from}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.from)}>
-            {longFormHash(item.from)}
+          <a href={`/${ACCOUNTS}/${item.smesher}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.smesher)}>
+            {longFormHash(item.smesher)}
           </a>
         </div>
-        <div className="td">{longFormHash(item.type)}</div>
+        <div className="td">SMH</div>
       </div>
     ))
   );

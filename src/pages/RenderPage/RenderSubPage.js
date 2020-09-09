@@ -20,8 +20,8 @@ import {
   BLOCKS, ACCOUNTS,
 } from '../../config/constants';
 import longFormHash from '../../helper/longFormHash';
-import isEmpty from '../../helper/isEmpty';
-import getValueFromStatsObject from '../../helper/getValueFromStatsObject';
+import {smhCoinConverter} from '../../helper/converter';
+import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
 
 type Props = {
   name: string,
@@ -34,9 +34,7 @@ type Props = {
 const RenderSubPage = (props: Props) => {
   const { name, id, subPage, uiStore, viewStore } = props;
 
-  const mainInfo = viewStore.mainInfo;
-  const value = toJS(mainInfo);
-  const stats = !isEmpty(value) && getValueFromStatsObject(value.stats);
+  const { epoch, layer, network } = toJS(viewStore.mainInfo);
 
   switch (name) {
     case EPOCHS:
@@ -50,7 +48,7 @@ const RenderSubPage = (props: Props) => {
                 desc={`Layers contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock number={value && value.layers} startTime={value.layerstart} unit="epochs" color={getColorByPageName(name)} />
+              <AmountBlock number={epoch && (epoch.layers)} startTime={epoch && epoch.start} unit="layers" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -66,7 +64,7 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock number={value && value.layers} startTime={value.layerstart} unit="epochs" color={getColorByPageName(name)} />
+              <AmountBlock number={epoch && epoch.stats.cumulative.transactions} unit="txns" startTime={network && network.genesis} color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -82,7 +80,7 @@ const RenderSubPage = (props: Props) => {
                 desc="Smeshers submitting at least one honest block"
                 uiStore={uiStore}
               />
-              <AmountBlock number={stats.smeshers} startTime={value.start} unit="smeshers in the epoch" color={getColorByPageName(name)} />
+              <AmountBlock number={epoch && epoch.stats.cumulative.smeshers} startTime={network && network.genesis} unit="smeshers in the epoch" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -98,7 +96,7 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="167" unit="txns since genesis" color={getColorByPageName(name)} />
+              <AmountBlock number={epoch && epoch.stats.cumulative.transactions} startTime={network && network.genesis} unit="txns since genesis" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -114,7 +112,7 @@ const RenderSubPage = (props: Props) => {
                 desc={`Rewards contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock number={value && value.layers} startTime={value.layerstart} unit="epochs" color={getColorByPageName(name)} />
+              <AmountBlock number={epoch && epoch.stats.cumulative.rewards} startTime={network && network.genesis} unit="awards" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -132,7 +130,13 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions within Layer ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock number={stats.transactions} unit="txns" color={getColorByPageName(name)} />
+              <RightCountBlock
+                color={getColorByPageName(name)}
+                number={layer && layer.txs}
+                caption="txns"
+                coinCaption="total txns value"
+                coins={layer && smhCoinConverter(layer.txsamount)}
+              />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -148,7 +152,7 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions within layer ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="137" unit="txns" color={getColorByPageName(name)} />
+              <AmountBlock number={epoch && epoch.stats.cumulative.transactions} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -164,7 +168,23 @@ const RenderSubPage = (props: Props) => {
                 desc={`Blocks within layer ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="137" unit="layer blocks" color={getColorByPageName(name)} />
+              <AmountBlock number={layer && layer.block} startTime={layer && layer.start} unit="layer blocks" color={getColorByPageName(name)} />
+            </div>
+            <Table name={subPage} viewStore={viewStore} />
+          </>
+        );
+      }
+      if (subPage === SMESHER) {
+        return (
+          <>
+            <div className="page-wrap">
+              <TitleBlock
+                title={`Layers ${id} - Participating Smashers`}
+                color={getColorByPageName(name)}
+                desc="Smeshers in this layer who submit at least one honest block"
+                uiStore={uiStore}
+              />
+              <AmountBlock number={layer && layer.smeshers} startTime={layer && layer.start} unit="smeshers" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -180,7 +200,7 @@ const RenderSubPage = (props: Props) => {
                 desc={`Rewards within Layer ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="167" unit="awards" color={getColorByPageName(name)} />
+              <AmountBlock number={layer && (layer.number)} startTime={layer && layer.start} unit="layers" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
