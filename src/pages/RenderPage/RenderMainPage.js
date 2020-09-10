@@ -23,6 +23,7 @@ import RewardsRightColumn from '../../components/common/RewardsRightColumn';
 import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
 import {toJS} from 'mobx';
 import {smhCoinConverter} from '../../helper/converter';
+import NoData from '../../components/common/NoData';
 
 type Props = {
   uiStore: Object,
@@ -141,7 +142,7 @@ const RenderMainPage = (props: Props) => {
               desc="Accounts across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number={0} startTime={0} unit="accnts" color={getColorByPageName(name)} />
+            <AmountBlock number={epoch && epoch.stats.cumulative.accounts} startTime={network && network.genesis} unit="accnts" color={getColorByPageName(name)} />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -158,7 +159,8 @@ const RenderMainPage = (props: Props) => {
             />
             <AmountBlock number="000" startTime={0} unit="accnts" color={getColorByPageName(name)} />
           </div>
-          <Table name={name} viewStore={viewStore} />
+          {/*<Table name={name} viewStore={viewStore} />*/}
+          <NoData />
         </>
       );
     case SMESHER:

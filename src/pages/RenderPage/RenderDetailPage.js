@@ -32,6 +32,8 @@ import {observer} from 'mobx-react';
 import Loader from '../../components/common/Loader';
 import {smhCoinConverter} from '../../helper/converter';
 import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
+import DetailAtxs from '../../components/common/Details/DetailAtxs';
+import NoData from '../../components/common/NoData';
 
 type Props = {
   name: string,
@@ -93,14 +95,19 @@ const RenderDetailPage = (props: Props) => {
               desc="Transactions across the entire mesh"
               uiStore={uiStore}
             />
-            <CountTxnsBlock amount={data && data.amount} startTime={0} color={getColorByPageName(name)} />
+            <CountTxnsBlock
+              badgeType={data && data.type === 0 ? 'coin' : 'atx'}
+              amount={data && data.amount}
+              startTime={0}
+              color={getColorByPageName(name)}
+            />
           </div>
           {data ? (
             <>
               <TxnsStatus status="approved" />
-              <DetailsCoinTxns data={data} viewStore={viewStore} id={id}/>
+              {data.type === 0 ? (<DetailsCoinTxns data={data} viewStore={viewStore}/>) : (<DetailAtxs data={data} viewStore={viewStore}/>)}
             </>
-          ): (<Loader size={100} />)}
+          ) : (<Loader size={100} />)}
         </>
       );
     case ACCOUNTS:
@@ -113,9 +120,9 @@ const RenderDetailPage = (props: Props) => {
               desc="Details for this address"
               uiStore={uiStore}
             />
-            <AmountBlock value="325" unit="accnts" color={getColorByPageName(name)} />
+            <AmountBlock number={epoch && epoch.stats.cumulative.accounts} startTime={network && network.genesis} unit="accnts" color={getColorByPageName(name)} />
           </div>
-          <DetailAccount viewStore={viewStore} />
+          {data ? <DetailAccount data={data} viewStore={viewStore} /> : <NoData />}
         </>
       );
     case SMART_WALLET:
@@ -145,7 +152,7 @@ const RenderDetailPage = (props: Props) => {
             />
             <AmountBlock number={epoch && epoch.stats.cumulative.transactions} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
           </div>
-          {data && <DetailSmesher data={data} viewStore={viewStore} />}
+          {data ? <DetailSmesher data={data} viewStore={viewStore} /> : <NoData />}
         </>
       );
     case REWARDS:
@@ -160,7 +167,7 @@ const RenderDetailPage = (props: Props) => {
             />
             <AmountBlock number={epoch && epoch.stats.cumulative.rewards} startTime={0} unit="smh" color={getColorByPageName(name)} />
           </div>
-          {data && <DetailReward data={data} viewStore={viewStore} />}
+          {data ? <DetailReward data={data} viewStore={viewStore} /> : <NoData />}
         </>
       );
     case BLOCKS:
@@ -181,7 +188,7 @@ const RenderDetailPage = (props: Props) => {
               coins={epoch && smhCoinConverter(epoch && epoch.stats.cumulative.txsamount)}
             />
           </div>
-          {data && <DetailsBlock data={data} viewStore={viewStore} />}
+          {data ? <DetailsBlock data={data} viewStore={viewStore} /> : <NoData />}
         </>
       );
     case NOT_FOUND:
