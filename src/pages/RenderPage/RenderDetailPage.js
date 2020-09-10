@@ -44,7 +44,7 @@ const RenderDetailPage = (props: Props) => {
   const { name, id, uiStore, viewStore } = props;
 
   const data = toJS(viewStore.currentView.data);
-  const { epoch } = toJS(viewStore.mainInfo);
+  const { epoch, network } = toJS(viewStore.mainInfo);
 
   switch (name) {
     case EPOCHS:
@@ -143,7 +143,7 @@ const RenderDetailPage = (props: Props) => {
               desc="Specific details for this smesher"
               uiStore={uiStore}
             />
-            <AmountBlock value="325" unit="accnts" color={getColorByPageName(name)} />
+            <AmountBlock number={epoch && epoch.stats.cumulative.transactions} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
           </div>
           {data && <DetailSmesher data={data} viewStore={viewStore} />}
         </>

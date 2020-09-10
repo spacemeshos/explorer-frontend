@@ -33,6 +33,7 @@ type Props = {
 
 const RenderSubPage = (props: Props) => {
   const { name, id, subPage, uiStore, viewStore } = props;
+  const data = toJS(viewStore.currentView.data);
 
   const { epoch, layer, network } = toJS(viewStore.mainInfo);
 
@@ -213,14 +214,14 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Smesher ${id} - ATX Details`}
+                title={`Smesher ${longFormHash(id)} - ATX Details`}
                 color={getColorByPageName(name)}
                 desc="Smesher details for this ATX"
                 uiStore={uiStore}
               />
-              <AmountBlock value="000" unit="txns" color={getColorByPageName(name)} />
+              <AmountBlock number={epoch && epoch.stats.cumulative.transactions} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
             </div>
-            <DetailAtxs viewStore={viewStore} />
+            <Table name={subPage} viewStore={viewStore} />
           </>
         );
       }
@@ -229,14 +230,14 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Smesher ${id} - Details`}
+                title={`Smesher ${longFormHash(id)} - Details`}
                 color={getColorByPageName(name)}
                 desc="Smesher details for this reward"
                 uiStore={uiStore}
               />
-              <AmountBlock value="000" unit="txns" color={getColorByPageName(name)} />
+              <AmountBlock number={epoch && epoch.stats.cumulative.transactions} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
             </div>
-            <DetailReward viewStore={viewStore} />
+            <Table name={subPage} viewStore={viewStore} />
           </>
         );
       }
