@@ -104,7 +104,7 @@ const RenderDetailPage = (props: Props) => {
           </div>
           {data ? (
             <>
-              <TxnsStatus status="approved" />
+              <TxnsStatus status={data.state} />
               {data.type === 0 ? (<DetailsCoinTxns data={data} viewStore={viewStore}/>) : (<DetailAtxs data={data} viewStore={viewStore}/>)}
             </>
           ) : (<Loader size={100} />)}
@@ -157,6 +157,7 @@ const RenderDetailPage = (props: Props) => {
         </>
       );
     case REWARDS:
+      const balanceReward = data && smhCoinConverter(data.total, true);
       return (
         <>
           <div className="page-wrap">
@@ -166,7 +167,7 @@ const RenderDetailPage = (props: Props) => {
               desc="Specific details for this reward."
               uiStore={uiStore}
             />
-            <AmountBlock number={0} startTime={network && network.genesis} unit="smh" color={getColorByPageName(name)} />
+            {data && <AmountBlock number={balanceReward.value} startTime={network && network.genesis} unit={balanceReward.unit} color={getColorByPageName(name)} />}
           </div>
           {data ? <DetailReward data={data} viewStore={viewStore} /> : <NoData />}
         </>

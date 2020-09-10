@@ -25,8 +25,8 @@ const SmesherRow = (props: Props) => {
           </a>
         </div>
         <div className="td">
-          <a href={`${ACCOUNTS}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS)}>
-            --
+          <a href={`${ACCOUNTS}/${data.coinbase}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, data.coinbase)}>
+            {shortFormHash(data.coinbase)}
           </a>
         </div>
         <div className="td">

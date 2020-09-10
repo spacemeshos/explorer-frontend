@@ -33,7 +33,7 @@ type Props = {
 
 const RenderSubPage = (props: Props) => {
   const { name, id, subPage, uiStore, viewStore } = props;
-  const data = toJS(viewStore.currentView.data);
+  const { data, pagination } = toJS(viewStore.currentView);
 
   const { epoch, layer, network } = toJS(viewStore.mainInfo);
 
@@ -108,12 +108,12 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Epoch ${longFormHash(id)} - Rewards`}
+                title={`Epoch ${id} - Rewards`}
                 color={getColorByPageName(name)}
                 desc={`Rewards contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock number={epoch && epoch.stats.cumulative.rewards} startTime={network && network.genesis} unit="awards" color={getColorByPageName(name)} />
+              <AmountBlock number={pagination && pagination.totalCount} startTime={network && network.genesis} unit="awards" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>

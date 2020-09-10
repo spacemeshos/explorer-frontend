@@ -1,5 +1,6 @@
 // @flow
 import * as React from 'react';
+import {observer} from 'mobx-react';
 
 type Props = {
   status: string
@@ -8,7 +9,29 @@ type Props = {
 const TxnsStatus = (props: Props) => {
   const { status } = props;
 
-  const txnsStatusClass = `txnsStatus ${status}`;
+  const mapStatus = (status) => {
+    switch (status) {
+      case 0:
+        return 'unspecified';
+      case 1:
+        return 'rejected';
+      case 2:
+        return 'insufficientFunds';
+      case 3:
+        return 'conflicting';
+      case 4:
+        return 'pending';
+      case 5:
+        return 'processing';
+      case 6:
+        return 'approved';
+      default:
+        break;
+    }
+  };
+
+  const currentStatus = mapStatus(status);
+  const txnsStatusClass = `txnsStatus ${mapStatus(status)}`;
 
   const getStatusText = (data) => {
     switch (data) {
@@ -27,9 +50,9 @@ const TxnsStatus = (props: Props) => {
 
   return (
     <div className={txnsStatusClass}>
-      { getStatusText(status) }
+      { getStatusText(currentStatus) }
     </div>
   );
 };
 
-export default TxnsStatus;
+export default observer(TxnsStatus);
