@@ -5,6 +5,7 @@ import SmoothCollapse from 'react-smooth-collapse';
 import CopyButton from '../CopyButton';
 import { ACCOUNTS } from '../../../config/constants';
 import {smhCoinConverter} from '../../../helper/converter';
+import {timeAgo, timeWithFormat} from '../../../helper/formatter';
 
 type Props = {
   data: Object,
@@ -44,7 +45,7 @@ const DetailsCoinTxns = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Timestamp</span>
-          <span className="item-value">--</span>
+          <span className="item-value">{`${timeAgo(data.timestamp)} ${timeWithFormat(data.timestamp)}`}</span>
         </li>
         <li className="item">
           <span className="item-name">Value</span>
