@@ -165,7 +165,7 @@ const RenderDetailPage = (props: Props) => {
               desc="Specific details for this reward."
               uiStore={uiStore}
             />
-            <AmountBlock number={epoch && epoch.stats.cumulative.rewards} startTime={0} unit="smh" color={getColorByPageName(name)} />
+            <AmountBlock number={0} startTime={network && network.genesis} unit="smh" color={getColorByPageName(name)} />
           </div>
           {data ? <DetailReward data={data} viewStore={viewStore} /> : <NoData />}
         </>
