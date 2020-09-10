@@ -28,9 +28,9 @@ const DetailAccount = (props: Props) => {
         <li className="item">
           <span className="item-name">Rewards Account</span>
           <span className="item-value">
-            <a href={`/${ACCOUNTS}/--`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, '--')}>
-              --
-              <CopyButton value="--" />
+            <a href={`/${ACCOUNTS}/${data.coinbase}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, data.coinbase)}>
+              {data.coinbase}
+              <CopyButton value={data.coinbase} />
             </a>
           </span>
         </li>
@@ -43,13 +43,13 @@ const DetailAccount = (props: Props) => {
         <li className="item">
           <span className="item-name">Reward Committed</span>
           <span className="item-value">
-            <a href={`/${SMESHER}/${data.id}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, data.id, REWARDS)}>--</a>
+            <a href={`/${SMESHER}/${data.id}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, data.id, REWARDS)}>{data.awards}</a>
           </span>
         </li>
         <li className="item">
           <span className="item-name">Total Transactions</span>
           <span className="item-value">
-            <a href={`/${SMESHER}/${data.id}/${ATXS}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, data.id, ATXS)}>--</a>
+            <a href={`/${SMESHER}/${data.id}/${ATXS}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, data.id, ATXS)}>{data.atxcount}</a>
           </span>
         </li>
       </ul>

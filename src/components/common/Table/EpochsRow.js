@@ -51,7 +51,7 @@ const EpochsRow = (props: Props) => {
             {smhCoinConverter(item.stats.current.rewards)}
           </a>
         </div>
-        <div className="td">--</div>
+        <div className="td">{item.stats.current.circulation}</div>
       </div>
     ))
   );

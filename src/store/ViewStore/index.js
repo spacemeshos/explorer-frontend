@@ -176,6 +176,7 @@ class ViewStore {
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
         this.currentView.data = rawData.data;
+        this.currentView.pagination = rawData.pagination;
       })
     } catch (e) {
       this.currentView.status = STATUS_ERROR;
