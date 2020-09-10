@@ -253,7 +253,7 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions contained within account ${longFormHash('0x0klsda7as8asbadskjhkjdjyuye32423423')}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="000" unit="txns" color={getColorByPageName(name)} />
+              <AmountBlock number={epoch && epoch.stats.cumulative.transactions} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -269,7 +269,7 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions contained within account ${longFormHash('0x0klsda7as8asbadskjhkjdjyuye32423423')}`}
                 uiStore={uiStore}
               />
-              <AmountBlock value="000" unit="txns" color={getColorByPageName(name)} />
+              <AmountBlock number={epoch && epoch.stats.cumulative.rewards} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
