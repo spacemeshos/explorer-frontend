@@ -2,10 +2,12 @@
 import * as React from 'react';
 import { nanoid } from 'nanoid';
 import { observer } from 'mobx-react';
+import moment from 'moment';
 
 import shortFormHash from '../../../helper/longFormHash';
 
 import { ACCOUNTS } from '../../../config/constants';
+import {smhCoinConverter} from '../../../helper/converter';
 
 type Props = {
   data: Array<Object>,
@@ -19,26 +21,22 @@ const AccountsRow = (props: Props) => {
     data && data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
-          <a href={`${ACCOUNTS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.id)}>
-            {shortFormHash(item.id)}
+          <a href={`${ACCOUNTS}/${item.address}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.address)}>
+            {shortFormHash(item.address)}
           </a>
         </div>
         <div className="td">
-          {item.sent}
-          SMH
+          {smhCoinConverter(item.sent)}
         </div>
         <div className="td">
-          {item.recieved}
-          SMH
+          {smhCoinConverter(item.recieved)}
         </div>
-        <div className="td">{item.lastActive}</div>
+        <div className="td">{moment.unix(item.timestamp).fromNow()}</div>
         <div className="td">
-          {item.awards}
-          SMH
+          {smhCoinConverter(item.awards)}
         </div>
         <div className="td">
-          {item.balance}
-          SMH
+          {smhCoinConverter(item.balance)}
         </div>
       </div>
     ))

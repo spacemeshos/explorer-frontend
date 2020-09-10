@@ -45,9 +45,7 @@ const TransactionsRow = (props: Props) => {
         <div className="td">{item.amount}</div>
         <div className="td">
           <a href={`/${ACCOUNTS}/${item.sender}`} onClick={(e) => {
-            // TODO uncomment after backend implementation
-            e.preventDefault()
-            //viewStore.linkHandler(e, ACCOUNTS, item.sender)
+            viewStore.linkHandler(e, ACCOUNTS, item.sender)
           }}>
             {longFormHash(item.sender)}
           </a>
@@ -55,9 +53,7 @@ const TransactionsRow = (props: Props) => {
         </div>
         <div className="td">
           <a href={`/${ACCOUNTS}/${item.receiver}`} onClick={(e) => {
-           // TODO uncomment after backend implementation
-            e.preventDefault()
-           // viewStore.linkHandler(e, ACCOUNTS, item.receiver)
+           viewStore.linkHandler(e, ACCOUNTS, item.receiver)
           }}>
             {longFormHash(item.receiver)}
           </a>

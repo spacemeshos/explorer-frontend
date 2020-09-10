@@ -8,13 +8,15 @@ type Props = {
   color: string,
   amount: string,
   startTime: number,
+  badgeType?: string,
 };
 
 const CountTxnsBlock = (props: Props) => {
-  const { amount, color, startTime } = props;
+  const { amount, color, startTime, badgeType } = props;
 
   const coin = amount && smhCoinConverter(amount, true);
   const fromNow = startTime ? moment.unix(startTime).fromNow() : '0000000 AGO';
+  const selectedBadgeType = badgeType ? badgeType : 'coin';
   // const setFontSize = (data) => {
   //   return `50px`;
   // };
@@ -27,7 +29,7 @@ const CountTxnsBlock = (props: Props) => {
           <div className="countBlock-unit">{coin.unit}</div>
           <div className="countBlock-badge">
             <Badge type="sent" />
-            <Badge type="coin" />
+            <Badge type={selectedBadgeType} />
           </div>
           <div className="countBlock-time">
             <p>{startTime ? moment.unix(startTime).format('L') : '00/00/0000'}</p>

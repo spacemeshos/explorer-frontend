@@ -15,15 +15,20 @@ const Search = (props: Props) => {
     const listener = (event) => {
       if (event.code === 'Enter' || event.code === 'NumpadEnter') {
         viewStore.showSearchResult(searchValue);
+
       }
     };
     document.addEventListener('keydown', listener);
     return () => {
       document.removeEventListener('keydown', listener);
     };
-  }, [searchValue]);
+  }, [searchValue, setSearchValue]);
 
-  const onClickHandler = () => console.log(searchValue);
+  const onClickHandler = () => {
+    viewStore.showSearchResult(searchValue);
+    setSearchValue('');
+    console.log('searchValue', searchValue);
+  };
 
   return (
     <div className="search">

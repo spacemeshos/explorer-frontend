@@ -10,6 +10,7 @@ import {
   REWARDS,
   TXNS,
 } from '../../../config/constants';
+import {smhCoinConverter} from '../../../helper/converter';
 
 type Props = {
   data: Array<Object>,
@@ -47,7 +48,7 @@ const EpochsRow = (props: Props) => {
             href={`/${EPOCHS}/${item.number}/${REWARDS}`}
             onClick={(e) => {viewStore.linkHandler(e, EPOCHS, item.number, REWARDS)}}
           >
-            {item.stats.current.rewards}
+            {smhCoinConverter(item.stats.current.rewards)}
           </a>
         </div>
         <div className="td">--</div>

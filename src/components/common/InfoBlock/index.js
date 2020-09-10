@@ -20,7 +20,7 @@ const InfoBlock = (props: Props) => {
     <div className="infoBlock">
       <ul className="infoBlock-list">
         <li className="infoBlock-item">
-          <p className="infoBlock-item-number">{transactions || (<Loader size={15} />)}</p>
+          <p className="infoBlock-item-number">{JSON.stringify(transactions) || (<Loader size={15} />)}</p>
           <p className="infoBlock-item-title">transactions</p>
         </li>
         <li className="infoBlock-item">
@@ -32,15 +32,15 @@ const InfoBlock = (props: Props) => {
           <p className="infoBlock-item-title">security</p>
         </li>
         <li className="infoBlock-item">
-          <p className="infoBlock-item-number">{epoch || (<Loader size={15} />)}</p>
+          <p className="infoBlock-item-number">{JSON.stringify(epoch) || (<Loader size={15} />)}</p>
           <p className="infoBlock-item-title">epoch</p>
         </li>
         <li className="infoBlock-item">
-          <p className="infoBlock-item-number">{layer || (<Loader size={15} />)}</p>
+          <p className="infoBlock-item-number">{JSON.stringify(layer) || (<Loader size={15} />)}</p>
           <p className="infoBlock-item-title">layer</p>
         </li>
         <li className="infoBlock-item">
-          <p className="infoBlock-item-number">{smeshers || (<Loader size={15} />)}</p>
+          <p className="infoBlock-item-number">{JSON.stringify(smeshers) || (<Loader size={15} />)}</p>
           <p className="infoBlock-item-title">active smeshers</p>
         </li>
       </ul>

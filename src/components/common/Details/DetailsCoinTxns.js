@@ -7,13 +7,12 @@ import { ACCOUNTS } from '../../../config/constants';
 import {smhCoinConverter} from '../../../helper/converter';
 
 type Props = {
-  id: string,
   data: Object,
   viewStore: Object,
 };
 
 const DetailsCoinTxns = (props: Props) => {
-  const { data, viewStore, id } = props;
+  const { data, viewStore } = props;
   const [expanded, setExpanded] = useState(false);
   const arrowClass = expanded ? 'arrow isOpen' : 'arrow';
 
@@ -25,8 +24,8 @@ const DetailsCoinTxns = (props: Props) => {
         <li className="item">
           <span className="item-name">ID</span>
           <span className="item-value">
-            {id}
-            <CopyButton value={id} />
+            {data.id}
+            <CopyButton value={data.id} />
           </span>
         </li>
         <li className="item">

@@ -202,8 +202,16 @@ class ViewStore {
     }
   }
 
-  static defineIdType(value) {
-    return false;
+  defineIdType(value) {
+    if (value.length === 42) {
+      return ACCOUNTS;
+    } else if (value.length > 42) {
+      return TXNS;
+    } else if (value.length < 42){
+      return LAYERS;
+    } else {
+      return false;
+    }
   }
 }
 
