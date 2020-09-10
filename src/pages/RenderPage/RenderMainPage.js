@@ -60,7 +60,7 @@ const RenderMainPage = (props: Props) => {
               number={epoch && epoch.stats.cumulative.transactions}
               caption="txns since genesis"
               coinCaption="total txns value since genesis"
-              coins={epoch && smhCoinConverter(epoch.stats.cumulative.txnamount)}
+              coins={epoch && epoch.stats.cumulative.txsamount}
             />
           </div>
           <Table name={name} viewStore={viewStore} />

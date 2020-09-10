@@ -46,7 +46,7 @@ const RewardsRow = (props: Props) => {
         </div>
         <div className="td">
           {item.space}
-          GB
+          -- GB
         </div>
         <div className="td">
           {smhCoinConverter(item.total)}

@@ -11,6 +11,7 @@ import {
 } from '../../../config/constants';
 
 import {timeAgo, timeWithFormat} from '../../../helper/formatter';
+import {smhCoinConverter} from '../../../helper/converter';
 
 type Props = {
   data: Object,
@@ -60,7 +61,7 @@ const DetailsLayer = (props: Props) => {
               href={`/${LAYERS}/${data.number}/${REWARDS}`}
               onClick={(e) => {viewStore.linkHandler(e, LAYERS, data.number, REWARDS)}}
             >
-              {data.rewards}
+              {smhCoinConverter(data.rewards)}
             </a>
           </span>
         </li>
