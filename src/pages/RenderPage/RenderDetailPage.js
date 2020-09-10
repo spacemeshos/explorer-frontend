@@ -111,6 +111,7 @@ const RenderDetailPage = (props: Props) => {
         </>
       );
     case ACCOUNTS:
+      const balance = data && smhCoinConverter(data.balance, true);
       return (
         <>
           <div className="page-wrap">
@@ -120,9 +121,9 @@ const RenderDetailPage = (props: Props) => {
               desc="Details for this address"
               uiStore={uiStore}
             />
-            <AmountBlock number={epoch && epoch.stats.cumulative.accounts} startTime={network && network.genesis} unit="accnts" color={getColorByPageName(name)} />
+            { data && <AmountBlock number={balance.value} startTime={network && network.genesis} unit={balance.unit} color={getColorByPageName(name)} />}
           </div>
-          {data ? <DetailAccount data={data} viewStore={viewStore} /> : <NoData />}
+          { data ? <DetailAccount data={data} viewStore={viewStore} /> : <NoData />}
         </>
       );
     case SMART_WALLET:

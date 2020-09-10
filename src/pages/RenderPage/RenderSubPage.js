@@ -60,7 +60,7 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Epoch ${id} - Transactions`}
+                title={`Epoch ${longFormHash(id)} - Transactions`}
                 color={getColorByPageName(name)}
                 desc={`Transactions contained within Epoch ${id}`}
                 uiStore={uiStore}
@@ -108,7 +108,7 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Epoch ${id} - Rewards`}
+                title={`Epoch ${longFormHash(id)} - Rewards`}
                 color={getColorByPageName(name)}
                 desc={`Rewards contained within Epoch ${id}`}
                 uiStore={uiStore}
@@ -264,12 +264,12 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`ACCOUNT ${longFormHash(id)} - Transactions`}
+                title={`ACCOUNT ${longFormHash(id)} - Rewards`}
                 color={getColorByPageName(name)}
-                desc={`Transactions contained within account ${longFormHash('0x0klsda7as8asbadskjhkjdjyuye32423423')}`}
+                desc={`Rewards contained within account ${longFormHash(id)}`}
                 uiStore={uiStore}
               />
-              <AmountBlock number={epoch && epoch.stats.cumulative.rewards} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
+              <AmountBlock number={epoch && epoch.stats.cumulative.transactions} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>

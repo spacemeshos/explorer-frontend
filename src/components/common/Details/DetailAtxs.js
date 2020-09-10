@@ -40,7 +40,11 @@ const DetailAtxs = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Reward Committed</span>
-          <span className="item-value"><a href={`/${EPOCHS}/--/${LAYERS}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, '--', LAYERS)}>--</a></span>
+          <span className="item-value">
+            <a href={`/${EPOCHS}/--/${LAYERS}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, '--', LAYERS)}>
+              --
+            </a>
+          </span>
         </li>
         <li className="item">
           <span className="item-name">Total Transactions</span>
