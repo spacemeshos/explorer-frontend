@@ -53,7 +53,7 @@ const DetailReward = (props: Props) => {
          <span className="item-value">
           <a
             href={`/${ACCOUNTS}/${data.coinbase}`}
-            onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, data.coinbas )}
+            onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, data.coinbase )}
           >
             {data.coinbase}
           </a>
