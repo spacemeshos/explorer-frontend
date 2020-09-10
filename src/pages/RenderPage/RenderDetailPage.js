@@ -98,7 +98,7 @@ const RenderDetailPage = (props: Props) => {
             <CountTxnsBlock
               badgeType={data && data.type === 0 ? 'coin' : 'atx'}
               amount={data && data.amount}
-              startTime={0}
+              startTime={data && data.timestamp}
               color={getColorByPageName(name)}
             />
           </div>
