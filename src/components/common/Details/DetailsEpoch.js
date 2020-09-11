@@ -63,7 +63,7 @@ const DetailsEpoch = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Total Rewards number</span>
-          <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, REWARDS)}>--</a></span>
+          <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, REWARDS)}>{stats.rewardsnumber}</a></span>
         </li>
         <li className="item">
           <span className="item-name">Total Rewards value</span>
