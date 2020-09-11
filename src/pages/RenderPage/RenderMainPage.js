@@ -127,7 +127,7 @@ const RenderMainPage = (props: Props) => {
               desc="Rewards across the entire mesh"
               uiStore={uiStore}
             />
-            <RewardsRightColumn number={epoch && epoch.stats.cumulative.numrewards} coin={epoch && epoch.stats.cumulative.rewards} color={getColorByPageName(name)}/>
+            <RewardsRightColumn number={epoch && epoch.stats.cumulative.rewardsnumber} coin={epoch && epoch.stats.cumulative.rewards} color={getColorByPageName(name)}/>
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
