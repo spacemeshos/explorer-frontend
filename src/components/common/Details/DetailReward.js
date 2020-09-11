@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 import CopyButton from '../CopyButton';
-import { smhCoinConverter } from '../../../helper/converter';
+import {byteConverter, smhCoinConverter} from '../../../helper/converter';
 import { ACCOUNTS, SMESHER } from '../../../config/constants';
 
 type Props = {
@@ -70,7 +70,7 @@ const DetailReward = (props: Props) => {
        </li>
        <li className="item">
          <span className="item-name">Space</span>
-         <span className="item-value">--</span>
+         <span className="item-value">{byteConverter(data.space)}</span>
        </li>
      </ul>
    </div>
