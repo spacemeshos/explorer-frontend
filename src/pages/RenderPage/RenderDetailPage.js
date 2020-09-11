@@ -200,7 +200,7 @@ const RenderDetailPage = (props: Props) => {
             <TitleBlock
               title={`${longFormHash(id)}`}
               color={getColorByPageName(name)}
-              desc="search returned no result. try again or return home"
+              desc="search returned no result"
               uiStore={uiStore}
             />
             <AmountBlock value="000" unit="txns" color={getColorByPageName(name)} />

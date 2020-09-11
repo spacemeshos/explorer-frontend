@@ -159,6 +159,7 @@ class ViewStore {
       })
     } catch (e) {
       this.currentView.status = STATUS_ERROR;
+      this.currentView.name = NOT_FOUND;
     }
   }
 

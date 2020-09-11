@@ -22,7 +22,6 @@ import {
 import RewardsRightColumn from '../../components/common/RewardsRightColumn';
 import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
 import {toJS} from 'mobx';
-import {smhCoinConverter} from '../../helper/converter';
 import NoData from '../../components/common/NoData';
 
 type Props = {
