@@ -28,7 +28,7 @@ const InfoBlock = (props: Props) => {
           <p className="infoBlock-item-title">smeshing rewards</p>
         </li>
         <li className="infoBlock-item">
-          <p className="infoBlock-item-number">{security ? byteConverter(security) : (<Loader size={15} />)}</p>
+          <p className="infoBlock-item-number">{byteConverter(security)}</p>
           <p className="infoBlock-item-title">security</p>
         </li>
         <li className="infoBlock-item">
