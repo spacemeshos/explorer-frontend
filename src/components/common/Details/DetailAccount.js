@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import CopyButton from '../CopyButton';
 import {ACCOUNTS, EPOCHS, REWARDS, TXNS} from '../../../config/constants';
+import {smhCoinConverter} from '../../../helper/converter';
 
 type Props = {
   data: Object,
@@ -25,15 +26,15 @@ const DetailAccount = (props: Props) => {
         <li className="item">
           <span className="item-name">Counter</span>
           <span className="item-value">
-            --
-            <CopyButton value="--" />
+            {data.counter}
+            <CopyButton value={data.counter} />
           </span>
         </li>
         <li className="item">
           <span className="item-name">Rewards</span>
           <span className="item-value">
             <a href={`/${ACCOUNTS}/${data.address}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, data.address, REWARDS)}>
-              --
+              {smhCoinConverter(data.awards)}
             </a>
           </span>
         </li>
@@ -41,7 +42,7 @@ const DetailAccount = (props: Props) => {
           <span className="item-name">Transactions</span>
           <span className="item-value">
             <a href={`/${ACCOUNTS}/${data.address}/${TXNS}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, data.address, TXNS)}>
-              --
+              {data.txs}
             </a>
           </span>
         </li>

@@ -25,16 +25,15 @@ const SmesherRow = (props: Props) => {
           </a>
         </div>
         <div className="td">
-          <a href={`${ACCOUNTS}/${data.coinbase}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, data.coinbase)}>
-            {shortFormHash(data.coinbase)}
+          <a href={`${ACCOUNTS}/${item.coinbase}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.coinbase)}>
+            {shortFormHash(item.coinbase)}
           </a>
         </div>
         <div className="td">
           {byteConverter(item.cSize)}
         </div>
         <div className="td">
-          {item.totalAtxTxns}
-          SMH
+          {item.atxcount}
         </div>
       </div>
     ))
