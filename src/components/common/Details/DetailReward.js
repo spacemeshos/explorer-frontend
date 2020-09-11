@@ -62,11 +62,11 @@ const DetailReward = (props: Props) => {
        </li>
        <li className="item">
          <span className="item-name">Block Reward</span>
-         <span className="item-value">{smhCoinConverter(data.layerReward)}</span>
+         <span className="item-value">{smhCoinConverter(data.total)}</span>
        </li>
        <li className="item">
          <span className="item-name">TX fee</span>
-         <span className="item-value">{smhCoinConverter(fee)}</span>
+         <span className="item-value">{smhCoinConverter(0)}</span>
        </li>
        <li className="item">
          <span className="item-name">Space</span>
