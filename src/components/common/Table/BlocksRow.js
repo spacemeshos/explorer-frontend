@@ -4,6 +4,8 @@ import * as React from 'react';
 import { nanoid } from 'nanoid';
 import longFormHash from '../../../helper/longFormHash';
 import { ACCOUNTS, BLOCKS } from '../../../config/constants';
+import moment from 'moment';
+import 'moment-duration-format';
 
 type Props = {
   data: Array<object>,
@@ -21,13 +23,9 @@ const BlocksRow = (props: Props) => {
             {longFormHash(item.id)}
           </a>
         </div>
-        <div className="td">
-          <a href="">
-            --
-          </a>
-        </div>
         <div className="td">--</div>
-        <div className="td">--</div>
+        <div className="td">{item.txsnumber}</div>
+        <div className="td">{moment.unix(item.start).fromNow()}</div>
         <div className="td">--</div>
       </div>
     ))
