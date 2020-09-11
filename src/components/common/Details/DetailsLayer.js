@@ -73,31 +73,31 @@ const DetailsLayer = (props: Props) => {
           <span className="item-name">Epoch</span>
           <span className="item-value">
             <a
-              href={`/${EPOCHS}`}
-              onClick={(e) => {viewStore.linkHandler(e, EPOCHS)}}
+              href={`/${EPOCHS}/${data.epoch}`}
+              onClick={(e) => {viewStore.linkHandler(e, EPOCHS, data.epoch)}}
             >
-              --
+              {data.epoch}
             </a>
           </span>
         </li>
         <li className="item">
           <span className="item-name">Smeshers</span>
-          <span className="item-value"><a href={`/${LAYERS}/${data.number}/${SMESHER}`} onClick={(e) => {viewStore.linkHandler(e, LAYERS, data.number, SMESHER)}}>--</a></span>
+          <span className="item-value"><a href={`/${LAYERS}/${data.smeshers}/${SMESHER}`} onClick={(e) => {viewStore.linkHandler(e, LAYERS, data.smeshers, SMESHER)}}>{data.smeshers}</a></span>
         </li>
         <li className="item">
           <span className="item-name">Hash</span>
           <span className="item-value">
-            --
-            <CopyButton value="0x52hsgj2jwyb23wbwew32874682734g2hj3g23" />
+            {data.hash}
+            <CopyButton value= {data.hash} />
           </span>
         </li>
         <li className="item">
           <span className="item-name">Blocks</span>
           <span className="item-value">
             <a
-              href={`/${LAYERS}/${data.number}/${BLOCKS}`}
-              onClick={(e) => {viewStore.linkHandler(e, LAYERS, data.number, BLOCKS)}}>
-              -- blocks
+              href={`/${LAYERS}/${data.blocksnumber}/${BLOCKS}`}
+              onClick={(e) => {viewStore.linkHandler(e, LAYERS, data.blocksnumber, BLOCKS)}}>
+              {data.blocksnumber} blocks
             </a>
           </span>
         </li>
