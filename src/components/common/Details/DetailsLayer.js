@@ -67,7 +67,7 @@ const DetailsLayer = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Finality</span>
-          <span className="item-value">--</span>
+          <span className="item-value">0%</span>
         </li>
         <li className="item">
           <span className="item-name">Epoch</span>
