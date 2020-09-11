@@ -169,7 +169,7 @@ const RenderSubPage = (props: Props) => {
                 desc={`Blocks within layer ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock number={id} startTime={layer && layer.start} unit="layer blocks" color={getColorByPageName(name)} />
+              <AmountBlock number={pagination && pagination.totalCount} startTime={layer && layer.start} unit="layer blocks" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
