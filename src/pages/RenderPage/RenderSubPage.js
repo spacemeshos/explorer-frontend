@@ -269,7 +269,7 @@ const RenderSubPage = (props: Props) => {
                 desc={`Rewards contained within account ${longFormHash(id)}`}
                 uiStore={uiStore}
               />
-              <AmountBlock number={epoch && epoch.stats.cumulative.transactions} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
+              <AmountBlock number={pagination && pagination.totalCount} startTime={network && network.genesis} unit="awards" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>

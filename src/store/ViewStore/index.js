@@ -125,7 +125,7 @@ class ViewStore {
 
     this.fetch(`${page}?page=${pageNumber}&pagesize=${pageSize}`).then(
       (result) => {
-        this.currentView.name = page;
+        //this.currentView.name = page;
         this.currentView.data = [...this.currentView.data, ...result.data];
         this.currentView.pagination = result.pagination;
         this.currentView.status = STATUS_SUCCESS;

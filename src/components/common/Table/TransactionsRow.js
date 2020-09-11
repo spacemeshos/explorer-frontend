@@ -8,6 +8,7 @@ import shortFormHash from '../../../helper/shortFormHash';
 import longFormHash from '../../../helper/longFormHash';
 
 import { ACCOUNTS, LAYERS, TXNS } from '../../../config/constants';
+import {smhCoinConverter} from '../../../helper/converter';
 
 type Props = {
   data: Array<Object>,
@@ -42,7 +43,7 @@ const TransactionsRow = (props: Props) => {
             {item.layer}
           </a>
         </div>
-        <div className="td">{item.amount}</div>
+        <div className="td">{smhCoinConverter(item.amount)}</div>
         <div className="td">
           <a href={`/${ACCOUNTS}/${item.sender}`} onClick={(e) => {
             viewStore.linkHandler(e, ACCOUNTS, item.sender)
