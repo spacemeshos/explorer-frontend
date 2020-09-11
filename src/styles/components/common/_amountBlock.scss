@@ -1,29 +1,29 @@
 .amountBlock {
-  display: flex;
-  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 1fr;
+  padding: 15px 10px;
   margin-left: 15px;
-  align-items: flex-end;
-  padding: 0 10px 14px 10px;
-  height: 76px;
 
   &-number {
     font-size: 60px;
     line-height: 47px;
+    justify-self: center;
+    align-self: end;
   }
 
   &-unit {
     font-size: 12px;
+    align-self: end;
     text-transform: uppercase;
-    @include theme-aware('color', 'countTextColor');
+    @include theme-aware('color', 'countBlockTextColor');
   }
 
   &-timeWrap {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
     font-size: 12px;
-    padding: 0 8px;
+    align-self: end;
+    justify-self: end;
+    text-align: end;
+    text-transform: uppercase;
     @include theme-aware('color', 'countTextColor');
 
     &-timeAgo {

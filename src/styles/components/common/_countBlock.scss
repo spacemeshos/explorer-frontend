@@ -33,3 +33,46 @@
     @include theme-aware('color', 'countTextColor');
   }
 }
+
+.countBlockLong {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  padding: 15px 10px;
+  margin-left: 15px;
+
+  &-value {
+    .number {
+      .value {
+        font-size: 20px;
+        line-height: 25px;
+        justify-self: center;
+        align-self: end;
+        margin-right: 5px;
+      }
+      .unit {
+        font-size: 12px;
+        align-self: end;
+        text-transform: uppercase;
+        @include theme-aware('color', 'countBlockTextColor');
+      }
+    }
+
+    .time {
+      font-size: 14px;
+      line-height: 18px;
+      padding-top: 8px;
+      text-align: left;
+      text-transform: uppercase;
+      @include theme-aware('color', 'countBlockTextColor');
+
+      &-date {
+        margin-right: 5px;
+      }
+    }
+  }
+  &-badge {
+    display: grid;
+    align-self: end;
+    justify-self: center;
+  }
+}
