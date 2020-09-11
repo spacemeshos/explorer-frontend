@@ -122,10 +122,10 @@ class ViewStore {
     const pageSize = 20;
 
     if (page === OVERVIEW) return;
+    const pathName = window.location.pathname.slice(1);
 
-    this.fetch(`${page}?page=${pageNumber}&pagesize=${pageSize}`).then(
+    this.fetch(`${pathName}?page=${pageNumber}&pagesize=${pageSize}`).then(
       (result) => {
-        //this.currentView.name = page;
         this.currentView.data = [...this.currentView.data, ...result.data];
         this.currentView.pagination = result.pagination;
         this.currentView.status = STATUS_SUCCESS;
