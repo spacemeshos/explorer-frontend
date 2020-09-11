@@ -82,7 +82,7 @@ const DetailsLayer = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Smeshers</span>
-          <span className="item-value"><a href={`/${LAYERS}/${data.smeshers}/${SMESHER}`} onClick={(e) => {viewStore.linkHandler(e, LAYERS, data.smeshers, SMESHER)}}>{data.smeshers}</a></span>
+          <span className="item-value"><a href={`/${LAYERS}/${data.number}/${SMESHER}`} onClick={(e) => {viewStore.linkHandler(e, LAYERS, data.number, SMESHER)}}>{data.smeshers}</a></span>
         </li>
         <li className="item">
           <span className="item-name">Hash</span>
