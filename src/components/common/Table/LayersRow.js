@@ -10,7 +10,7 @@ import {
   TXNS,
 } from '../../../config/constants';
 import moment from 'moment';
-import {smhCoinConverter} from '../../../helper/converter';
+import {byteConverter, smhCoinConverter} from '../../../helper/converter';
 
 type Props = {
   data: Array<object>,
@@ -49,7 +49,7 @@ const LayersRow = (props: Props) => {
           <a href={`/${LAYERS}/${item.number}/${ATXS}`} onClick={(e) => {
             viewStore.linkHandler(e, LAYERS, item.number, ATXS)
           }}>
-            {smhCoinConverter(item.atxssize)}
+            {byteConverter(item.atxssize)}
           </a>
         </div>
         <div className="td">
