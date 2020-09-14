@@ -25,7 +25,7 @@ const DetailsBlock = (props: Props) => {
           <span className="item-name">Block Number</span>
           <span className="item-value">
             <a href="/">{data.id}</a>
-            <CopyButton value="123123" />
+            <CopyButton value={data.id} />
           </span>
         </li>
         <li className="item">
