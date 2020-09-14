@@ -4,8 +4,8 @@ import { observer } from 'mobx-react';
 
 import InfoBlock from '../../components/common/InfoBlock';
 import TitleBlock from '../../components/common/TitleBlock';
-import { AmountBlock } from '../../components/common/CountBlock';
 import Table from '../../components/common/Table';
+import RightSideBlock from '../../components/common/CountBlock/RightSideBlock';
 
 import { getColorByPageName } from '../../helper/getColorByPageName';
 
@@ -19,8 +19,6 @@ import {
   ACCOUNTS,
   SMART_WALLET,
 } from '../../config/constants';
-import RewardsRightColumn from '../../components/common/RewardsRightColumn';
-import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
 import {toJS} from 'mobx';
 import NoData from '../../components/common/NoData';
 
@@ -54,10 +52,10 @@ const RenderMainPage = (props: Props) => {
               desc="Most recent global transactions."
               uiStore={uiStore}
             />
-            <RightCountBlock
+            <RightSideBlock
               color={getColorByPageName(name)}
               number={epoch && epoch.stats.cumulative.transactions}
-              caption="txns since genesis"
+              unit="txns since genesis"
               coinCaption="total txns value since genesis"
               coins={epoch && epoch.stats.cumulative.txsamount}
             />
@@ -75,7 +73,12 @@ const RenderMainPage = (props: Props) => {
               desc="Epochs across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number={epoch && epoch.number} startTime={network && network.genesis} unit="epochs" color={getColorByPageName(name)} />
+            <RightSideBlock
+              color={getColorByPageName(name)}
+              number={epoch && epoch.number}
+              unit="epochs"
+              startTime={network && network.genesis}
+            />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -90,7 +93,12 @@ const RenderMainPage = (props: Props) => {
               desc="Layers across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number={layer && layer.number} startTime={layer && layer.start} unit="layers" color={getColorByPageName(name)} />
+            <RightSideBlock
+              color={getColorByPageName(name)}
+              number={layer && layer.number}
+              unit="layers"
+              startTime={layer && layer.start}
+            />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -105,10 +113,10 @@ const RenderMainPage = (props: Props) => {
               desc="Transactions across the entire mesh"
               uiStore={uiStore}
             />
-            <RightCountBlock
+            <RightSideBlock
               color={getColorByPageName(name)}
               number={epoch && epoch.stats.cumulative.transactions}
-              caption="txns since genesis"
+              unit="txns since genesis"
               coinCaption="total txns value since genesis"
               coins={epoch && epoch.stats.cumulative.txsamount}
             />
@@ -126,7 +134,13 @@ const RenderMainPage = (props: Props) => {
               desc="Rewards across the entire mesh"
               uiStore={uiStore}
             />
-            <RewardsRightColumn number={epoch && epoch.stats.cumulative.rewardsnumber} coin={epoch && epoch.stats.cumulative.rewards} color={getColorByPageName(name)}/>
+            <RightSideBlock
+              color={getColorByPageName(name)}
+              number={epoch && epoch.stats.cumulative.rewardsnumber}
+              unit="rewards distributed"
+              coinCaption="smash rewards since genesis"
+              coins={epoch && epoch.stats.cumulative.rewards}
+            />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -141,7 +155,12 @@ const RenderMainPage = (props: Props) => {
               desc="Accounts across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number={epoch && epoch.stats.cumulative.accounts} startTime={network && network.genesis} unit="accnts" color={getColorByPageName(name)} />
+            <RightSideBlock
+              color={getColorByPageName(name)}
+              number={epoch && epoch.stats.cumulative.accounts}
+              unit="accnts"
+              startTime={network && network.genesis}
+            />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>
@@ -156,8 +175,12 @@ const RenderMainPage = (props: Props) => {
               desc="Smart Wallets across the entire mesh"
               uiStore={uiStore}
             />
-            <AmountBlock number="000" startTime={0} unit="accnts" color={getColorByPageName(name)} />
-          </div>
+            <RightSideBlock
+              color={getColorByPageName(name)}
+              number={epoch && epoch.stats.cumulative.accounts}
+              unit="accnts"
+              startTime={network && network.genesis}
+            />          </div>
           {/*<Table name={name} viewStore={viewStore} />*/}
           <NoData />
         </>
@@ -172,7 +195,12 @@ const RenderMainPage = (props: Props) => {
               desc="Specific details for this awards"
               uiStore={uiStore}
             />
-            <AmountBlock number={epoch && epoch.stats.cumulative.transactions} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
+            <RightSideBlock
+              color={getColorByPageName(name)}
+              number={epoch && epoch.stats.cumulative.transactions}
+              unit="txns"
+              startTime={network && network.genesis}
+            />
           </div>
           <Table name={name} viewStore={viewStore} />
         </>

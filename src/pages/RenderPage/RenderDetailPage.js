@@ -34,6 +34,7 @@ import {smhCoinConverter} from '../../helper/converter';
 import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
 import DetailAtxs from '../../components/common/Details/DetailAtxs';
 import NoData from '../../components/common/NoData';
+import RightSideBlock from '../../components/common/CountBlock/RightSideBlock';
 
 type Props = {
   name: string,
@@ -59,7 +60,12 @@ const RenderDetailPage = (props: Props) => {
               desc="Specific details for this epoch"
               uiStore={uiStore}
             />
-            <AmountBlock number={data && (data.layers)} startTime={data && data.start} unit="layers" color={getColorByPageName(name)} />
+            <RightSideBlock
+              color={getColorByPageName(name)}
+              number={data && (data.layers)}
+              unit="layers"
+              startTime={data && data.start}
+            />
           </div>
           {data && <DetailsEpoch data={data} viewStore={viewStore} />}
         </>
@@ -74,7 +80,7 @@ const RenderDetailPage = (props: Props) => {
               desc="Layers across the entire mesh"
               uiStore={uiStore}
             />
-            <RightCountBlock
+            <RightSideBlock
               color={getColorByPageName(name)}
               number={data && data.txs}
               caption="txns"
@@ -121,7 +127,12 @@ const RenderDetailPage = (props: Props) => {
               desc="Details for this address"
               uiStore={uiStore}
             />
-            { data && <AmountBlock number={balance.value} startTime={network && network.genesis} unit={balance.unit} color={getColorByPageName(name)} />}
+            <RightSideBlock
+              color={getColorByPageName(name)}
+              number={balance && balance.value}
+              unit={balance && balance.unit}
+              startTime={network && network.genesis}
+            />
           </div>
           { data ? <DetailAccount data={data} viewStore={viewStore} /> : <NoData />}
         </>

@@ -30,8 +30,8 @@ const DetailAccount = (props: Props) => {
           <span className="item-value">
             <a href={`/${ACCOUNTS}/${data.coinbase}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, data.coinbase)}>
               {data.coinbase}
-              <CopyButton value={data.coinbase} />
             </a>
+            <CopyButton value={data.coinbase} />
           </span>
         </li>
         <li className="item">

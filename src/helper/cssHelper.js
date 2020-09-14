@@ -1,0 +1,14 @@
+export const setFontSize = (number) => {
+  const num = JSON.stringify(number);
+  if (num && num.length < 5) return '60px';
+  if (num && num.length >= 5) return '42px';
+  if (num && num.length > 8) return '34px';
+};
+
+export const setLineHeight = (number) => {
+  const num = JSON.stringify(number);
+  if (num && num.length < 5) return '42px';
+  if (num && num.length >= 5) return '36px';
+  if (num && num.length > 8) return '28px';
+};
+
