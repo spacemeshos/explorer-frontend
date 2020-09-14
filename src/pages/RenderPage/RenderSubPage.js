@@ -60,7 +60,7 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Epoch ${longFormHash(id)} - Transactions`}
+                title={`Epoch ${id} - Transactions`}
                 color={getColorByPageName(name)}
                 desc={`Transactions contained within Epoch ${id}`}
                 uiStore={uiStore}
