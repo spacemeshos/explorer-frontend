@@ -9,8 +9,8 @@ import {
   REWARDS,
   TXNS,
 } from '../../../config/constants';
-import moment from 'moment';
 import {byteConverter, smhCoinConverter} from '../../../helper/converter';
+import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
   data: Array<object>,
@@ -36,7 +36,7 @@ const LayersRow = (props: Props) => {
           </a>
         </div>
         <div className="td">
-          { moment.unix(item.start).fromNow() }
+          <CustomTimeAgo time={item.start} />
         </div>
         <div className="td">
           <a href={`/${LAYERS}/${item.number}/${TXNS}`} onClick={(e) => {

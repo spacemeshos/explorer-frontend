@@ -2,7 +2,8 @@
 import * as React from 'react';
 
 import CopyButton from '../CopyButton';
-import {timeAgo, timeWithFormat} from '../../../helper/formatter';
+import { fullDate } from '../../../helper/formatter';
+import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
   data: Object,
@@ -24,11 +25,17 @@ const DetailsBlock = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Block start Timestamp</span>
-          <span className="item-value">{`${timeAgo(data.start)} ${timeWithFormat(data.start)}`}</span>
+          <span className="item-value">
+            <CustomTimeAgo time={data.start} />
+            {`${fullDate(data.start)}`}
+          </span>
         </li>
         <li className="item">
           <span className="item-name">Block end Timestamp</span>
-          <span className="item-value">{`${timeAgo(data.end)} ${timeWithFormat(data.end)}`}</span>
+          <span className="item-value">
+            <CustomTimeAgo time={data.end} />
+            {`${fullDate(data.end)}`}
+          </span>
         </li>
         <li className="item">
           <span className="item-name">Total transactions</span>

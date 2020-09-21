@@ -2,12 +2,12 @@
 import * as React from 'react';
 import { nanoid } from 'nanoid';
 import { observer } from 'mobx-react';
-import moment from 'moment';
+
+import CustomTimeAgo from '../CustomTimeAgo';
 
 import shortFormHash from '../../../helper/longFormHash';
-
+import { smhCoinConverter } from '../../../helper/converter';
 import { ACCOUNTS } from '../../../config/constants';
-import {smhCoinConverter} from '../../../helper/converter';
 
 type Props = {
   data: Array<Object>,
@@ -31,7 +31,9 @@ const AccountsRow = (props: Props) => {
         <div className="td">
           {smhCoinConverter(item.recieved)}
         </div>
-        <div className="td">{moment.unix(item.timestamp).fromNow()}</div>
+        <div className="td">
+          <CustomTimeAgo time={item.timestamp} />
+        </div>
         <div className="td">
           {smhCoinConverter(item.awards)}
         </div>

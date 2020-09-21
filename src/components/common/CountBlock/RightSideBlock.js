@@ -1,9 +1,10 @@
 // @flow
 import React from 'react';
-import moment from 'moment';
 import { smhCoinConverter } from '../../../helper/converter';
 import { setFontSize, setLineHeight } from '../../../helper/cssHelper';
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
+import { formattedDate, formattedTime } from '../../../helper/formatter';
+import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
   color: string,
@@ -17,7 +18,6 @@ type Props = {
 
 const RightSideBlock = (props: Props) => {
   const { color, unit, number, startTime, coinCaption, coins } = props;
-  const fromNow = startTime ? moment.unix(startTime).fromNow() : '0000000 AGO';
 
   const blockWithTime = () => (
     <div style={{ backgroundColor: color.bgColor }} className="amountBlock">
@@ -28,9 +28,11 @@ const RightSideBlock = (props: Props) => {
       }} className="amountBlock-number">{number || '000'}</span>
       <p className="amountBlock-unit">{unit}</p>
       <div className="amountBlock-timeWrap">
-        <p>{startTime ? moment.unix(startTime).format('L') : '00/00/0000'}</p>
-        <p>{startTime ? moment.unix(startTime).utc().format('LTS') : '00:00:00 PM' } + UTC</p>
-        <p className="amountBlock-timeWrap-timeAgo">{fromNow}</p>
+        <p>{startTime ? formattedDate(startTime) : '00/00/0000'}</p>
+        <p>{startTime ? formattedTime(startTime) : '00:00:00 PM' }</p>
+        <p className="amountBlock-timeWrap-timeAgo">
+          <CustomTimeAgo time={startTime}/>
+        </p>
       </div>
     </div>
   );

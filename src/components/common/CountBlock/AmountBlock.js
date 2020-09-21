@@ -1,7 +1,10 @@
 // @flow
 import * as React from 'react';
-import moment from 'moment';
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
+
+import CustomTimeAgo from '../CustomTimeAgo';
+
+import { formattedDate, formattedTime } from '../../../helper/formatter';
 
 type Props = {
   color: string,
@@ -12,7 +15,6 @@ type Props = {
 
 const AmountBlock = (props: Props) => {
   const { color, unit, number, startTime } = props;
-  const fromNow = startTime ? moment.unix(startTime).fromNow() : '0000000 AGO';
 
   const setFontSize = (number) => {
     if (number && number.length < 5) return '60px';
@@ -35,9 +37,11 @@ const AmountBlock = (props: Props) => {
       }} className="amountBlock-number">{number || '000'}</span>
       <p className="amountBlock-unit">{unit}</p>
       <div className="amountBlock-timeWrap">
-        <p>{startTime ? moment.unix(startTime).format('L') : '00/00/0000'}</p>
-        <p>{startTime ? moment.unix(startTime).utc().format('LTS') : '00:00:00 PM' } + UTC</p>
-        <p className="amountBlock-timeWrap-timeAgo">{fromNow}</p>
+        <p>{startTime ? formattedDate(startTime) : '00/00/0000'}</p>
+        <p>{startTime ? formattedTime(startTime) : '00:00:00 PM' } + UTC</p>
+        <p className="amountBlock-timeWrap-timeAgo">
+          <CustomTimeAgo time={startTime}/>
+        </p>
       </div>
     </div>
   );

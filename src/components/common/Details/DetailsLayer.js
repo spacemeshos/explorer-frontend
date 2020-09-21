@@ -10,8 +10,9 @@ import {
   TXNS, SMESHER,
 } from '../../../config/constants';
 
-import {timeAgo, timeWithFormat} from '../../../helper/formatter';
-import {smhCoinConverter} from '../../../helper/converter';
+import { fullDate } from '../../../helper/formatter';
+import { smhCoinConverter } from '../../../helper/converter';
+import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
   data: Object,
@@ -34,13 +35,15 @@ const DetailsLayer = (props: Props) => {
         <li className="item">
           <span className="item-name">Layer Start Timestamp</span>
           <span className="item-value">
-            {`${timeAgo(data.start)} - ${timeWithFormat(data.start)}`}
+            <CustomTimeAgo time={data.start} />
+            {`${fullDate(data.start)}`}
           </span>
         </li>
         <li className="item">
           <span className="item-name">Layer End Timestamp</span>
           <span className="item-value">
-             {`${timeAgo(data.end)} - ${timeWithFormat(data.end)}`}
+            <CustomTimeAgo time={data.end} />
+             {`${fullDate(data.end)}`}
           </span>
         </li>
         <li className="item">

@@ -2,7 +2,6 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 import { nanoid } from 'nanoid';
-import moment from 'moment';
 
 import {
   EPOCHS,
@@ -11,6 +10,7 @@ import {
   TXNS,
 } from '../../../config/constants';
 import {smhCoinConverter} from '../../../helper/converter';
+import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
   data: Array<Object>,
@@ -24,7 +24,9 @@ const EpochsRow = (props: Props) => {
     data && data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td"><a href={`/${EPOCHS}/${item.number}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, item.number)}>{item.number}</a></div>
-        <div className="td">{moment.unix(item.start).fromNow()}</div>
+        <div className="td">
+          <CustomTimeAgo time={item.start}/>
+        </div>
         <div className="td">
           <a
             href={`/${EPOCHS}/${item.number}/${LAYERS}`}

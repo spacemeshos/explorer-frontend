@@ -9,9 +9,10 @@ import {
   SMESHER,
   TXNS,
 } from '../../../config/constants';
-import { timeAgo, timeWithFormat } from '../../../helper/formatter';
+import { fullDate } from '../../../helper/formatter';
 import getValueFromStatsObject from '../../../helper/getValueFromStatsObject';
 import {smhCoinConverter} from '../../../helper/converter';
+import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
   data: Object,
@@ -41,13 +42,13 @@ const DetailsEpoch = (props: Props) => {
         <li className="item">
           <span className="item-name">Started</span>
           <span className="item-value">
-             {`${timeAgo(data.start)} ${timeWithFormat(data.start)}`}
+             <CustomTimeAgo time={data.start} /> {`${fullDate(data.start)}`}
           </span>
         </li>
         <li className="item">
           <span className="item-name">Ended</span>
           <span className="item-value">
-             {`${timeAgo(data.end)} ${timeWithFormat(data.end)}`}
+            <CustomTimeAgo time={data.end} /> {`${fullDate(data.end)}`}
           </span>
         </li>
         <li className="item">

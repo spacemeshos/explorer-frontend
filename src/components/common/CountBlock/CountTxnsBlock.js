@@ -2,7 +2,8 @@
 import * as React from 'react';
 import Badge from '../Badge';
 import { smhCoinConverter } from '../../../helper/converter';
-import moment from 'moment';
+import CustomTimeAgo from '../CustomTimeAgo';
+import {formattedDate, formattedTime} from '../../../helper/formatter';
 
 type Props = {
   color: string,
@@ -15,7 +16,6 @@ const CountTxnsBlock = (props: Props) => {
   const { amount, color, startTime, badgeType } = props;
 
   const coin = amount && smhCoinConverter(amount, true);
-  const fromNow = startTime ? moment.unix(startTime).fromNow() : '0000000 AGO';
   const selectedBadgeType = badgeType ? badgeType : 'coin';
 
   const shortForm = () => {
@@ -28,9 +28,11 @@ const CountTxnsBlock = (props: Props) => {
           <Badge type={selectedBadgeType} />
         </div>
         <div className="countBlock-time">
-          <p>{startTime ? moment.unix(startTime).format('L') : '00/00/0000'}</p>
-          <p>{startTime ? moment.unix(startTime).utc().format('LTS') : '00:00:00 PM' }</p>
-          <p className="timeAgo">{fromNow}</p>
+          <p>{startTime ? formattedDate(startTime) : '00/00/0000'}</p>
+          <p>{startTime ? formattedTime(startTime) : '00:00:00 PM' }</p>
+          <p className="timeAgo">
+            <CustomTimeAgo time={startTime}/>
+          </p>
         </div>
       </div>
     )
@@ -45,8 +47,8 @@ const CountTxnsBlock = (props: Props) => {
             <span className="unit">SMH</span>
           </div>
           <div className="time">
-            <span className="time-date">{startTime ? moment.unix(startTime).format('L') : '00/00/0000'}</span>
-            <span className="time-clock">{startTime ? moment.unix(startTime).utc().format('LTS') : '00:00:00 PM' }</span>
+            <span className="time-date">{startTime ? formattedDate(startTime) : '00/00/0000'}</span>
+            <span className="time-clock">{startTime ?formattedTime(startTime) : '00:00:00 PM' }</span>
           </div>
         </div>
         <div className="countBlockLong-badge">

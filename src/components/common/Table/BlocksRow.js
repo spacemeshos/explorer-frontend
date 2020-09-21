@@ -3,9 +3,8 @@ import * as React from 'react';
 
 import { nanoid } from 'nanoid';
 import longFormHash from '../../../helper/longFormHash';
-import { ACCOUNTS, BLOCKS } from '../../../config/constants';
-import moment from 'moment';
-import 'moment-duration-format';
+import { BLOCKS } from '../../../config/constants';
+import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
   data: Array<object>,
@@ -25,7 +24,9 @@ const BlocksRow = (props: Props) => {
         </div>
         <div className="td">--</div>
         <div className="td">{item.txsnumber}</div>
-        <div className="td">{moment.unix(item.start).fromNow()}</div>
+        <div className="td">
+          <CustomTimeAgo time={item.start}/>
+        </div>
         <div className="td">--</div>
       </div>
     ))
