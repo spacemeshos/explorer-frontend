@@ -182,7 +182,6 @@ const RenderMainPage = (props: Props) => {
               startTime={network && network.genesis}
             />          </div>
           <Table name={name} viewStore={viewStore} />
-          <NoData />
         </>
       );
     case SMESHER:

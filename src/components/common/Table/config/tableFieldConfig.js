@@ -77,10 +77,9 @@ export default {
   ],
   [ATXS]: [
     { fieldName: 'id' },
-    { fieldName: 'value' },
-    { fieldName: 'age' },
-    { fieldName: 'from' },
-    { fieldName: 'type' },
+    { fieldName: 'cSize' },
+    { fieldName: 'layer' },
+    { fieldName: 'prevAtx' },
   ],
   [LAYERS]: [
     {

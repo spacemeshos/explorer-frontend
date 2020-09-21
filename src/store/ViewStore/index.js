@@ -19,6 +19,21 @@ import {
   NOT_FOUND, STATUS_LOADING, STATUS_SUCCESS, STATUS_ERROR,
 } from '../../config/constants';
 
+const smartWalletData = [
+  {
+    address: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
+    name: 'SM W #1',
+    created: '3 days ago',
+    balance: '11',
+  },
+  {
+    address: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
+    name: 'SM W #1',
+    created: '3 days ago',
+    balance: '11',
+  }
+];
+
 class ViewStore {
   constructor(apiFetch: Object) {
     this.fetch = apiFetch;
@@ -102,7 +117,13 @@ class ViewStore {
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
-        this.currentView.data = rawData.data;
+
+        if (page === SMART_WALLET) {
+          this.currentView.data = smartWalletData;
+        } else {
+          this.currentView.data = rawData.data;
+        }
+
         this.currentView.pagination = rawData.pagination;
       })
     } catch (e) {

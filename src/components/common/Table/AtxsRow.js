@@ -5,7 +5,8 @@ import { nanoid } from 'nanoid';
 import StatusIcon from '../StatusIcon';
 import shortFormHash from '../../../helper/shortFormHash';
 import longFormHash from '../../../helper/longFormHash';
-import { ACCOUNTS, TXNS } from '../../../config/constants';
+import { LAYERS, TXNS } from '../../../config/constants';
+import { byteConverter } from '../../../helper/converter';
 
 type Props = {
   data: Array<object>,
@@ -25,16 +26,16 @@ const AtxsRow = (props: Props) => {
           </a>
         </div>
         <div className="td">
-          --
-          SMH
+          {byteConverter(item.cSize)}
         </div>
-        <div className="td">{item.age}</div>
         <div className="td">
-          <a href={`/${ACCOUNTS}/${item.smesher}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.smesher)}>
-            {longFormHash(item.smesher)}
+          <a href={`/${LAYERS}/${item.layer}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.layer)}>
+            {item.layer}
           </a>
         </div>
-        <div className="td">SMH</div>
+        <div className="td">
+          {longFormHash(item.prevAtx)}
+        </div>
       </div>
     ))
   );
