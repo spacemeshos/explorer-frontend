@@ -1,6 +1,7 @@
 // @flow
 import * as React from 'react';
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
+import { mappingStatus } from '../../../helper/mappingStatus';
 
 type Props = {
   status: string
@@ -9,29 +10,8 @@ type Props = {
 const TxnsStatus = (props: Props) => {
   const { status } = props;
 
-  const mapStatus = (status) => {
-    switch (status) {
-      case 0:
-        return 'unspecified';
-      case 1:
-        return 'rejected';
-      case 2:
-        return 'insufficientFunds';
-      case 3:
-        return 'conflicting';
-      case 4:
-        return 'pending';
-      case 5:
-        return 'processing';
-      case 6:
-        return 'approved';
-      default:
-        break;
-    }
-  };
-
-  const currentStatus = mapStatus(status);
-  const txnsStatusClass = `txnsStatus ${mapStatus(status)}`;
+  const currentStatus = mappingStatus(status);
+  const txnsStatusClass = `txnsStatus ${currentStatus}`;
 
   const getStatusText = (data) => {
     switch (data) {

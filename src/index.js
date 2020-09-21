@@ -3,12 +3,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'mobx-react-lite/batchingForReactDom';
 
-import ViewStore from './store/ViewStore';
-import UiStore from './store/UiStore';
 import { startRouter } from './router';
 import { fetchAPI } from './api/fetchAPI';
-import * as serviceWorker from './serviceWorker';
 import Main from './components/Main';
+
+import ViewStore from './store/ViewStore';
+import UiStore from './store/UiStore';
+
+import * as serviceWorker from './serviceWorker';
 
 const viewStore = new ViewStore(fetchAPI);
 const uiStore = new UiStore();

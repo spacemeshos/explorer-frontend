@@ -5,7 +5,7 @@ import { byteConverter, smhCoinConverter } from '../../../helper/converter';
 import Loader from '../Loader';
 
 type Props = {
-  transactions: string,
+  accounts: string,
   rewards: string,
   security: string,
   epoch: string,
@@ -14,14 +14,14 @@ type Props = {
 }
 
 const InfoBlock = (props: Props) => {
-  const { transactions, rewards, security, epoch, layer, smeshers } = props;
+  const { accounts, rewards, security, epoch, layer, smeshers } = props;
 
   return (
     <div className="infoBlock">
       <ul className="infoBlock-list">
         <li className="infoBlock-item">
-          <p className="infoBlock-item-number">{JSON.stringify(transactions) || (<Loader size={15} />)}</p>
-          <p className="infoBlock-item-title">transactions</p>
+          <p className="infoBlock-item-number">{JSON.stringify(accounts) || (<Loader size={15} />)}</p>
+          <p className="infoBlock-item-title">Accounts</p>
         </li>
         <li className="infoBlock-item">
           <p className="infoBlock-item-number">{smhCoinConverter(rewards) || (<Loader size={15} />)}</p>

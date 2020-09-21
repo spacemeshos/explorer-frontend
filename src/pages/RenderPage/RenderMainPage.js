@@ -38,7 +38,7 @@ const RenderMainPage = (props: Props) => {
       return (
         <>
           <InfoBlock
-            transactions={epoch && epoch.stats.cumulative.transactions}
+            accounts={epoch && epoch.stats.cumulative.accounts}
             rewards={epoch && epoch.stats.cumulative.rewards}
             security={epoch && epoch.stats.cumulative.security}
             epoch={epoch && epoch.number}
@@ -181,7 +181,7 @@ const RenderMainPage = (props: Props) => {
               unit="accnts"
               startTime={network && network.genesis}
             />          </div>
-          {/*<Table name={name} viewStore={viewStore} />*/}
+          <Table name={name} viewStore={viewStore} />
           <NoData />
         </>
       );

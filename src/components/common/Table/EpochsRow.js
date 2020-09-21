@@ -25,7 +25,6 @@ const EpochsRow = (props: Props) => {
       <div key={nanoid()} className="tr">
         <div className="td"><a href={`/${EPOCHS}/${item.number}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, item.number)}>{item.number}</a></div>
         <div className="td">{moment.unix(item.start).fromNow()}</div>
-        <div className="td">{moment.unix(item.end).fromNow()}</div>
         <div className="td">
           <a
             href={`/${EPOCHS}/${item.number}/${LAYERS}`}

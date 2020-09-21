@@ -84,7 +84,7 @@ const RenderDetailPage = (props: Props) => {
               color={getColorByPageName(name)}
               number={data && data.txs}
               caption="txns"
-              coinCaption="total coчin rewards"
+              coinCaption="total coin rewards"
               coins={data && data.rewards}
             />
           </div>

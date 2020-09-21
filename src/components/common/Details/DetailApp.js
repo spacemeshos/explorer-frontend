@@ -59,43 +59,37 @@ const DetailApp = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Transactions</span>
-          <span className="item-value">
-            <a onClick={toggleHandler}>
-              100
-            </a>
-          </span>
+          <span className="item-value">100</span>
         </li>
-        <SmoothCollapse expanded={expanded} heightTransition=".35s ease">
-          <li className="item sliderDown">
-            <span className="item-name">State Hash</span>
-            <span className="item-value">0x12341223131233232321321312312321312321abf112</span>
-          </li>
-          <li className="item sliderDown">
-            <span className="item-name">Daily Spend Limit</span>
-            <span className="item-value">2 SMH</span>
-          </li>
-          <li className="item sliderDown">
-            <span className="item-name">Daily Spend Address</span>
-            <span className="item-value">
+        <li className="item">
+          <span className="item-name">State Hash</span>
+          <span className="item-value">0x12341223131233232321321312312321312321abf112</span>
+        </li>
+        <li className="item">
+          <span className="item-name">Daily Spend Limit</span>
+          <span className="item-value">2 SMH</span>
+        </li>
+        <li className="item">
+          <span className="item-name">Daily Spend Address</span>
+          <span className="item-value">
               <a href={`/${SMART_WALLET}/126812`} onClick={(e) => viewStore.linkHandler(e, SMART_WALLET, '126812')}>
                 0x012345567abcdef012345567abcdef012345567abcdef012345567abc
                 <CopyButton value="0x012345567abcdef012345567abcdef012345567abcdef012345567abc" />
               </a>
             </span>
-          </li>
-          <li className="item sliderDown">
-            <span className="item-name">Authorized Accounts</span>
-            <span className="item-value">2 SMH</span>
-          </li>
-          <li className="item sliderDown">
-            <span className="item-name">Vesting Period</span>
-            <span className="item-value">3 Years</span>
-          </li>
-          <li className="item sliderDown">
-            <span className="item-name">Vesting Start Date</span>
-            <span className="item-value">2 minutes ago (Jun-25-2019 05:13:39 PM +UTC)</span>
-          </li>
-        </SmoothCollapse>
+        </li>
+        <li className="item">
+          <span className="item-name">Authorized Accounts</span>
+          <span className="item-value">2 SMH</span>
+        </li>
+        <li className="item">
+          <span className="item-name">Vesting Period</span>
+          <span className="item-value">3 Years</span>
+        </li>
+        <li className="item">
+          <span className="item-name">Vesting Start Date</span>
+          <span className="item-value">2 minutes ago (Jun-25-2019 05:13:39 PM +UTC)</span>
+        </li>
       </ul>
     </div>
   );

@@ -10,6 +10,7 @@ import RenderSubPage from '../RenderPage/RenderSubPage';
 import TimeBlock from '../../components/common/TimeBlock';
 
 import { LAYERS, OVERVIEW, TXNS } from '../../config/constants';
+
 import isEmpty from '../../helper/isEmpty';
 
 type Props = {

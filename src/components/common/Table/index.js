@@ -35,16 +35,6 @@ type Props = {
   name: string,
 };
 
-const atxsTableData = [
-  {
-    id: '126812',
-    value: '32',
-    age: '2 minutes ago',
-    from: '0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8',
-    type: 'SMH',
-  },
-];
-
 const Table = (props: Props) => {
   const { viewStore, name } = props;
 

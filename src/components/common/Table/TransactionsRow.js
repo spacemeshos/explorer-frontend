@@ -9,6 +9,7 @@ import longFormHash from '../../../helper/longFormHash';
 
 import { ACCOUNTS, LAYERS, TXNS } from '../../../config/constants';
 import {smhCoinConverter} from '../../../helper/converter';
+import {mappingStatus} from '../../../helper/mappingStatus';
 
 type Props = {
   data: Array<Object>,
@@ -33,7 +34,7 @@ const TransactionsRow = (props: Props) => {
     data && data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
-          <StatusIcon status="confirmed" />
+          <StatusIcon status={mappingStatus(item.state)} />
           <a href={`/${TXNS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, TXNS, item.id)}>
             {shortFormHash(item.id)}
           </a>

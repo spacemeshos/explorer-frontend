@@ -40,9 +40,6 @@ export default {
       fieldName: 'started',
     },
     {
-      fieldName: 'ended',
-    },
-    {
       fieldName: 'layers',
     },
     {

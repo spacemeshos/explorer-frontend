@@ -2,12 +2,6 @@
 import * as React from 'react';
 
 import CopyButton from '../CopyButton';
-import {
-  BLOCKS,
-  EPOCHS,
-  LAYERS,
-  REWARDS,
-} from '../../../config/constants';
 import {timeAgo, timeWithFormat} from '../../../helper/formatter';
 
 type Props = {
