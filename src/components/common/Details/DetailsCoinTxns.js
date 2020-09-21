@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import SmoothCollapse from 'react-smooth-collapse';
 
 import CopyButton from '../CopyButton';
-import { ACCOUNTS } from '../../../config/constants';
-import {smhCoinConverter} from '../../../helper/converter';
-import {timeAgo, timeWithFormat} from '../../../helper/formatter';
+import { ACCOUNTS, USD_RATE } from '../../../config/constants';
+import { smhCoinConverter } from '../../../helper/converter';
+import { timeAgo, timeWithFormat } from '../../../helper/formatter';
 
 type Props = {
   data: Object,
@@ -62,7 +62,7 @@ const DetailsCoinTxns = (props: Props) => {
               {data.fee}
               <span className={arrowClass} />
             </a>
-            (&#8765; 0 USD)
+            (&#8765; {`${data.fee * USD_RATE}`} USD)
           </span>
         </li>
         <SmoothCollapse expanded={expanded} heightTransition=".35s ease">

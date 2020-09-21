@@ -26,7 +26,12 @@ const divideNumber = (number) => {
     dividedNumber = int.charAt(i) + dividedNumber;
     space++;
   }
-  return `${dividedNumber.trim()}.${decimals}`;
+  if (decimals) {
+    return `${dividedNumber.trim()}.${decimals}`;
+  } else {
+    return `${dividedNumber.trim()}`;
+  }
+
 };
 
 export const smhCoinConverter = (amount: number, returnObject: boolean) => {
@@ -52,5 +57,5 @@ export const smhCoinConverter = (amount: number, returnObject: boolean) => {
 
   // truncate to 3 decimals and truncate trailing fractional 0s
   const s = parseFloat(v.toFixed(3)).toString();
-  return returnObject ? { value: s, unit } : `${s} ${unit}`;
+  return returnObject ? { value: divideNumber(s), unit } : `${divideNumber(s)} ${unit}`;
 };
