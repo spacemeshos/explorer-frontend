@@ -124,7 +124,7 @@ export default {
   ],
   [ACCOUNTS]: [
     {
-      fieldName: 'id',
+      fieldName: 'account',
     },
     {
       fieldName: 'sent',

@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 import CopyButton from '../CopyButton';
-import {ACCOUNTS, EPOCHS, REWARDS, TXNS} from '../../../config/constants';
+import {ACCOUNTS, REWARDS, TXNS} from '../../../config/constants';
 import {smhCoinConverter} from '../../../helper/converter';
 
 type Props = {
@@ -17,7 +17,7 @@ const DetailAccount = (props: Props) => {
     <div className="details">
       <ul className="details-list">
         <li className="item">
-          <span className="item-name">Id</span>
+          <span className="item-name">Account</span>
           <span className="item-value">
             {data.address}
             <CopyButton value={data.address} />
