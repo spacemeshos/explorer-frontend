@@ -12,6 +12,9 @@ export const byteConverter = (x) => {
 };
 
 const divideNumber = (number) => {
+  const zero = number.split('.')[0];
+  if (zero.length === 1) return number;
+
   const decimals = number.split('.')[1];
   const int = String(Math.trunc(number));
   if (int.length <= 3) return int;

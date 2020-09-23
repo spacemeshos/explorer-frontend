@@ -20,7 +20,6 @@ import {
   SMART_WALLET,
 } from '../../config/constants';
 import {toJS} from 'mobx';
-import NoData from '../../components/common/NoData';
 
 type Props = {
   uiStore: Object,
