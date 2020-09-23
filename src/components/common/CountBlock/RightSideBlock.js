@@ -5,6 +5,7 @@ import { setFontSize, setLineHeight } from '../../../helper/cssHelper';
 import { observer } from 'mobx-react';
 import { formattedDate, formattedTime } from '../../../helper/formatter';
 import CustomTimeAgo from '../CustomTimeAgo';
+import { commaNumber } from '../../../helper/comma';
 
 type Props = {
   color: string,
@@ -25,7 +26,7 @@ const RightSideBlock = (props: Props) => {
         color: color.textColor,
         fontSize: setFontSize(number),
         lineHeight: setLineHeight(number)
-      }} className="amountBlock-number">{number || '000'}</span>
+      }} className="amountBlock-number">{commaNumber(number) || '000'}</span>
       <p className="amountBlock-unit">{unit}</p>
       <div className="amountBlock-timeWrap">
         <p>{startTime ? formattedDate(startTime) : '00/00/0000'}</p>
@@ -43,7 +44,7 @@ const RightSideBlock = (props: Props) => {
         color: color.textColor,
         fontSize: setFontSize(number),
         lineHeight: setLineHeight(number)
-      }}>{number || '000'}</div>
+      }}>{commaNumber(number) || '000'}</div>
       <div className="rightColumn-desc">{unit}</div>
       <div className="rightColumn-data">
         {`${coinCaption}: ${smhCoinConverter(coins)}`}
