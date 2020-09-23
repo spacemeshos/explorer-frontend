@@ -13,11 +13,11 @@ const enString = {
   prefixFromNow: null,
   suffixAgo: 'ago',
   suffixFromNow: 'from now',
-  seconds: 'less than a minute',
-  minute: 'a minute',
-  minutes: '%d minutes',
-  hour: 'an hour',
-  hours: '%d hours',
+  seconds: '%d secs',
+  minute: 'a min',
+  minutes: '%d min',
+  hour: 'an hrs',
+  hours: '%d hrs',
   day: 'a day',
   days: '%d days',
   month: 'a month',
@@ -35,7 +35,7 @@ const CustomTimeAgo = (props: Props) => {
 
   return (
     <span>
-      <TimeAgo date={jsDate} formatter={formatter} />
+      <TimeAgo live={false} date={jsDate} formatter={formatter} />
     </span>
   );
 };
