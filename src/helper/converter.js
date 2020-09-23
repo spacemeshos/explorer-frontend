@@ -1,3 +1,4 @@
+import { commaNumber } from './comma';
 const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
 export const byteConverter = (x) => {
@@ -9,32 +10,6 @@ export const byteConverter = (x) => {
   }
 
   return `${n.toFixed(n < 10 && l > 0 ? 1 : 0)} ${units[l]}`;
-};
-
-const divideNumber = (number) => {
-  const zero = number.split('.')[0];
-  if (zero.length === 1) return number;
-
-  const decimals = number.split('.')[1];
-  const int = String(Math.trunc(number));
-  if (int.length <= 3) return int;
-  let space = 0;
-  let dividedNumber = ' ';
-
-  for (let i = int.length - 1; i >= 0; i--) {
-    if (space === 3) {
-      dividedNumber = `,${dividedNumber}`;
-      space = 0;
-    }
-    dividedNumber = int.charAt(i) + dividedNumber;
-    space++;
-  }
-  if (decimals) {
-    return `${dividedNumber.trim()}.${decimals}`;
-  } else {
-    return `${dividedNumber.trim()}`;
-  }
-
 };
 
 export const smhCoinConverter = (amount: number, returnObject: boolean) => {
@@ -60,5 +35,5 @@ export const smhCoinConverter = (amount: number, returnObject: boolean) => {
 
   // truncate to 3 decimals and truncate trailing fractional 0s
   const s = parseFloat(v.toFixed(3)).toString();
-  return returnObject ? { value: divideNumber(s), unit } : `${divideNumber(s)} ${unit}`;
+  return returnObject ? { value: commaNumber(s), unit } : `${commaNumber(s)} ${unit}`;
 };
