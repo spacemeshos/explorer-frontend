@@ -214,7 +214,12 @@ const RenderDetailPage = (props: Props) => {
               desc="search returned no result"
               uiStore={uiStore}
             />
-            <AmountBlock value="000" unit="txns" color={getColorByPageName(name)} />
+            <RightSideBlock
+              color={getColorByPageName(name)}
+              number="000"
+              unit="txns"
+              startTime={new Date().getTime().toString().slice(0, -3)}
+            />
           </div>
           <DetailsEmptyPage />
         </>

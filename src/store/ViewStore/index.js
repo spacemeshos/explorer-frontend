@@ -131,9 +131,15 @@ class ViewStore {
     }
   }
 
-  showSearchResult(searchString) {
-    const page = this.defineIdType(searchString);
-    page ? this.showDetailPage({ page, id: searchString }) : this.showDetailPage({ page: NOT_FOUND, id: searchString });
+  async showSearchResult(searchString) {
+    try {
+      const result = await this.fetch(`search/${searchString}`);
+      const stringData = result.redirect.split('/');
+      this.showDetailPage({page: stringData[1], id: stringData[2]});
+
+    } catch(e) {
+      this.currentView.name = NOT_FOUND;
+    }
   }
 
   getPaginationData(page, pageNumber) {
