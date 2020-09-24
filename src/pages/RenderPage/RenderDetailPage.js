@@ -21,7 +21,7 @@ import {
   ACCOUNTS,
   NOT_FOUND,
   BLOCKS,
-  SMART_WALLET,
+  SMART_WALLET, ATXS,
 } from '../../config/constants';
 
 import DetailsBlock from '../../components/common/Details/DetailBlock';
@@ -112,6 +112,31 @@ const RenderDetailPage = (props: Props) => {
             <>
               <TxnsStatus status={data.state} />
               {data.type === 0 ? (<DetailsCoinTxns data={data} viewStore={viewStore}/>) : (<DetailAtxs data={data} viewStore={viewStore}/>)}
+            </>
+          ) : (<Loader size={100} />)}
+        </>
+      );
+    case ATXS:
+      return (
+        <>
+          <div className="page-wrap">
+            <TitleBlock
+              title={`Transactions ${longFormHash(id)} - details`}
+              color={getColorByPageName(name)}
+              desc="Specific details for this transaction."
+              uiStore={uiStore}
+            />
+            <CountTxnsBlock
+              badgeType={'atx'}
+              amount="000"
+              startTime={0}
+              color={getColorByPageName(name)}
+            />
+          </div>
+          {data ? (
+            <>
+              <TxnsStatus status={data.state} />
+              {data.type === 0 ? (<DetailAtxs data={data} viewStore={viewStore}/>) : (<DetailAtxs data={data} viewStore={viewStore}/>)}
             </>
           ) : (<Loader size={100} />)}
         </>

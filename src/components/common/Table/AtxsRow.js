@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 import StatusIcon from '../StatusIcon';
 import shortFormHash from '../../../helper/shortFormHash';
 import longFormHash from '../../../helper/longFormHash';
-import { LAYERS, TXNS } from '../../../config/constants';
+import { ATXS, LAYERS } from '../../../config/constants';
 import { byteConverter } from '../../../helper/converter';
 
 type Props = {
@@ -21,7 +21,7 @@ const AtxsRow = (props: Props) => {
       <div key={nanoid()} className="tr">
         <div className="td">
           <StatusIcon status="confirmed" />
-          <a href={`/${TXNS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, TXNS, item.id)}>
+          <a href={`/${ATXS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, ATXS, item.id)}>
             {shortFormHash(item.id)}
           </a>
         </div>
@@ -34,7 +34,9 @@ const AtxsRow = (props: Props) => {
           </a>
         </div>
         <div className="td">
-          {longFormHash(item.prevAtx)}
+          <a href={`/${ATXS}/${item.prevAtx}`} onClick={(e) => viewStore.linkHandler(e, ATXS, item.prevAtx)}>
+            {longFormHash(item.prevAtx)}
+          </a>
         </div>
       </div>
     ))

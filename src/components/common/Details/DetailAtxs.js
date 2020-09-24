@@ -3,10 +3,13 @@ import * as React from 'react';
 
 import CopyButton from '../CopyButton';
 import {
+  ACCOUNTS,
+  ATXS,
   EPOCHS,
   LAYERS,
-  REWARDS,
+  REWARDS, SMART_WALLET, SMESHER,
 } from '../../../config/constants';
+import {byteConverter} from '../../../helper/converter';
 
 type Props = {
   data: Object,
@@ -22,33 +25,56 @@ const DetailAtxs = (props: Props) => {
         <li className="item">
           <span className="item-name">ID</span>
           <span className="item-value">
-            <a href="/">--</a>
-            <CopyButton value="--" />
+            {data.id}
+            <CopyButton value={data.id} />
           </span>
         </li>
         <li className="item">
-          <span className="item-name">Total Atx</span>
+          <span className="item-name">Smesher</span>
           <span className="item-value">
-            --
+            <a href={`/${SMESHER}/${data.smesher}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, data.smesher)}>
+              {data.smesher}
+            </a>
+            <CopyButton value={data.smesher} />
+          </span>
+        </li>
+        <li className="item">
+          <span className="item-name">Rewards Account</span>
+          <span className="item-value">
+            <a href={`/${ACCOUNTS}/${data.coinbase}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, data.coinbase)}>
+              {data.coinbase}
+            </a>
+            <CopyButton value={data.coinbase} />
+          </span>
+        </li>
+        <li className="item">
+          <span className="item-name">Layer</span>
+          <span className="item-value">
+            <a href={`/${LAYERS}/${data.layer}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, data.layer)}>
+              {data.layer}
+            </a>
           </span>
         </li>
         <li className="item">
           <span className="item-name">Space</span>
           <span className="item-value">
+            {byteConverter(data.space)}
+          </span>
+        </li>
+        <li className="item">
+          <span className="item-name">Block</span>
+          <span className="item-value">
             --
           </span>
         </li>
         <li className="item">
-          <span className="item-name">Reward Committed</span>
+          <span className="item-name">Previous ATX</span>
           <span className="item-value">
-            <a href={`/${EPOCHS}/--/${LAYERS}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, '--', LAYERS)}>
-              --
+            <a href={`/${ATXS}/${data.prevAtx}`} onClick={(e) => viewStore.linkHandler(e, ATXS, data.prevAtx)}>
+              {data.prevAtx}
             </a>
+             <CopyButton value={data.prevAtx} />
           </span>
-        </li>
-        <li className="item">
-          <span className="item-name">Total Transactions</span>
-          <span className="item-value"><a href={`/${EPOCHS}/--/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, '--', REWARDS)}>--</a></span>
         </li>
       </ul>
     </div>

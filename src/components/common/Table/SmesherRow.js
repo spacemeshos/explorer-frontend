@@ -5,8 +5,8 @@ import { observer } from 'mobx-react';
 
 import shortFormHash from '../../../helper/longFormHash';
 
-import { ACCOUNTS, SMESHER } from '../../../config/constants';
-import {byteConverter} from '../../../helper/converter';
+import { ACCOUNTS, ATXS, SMESHER } from '../../../config/constants';
+import { byteConverter } from '../../../helper/converter';
 
 type Props = {
   data: Array<Object>,
@@ -33,7 +33,7 @@ const SmesherRow = (props: Props) => {
           {byteConverter(item.cSize)}
         </div>
         <div className="td">
-          {item.atxcount}
+          <a href={`/${SMESHER}/${item.id}/${ATXS}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, item.id, ATXS)}>{item.atxcount}</a>
         </div>
       </div>
     ))

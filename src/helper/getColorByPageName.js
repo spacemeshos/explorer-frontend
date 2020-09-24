@@ -3,6 +3,7 @@ import {
   EPOCHS,
   LAYERS,
   TXNS,
+  ATXS,
   REWARDS,
   ACCOUNTS,
   SMESHER,
@@ -27,6 +28,11 @@ export const getColorByPageName = (pageName: string) => {
         bgColor: colors.layerBgColor,
       };
     case TXNS:
+      return {
+        textColor: colors.transactionColor,
+        bgColor: colors.transactionBgColor,
+      };
+    case ATXS:
       return {
         textColor: colors.transactionColor,
         bgColor: colors.transactionBgColor,

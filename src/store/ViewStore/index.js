@@ -16,7 +16,7 @@ import {
   SMESHER,
   SMART_WALLET,
   BLOCKS,
-  NOT_FOUND, STATUS_LOADING, STATUS_SUCCESS, STATUS_ERROR,
+  NOT_FOUND, STATUS_LOADING, STATUS_SUCCESS, STATUS_ERROR, ATXS,
 } from '../../config/constants';
 
 const smartWalletData = [
@@ -60,6 +60,8 @@ class ViewStore {
       case LAYERS:
         return this.buildUrlString(this.currentView);
       case TXNS:
+        return this.buildUrlString(this.currentView);
+      case ATXS:
         return this.buildUrlString(this.currentView);
       case REWARDS:
         return this.buildUrlString(this.currentView);
