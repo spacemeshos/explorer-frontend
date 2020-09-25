@@ -137,10 +137,12 @@ class ViewStore {
     try {
       const result = await this.fetch(`search/${searchString}`);
       const stringData = result.redirect.split('/');
+      this.currentView.status = STATUS_SUCCESS;
       this.showDetailPage({page: stringData[1], id: stringData[2]});
-
     } catch(e) {
+      this.resetCurrentView();
       this.currentView.name = NOT_FOUND;
+      this.currentView.id = searchString;
     }
   }
 
