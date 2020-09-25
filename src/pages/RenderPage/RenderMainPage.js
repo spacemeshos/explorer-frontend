@@ -135,10 +135,10 @@ const RenderMainPage = (props: Props) => {
             />
             <RightSideBlock
               color={getColorByPageName(name)}
-              number={epoch && epoch.stats.cumulative.rewardsnumber}
+              number={epoch?.stats.cumulative.rewardsnumber}
               unit="rewards distributed"
               coinCaption="smash rewards since genesis"
-              coins={epoch && epoch.stats.cumulative.rewards}
+              coins={epoch?.stats.cumulative.rewards}
             />
           </div>
           <Table name={name} viewStore={viewStore} />

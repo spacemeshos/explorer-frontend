@@ -4,6 +4,8 @@ import * as React from 'react';
 import CopyButton from '../CopyButton';
 import {byteConverter, smhCoinConverter} from '../../../helper/converter';
 import {ACCOUNTS, LAYERS, SMESHER} from '../../../config/constants';
+import {fullDate} from '../../../helper/formatter';
+import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
   data: Object,
@@ -27,7 +29,7 @@ const DetailReward = (props: Props) => {
        <li className="item">
          <span className="item-name">Timestamp</span>
          <span className="item-value">
-          --
+           <CustomTimeAgo time={data.timestamp} /> {fullDate(data.timestamp)}
         </span>
        </li>
        <li className="item">
