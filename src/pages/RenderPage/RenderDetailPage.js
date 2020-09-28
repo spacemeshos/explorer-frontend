@@ -190,7 +190,7 @@ const RenderDetailPage = (props: Props) => {
             <RightSideBlock
               color={getColorByPageName(name)}
               number={data?.atxcount}
-              unit="atxns"
+              unit="atxs"
               startTime={network?.genesis}
             />
           </div>
