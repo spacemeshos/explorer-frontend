@@ -58,7 +58,7 @@ const DetailAtxs = (props: Props) => {
         <li className="item">
           <span className="item-name">Space</span>
           <span className="item-value">
-            {byteConverter(data.space)}
+            {byteConverter(data.cSize)}
           </span>
         </li>
         <li className="item">
