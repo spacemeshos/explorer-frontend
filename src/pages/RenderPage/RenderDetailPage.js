@@ -187,7 +187,12 @@ const RenderDetailPage = (props: Props) => {
               desc="Specific details for this smesher"
               uiStore={uiStore}
             />
-            <AmountBlock number={epoch && epoch.stats.cumulative.transactions} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
+            <RightSideBlock
+              color={getColorByPageName(name)}
+              number={data?.atxcount}
+              unit="atxns"
+              startTime={network?.genesis}
+            />
           </div>
           {data ? <DetailSmesher data={data} viewStore={viewStore} /> : <NoData />}
         </>

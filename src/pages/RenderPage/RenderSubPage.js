@@ -22,6 +22,7 @@ import {
 import longFormHash from '../../helper/longFormHash';
 import {smhCoinConverter} from '../../helper/converter';
 import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
+import RightSideBlock from '../../components/common/CountBlock/RightSideBlock';
 
 type Props = {
   name: string,
@@ -219,7 +220,12 @@ const RenderSubPage = (props: Props) => {
                 desc="Smesher details for this ATX"
                 uiStore={uiStore}
               />
-              <AmountBlock number={epoch && epoch.stats.cumulative.transactions} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
+              <RightSideBlock
+                color={getColorByPageName(name)}
+                number={pagination?.totalCount}
+                unit="atxns"
+                startTime={network?.genesis}
+              />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -235,7 +241,12 @@ const RenderSubPage = (props: Props) => {
                 desc="Smesher details for this reward"
                 uiStore={uiStore}
               />
-              <AmountBlock number={epoch && epoch.stats.cumulative.transactions} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
+              <RightSideBlock
+                color={getColorByPageName(name)}
+                number={epoch && epoch.stats.cumulative.transactions}
+                unit="txns"
+                startTime={network?.genesis}
+              />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -253,7 +264,12 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions contained within account ${longFormHash('0x0klsda7as8asbadskjhkjdjyuye32423423')}`}
                 uiStore={uiStore}
               />
-              <AmountBlock number={pagination && pagination.totalCount} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
+              <RightSideBlock
+                color={getColorByPageName(name)}
+                number={pagination && pagination.totalCount}
+                unit="txns"
+                startTime={network?.genesis}
+              />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -269,7 +285,12 @@ const RenderSubPage = (props: Props) => {
                 desc={`Rewards contained within account ${longFormHash(id)}`}
                 uiStore={uiStore}
               />
-              <AmountBlock number={pagination && pagination.totalCount} startTime={network && network.genesis} unit="awards" color={getColorByPageName(name)} />
+              <RightSideBlock
+                color={getColorByPageName(name)}
+                number={pagination && pagination.totalCount}
+                unit="awards"
+                startTime={network?.genesis}
+              />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>

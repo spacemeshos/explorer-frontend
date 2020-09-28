@@ -184,6 +184,7 @@ const RenderMainPage = (props: Props) => {
         </>
       );
     case SMESHER:
+      const pagination = toJS(viewStore.currentView.pagination);
       return (
         <>
           <div className="page-wrap">
@@ -195,8 +196,8 @@ const RenderMainPage = (props: Props) => {
             />
             <RightSideBlock
               color={getColorByPageName(name)}
-              number={epoch && epoch.stats.cumulative.transactions}
-              unit="txns"
+              number={pagination?.totalCount}
+              unit="smeshers"
               startTime={network && network.genesis}
             />
           </div>
