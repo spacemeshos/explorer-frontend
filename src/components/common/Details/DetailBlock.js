@@ -11,7 +11,7 @@ type Props = {
 };
 
 const DetailsBlock = (props: Props) => {
-  const { data, viewStore } = props;
+  const { data } = props;
 
   return (
     <div className="details">
@@ -19,7 +19,7 @@ const DetailsBlock = (props: Props) => {
         <li className="item">
           <span className="item-name">Block Number</span>
           <span className="item-value">
-            <a href="/">{data.id}</a>
+            {data.id}
             <CopyButton value={data.id} />
           </span>
         </li>

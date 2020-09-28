@@ -26,7 +26,7 @@ const RewardsRow = (props: Props) => {
       <div key={nanoid()} className="tr">
         <div className="td">
           <a href={`/${REWARDS}/${item._id}`} onClick={(e) => viewStore.linkHandler(e, REWARDS, item._id)}>
-            {item._id ? shortFormHash(item._id) : 'no-id'}
+            {item._id ? shortFormHash(item._id) : '--'}
           </a>
         </div>
         <div className="td">
