@@ -31,7 +31,7 @@ const AppRow = (props: Props) => {
         </div>
         <div className="td">
           {item.balance}
-          SMH
+           SMH
         </div>
       </div>
     ))

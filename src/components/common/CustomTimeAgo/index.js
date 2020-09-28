@@ -16,7 +16,7 @@ const enString = {
   seconds: 'few secs',
   minute: 'a min',
   minutes: '%d min',
-  hour: 'an hrs',
+  hour: '1 hr',
   hours: '%d hrs',
   day: 'a day',
   days: '%d days',
