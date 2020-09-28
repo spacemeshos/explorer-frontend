@@ -18,11 +18,11 @@ const enString = {
   minutes: '%d min',
   hour: '1 hr',
   hours: '%d hrs',
-  day: 'a day',
+  day: '1 day',
   days: '%d days',
-  month: 'a month',
+  month: '1 month',
   months: '%d months',
-  year: 'a year',
+  year: '1 year',
   years: '%d years',
   wordSeparator: ' '
 };
