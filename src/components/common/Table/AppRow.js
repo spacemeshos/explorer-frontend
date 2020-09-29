@@ -6,6 +6,7 @@ import { observer } from 'mobx-react';
 import shortFormHash from '../../../helper/longFormHash';
 
 import { SMART_WALLET } from '../../../config/constants';
+import { smhCoinConverter } from '../../../helper/converter';
 
 type Props = {
   data: Array<Object>,
@@ -30,8 +31,7 @@ const AppRow = (props: Props) => {
           {item.created}
         </div>
         <div className="td">
-          {item.balance}
-           SMH
+          {smhCoinConverter(item.balance)}
         </div>
       </div>
     ))

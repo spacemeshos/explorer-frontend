@@ -1,28 +1,27 @@
 // @flow
 import * as React from 'react';
 import Badge from '../Badge';
-import { smhCoinConverter } from '../../../helper/converter';
 import CustomTimeAgo from '../CustomTimeAgo';
 import {formattedDate, formattedTime} from '../../../helper/formatter';
 
 type Props = {
   color: string,
   amount: string,
+  unit: string,
   startTime: number,
   badgeType?: string,
 };
 
 const CountTxnsBlock = (props: Props) => {
-  const { amount, color, startTime, badgeType } = props;
+  const { amount, unit, color, startTime, badgeType } = props;
 
-  const coin = amount && smhCoinConverter(amount, true);
   const selectedBadgeType = badgeType ? badgeType : 'coin';
 
   const shortForm = () => {
     return (
       <div style={{ backgroundColor: color.bgColor }} className="countBlock">
-        <div className="countBlock-number" style={{ color: color.textColor }}>{coin.value}</div>
-        <div className="countBlock-unit">{coin.unit}</div>
+        <div className="countBlock-number" style={{ color: color.textColor }}>{amount}</div>
+        <div className="countBlock-unit">{unit}</div>
         <div className="countBlock-badge">
           <Badge type="sent" />
           <Badge type={selectedBadgeType} />
@@ -43,8 +42,8 @@ const CountTxnsBlock = (props: Props) => {
       <div style={{ backgroundColor: color.bgColor }} className="countBlockLong">
         <div className="countBlockLong-value">
           <div className="number">
-            <span style={{color: color.textColor}} className="value">{coin.value}</span>
-            <span className="unit">SMH</span>
+            <span style={{color: color.textColor}} className="value">{amount}</span>
+            <span className="unit">{unit}</span>
           </div>
           <div className="time">
             <span className="time-date">{startTime ? formattedDate(startTime) : '00/00/0000'}</span>
@@ -60,7 +59,7 @@ const CountTxnsBlock = (props: Props) => {
   };
 
   return (
-      amount && (coin.length > 5 ? longForm() : shortForm())
+      amount && (amount.length > 3 ? longForm() : shortForm())
   );
 };
 

@@ -11,7 +11,7 @@ import {
   REWARDS,
   SMESHER,
 } from '../../../config/constants';
-import {byteConverter, smhCoinConverter} from '../../../helper/converter';
+import { byteConverter, smhCoinConverter } from '../../../helper/converter';
 
 type Props = {
   data: Array<Object>,

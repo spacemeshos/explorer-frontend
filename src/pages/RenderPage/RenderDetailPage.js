@@ -1,5 +1,7 @@
 // @flow
 import * as React from 'react';
+import { toJS } from 'mobx';
+import { observer } from 'mobx-react';
 
 import TitleBlock from '../../components/common/TitleBlock';
 import { AmountBlock, CountTxnsBlock } from '../../components/common/CountBlock';
@@ -12,6 +14,17 @@ import DetailReward from '../../components/common/Details/DetailReward';
 import DetailsEmptyPage from '../../components/common/Details/DetailsEmptyPage';
 
 import { getColorByPageName } from '../../helper/getColorByPageName';
+
+import DetailsBlock from '../../components/common/Details/DetailBlock';
+import DetailSmesher from '../../components/common/Details/DetailSmesher';
+import DetailApp from '../../components/common/Details/DetailApp';
+import Loader from '../../components/common/Loader';
+import { byteConverter, smhCoinConverter } from '../../helper/converter';
+import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
+import DetailAtxs from '../../components/common/Details/DetailAtxs';
+import NoData from '../../components/common/NoData';
+import RightSideBlock from '../../components/common/CountBlock/RightSideBlock';
+
 import {
   EPOCHS,
   LAYERS,
@@ -23,18 +36,6 @@ import {
   BLOCKS,
   SMART_WALLET, ATXS,
 } from '../../config/constants';
-
-import DetailsBlock from '../../components/common/Details/DetailBlock';
-import DetailSmesher from '../../components/common/Details/DetailSmesher';
-import DetailApp from '../../components/common/Details/DetailApp';
-import {toJS} from 'mobx';
-import {observer} from 'mobx-react';
-import Loader from '../../components/common/Loader';
-import {smhCoinConverter} from '../../helper/converter';
-import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
-import DetailAtxs from '../../components/common/Details/DetailAtxs';
-import NoData from '../../components/common/NoData';
-import RightSideBlock from '../../components/common/CountBlock/RightSideBlock';
 
 type Props = {
   name: string,
@@ -92,6 +93,7 @@ const RenderDetailPage = (props: Props) => {
         </>
       );
     case TXNS:
+      const txnsObject = smhCoinConverter(data?.amount, true);
       return (
         <>
           <div className="page-wrap">
@@ -103,7 +105,8 @@ const RenderDetailPage = (props: Props) => {
             />
             <CountTxnsBlock
               badgeType={data && data.type === 0 ? 'coin' : 'atx'}
-              amount={data && data.amount}
+              amount={txnsObject.value}
+              unit={txnsObject.unit}
               startTime={data && data.timestamp}
               color={getColorByPageName(name)}
             />
@@ -117,6 +120,7 @@ const RenderDetailPage = (props: Props) => {
         </>
       );
     case ATXS:
+      const spaceObject = byteConverter(data?.cSize, true);
       return (
         <>
           <div className="page-wrap">
@@ -128,7 +132,8 @@ const RenderDetailPage = (props: Props) => {
             />
             <CountTxnsBlock
               badgeType={'atx'}
-              amount="000"
+              amount={spaceObject.value}
+              unit={spaceObject.unit}
               startTime={0}
               color={getColorByPageName(name)}
             />

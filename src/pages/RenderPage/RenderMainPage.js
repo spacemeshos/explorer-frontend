@@ -169,9 +169,9 @@ const RenderMainPage = (props: Props) => {
         <>
           <div className="page-wrap">
             <TitleBlock
-              title="Smart Wallets"
+              title="Vaults"
               color={getColorByPageName(name)}
-              desc="Smart Wallets across the entire mesh"
+              desc="Vaults across the entire mesh"
               uiStore={uiStore}
             />
             <RightSideBlock

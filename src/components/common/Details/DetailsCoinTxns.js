@@ -62,31 +62,9 @@ const DetailsCoinTxns = (props: Props) => {
         <li className="item">
           <span className="item-name">Fee</span>
           <span className="item-value">
-            <a className="dropDownLink" onClick={toggleHandler}>
-              {data.fee}
-              <span className={arrowClass} />
-            </a>
-            (&#8765; {`${data.fee * USD_RATE}`} USD)
+              {data.fee} (&#8765; {`${data.fee * USD_RATE}`} USD)
           </span>
         </li>
-        <SmoothCollapse expanded={expanded} heightTransition=".35s ease">
-          <li className="item sliderDown">
-            <span className="item-name">Gas unit provided</span>
-            <span className="item-value">--</span>
-          </li>
-          <li className="item sliderDown">
-            <span className="item-name">Gas price</span>
-            <span className="item-value">{data.gasPrice} SMH</span>
-          </li>
-          <li className="item sliderDown">
-            <span className="item-name">Gas provided</span>
-            <span className="item-value">{data.gasProvided}</span>
-          </li>
-          <li className="item sliderDown">
-            <span className="item-name">Gas used</span>
-            <span className="item-value">{data.gasUsed}</span>
-          </li>
-        </SmoothCollapse>
       </ul>
     </div>
   );

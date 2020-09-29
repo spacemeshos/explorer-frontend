@@ -72,8 +72,8 @@ const DetailsBlock = (props: Props) => {
         <li className="item">
           <span className="item-name">Hash</span>
           <span className="item-value">
-            --
-            <CopyButton value="--" />
+             {data.id.slice(0, 8)}
+            <CopyButton value={data.id.slice(0, 8)} />
           </span>
         </li>
       </ul>

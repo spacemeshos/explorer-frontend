@@ -32,7 +32,7 @@ export const pagesLink = [
     icon: 'address',
   },
   {
-    title: 'smart wallet',
+    title: 'vaults',
     page: SMART_WALLET,
     icon: 'apps',
   },
