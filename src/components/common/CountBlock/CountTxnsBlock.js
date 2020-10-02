@@ -24,7 +24,7 @@ const CountTxnsBlock = (props: Props) => {
         <div className="countBlock-unit">{unit}</div>
         <div className="countBlock-badge">
           <Badge type="sent" />
-          <Badge type={selectedBadgeType} />
+          <Badge className="bm" type={selectedBadgeType} />
         </div>
         <div className="countBlock-time">
           <p>{startTime ? formattedDate(startTime) : '00/00/0000'}</p>

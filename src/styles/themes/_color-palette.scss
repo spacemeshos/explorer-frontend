@@ -15,8 +15,10 @@ $themes: (
     searchDecoration: url('../../assets/Bitmap_StripSmall.svg'),
     tableTextColor: $searchColor,
     titleDescColor: $textColor,
-    countTextColor: $dark,
+    countTextColor: $countBlockTextColor,
     countBlockTextColor: $countBlockTextColor,
+    detailsPageTextColorValue: $hashColor,
+    detailsPageTextColorName: $textColor,
   ),
   dark: (
     backgroundColor: $dark,
@@ -36,5 +38,7 @@ $themes: (
     titleDescColor: $white,
     countTextColor: $white,
     countBlockTextColor: $countBlockTextColor,
+    detailsPageTextColorValue: $white,
+    detailsPageTextColorName: $white
   )
 );

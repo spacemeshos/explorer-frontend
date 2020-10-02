@@ -98,13 +98,13 @@ const RenderDetailPage = (props: Props) => {
         <>
           <div className="page-wrap">
             <TitleBlock
-              title={`Transactions ${longFormHash(id)} - details`}
+              title="Transaction details"
               color={getColorByPageName(name)}
-              desc="Transactions across the entire mesh"
+              desc={`${longFormHash(id)}`}
               uiStore={uiStore}
             />
             <CountTxnsBlock
-              badgeType={data && data.type === 0 ? 'coin' : 'atx'}
+              badgeType="coin"
               amount={txnsObject.value}
               unit={txnsObject.unit}
               startTime={data && data.timestamp}

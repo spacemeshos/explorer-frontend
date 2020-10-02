@@ -1,6 +1,7 @@
 .details {
   font-size: 16px;
   color: $textColor;
+  @include theme-aware('color', 'detailsPageTextColorName');
   @include theme-aware('background-color', 'searchBackground');
 
   &-list {
@@ -20,6 +21,7 @@
 
       &-value {
         position: relative;
+        @include theme-aware('color', 'detailsPageTextColorValue');
         color: $hashColor;
         float: right;
         padding-left: 5px;

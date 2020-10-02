@@ -3,11 +3,13 @@ import * as React from 'react';
 
 type Props = {
   type: string;
+  className?: string;
 };
 
 const Badge = (props: Props) => {
-  const { type } = props;
+  const { type, className } = props;
   let badge = '';
+  let customClassName = className ? `badge ${className}` : 'badge';
 
   switch (type) {
     case 'sent':
@@ -132,7 +134,7 @@ const Badge = (props: Props) => {
   }
 
   return (
-    <span className="badge">{badge}</span>
+    <span className={customClassName}>{badge}</span>
   );
 };
 

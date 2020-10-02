@@ -43,7 +43,7 @@ const DetailsCoinTxns = (props: Props) => {
           <span className="item-name">Timestamp</span>
           <span className="item-value">
             <CustomTimeAgo time={data.timestamp} />
-            {`${fullDate(data.timestamp)}`}
+            &nbsp;{`${fullDate(data.timestamp)}`}
           </span>
         </li>
         <li className="item">
@@ -57,7 +57,7 @@ const DetailsCoinTxns = (props: Props) => {
         <li className="item">
           <span className="item-name">Fee</span>
           <span className="item-value">
-              {data.fee} (&#8765; {`${data.fee * USD_RATE}`} USD)
+              {smhCoinConverter(data.fee)} (&#8765; {`${data.fee * USD_RATE}`} USD)
           </span>
         </li>
       </ul>

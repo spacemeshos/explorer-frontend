@@ -1,7 +1,7 @@
 .countBlock {
   display: grid;
   grid-template-columns: 1fr 0.5fr 1fr 2fr;
-  padding: 15px 10px;
+  padding: 14px 10px;
   margin-left: 15px;
 
   &-number {
@@ -22,10 +22,14 @@
     display: grid;
     align-self: end;
     justify-self: center;
+    .bm {
+      margin-bottom: -5px;
+    }
   }
 
   &-time {
-    font-size: 12px;
+    font-size: 14px;
+    line-height: 16px;
     align-self: end;
     justify-self: end;
     text-align: end;
@@ -74,5 +78,8 @@
     display: grid;
     align-self: end;
     justify-self: center;
+    .bm {
+      margin-bottom: -5px;
+    }
   }
 }
