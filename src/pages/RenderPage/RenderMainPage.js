@@ -117,7 +117,7 @@ const RenderMainPage = (props: Props) => {
               color={getColorByPageName(name)}
               number={epoch && epoch.stats.cumulative.transactions}
               unit="txns since genesis"
-              coinCaption="total txns value since genesis"
+              coinCaption="Value Since Genesis"
               coins={epoch && epoch.stats.cumulative.txsamount}
             />
           </div>
