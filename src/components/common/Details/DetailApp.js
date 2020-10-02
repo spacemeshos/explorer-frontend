@@ -1,12 +1,10 @@
 // @flow
-import React, { useState } from 'react';
-import SmoothCollapse from 'react-smooth-collapse';
+import React from 'react';
 
 import CopyButton from '../CopyButton';
 import {
   SMART_WALLET,
 } from '../../../config/constants';
-
 
 type Props = {
   viewStore: Object,
@@ -14,9 +12,6 @@ type Props = {
 
 const DetailApp = (props: Props) => {
   const { viewStore } = props;
-
-  const [expanded, setExpanded] = useState(false);
-  const toggleHandler = () => setExpanded(!expanded);
 
   return (
     <div className="details">

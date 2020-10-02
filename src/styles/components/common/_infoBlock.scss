@@ -15,6 +15,10 @@
     &-number {
       color: $overviewColor;
       font-size: 20px;
+      a {
+        color: $overviewColor;
+        text-decoration: underline;
+      }
     }
     &-title {
       @include theme-aware('color', 'titleInfoBlock');

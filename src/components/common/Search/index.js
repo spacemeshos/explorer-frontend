@@ -37,7 +37,7 @@ const Search = (props: Props) => {
         onChange={(e) => onChangeHandler(e)}
         type="text"
         className="search-input"
-        placeholder="search by account/transaction/layer"
+        placeholder="search by account / transaction / layer"
         value={searchValue}
       />
       <button type="button" onClick={onClickHandler} className="search-button">search &gt;</button>

@@ -5,9 +5,8 @@ import CopyButton from '../CopyButton';
 import {
   ACCOUNTS,
   ATXS,
-  EPOCHS,
   LAYERS,
-  REWARDS, SMART_WALLET, SMESHER,
+  SMESHER,
 } from '../../../config/constants';
 import {byteConverter} from '../../../helper/converter';
 

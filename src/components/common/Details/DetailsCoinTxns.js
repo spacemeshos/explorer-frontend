@@ -1,6 +1,5 @@
 // @flow
-import React, { useState } from 'react';
-import SmoothCollapse from 'react-smooth-collapse';
+import React from 'react';
 
 import CopyButton from '../CopyButton';
 import { ACCOUNTS, USD_RATE } from '../../../config/constants';
@@ -15,10 +14,6 @@ type Props = {
 
 const DetailsCoinTxns = (props: Props) => {
   const { data, viewStore } = props;
-  const [expanded, setExpanded] = useState(false);
-  const arrowClass = expanded ? 'arrow isOpen' : 'arrow';
-
-  const toggleHandler = () => setExpanded(!expanded);
 
   return (
     <div className="details">

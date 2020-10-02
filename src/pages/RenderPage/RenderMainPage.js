@@ -37,6 +37,7 @@ const RenderMainPage = (props: Props) => {
       return (
         <>
           <InfoBlock
+            viewStore={viewStore}
             accounts={epoch && epoch.stats.cumulative.accounts}
             rewards={epoch && epoch.stats.cumulative.rewards}
             security={epoch && epoch.stats.cumulative.security}
@@ -46,16 +47,16 @@ const RenderMainPage = (props: Props) => {
           />
           <div className="page-wrap">
             <TitleBlock
-              title="Latest Transaction"
+              title="Transactions"
               color={getColorByPageName(name)}
-              desc="Most recent global transactions."
+              desc="Recent transactions"
               uiStore={uiStore}
             />
             <RightSideBlock
               color={getColorByPageName(name)}
               number={epoch && epoch.stats.cumulative.transactions}
               unit="txns since genesis"
-              coinCaption="total txns value since genesis"
+              coinCaption="Coin transferred"
               coins={epoch && epoch.stats.cumulative.txsamount}
             />
           </div>
