@@ -86,16 +86,16 @@ export default {
       fieldName: 'id',
     },
     {
-      fieldName: 'transactions',
+      fieldName: 'started',
     },
     {
-      fieldName: 'age',
+      fieldName: 'transactions',
     },
     {
       fieldName: 'txn value',
     },
     {
-      fieldName: 'atx value',
+      fieldName: 'atx',
     },
     {
       fieldName: 'rewards',

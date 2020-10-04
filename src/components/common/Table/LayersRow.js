@@ -29,14 +29,14 @@ const LayersRow = (props: Props) => {
           </a>
         </div>
         <div className="td">
+          <CustomTimeAgo time={item.start} />
+        </div>
+        <div className="td">
           <a href={`/${LAYERS}/${item.number}/${TXNS}`} onClick={(e) => {
             viewStore.linkHandler(e, LAYERS, item.number, TXNS)
           }}>
             {item.txs}
           </a>
-        </div>
-        <div className="td">
-          <CustomTimeAgo time={item.start} />
         </div>
         <div className="td">
           <a href={`/${LAYERS}/${item.number}/${TXNS}`} onClick={(e) => {
