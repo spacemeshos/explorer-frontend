@@ -52,7 +52,8 @@ export default {
       fieldName: 'rewards',
     },
     {
-      fieldName: 'total smc',
+      fieldName: 'value',
+      style: {flexGrow: 2}
     },
   ],
   [TXNS]: [

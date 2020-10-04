@@ -14,11 +14,12 @@ type Props = {
   startTime?: number,
   coinCaption?: string,
   coins?: string,
+  label?: string,
 };
 
 
 const RightSideBlock = (props: Props) => {
-  const { color, unit, number, startTime, coinCaption, coins } = props;
+  const { color, unit, number, startTime, coinCaption, coins, label } = props;
 
   const blockWithTime = () => (
     <div style={{ backgroundColor: color.bgColor }} className="amountBlock">
@@ -29,7 +30,12 @@ const RightSideBlock = (props: Props) => {
       }} className="amountBlock-number">{commaNumber(number) || '000'}</span>
       <p className="amountBlock-unit">{unit}</p>
       <div className="amountBlock-timeWrap">
-        <p>{startTime ? formattedDate(startTime) : '00/00/0000'}</p>
+        {label ? (
+          <p>{label}</p>
+        ) : (
+          <p>{startTime ? formattedDate(startTime) : '00/00/0000'}</p>
+        )}
+
         <p>{startTime ? formattedTime(startTime) : '00:00:00 PM' }</p>
         <p className="amountBlock-timeWrap-timeAgo">
           <CustomTimeAgo time={startTime}/>

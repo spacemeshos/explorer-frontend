@@ -76,8 +76,9 @@ const RenderMainPage = (props: Props) => {
             <RightSideBlock
               color={getColorByPageName(name)}
               number={epoch && epoch.number}
-              unit="epochs"
+              unit="Epochs since genesis"
               startTime={network && network.genesis}
+              label="Genesis Time"
             />
           </div>
           <Table name={name} viewStore={viewStore} />
