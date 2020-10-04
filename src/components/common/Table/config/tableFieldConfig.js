@@ -80,7 +80,7 @@ export default {
     { fieldName: 'id' },
     { fieldName: 'space' },
     { fieldName: 'layer' },
-    { fieldName: 'prevAtx' },
+    { fieldName: 'Previous Activation' },
   ],
   [LAYERS]: [
     {

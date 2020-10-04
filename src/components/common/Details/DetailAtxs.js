@@ -22,7 +22,7 @@ const DetailAtxs = (props: Props) => {
     <div className="details">
       <ul className="details-list">
         <li className="item">
-          <span className="item-name">ID</span>
+          <span className="item-name">Activation Id</span>
           <span className="item-value">
             {data.id}
             <CopyButton value={data.id} />
@@ -61,13 +61,7 @@ const DetailAtxs = (props: Props) => {
           </span>
         </li>
         <li className="item">
-          <span className="item-name">Block</span>
-          <span className="item-value">
-            --
-          </span>
-        </li>
-        <li className="item">
-          <span className="item-name">Previous ATX</span>
+          <span className="item-name">Previous Activation</span>
           <span className="item-value">
             <a href={`/${ATXS}/${data.prevAtx}`} onClick={(e) => viewStore.linkHandler(e, ATXS, data.prevAtx)}>
               {data.prevAtx}

@@ -215,15 +215,15 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Smesher ${longFormHash(id)} - ATX Details`}
+                title={`Smesher ${longFormHash(id)} Activations`}
                 color={getColorByPageName(name)}
-                desc="Smesher details for this ATX"
+                desc=""
                 uiStore={uiStore}
               />
               <RightSideBlock
                 color={getColorByPageName(name)}
                 number={pagination?.totalCount}
-                unit="atxns"
+                unit="Activations"
                 startTime={network?.genesis}
               />
             </div>

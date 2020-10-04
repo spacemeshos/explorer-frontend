@@ -34,8 +34,8 @@ export const getColorByPageName = (pageName: string) => {
       };
     case ATXS:
       return {
-        textColor: colors.transactionColor,
-        bgColor: colors.transactionBgColor,
+        textColor: colors.activationColor,
+        bgColor: colors.smesherBgColor,
       };
     case REWARDS:
       return {

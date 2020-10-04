@@ -36,6 +36,7 @@ import {
   BLOCKS,
   SMART_WALLET, ATXS,
 } from '../../config/constants';
+import CountAtxBlock from '../../components/common/CountBlock/CountAtxBlock';
 
 type Props = {
   name: string,
@@ -125,12 +126,12 @@ const RenderDetailPage = (props: Props) => {
         <>
           <div className="page-wrap">
             <TitleBlock
-              title={`Transactions ${longFormHash(id)} - details`}
+              title={`Activation ${longFormHash(id)}`}
               color={getColorByPageName(name)}
-              desc="Specific details for this transaction."
+              desc="Details"
               uiStore={uiStore}
             />
-            <CountTxnsBlock
+            <CountAtxBlock
               badgeType={'atx'}
               amount={spaceObject.value}
               unit={spaceObject.unit}
@@ -187,9 +188,9 @@ const RenderDetailPage = (props: Props) => {
         <>
           <div className="page-wrap">
             <TitleBlock
-              title={`Smesher ${longFormHash(id)} details`}
+              title={`Smesher ${longFormHash(id)}`}
               color={getColorByPageName(name)}
-              desc="Specific details for this smesher"
+              desc="Details"
               uiStore={uiStore}
             />
             <RightSideBlock

@@ -28,6 +28,7 @@ $transactionColor: #65B042;
 $rewardsColor: #24AEA6;
 $accountsColor: #DF32AF;
 $smesherColor: #5C09AF;
+$activationColor: #F7D353;
 $blockColor: #1744E3;
 $smartWalletColor: #DF3266;
 
@@ -80,6 +81,7 @@ $code-pro-font-family: 'Source Code Pro', monospace;
   rewardsColor: $rewardsColor;
   rewardsBgColor: rgba(36, 174, 166, 0.2);
   accountsColor: $accountsColor;
+  activationColor: $activationColor;
   accountsBgColor: rgba(223, 50, 175, 0.2);
   smesherColor: $smesherColor;
   smesherBgColor: $grey;
