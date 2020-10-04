@@ -33,7 +33,7 @@ const DetailsEpoch = (props: Props) => {
     <div className="details">
       <ul className="details-list">
         <li className="item">
-          <span className="item-name">Epoch Number</span>
+          <span className="item-name">Number</span>
           <span className="item-value">
             {data.number}
             <CopyButton value={data.number} />
@@ -52,7 +52,7 @@ const DetailsEpoch = (props: Props) => {
           </span>
         </li>
         <li className="item">
-          <span className="item-name">Total Layers</span>
+          <span className="item-name">Layers</span>
           <span className="item-value">
             <a
               href={`/${EPOCHS}/${data.number}/${LAYERS}`}
@@ -63,11 +63,11 @@ const DetailsEpoch = (props: Props) => {
           </span>
         </li>
         <li className="item">
-          <span className="item-name">Total Rewards number</span>
+          <span className="item-name">Rewards</span>
           <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, REWARDS)}>{stats.rewardsnumber}</a></span>
         </li>
         <li className="item">
-          <span className="item-name">Total Rewards value</span>
+          <span className="item-name">Rewards Amount</span>
           <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, REWARDS)}>{smhCoinConverter(stats.rewards)}</a></span>
         </li>
         <li className="item">

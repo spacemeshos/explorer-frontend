@@ -56,9 +56,9 @@ const RenderDetailPage = (props: Props) => {
         <>
           <div className="page-wrap">
             <TitleBlock
-              title={`Epoch ${id} - details`}
+              title={`Epoch ${id}`}
               color={getColorByPageName(name)}
-              desc="Specific details for this epoch"
+              desc="Epoch details"
               uiStore={uiStore}
             />
             <RightSideBlock
