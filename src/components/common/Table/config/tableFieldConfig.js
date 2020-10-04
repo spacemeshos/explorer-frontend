@@ -158,16 +158,16 @@ export default {
   ],
   [SMESHER]: [
     {
-      fieldName: 'id',
+      fieldName: 'Smesher Id',
     },
     {
       fieldName: 'Rewards Account',
     },
     {
-      fieldName: 'Committed space',
+      fieldName: 'Space',
     },
     {
-      fieldName: 'Total Atx Txns',
+      fieldName: 'Activations',
     },
   ],
   [BLOCKS]: [

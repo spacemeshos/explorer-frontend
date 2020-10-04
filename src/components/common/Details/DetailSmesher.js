@@ -41,13 +41,13 @@ const DetailAccount = (props: Props) => {
           </span>
         </li>
         <li className="item">
-          <span className="item-name">Reward Committed</span>
+          <span className="item-name">Reward</span>
           <span className="item-value">
             <a href={`/${SMESHER}/${data.id}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, data.id, REWARDS)}>{smhCoinConverter(data.rewards)}</a>
           </span>
         </li>
         <li className="item">
-          <span className="item-name">Total Transactions</span>
+          <span className="item-name">Activations</span>
           <span className="item-value">
             <a href={`/${SMESHER}/${data.id}/${ATXS}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, data.id, ATXS)}>{data.atxcount}</a>
           </span>

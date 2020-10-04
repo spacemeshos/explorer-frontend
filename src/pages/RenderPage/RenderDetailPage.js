@@ -213,7 +213,12 @@ const RenderDetailPage = (props: Props) => {
               desc="Details"
               uiStore={uiStore}
             />
-            {data && <AmountBlock number={balanceReward.value} startTime={network && network.genesis} unit={balanceReward.unit} color={getColorByPageName(name)} />}
+            <RightSideBlock
+              color={getColorByPageName(name)}
+              number={balanceReward?.value}
+              unit={balanceReward?.unit}
+              startTime={network?.genesis}
+            />
           </div>
           {data ? <DetailReward data={data} viewStore={viewStore} /> : <NoData />}
         </>

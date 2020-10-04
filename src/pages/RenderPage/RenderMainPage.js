@@ -194,7 +194,7 @@ const RenderMainPage = (props: Props) => {
             <TitleBlock
               title="Smeshers"
               color={getColorByPageName(name)}
-              desc="Specific details for this awards"
+              desc=""
               uiStore={uiStore}
             />
             <RightSideBlock
