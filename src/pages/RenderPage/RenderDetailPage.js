@@ -173,7 +173,7 @@ const RenderDetailPage = (props: Props) => {
         <>
           <div className="page-wrap">
             <TitleBlock
-              title="Smart Wallet - My Sm Smart wallet 1"
+              title="Vault - SM W #1"
               color={getColorByPageName(name)}
               desc="A smart wallet app"
               uiStore={uiStore}

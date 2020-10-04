@@ -5,6 +5,7 @@ import CopyButton from '../CopyButton';
 import {
   SMART_WALLET,
 } from '../../../config/constants';
+import {smhCoinConverter} from '../../../helper/converter';
 
 type Props = {
   viewStore: Object,
@@ -57,15 +58,11 @@ const DetailApp = (props: Props) => {
           <span className="item-value">100</span>
         </li>
         <li className="item">
-          <span className="item-name">State Hash</span>
-          <span className="item-value">0x12341223131233232321321312312321312321abf112</span>
-        </li>
-        <li className="item">
           <span className="item-name">Daily Spend Limit</span>
           <span className="item-value">2 SMH</span>
         </li>
         <li className="item">
-          <span className="item-name">Daily Spend Address</span>
+          <span className="item-name">Daily Spend Account</span>
           <span className="item-value">
               <a href={`/${SMART_WALLET}/126812`} onClick={(e) => viewStore.linkHandler(e, SMART_WALLET, '126812')}>
                 0x012345567abcdef012345567abcdef012345567abcdef012345567abc
@@ -74,8 +71,12 @@ const DetailApp = (props: Props) => {
             </span>
         </li>
         <li className="item">
-          <span className="item-name">Authorized Accounts</span>
+          <span className="item-name">Master Accounts</span>
           <span className="item-value">2 SMH</span>
+        </li>
+        <li className="item">
+          <span className="item-name">Monthly Vested Amount</span>
+          <span className="item-value">{smhCoinConverter(0)}</span>
         </li>
         <li className="item">
           <span className="item-name">Vesting Period</span>
