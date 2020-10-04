@@ -159,8 +159,9 @@ const RenderMainPage = (props: Props) => {
             <RightSideBlock
               color={getColorByPageName(name)}
               number={epoch && epoch.stats.cumulative.accounts}
-              unit="accnts"
+              unit="accounts"
               startTime={network && network.genesis}
+              label="Most Recent Account"
             />
           </div>
           <Table name={name} viewStore={viewStore} />

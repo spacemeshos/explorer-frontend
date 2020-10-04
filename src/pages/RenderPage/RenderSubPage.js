@@ -259,16 +259,16 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`ACCOUNT ${longFormHash(id)} - Transactions`}
+                title={`ACCOUNT Transactions`}
                 color={getColorByPageName(name)}
-                desc={`Transactions contained within account ${longFormHash('0x0klsda7as8asbadskjhkjdjyuye32423423')}`}
+                desc={longFormHash(id)}
                 uiStore={uiStore}
               />
               <RightSideBlock
                 color={getColorByPageName(name)}
                 number={pagination && pagination.totalCount}
                 unit="txns"
-                startTime={network?.genesis}
+                startTime={data && data[0]?.timestamp}
               />
             </div>
             <Table name={subPage} viewStore={viewStore} />

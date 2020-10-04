@@ -17,7 +17,7 @@ const DetailAccount = (props: Props) => {
     <div className="details">
       <ul className="details-list">
         <li className="item">
-          <span className="item-name">Account</span>
+          <span className="item-name">Address</span>
           <span className="item-value">
             {data.address}
             <CopyButton value={data.address} />
@@ -32,6 +32,14 @@ const DetailAccount = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Rewards</span>
+          <span className="item-value">
+            <a href={`/${ACCOUNTS}/${data.address}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, data.address, REWARDS)}>
+              {smhCoinConverter(data.balance)}
+            </a>
+          </span>
+        </li>
+        <li className="item">
+          <span className="item-name">Balance</span>
           <span className="item-value">
             <a href={`/${ACCOUNTS}/${data.address}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, data.address, REWARDS)}>
               {smhCoinConverter(data.balance)}

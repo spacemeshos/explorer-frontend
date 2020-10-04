@@ -152,9 +152,9 @@ const RenderDetailPage = (props: Props) => {
         <>
           <div className="page-wrap">
             <TitleBlock
-              title="Coin Account"
+              title="Account"
               color={getColorByPageName(name)}
-              desc="A basic coin account"
+              desc="coin account"
               uiStore={uiStore}
             />
             <RightSideBlock
