@@ -208,9 +208,9 @@ const RenderDetailPage = (props: Props) => {
         <>
           <div className="page-wrap">
             <TitleBlock
-              title={`Smeshing Reward ${longFormHash(id)} - details`}
+              title={`Reward ${longFormHash(id)}`}
               color={getColorByPageName(name)}
-              desc="Specific details for this reward."
+              desc="Details"
               uiStore={uiStore}
             />
             {data && <AmountBlock number={balanceReward.value} startTime={network && network.genesis} unit={balanceReward.unit} color={getColorByPageName(name)} />}

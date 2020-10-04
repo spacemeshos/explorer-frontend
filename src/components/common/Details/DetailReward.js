@@ -33,7 +33,7 @@ const DetailReward = (props: Props) => {
         </span>
        </li>
        <li className="item">
-         <span className="item-name">Layer Number</span>
+         <span className="item-name">Layer</span>
          <span className="item-value">
            <a
              href={`/${LAYERS}/${data.layer}`}
@@ -44,7 +44,7 @@ const DetailReward = (props: Props) => {
         </span>
        </li>
        <li className="item">
-         <span className="item-name">Smasher ID</span>
+         <span className="item-name">Smasher Id</span>
          <span className="item-value">
           <a
             href={`/${SMESHER}/${data.smesher}`}
