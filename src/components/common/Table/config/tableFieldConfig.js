@@ -104,7 +104,7 @@ export default {
   ],
   [REWARDS]: [
     {
-      fieldName: 'rewards',
+      fieldName: 'reward',
     },
     {
       fieldName: 'account',

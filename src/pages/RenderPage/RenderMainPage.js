@@ -130,7 +130,7 @@ const RenderMainPage = (props: Props) => {
         <>
           <div className="page-wrap">
             <TitleBlock
-              title="All Mining Rewards"
+              title="Smeshing Rewards"
               color={getColorByPageName(name)}
               desc="Rewards across the entire mesh"
               uiStore={uiStore}
@@ -139,7 +139,7 @@ const RenderMainPage = (props: Props) => {
               color={getColorByPageName(name)}
               number={epoch?.stats.cumulative.rewardsnumber}
               unit="rewards distributed"
-              coinCaption="smash rewards since genesis"
+              coinCaption="Rewards value since genesis"
               coins={epoch?.stats.cumulative.rewards}
             />
           </div>
