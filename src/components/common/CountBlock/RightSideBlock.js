@@ -53,7 +53,8 @@ const RightSideBlock = (props: Props) => {
       }}>{commaNumber(number) || '000'}</div>
       <div className="rightColumn-desc">{unit}</div>
       <div className="rightColumn-data">
-        {`${coinCaption}: ${smhCoinConverter(coins)}`}
+        <p>{`${coinCaption}:`}</p>
+        <p>{`${smhCoinConverter(coins)}`}</p>
       </div>
     </div>
   );

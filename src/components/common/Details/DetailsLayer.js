@@ -26,28 +26,28 @@ const DetailsLayer = (props: Props) => {
     <div className="details">
       <ul className="details-list">
         <li className="item">
-          <span className="item-name">Layer Number</span>
+          <span className="item-name">Number</span>
           <span className="item-value">
             {data.number}
             <CopyButton value={data.number} />
           </span>
         </li>
         <li className="item">
-          <span className="item-name">Layer Start Timestamp</span>
+          <span className="item-name">Start Timestamp</span>
           <span className="item-value">
             <CustomTimeAgo time={data.start} />
             {`${fullDate(data.start)}`}
           </span>
         </li>
         <li className="item">
-          <span className="item-name">Layer End Timestamp</span>
+          <span className="item-name">End Timestamp</span>
           <span className="item-value">
             <CustomTimeAgo time={data.end} />
              {`${fullDate(data.end)}`}
           </span>
         </li>
         <li className="item">
-          <span className="item-name">Total Transactions</span>
+          <span className="item-name">Transactions</span>
           <span className="item-value">
             <a
               href={`/${LAYERS}/${data.number}/${TXNS}`}
@@ -58,7 +58,7 @@ const DetailsLayer = (props: Props) => {
           </span>
         </li>
         <li className="item">
-          <span className="item-name">Total Rewards </span>
+          <span className="item-name">Rewards </span>
           <span className="item-value">
             <a
               href={`/${LAYERS}/${data.number}/${REWARDS}`}
@@ -69,8 +69,8 @@ const DetailsLayer = (props: Props) => {
           </span>
         </li>
         <li className="item">
-          <span className="item-name">Finality</span>
-          <span className="item-value">0%</span>
+          <span className="item-name">Confidence</span>
+          <span className="item-value">--</span>
         </li>
         <li className="item">
           <span className="item-name">Epoch</span>
@@ -100,7 +100,7 @@ const DetailsLayer = (props: Props) => {
             <a
               href={`/${LAYERS}/${data.number}/${BLOCKS}`}
               onClick={(e) => {viewStore.linkHandler(e, LAYERS, data.number, BLOCKS)}}>
-              {data.blocksnumber} blocks
+              {data.blocksnumber}
             </a>
           </span>
         </li>

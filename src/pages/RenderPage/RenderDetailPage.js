@@ -76,16 +76,16 @@ const RenderDetailPage = (props: Props) => {
         <>
           <div className="page-wrap">
             <TitleBlock
-              title={`Layer ${id} - details`}
+              title={`Layer ${id}`}
               color={getColorByPageName(name)}
-              desc="Layers across the entire mesh"
+              desc="Layers details"
               uiStore={uiStore}
             />
             <RightSideBlock
               color={getColorByPageName(name)}
               number={data && data.txs}
               caption="txns"
-              coinCaption="total coin rewards"
+              coinCaption="Rewards"
               coins={data && data.rewards}
             />
           </div>
