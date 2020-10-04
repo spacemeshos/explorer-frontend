@@ -129,14 +129,14 @@ const RenderSubPage = (props: Props) => {
               <TitleBlock
                 title={`Layer ${id} - Transactions`}
                 color={getColorByPageName(name)}
-                desc={`Transactions within Layer ${id}`}
+                desc=""
                 uiStore={uiStore}
               />
               <RightCountBlock
                 color={getColorByPageName(name)}
                 number={layer && layer.txs}
                 caption="txns"
-                coinCaption="total txns value"
+                coinCaption="Transactions Value"
                 coins={layer && smhCoinConverter(layer.txsamount)}
               />
             </div>
