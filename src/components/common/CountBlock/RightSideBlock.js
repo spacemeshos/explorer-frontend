@@ -35,8 +35,6 @@ const RightSideBlock = (props: Props) => {
         ) : (
           <p>{startTime ? formattedDate(startTime) : '00/00/0000'}</p>
         )}
-
-        <p>{startTime ? formattedTime(startTime) : '00:00:00 PM' }</p>
         <p className="amountBlock-timeWrap-timeAgo">
           <CustomTimeAgo time={startTime}/>
         </p>

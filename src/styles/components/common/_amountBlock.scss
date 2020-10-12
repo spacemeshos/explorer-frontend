@@ -1,6 +1,6 @@
 .amountBlock {
   display: grid;
-  grid-template-columns: 1fr 0.5fr 1.5fr;
+  grid-template-columns: 1fr 1fr 1fr;
   padding: 14px 10px;
   margin-left: 15px;
 
@@ -13,6 +13,7 @@
 
   &-unit {
     font-size: 12px;
+    margin-left: 5px;
     align-self: end;
     text-transform: uppercase;
     @include theme-aware('color', 'countBlockTextColor');

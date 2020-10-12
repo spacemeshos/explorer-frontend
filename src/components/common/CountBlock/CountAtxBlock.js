@@ -27,7 +27,6 @@ const CountAtxBlock = (props: Props) => {
         </div>
         <div className="countBlock-time">
           <p>{startTime ? formattedDate(startTime) : '00/00/0000'}</p>
-          <p>{startTime ? formattedTime(startTime) : '00:00:00 PM' }</p>
           <p className="timeAgo">
             <CustomTimeAgo time={startTime}/>
           </p>
@@ -46,7 +45,6 @@ const CountAtxBlock = (props: Props) => {
           </div>
           <div className="time">
             <span className="time-date">{startTime ? formattedDate(startTime) : '00/00/0000'}</span>
-            <span className="time-clock">{startTime ?formattedTime(startTime) : '00:00:00 PM' }</span>
           </div>
         </div>
         <div className="countBlockLong-badge">

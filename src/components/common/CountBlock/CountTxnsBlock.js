@@ -2,7 +2,7 @@
 import * as React from 'react';
 import Badge from '../Badge';
 import CustomTimeAgo from '../CustomTimeAgo';
-import {formattedDate, formattedTime} from '../../../helper/formatter';
+import { formattedDate } from '../../../helper/formatter';
 
 type Props = {
   color: string,
@@ -28,7 +28,6 @@ const CountTxnsBlock = (props: Props) => {
         </div>
         <div className="countBlock-time">
           <p>{startTime ? formattedDate(startTime) : '00/00/0000'}</p>
-          <p>{startTime ? formattedTime(startTime) : '00:00:00 PM' }</p>
           <p className="timeAgo">
             <CustomTimeAgo time={startTime}/>
           </p>
@@ -47,7 +46,6 @@ const CountTxnsBlock = (props: Props) => {
           </div>
           <div className="time">
             <span className="time-date">{startTime ? formattedDate(startTime) : '00/00/0000'}</span>
-            <span className="time-clock">{startTime ?formattedTime(startTime) : '00:00:00 PM' }</span>
           </div>
         </div>
         <div className="countBlockLong-badge">
