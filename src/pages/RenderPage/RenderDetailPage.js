@@ -248,21 +248,14 @@ const RenderDetailPage = (props: Props) => {
     case NOT_FOUND:
       return (
         <>
-          <div className="page-wrap">
+          <div className="page-wrap page-wrap-search-not-found">
             <TitleBlock
               title={`${longFormHash(id)}`}
               color={getColorByPageName(name)}
-              desc="search returned no result"
+              desc="No results"
               uiStore={uiStore}
             />
-            <RightSideBlock
-              color={getColorByPageName(name)}
-              number="000"
-              unit="txns"
-              startTime={new Date().getTime().toString().slice(0, -3)}
-            />
           </div>
-          <DetailsEmptyPage />
         </>
       );
     default:
