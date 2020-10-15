@@ -84,7 +84,7 @@ const DetailApp = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Vesting Start Date</span>
-          <span className="item-value">2 minutes ago (Jun-25-2019 05:13:39 PM +UTC)</span>
+          <span className="item-value">2 minutes ago (Jun-25-2019 05:13:39 PM UTC)</span>
         </li>
       </ul>
     </div>
