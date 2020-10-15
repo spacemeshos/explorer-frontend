@@ -34,9 +34,7 @@ const CustomTimeAgo = (props: Props) => {
   const formatter = buildFormatter(enString);
 
   return (
-    <span className="time-ago">
       <TimeAgo date={jsDate} formatter={formatter} />
-    </span>
   );
 };
 

@@ -93,10 +93,10 @@ export default {
       fieldName: 'transactions',
     },
     {
-      fieldName: 'txn value',
+      fieldName: 'value',
     },
     {
-      fieldName: 'atx',
+      fieldName: 'activations',
     },
     {
       fieldName: 'rewards',
