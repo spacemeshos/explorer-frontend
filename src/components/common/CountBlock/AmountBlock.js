@@ -38,7 +38,6 @@ const AmountBlock = (props: Props) => {
       <p className="amountBlock-unit">{unit}</p>
       <div className="amountBlock-timeWrap">
         <p>{startTime ? formattedDate(startTime) : '00/00/0000'}</p>
-        <p>{startTime ? formattedTime(startTime) : '00:00:00 PM' } UTC</p>
         <p className="amountBlock-timeWrap-timeAgo">
           <CustomTimeAgo time={startTime}/>
         </p>
