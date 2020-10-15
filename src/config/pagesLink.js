@@ -17,7 +17,7 @@ export const pagesLink = [
     icon: 'layers',
   },
   {
-    title: 'txns',
+    title: 'transactions',
     page: TXNS,
     icon: TXNS,
   },
