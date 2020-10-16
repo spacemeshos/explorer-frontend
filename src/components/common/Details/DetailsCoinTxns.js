@@ -47,6 +47,10 @@ const DetailsCoinTxns = (props: Props) => {
           </span>
         </li>
         <li className="item">
+          <span className="item-name">Layer</span>
+          <span className="item-value">{smhCoinConverter(data.layer)}</span>
+        </li>
+        <li className="item">
           <span className="item-name">Value</span>
           <span className="item-value">{smhCoinConverter(data.amount)}</span>
         </li>
