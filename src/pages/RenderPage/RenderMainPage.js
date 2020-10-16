@@ -48,12 +48,12 @@ const RenderMainPage = (props: Props) => {
           <div className="page-wrap">
             <TitleBlock
               title="Transactions"
-              color={getColorByPageName(name)}
+              color={getColorByPageName(TXNS)}
               desc="Recent transactions"
               uiStore={uiStore}
             />
             <RightSideBlock
-              color={getColorByPageName(name)}
+              color={getColorByPageName(TXNS)}
               number={epoch && epoch.stats.cumulative.transactions}
               unit="txns since genesis"
               coinCaption="Coin transferred"

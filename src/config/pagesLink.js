@@ -1,4 +1,4 @@
-import {ACCOUNTS, EPOCHS, LAYERS, OVERVIEW, REWARDS, SMART_WALLET, SMESHER, TXNS} from './constants';
+import { ACCOUNTS, EPOCHS, LAYERS, OVERVIEW, REWARDS, SMART_WALLET, SMESHER, TXNS } from './constants';
 
 export const pagesLink = [
   {
@@ -29,7 +29,7 @@ export const pagesLink = [
   {
     title: 'accounts',
     page: ACCOUNTS,
-    icon: 'address',
+    icon: ACCOUNTS,
   },
   {
     title: 'vaults',
