@@ -2,7 +2,7 @@
 import React from 'react';
 
 import CopyButton from '../CopyButton';
-import { ACCOUNTS, USD_RATE } from '../../../config/constants';
+import {ACCOUNTS, LAYERS, USD_RATE} from '../../../config/constants';
 import { smhCoinConverter } from '../../../helper/converter';
 import { fullDate } from '../../../helper/formatter';
 import CustomTimeAgo from '../CustomTimeAgo';
@@ -44,6 +44,12 @@ const DetailsCoinTxns = (props: Props) => {
           <span className="item-value">
             <CustomTimeAgo time={data.timestamp} />
             &nbsp;{`${fullDate(data.timestamp)}`}
+          </span>
+        </li>
+        <li className="item">
+          <span className="item-name">Layer</span>
+          <span className="item-value">
+            <a href={`/${LAYERS}/${data.layer}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, data.layer)}>{data.layer}</a>
           </span>
         </li>
         <li className="item">

@@ -3,7 +3,9 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import { byteConverter, smhCoinConverter } from '../../../helper/converter';
 import Loader from '../Loader';
-import {ACCOUNTS, EPOCHS, LAYERS, OVERVIEW, REWARDS, SMESHER} from '../../../config/constants';
+import {
+  ACCOUNTS, EPOCHS, LAYERS, OVERVIEW, REWARDS, SMESHER,
+} from '../../../config/constants';
 
 type Props = {
   viewStore: Object,
@@ -16,7 +18,7 @@ type Props = {
 }
 
 const InfoBlock = (props: Props) => {
-  const { viewStore, accounts, rewards, security, epoch, layer, smeshers } = props;
+  const { viewStore, accounts, rewards, security, epoch, layer, smeshers, number } = props;
 
   const onClickHandler = (e, page) => {
     e.preventDefault();
@@ -37,7 +39,7 @@ const InfoBlock = (props: Props) => {
         <li className="infoBlock-item">
           <p className="infoBlock-item-number">
             <a href={`/${REWARDS}`} onClick={(e) => onClickHandler(e, REWARDS)}>
-            {smhCoinConverter(rewards) || (<Loader size={15} />)}
+              {smhCoinConverter(rewards) || (<Loader size={15} />)}
             </a>
           </p>
           <p className="infoBlock-item-title">smeshing rewards</p>
@@ -48,7 +50,7 @@ const InfoBlock = (props: Props) => {
         </li>
         <li className="infoBlock-item">
           <p className="infoBlock-item-number">
-            <a href={`/${EPOCHS}`} onClick={(e) => onClickHandler(e, EPOCHS)}>
+            <a href={`/${EPOCHS}/${epoch}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, epoch)}>
               {JSON.stringify(epoch) || (<Loader size={15} />)}
             </a>
           </p>
@@ -56,7 +58,7 @@ const InfoBlock = (props: Props) => {
         </li>
         <li className="infoBlock-item">
           <p className="infoBlock-item-number">
-            <a href={`/${LAYERS}`} onClick={(e) => onClickHandler(e, LAYERS)}>
+            <a href={`/${LAYERS}/${layer}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, layer)}>
               {JSON.stringify(layer) || (<Loader size={15} />)}
             </a>
           </p>
@@ -72,7 +74,7 @@ const InfoBlock = (props: Props) => {
         </li>
       </ul>
     </div>
-  )
+  );
 };
 
 export default observer(InfoBlock);
