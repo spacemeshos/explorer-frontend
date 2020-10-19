@@ -2,10 +2,9 @@
 import React from 'react';
 
 import CopyButton from '../CopyButton';
-import {
-  SMART_WALLET,
-} from '../../../config/constants';
-import {smhCoinConverter} from '../../../helper/converter';
+import { SMART_WALLET } from '../../../config/constants';
+import { smhCoinConverter } from '../../../helper/converter';
+import longFormHash from '../../../helper/longFormHash';
 
 type Props = {
   viewStore: Object,
@@ -64,15 +63,19 @@ const DetailApp = (props: Props) => {
         <li className="item">
           <span className="item-name">Daily Spend Account</span>
           <span className="item-value">
-              <a href={`/${SMART_WALLET}/126812`} onClick={(e) => viewStore.linkHandler(e, SMART_WALLET, '126812')}>
-                0x012345567abcdef012345567abcdef012345567abcdef012345567abc
-                <CopyButton value="0x012345567abcdef012345567abcdef012345567abcdef012345567abc" />
-              </a>
-            </span>
+            <a href={`/${SMART_WALLET}/126812`} onClick={(e) => viewStore.linkHandler(e, SMART_WALLET, '126812')}>
+              0x012345567abcdef012345567abcdef012345567abcdef012345567abc
+              <CopyButton value="0x012345567abcdef012345567abcdef012345567abcdef012345567abc" />
+            </a>
+          </span>
         </li>
         <li className="item">
           <span className="item-name">Master Accounts</span>
-          <span className="item-value">2 SMH</span>
+          <span className="item-value">
+            <a>
+              {longFormHash('0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8')}
+            </a>
+          </span>
         </li>
         <li className="item">
           <span className="item-name">Monthly Vested Amount</span>
