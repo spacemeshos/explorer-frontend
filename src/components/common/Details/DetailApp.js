@@ -72,7 +72,7 @@ const DetailApp = (props: Props) => {
         <li className="item">
           <span className="item-name">Master Accounts</span>
           <span className="item-value">
-            <a>
+            <a href={`/${SMART_WALLET}/126812`} onClick={(e) => viewStore.linkHandler(e, SMART_WALLET, '126812')}>
               {longFormHash('0x69c756d06F0C1236F34D3A627EAcb7a4722FC5B8')}
             </a>
           </span>

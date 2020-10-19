@@ -12,7 +12,7 @@ export const fullDate = (unixTimestamp) => {
 // Format (00/00/0000)
 export const formattedDate = (unixTimestamp) => {
   const time = new Date(convertTime(unixTimestamp));
-  return `${time.getUTCMonth() + 1}/${time.getUTCDate()}/${time.getUTCFullYear()}`
+  return `${time.getUTCMonth() + 1}/${time.getUTCDate()}/${time.getUTCFullYear()}` // we return "time.getUTCMonth()" and +1, because, start months counter from 0 in JavaScript
 };
 
 // Format (10:35:13 + UTC)
