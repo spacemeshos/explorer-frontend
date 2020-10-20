@@ -2,23 +2,29 @@ import * as React from 'react';
 
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+// Add zero ahead to date, if month or day < 10
+function addZeroAheadToDate(num) {
+  return `${('0' + num.toString()).slice(-2)}`
+}
+
 export const fullDate = (unixTimestamp) => {
   const time = new Date(convertTime(unixTimestamp));
 
-  return `(${months[time.getUTCMonth()]}/${time.getUTCDate()}/${time.getUTCFullYear()}
-  ${time.getUTCHours()}:${time.getUTCMinutes()}:${time.getUTCSeconds()} UTC)`
+  return `(${months[time.getUTCMonth()]}/${addZeroAheadToDate(time.getUTCDate())}/${time.getUTCFullYear()}
+  ${addZeroAheadToDate(time.getUTCHours())}:${addZeroAheadToDate(time.getUTCMinutes())}:${addZeroAheadToDate(time.getUTCSeconds())} UTC)`
 };
 
 // Format (00/00/0000)
 export const formattedDate = (unixTimestamp) => {
   const time = new Date(convertTime(unixTimestamp));
-  return `${time.getUTCMonth()}/${time.getUTCDate()}/${time.getUTCFullYear()}`
+  // we return "time.getUTCMonth()" and +1, because, start months counter from 0 in JavaScript
+  return `${addZeroAheadToDate((time.getUTCMonth()) + 1)}/${addZeroAheadToDate(time.getUTCDate())}/${time.getUTCFullYear()}`
 };
 
 // Format (10:35:13 + UTC)
 export const formattedTime = (unixTimestamp) => {
   const time = new Date(convertTime(unixTimestamp));
-  return `${time.getUTCHours()}:${time.getUTCMinutes()}:${time.getUTCSeconds()} UTC`
+  return `${addZeroAheadToDate(time.getUTCHours())}:${addZeroAheadToDate(time.getUTCMinutes())}:${addZeroAheadToDate(time.getUTCSeconds())} UTC`
 };
 
 const convertTime = (unixTimestamp) => {

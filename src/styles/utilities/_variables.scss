@@ -29,9 +29,10 @@ $rewardsColor: #24AEA6;
 $accountsColor: #DF32AF;
 $smesherColor: #F7D353;
 $activationColor: #5C09AF;
+$activationBgColor: #301F44;
 $blockColor: #1744E3;
 $smartWalletColor: #DF3266;
-$smesherBgColor: #102058;
+$smesherBgColor: #4F4731;
 
 // status color
 $confirmed: #65B042;
@@ -83,9 +84,10 @@ $code-pro-font-family: 'Source Code Pro', monospace;
   rewardsBgColor: rgba(36, 174, 166, 0.2);
   accountsColor: $accountsColor;
   activationColor: $activationColor;
+  activationBgColor: $activationBgColor;
   accountsBgColor: rgba(223, 50, 175, 0.2);
   smesherColor: $smesherColor;
-  smesherBgColor: $grey;
+  smesherBgColor: $smesherBgColor;
   blockColor: $blockColor;
   smartWalletColor: $smartWalletColor;
   smartWalletBgColor: rgba(223, 50, 102, 0.2);;
