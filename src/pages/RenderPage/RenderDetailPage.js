@@ -73,6 +73,7 @@ const RenderDetailPage = (props: Props) => {
         </>
       );
     case LAYERS:
+      const layersObject = smhCoinConverter(data?.rewards, true);
       return (
         <>
           <div className="page-wrap">
@@ -84,13 +85,13 @@ const RenderDetailPage = (props: Props) => {
             />
             <RightSideBlock
               color={getColorByPageName(name)}
-              number={data && data.txs}
+              number={layersObject.value}
               caption="txns"
               coinCaption="Rewards"
               coins={data && data.rewards}
             />
           </div>
-          {data && <DetailsLayer data={data} viewStore={viewStore}/>}
+          {data && <DetailsLayer data={data} viewStore={viewStore} />}
         </>
       );
     case TXNS:
@@ -115,7 +116,7 @@ const RenderDetailPage = (props: Props) => {
           {data ? (
             <>
               <TxnsStatus status={data.state} />
-              {data.type === 0 ? (<DetailsCoinTxns data={data} viewStore={viewStore}/>) : (<DetailAtxs data={data} viewStore={viewStore}/>)}
+              {data.type === 0 ? (<DetailsCoinTxns data={data} viewStore={viewStore} />) : (<DetailAtxs data={data} viewStore={viewStore} />)}
             </>
           ) : (<Loader size={100} />)}
         </>
@@ -132,7 +133,7 @@ const RenderDetailPage = (props: Props) => {
               uiStore={uiStore}
             />
             <CountAtxBlock
-              badgeType={'atx'}
+              badgeType="atx"
               amount={spaceObject.value}
               unit={spaceObject.unit}
               startTime={0}
@@ -142,7 +143,7 @@ const RenderDetailPage = (props: Props) => {
           {data ? (
             <>
               <TxnsStatus status={data.state} />
-              {data.type === 0 ? (<DetailAtxs data={data} viewStore={viewStore}/>) : (<DetailAtxs data={data} viewStore={viewStore}/>)}
+              {data.type === 0 ? (<DetailAtxs data={data} viewStore={viewStore} />) : (<DetailAtxs data={data} viewStore={viewStore} />)}
             </>
           ) : (<Loader size={100} />)}
         </>

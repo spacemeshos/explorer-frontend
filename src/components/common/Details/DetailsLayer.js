@@ -36,14 +36,14 @@ const DetailsLayer = (props: Props) => {
           <span className="item-name">Start Timestamp</span>
           <span className="item-value">
             <CustomTimeAgo time={data.start} />
-            {`${fullDate(data.start)}`}
+             {` ${fullDate(data.start)}`}
           </span>
         </li>
         <li className="item">
           <span className="item-name">End Timestamp</span>
           <span className="item-value">
             <CustomTimeAgo time={data.end} />
-             {`${fullDate(data.end)}`}
+             {` ${fullDate(data.end)}`}
           </span>
         </li>
         <li className="item">
