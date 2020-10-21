@@ -4,12 +4,13 @@ import { observer } from 'mobx-react';
 import { nanoid } from 'nanoid';
 
 import StatusIcon from '../StatusIcon';
-import shortFormHash from '../../../helper/shortFormHash';
 import longFormHash from '../../../helper/longFormHash';
 
-import { ACCOUNTS, LAYERS, TXNS } from '../../../config/constants';
-import {smhCoinConverter} from '../../../helper/converter';
-import {mappingStatus} from '../../../helper/mappingStatus';
+import {
+  ACCOUNTS, LAYERS, TXNS,
+} from '../../../config/constants';
+import { smhCoinConverter } from '../../../helper/converter';
+import { mappingStatus } from '../../../helper/mappingStatus';
 
 type Props = {
   data: Array<Object>,
@@ -20,7 +21,7 @@ const TransactionsRow = (props: Props) => {
   const { data, viewStore } = props;
 
   const typeOfTxns = (type) => {
-    switch(type) {
+    switch (type) {
       case 0:
         return 'Coin';
       case 1:
@@ -36,7 +37,7 @@ const TransactionsRow = (props: Props) => {
         <div className="td">
           <StatusIcon status={mappingStatus(item.state)} />
           <a href={`/${TXNS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, TXNS, item.id)}>
-            {shortFormHash(item.id)}
+            {longFormHash(item.id)}
           </a>
         </div>
         <div className="td">
@@ -46,17 +47,23 @@ const TransactionsRow = (props: Props) => {
         </div>
         <div className="td">{smhCoinConverter(item.amount)}</div>
         <div className="td">
-          <a href={`/${ACCOUNTS}/${item.sender}`} onClick={(e) => {
-            viewStore.linkHandler(e, ACCOUNTS, item.sender)
-          }}>
+          <a
+            href={`/${ACCOUNTS}/${item.sender}`}
+            onClick={(e) => {
+              viewStore.linkHandler(e, ACCOUNTS, item.sender);
+            }}
+          >
             {longFormHash(item.sender)}
           </a>
           <div className="arrow">-&gt;</div>
         </div>
         <div className="td">
-          <a href={`/${ACCOUNTS}/${item.receiver}`} onClick={(e) => {
-           viewStore.linkHandler(e, ACCOUNTS, item.receiver)
-          }}>
+          <a
+            href={`/${ACCOUNTS}/${item.receiver}`}
+            onClick={(e) => {
+              viewStore.linkHandler(e, ACCOUNTS, item.receiver);
+            }}
+          >
             {longFormHash(item.receiver)}
           </a>
         </div>
