@@ -5,6 +5,7 @@ import CopyButton from '../CopyButton';
 import { SMART_WALLET } from '../../../config/constants';
 import { smhCoinConverter } from '../../../helper/converter';
 import longFormHash from '../../../helper/longFormHash';
+import { fullDate} from "../../../helper/formatter";
 
 type Props = {
   viewStore: Object,
@@ -87,7 +88,7 @@ const DetailApp = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Vesting Start Date</span>
-          <span className="item-value">2 minutes ago (Jun-25-2019 05:13:39 PM UTC)</span>
+          <span className="item-value">2 minutes ago {fullDate((new Date().getTime()) / 1000 - 120)}</span>
         </li>
       </ul>
     </div>
