@@ -176,7 +176,7 @@ const RenderDetailPage = (props: Props) => {
             <TitleBlock
               title="Vault - SM W #1"
               color={getColorByPageName(name)}
-              desc="A smart wallet app"
+              desc="A vault app"
               uiStore={uiStore}
             />
             <AmountBlock value="325" unit="smh" color={getColorByPageName(name)} />
