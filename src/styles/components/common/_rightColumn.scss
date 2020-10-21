@@ -14,6 +14,7 @@
   &-desc {
     font-size: 12px;
     text-transform: uppercase;
+    margin-left: 5px;
     align-self: end;
     @include theme-aware('color', 'countTextColor');
   }

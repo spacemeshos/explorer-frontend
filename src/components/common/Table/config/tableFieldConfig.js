@@ -93,9 +93,6 @@ export default {
       fieldName: 'transactions',
     },
     {
-      fieldName: 'value',
-    },
-    {
       fieldName: 'activations',
     },
     {

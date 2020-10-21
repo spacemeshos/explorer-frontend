@@ -9,7 +9,7 @@ import {
   REWARDS,
   TXNS,
 } from '../../../config/constants';
-import {byteConverter, smhCoinConverter} from '../../../helper/converter';
+import { byteConverter, smhCoinConverter } from '../../../helper/converter';
 import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
@@ -32,30 +32,32 @@ const LayersRow = (props: Props) => {
           <CustomTimeAgo time={item.start} />
         </div>
         <div className="td">
-          <a href={`/${LAYERS}/${item.number}/${TXNS}`} onClick={(e) => {
-            viewStore.linkHandler(e, LAYERS, item.number, TXNS)
-          }}>
-            {item.txs}
+          <a
+            href={`/${LAYERS}/${item.number}/${TXNS}`}
+            onClick={(e) => {
+              viewStore.linkHandler(e, LAYERS, item.number, TXNS);
+            }}
+          >
+            {`${item.txs} Transactions (${smhCoinConverter(item.txsamount)})`}
           </a>
         </div>
         <div className="td">
-          <a href={`/${LAYERS}/${item.number}/${TXNS}`} onClick={(e) => {
-            viewStore.linkHandler(e, LAYERS, item.number, TXNS)
-          }}>
-            {smhCoinConverter(item.txsamount)}
-          </a>
-        </div>
-        <div className="td">
-          <a href={`/${LAYERS}/${item.number}/${ATXS}`} onClick={(e) => {
-            viewStore.linkHandler(e, LAYERS, item.number, ATXS)
-          }}>
+          <a
+            href={`/${LAYERS}/${item.number}/${ATXS}`}
+            onClick={(e) => {
+              viewStore.linkHandler(e, LAYERS, item.number, ATXS);
+            }}
+          >
             {byteConverter(item.atxssize)}
           </a>
         </div>
         <div className="td">
-          <a href={`/${LAYERS}/${item.number}/${REWARDS}`} onClick={(e) => {
-            viewStore.linkHandler(e, LAYERS, item.number, REWARDS)
-          }}>
+          <a
+            href={`/${LAYERS}/${item.number}/${REWARDS}`}
+            onClick={(e) => {
+              viewStore.linkHandler(e, LAYERS, item.number, REWARDS);
+            }}
+          >
             {smhCoinConverter(item.rewards)}
           </a>
         </div>
