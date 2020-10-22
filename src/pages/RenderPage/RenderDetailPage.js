@@ -80,7 +80,7 @@ const RenderDetailPage = (props: Props) => {
             <TitleBlock
               title={`Layer ${id}`}
               color={getColorByPageName(name)}
-              desc="Layers details"
+              desc="Layer details"
               uiStore={uiStore}
             />
             <RightSideBlock

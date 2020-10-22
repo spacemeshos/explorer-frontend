@@ -1,4 +1,19 @@
 .header {
   display: flex;
+  justify-content: space-between;
   height: 36px;
+
+  &_logo-navbar {
+    display: flex;
+  }
+
+  &_dropdown-status {
+    display: flex;
+  }
+
+  &_dropdown {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $secondGrey;
+  }
 }
