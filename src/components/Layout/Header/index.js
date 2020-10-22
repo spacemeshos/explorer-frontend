@@ -8,6 +8,7 @@ import Logo from '../../common/Logo';
 import NavBar from '../../common/NavBar';
 import Switcher from '../../common/Switcher';
 import DropDown from '../../common/DropDown';
+import NetworkStatus from '../../common/NetworkStatus';
 
 const links = [
   {
@@ -34,10 +35,17 @@ const Header = () => {
 
   return (
     <div className="header">
-      <Logo />
-      <NavBar links={links} />
-      <DropDown options={toJS(viewStore.networks)} />
-      <Switcher id="switch" onChange={(e) => uiStore.changeTheme(e)} checked={uiStore.theme === 'dark'} />
+      <div className="header_logo-navbar">
+        <Logo />
+        <NavBar links={links} />
+      </div>
+      <div className="header_dropdown-status">
+        <div className="header_dropdown">
+          <NetworkStatus status="ok" />
+          <DropDown options={toJS(viewStore.networks)} />
+        </div>
+        <Switcher id="switch" onChange={(e) => uiStore.changeTheme(e)} checked={uiStore.theme === 'dark'} />
+      </div>
     </div>
   );
 };

@@ -10,14 +10,14 @@ type Props = {
 const DropDown = (props: Props) => {
   const { options } = props;
   const onSelect = (e) => console.log('select', e);
-  const testOptions =[
+  const testOptions = [
     {
       value: 'dev.net',
-      label: 'Dev-Net'
+      label: 'Dev-Net',
     },
     {
       value: 'test.net',
-      label: 'TestNet 0.1 "TweedleDee"'
+      label: 'TestNet 0.1 "TweedleDee"',
     },
   ];
 
@@ -25,7 +25,7 @@ const DropDown = (props: Props) => {
     <Dropdown
       options={testOptions}
       onChange={onSelect}
-      value='Dev-Net'
+      value="Dev-Net"
       placeholder="Select network"
     />
   );
