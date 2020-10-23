@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
+import { observer } from 'mobx-react';
 import { smhCoinConverter } from '../../../helper/converter';
 import { setFontSize, setLineHeight } from '../../../helper/cssHelper';
-import { observer } from 'mobx-react';
 import { formattedDate, formattedTime } from '../../../helper/formatter';
 import CustomTimeAgo from '../CustomTimeAgo';
 import { commaNumber } from '../../../helper/comma';
@@ -17,26 +17,33 @@ type Props = {
   label?: string,
 };
 
-
 const RightSideBlock = (props: Props) => {
   const { color, unit, number, startTime, coinCaption, coins, label } = props;
 
   const blockWithTime = () => (
     <div style={{ backgroundColor: color.bgColor }} className="amountBlock">
-      <span style={{
-        color: color.textColor,
-        fontSize: setFontSize(number),
-        lineHeight: setLineHeight(number)
-      }} className="amountBlock-number">{commaNumber(number) || '000'}</span>
+      <span
+        style={{
+          color: color.textColor,
+          fontSize: setFontSize(number),
+          lineHeight: setLineHeight(number),
+        }}
+        className="amountBlock-number"
+      >
+        {commaNumber(number) || '000'}
+      </span>
       <p className="amountBlock-unit">{unit}</p>
       <div className="amountBlock-timeWrap">
         {label ? (
           <p>{label}</p>
-        ) : (
-          <p>{startTime ? formattedDate(startTime) : '00/00/0000'}</p>
-        )}
+        ) : null}
+        {startTime ? (
+          <p>
+            {formattedDate(startTime)}
+          </p>
+        ) : '00/00/0000'}
         <p className="amountBlock-timeWrap-timeAgo">
-          <CustomTimeAgo time={startTime}/>
+          <CustomTimeAgo time={startTime} />
         </p>
       </div>
     </div>
@@ -44,11 +51,16 @@ const RightSideBlock = (props: Props) => {
 
   const blockWithCoin = () => (
     <div className="rightColumn" style={{ backgroundColor: color.bgColor }}>
-      <div className="rightColumn-number" style={{
-        color: color.textColor,
-        fontSize: setFontSize(number),
-        lineHeight: setLineHeight(number)
-      }}>{commaNumber(number) || '000'}</div>
+      <div
+        className="rightColumn-number"
+        style={{
+          color: color.textColor,
+          fontSize: setFontSize(number),
+          lineHeight: setLineHeight(number),
+        }}
+      >
+        {commaNumber(number) || '000'}
+      </div>
       <div className="rightColumn-desc">{unit}</div>
       <div className="rightColumn-data">
         <p>{`${coinCaption}`}</p>
