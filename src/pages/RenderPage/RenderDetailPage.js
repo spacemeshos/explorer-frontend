@@ -136,7 +136,7 @@ const RenderDetailPage = (props: Props) => {
               badgeType="atx"
               amount={spaceObject.value}
               unit={spaceObject.unit}
-              startTime={0}
+              startTime={data && data.timestamp}
               color={getColorByPageName(name)}
             />
           </div>
