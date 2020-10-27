@@ -11,7 +11,7 @@ export const fullDate = (unixTimestamp) => {
   const time = new Date(convertTime(unixTimestamp));
 
   return `(${months[time.getUTCMonth()]}/${addZeroAheadToDate(time.getUTCDate())}/${time.getUTCFullYear()}
-  ${addZeroAheadToDate(time.getUTCHours())}:${addZeroAheadToDate(time.getUTCMinutes())}:${addZeroAheadToDate(time.getUTCSeconds())} UTC)`
+  ${addZeroAheadToDate(time.getUTCHours())}:${addZeroAheadToDate(time.getUTCMinutes())}:${addZeroAheadToDate(time.getUTCSeconds())})`
 };
 
 // Format (00/00/0000)
@@ -24,7 +24,7 @@ export const formattedDate = (unixTimestamp) => {
 // Format (10:35:13 + UTC)
 export const formattedTime = (unixTimestamp) => {
   const time = new Date(convertTime(unixTimestamp));
-  return `${addZeroAheadToDate(time.getUTCHours())}:${addZeroAheadToDate(time.getUTCMinutes())}:${addZeroAheadToDate(time.getUTCSeconds())} UTC`
+  return `${addZeroAheadToDate(time.getUTCHours())}:${addZeroAheadToDate(time.getUTCMinutes())}:${addZeroAheadToDate(time.getUTCSeconds())}`
 };
 
 const convertTime = (unixTimestamp) => {
