@@ -41,7 +41,7 @@ const Header = () => {
       </div>
       <div className="header_dropdown-status">
         <div className="header_dropdown">
-          <NetworkStatus status="ok" />
+          <NetworkStatus color={uiStore.color} />
           <DropDown options={toJS(viewStore.networks)} />
         </div>
         <Switcher id="switch" onChange={(e) => uiStore.changeTheme(e)} checked={uiStore.theme === 'dark'} />

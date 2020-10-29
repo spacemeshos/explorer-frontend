@@ -13,7 +13,7 @@ import UiStore from './store/UiStore';
 import * as serviceWorker from './serviceWorker';
 
 const viewStore = new ViewStore(fetchAPI);
-const uiStore = new UiStore();
+const uiStore = new UiStore(fetchAPI);
 
 startRouter(viewStore);
 

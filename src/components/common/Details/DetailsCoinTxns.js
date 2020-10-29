@@ -63,7 +63,8 @@ const DetailsCoinTxns = (props: Props) => {
         <li className="item">
           <span className="item-name">Fee</span>
           <span className="item-value">
-              {smhCoinConverter(data.fee)} (&#8765; {`${data.fee * USD_RATE}`} USD)
+            {smhCoinConverter(data.gasProvided)}
+            {/*{smhCoinConverter(data.gasProvided)} (&#8765; {`${data.fee * USD_RATE}`} USD)*/}
           </span>
         </li>
       </ul>
