@@ -136,8 +136,8 @@ const RenderDetailPage = (props: Props) => {
               badgeType="atx"
               amount={spaceObject.value}
               unit={spaceObject.unit}
-              startTime={0}
-              color={getColorByPageName(name)}
+              startTime={data && data.timestamp}
+              color={getColorByPageName(name, uiStore.theme)}
             />
           </div>
           {data ? (
@@ -195,7 +195,7 @@ const RenderDetailPage = (props: Props) => {
               uiStore={uiStore}
             />
             <RightSideBlock
-              color={getColorByPageName(name)}
+              color={getColorByPageName(name, uiStore.theme)}
               number={data?.atxcount}
               unit="atxs"
               startTime={network?.genesis}
