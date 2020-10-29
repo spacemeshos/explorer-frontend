@@ -221,7 +221,7 @@ const RenderSubPage = (props: Props) => {
                 uiStore={uiStore}
               />
               <RightSideBlock
-                color={getColorByPageName(name)}
+                color={getColorByPageName(name, uiStore.theme)}
                 number={pagination?.totalCount}
                 unit="Activations"
                 startTime={network?.genesis}
@@ -242,7 +242,7 @@ const RenderSubPage = (props: Props) => {
                 uiStore={uiStore}
               />
               <RightSideBlock
-                color={getColorByPageName(name)}
+                color={getColorByPageName(name, uiStore.theme)}
                 number={epoch && epoch.stats.cumulative.transactions}
                 unit="txns"
                 startTime={network?.genesis}
