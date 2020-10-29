@@ -15,7 +15,7 @@ import {
 // Colors
 import * as colors from '../styles/utilities/_variables.scss';
 
-export const getColorByPageName = (pageName: string) => {
+export const getColorByPageName = (pageName: string, theme?: string) => {
   switch (pageName) {
     case EPOCHS:
       return {
@@ -35,7 +35,7 @@ export const getColorByPageName = (pageName: string) => {
     case ATXS:
       return {
         textColor: colors.activationColor,
-        bgColor: colors.activationBgColor,
+        bgColor: theme === 'dark' ? colors.activationBgColor : colors.activationLightBgColor,
       };
     case REWARDS:
       return {
@@ -55,7 +55,7 @@ export const getColorByPageName = (pageName: string) => {
     case SMESHER:
       return {
         textColor: colors.smesherColor,
-        bgColor: colors.smesherBgColor,
+        bgColor: theme === 'dark' ? colors.smesherBgColor : colors.smesherLightBgColor,
       };
     case BLOCKS:
       return {
