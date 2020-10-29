@@ -198,7 +198,7 @@ const RenderMainPage = (props: Props) => {
               uiStore={uiStore}
             />
             <RightSideBlock
-              color={getColorByPageName(name)}
+              color={getColorByPageName(name, uiStore.theme)}
               number={pagination?.totalCount}
               unit="smeshers"
               startTime={network && network.genesis}
