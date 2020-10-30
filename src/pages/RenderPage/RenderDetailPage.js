@@ -87,7 +87,7 @@ const RenderDetailPage = (props: Props) => {
               color={getColorByPageName(name)}
               number={layersObject.value}
               caption="txns"
-              unit="smh"
+              unit={layersObject.unit}
               coinCaption="Rewards"
               coins={data && data.rewards}
             />
