@@ -11,9 +11,11 @@
 
     .item {
       padding: 10px 0;
+
       &.sliderDown {
         padding: 2px 0;
       }
+
       &-name {
         padding-right: 5px;
         @include theme-aware('background-color', 'searchBackground');
@@ -48,7 +50,7 @@
             transform: rotate(45deg);
             -webkit-transform: rotate(45deg);
 
-            &.isOpen{
+            &.isOpen {
               top: 9px;
               transform: rotate(-135deg);
               -webkit-transform: rotate(-135deg);
@@ -62,9 +64,30 @@
       float: left;
       width: 0;
       white-space: nowrap;
-      content:
-      "................................................."
-      "................................................."
+      content: "................................................." "................................................."
+    }
+  }
+}
+
+@media (max-width: 1150px) {
+  .details {
+    overflow-x: scroll;
+    font-size: 13px;
+
+    &-list {
+      max-width: unset;
+      width: 1200px;
+
+      &-item {
+        width: 1200px;
+      }
+
+      .item:before {
+        float: left;
+        width: 0;
+        white-space: nowrap;
+        content: ".................................................................................." ".................................................................."
+      }
     }
   }
 }

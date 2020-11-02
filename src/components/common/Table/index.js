@@ -20,7 +20,8 @@ import {
   SMESHER,
   TXNS,
   ATXS,
-  BLOCKS, STATUS_SUCCESS,
+  BLOCKS,
+  STATUS_SUCCESS,
 } from '../../../config/constants';
 import tableFieldConfig from './config/tableFieldConfig';
 import LayersRow from './LayersRow';
@@ -47,7 +48,7 @@ const smartWalletData = [
     name: 'SM W #1',
     created: '3 days ago',
     balance: '11',
-  }
+  },
 ];
 
 const Table = (props: Props) => {
@@ -59,22 +60,22 @@ const Table = (props: Props) => {
 
   const [isFetching, setIsFetching] = useState(false);
 
-  useEffect(() => {
-    window.addEventListener('scroll', pageEndDetection);
-    return () => window.removeEventListener('scroll', pageEndDetection);
-  }, []);
-
   const pageEndDetection = () => {
-    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
+    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) {
+      return;
+    }
     setIsFetching(true);
     console.log('Fetch more list items!');
   };
 
   useEffect(() => {
+    window.addEventListener('scroll', pageEndDetection);
+    return () => window.removeEventListener('scroll', pageEndDetection);
+  }, []);
+
+  useEffect(() => {
     if (!isFetching) return;
-    pagination
-    && pagination.hasNext
-    && viewStore.getPaginationData(name, pagination.next);
+    pagination && pagination.hasNext && viewStore.getPaginationData(name, pagination.next);
     setIsFetching(false);
   }, [isFetching]);
 
@@ -84,7 +85,7 @@ const Table = (props: Props) => {
         return (
           <TransactionsRow
             key={nanoid()}
-            data={data.slice(0,7)}
+            data={data.slice(0, 7)}
             config={tableFieldConfig[name]}
             viewStore={viewStore}
           />
@@ -127,23 +128,48 @@ const Table = (props: Props) => {
         );
       case ACCOUNTS:
         return (
-          <AccountsRow key={nanoid()} data={viewStore.currentView.data} config={tableFieldConfig[name]} viewStore={viewStore} />
+          <AccountsRow
+            key={nanoid()}
+            data={viewStore.currentView.data}
+            config={tableFieldConfig[name]}
+            viewStore={viewStore}
+          />
         );
       case SMART_WALLET:
         return (
-          <AppRow key={nanoid()} data={smartWalletData} config={tableFieldConfig[name]} viewStore={viewStore} />
+          <AppRow
+            key={nanoid()}
+            data={smartWalletData}
+            config={tableFieldConfig[name]}
+            viewStore={viewStore}
+          />
         );
       case SMESHER:
         return (
-          <SmesherRow key={nanoid()} data={viewStore.currentView.data} config={tableFieldConfig[name]} viewStore={viewStore} />
+          <SmesherRow
+            key={nanoid()}
+            data={viewStore.currentView.data}
+            config={tableFieldConfig[name]}
+            viewStore={viewStore}
+          />
         );
       case ATXS:
         return (
-          <AtxsRow key={nanoid()} data={viewStore.currentView.data} config={tableFieldConfig[name]} viewStore={viewStore} />
+          <AtxsRow
+            key={nanoid()}
+            data={viewStore.currentView.data}
+            config={tableFieldConfig[name]}
+            viewStore={viewStore}
+          />
         );
       case BLOCKS:
         return (
-          <BlocksRow key={nanoid()} data={data} config={tableFieldConfig[name]} viewStore={viewStore} />
+          <BlocksRow
+            key={nanoid()}
+            data={data}
+            config={tableFieldConfig[name]}
+            viewStore={viewStore}
+          />
         );
       default:
         break;
@@ -152,13 +178,18 @@ const Table = (props: Props) => {
 
   return (
     <div className="table">
-      <div className="tr th">
-        { tableFieldConfig[name].map((item) => <div key={nanoid()} style={item.style} className="td">{item.fieldName}</div>) }
+      <div className="responsive-table">
+        <div className="tr th">
+          {tableFieldConfig[name].map((item) => (
+            <div key={nanoid()} style={item.style} className="td">
+              {item.fieldName}
+            </div>
+          ))}
+        </div>
+        {data ? renderTableData() : <Loader size={100} />}
+        {status === STATUS_SUCCESS && data.length === 0 && <NoData />}
       </div>
-      { data ? renderTableData() : <Loader size={100}/>}
-      { status === STATUS_SUCCESS && data.length === 0 && <NoData />}
     </div>
-
   );
 };
 
