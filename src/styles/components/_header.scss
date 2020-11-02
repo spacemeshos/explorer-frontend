@@ -1,10 +1,30 @@
 .header {
-  display: flex;
-  justify-content: space-between;
-  height: 36px;
+  display: grid;
+  grid-template-areas: "logo navbar Dropdown-root m-checkbox";
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: 10px;
+  margin-bottom: 60px;
+
+  .navbar {
+    grid-area: navbar;
+    align-self: center;
+    justify-self: left;
+  }
+
+  .m-checkbox {
+    grid-area: m-checkbox;
+    justify-self: end;
+  }
+
+  .Dropdown-root {
+    grid-area: Dropdown-root;
+    align-self: center;
+    justify-self: end;
+  }
 
   &_logo-navbar {
-    display: flex;
+    grid-area: logo;
   }
 
   &_dropdown-status {
@@ -15,5 +35,26 @@
     display: flex;
     align-items: center;
     border-bottom: 1px solid $secondGrey;
+  }
+}
+
+@media (max-width: 1150px) {
+  .header {
+    padding: 0 10px;
+
+    &_logo-navbar {
+      grid-column: 1 / 2;
+    }
+
+    .navbar {
+      grid-column: 1 / 5;
+      grid-row: 2 / 3;
+    }
+
+    &_dropdown {
+      grid-column: 1 / span 4;
+      grid-row: 3;
+      margin-left: 0;
+    }
   }
 }
