@@ -35,17 +35,13 @@ const Header = () => {
 
   return (
     <div className="header">
-      <div className="header_logo-navbar">
-        <Logo />
-        <NavBar links={links} />
+      <Logo />
+      <NavBar links={links} />
+      <div className="header_dropdown">
+        <NetworkStatus color={uiStore.color} />
+        <DropDown options={toJS(viewStore.networks)} />
       </div>
-      <div className="header_dropdown-status">
-        <div className="header_dropdown">
-          <NetworkStatus color={uiStore.color} />
-          <DropDown options={toJS(viewStore.networks)} />
-        </div>
-        <Switcher id="switch" onChange={(e) => uiStore.changeTheme(e)} checked={uiStore.theme === 'dark'} />
-      </div>
+      <Switcher id="switch" onChange={(e) => uiStore.changeTheme(e)} checked={uiStore.theme === 'dark'} />
     </div>
   );
 };

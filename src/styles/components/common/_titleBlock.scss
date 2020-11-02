@@ -21,3 +21,13 @@
     @include theme-aware('color', 'titleDescColor');
   }
 }
+
+@media (max-width: 1150px) {
+  .titleBlock {
+    height: unset;
+
+    &-wrap {
+      padding: 0 0 0 15px;
+    }
+  }
+}

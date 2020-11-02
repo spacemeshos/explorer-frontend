@@ -18,11 +18,30 @@
 
   .browseAll-link {
     padding: 5px 0 0 35px;
+
     a {
       font-size: 14px;
       @include theme-aware('color', 'titleInfoBlock');
       text-decoration: underline;
     }
 
+  }
+}
+
+@media (max-width: 1150px) {
+  .grid {
+    flex-direction: column;
+  }
+
+  .container {
+    padding: 0 9px;
+  }
+
+  .main {
+    margin-top: 15px;
+  }
+
+  .sidebar {
+    margin-right: unset;
   }
 }

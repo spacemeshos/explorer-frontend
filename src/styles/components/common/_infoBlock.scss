@@ -1,6 +1,7 @@
 .infoBlock {
   @include theme-aware('background-color', 'backgroundInfoBlock');
   margin-bottom: 15px;
+
   &-list {
     display: flex;
     justify-content: space-around;
@@ -12,16 +13,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
     &-number {
       color: $overviewColor;
       font-size: 20px;
+
       a {
         color: $overviewColor;
       }
+
       a:hover {
         text-decoration: underline;
       }
     }
+
     &-title {
       @include theme-aware('color', 'titleInfoBlock');
       color: #9A9A9A;
@@ -40,5 +45,25 @@
 
   &-item:not(:last-child) {
     border-right: 1px solid $secondGrey;
+  }
+}
+
+@media (max-width: 1150px) {
+  .infoBlock {
+    &-list {
+      flex-direction: column;
+    }
+
+    &-item:first-child {
+      align-items: center;
+    }
+
+    &-item:last-child {
+      align-items: center;
+    }
+  }
+
+  .infoBlock-item:not(:last-child) {
+    border: none;
   }
 }

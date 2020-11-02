@@ -27,3 +27,10 @@
     @include theme-aware('color', 'countTextColor');
   }
 }
+
+@media (max-width: 1150px) {
+  .rightColumn {
+    margin-left: unset;
+    margin-top: 20px;
+  }
+}
