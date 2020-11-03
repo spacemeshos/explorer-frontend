@@ -11,7 +11,7 @@ type Props = {
 };
 
 const RightCountBlock = (props: Props) => {
-  const { color, number,  caption, coinCaption, coins} = props;
+  const { color, number, caption, coinCaption, coins } = props;
 
   const setFontSize = (number) => {
     if (number && number.length < 5) return '60px';
@@ -32,12 +32,19 @@ const RightCountBlock = (props: Props) => {
         style={{
           color: color.textColor,
           fontSize: setFontSize(number),
-          lineHeight: setLineHeight(number)
-        }}>{number  || '000'}</div>
+          lineHeight: setLineHeight(number),
+        }}
+      >
+        {number || '000'}
+      </div>
       <div className="rightColumn-desc">{caption}</div>
       <div className="rightColumn-data">
-        <p> {`${coinCaption}: `}</p>
-        <p> {`${smhCoinConverter(coins)}`} </p>
+        <p>
+          {`${coinCaption}: `}
+        </p>
+        <p>
+          {`${smhCoinConverter(coins)}`}
+        </p>
       </div>
     </div>
   );

@@ -31,7 +31,7 @@ const smartWalletData = [
     name: 'SM W #1',
     created: '3 days ago',
     balance: '11',
-  }
+  },
 ];
 
 class ViewStore {
@@ -40,7 +40,9 @@ class ViewStore {
   }
 
   fetch = null;
+
   networks = [];
+
   mainInfo = [];
 
   currentView = {
@@ -102,7 +104,7 @@ class ViewStore {
         this.currentView.status = STATUS_SUCCESS;
         this.currentView.data = rawData.data;
         this.currentView.pagination = rawData.pagination;
-      })
+      });
     } catch (e) {
       this.currentView.status = STATUS_ERROR;
     }
@@ -127,7 +129,7 @@ class ViewStore {
         }
 
         this.currentView.pagination = rawData.pagination;
-      })
+      });
     } catch (e) {
       this.currentView.status = STATUS_ERROR;
     }
@@ -138,8 +140,8 @@ class ViewStore {
       const result = await this.fetch(`search/${searchString}`);
       const stringData = result.redirect.split('/');
       this.currentView.status = STATUS_SUCCESS;
-      this.showDetailPage({page: stringData[1], id: stringData[2]});
-    } catch(e) {
+      this.showDetailPage({ page: stringData[1], id: stringData[2] });
+    } catch (e) {
       this.resetCurrentView();
       this.currentView.name = NOT_FOUND;
       this.currentView.id = searchString;
@@ -160,7 +162,7 @@ class ViewStore {
       },
       (error) => {
         this.currentView.status = STATUS_ERROR;
-      }
+      },
     );
   }
 
@@ -184,7 +186,7 @@ class ViewStore {
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
         this.currentView.data = rawData.data[0];
-      })
+      });
     } catch (e) {
       this.currentView.status = STATUS_ERROR;
       this.currentView.name = NOT_FOUND;
@@ -206,7 +208,7 @@ class ViewStore {
         this.currentView.status = STATUS_SUCCESS;
         this.currentView.data = rawData.data;
         this.currentView.pagination = rawData.pagination;
-      })
+      });
     } catch (e) {
       this.currentView.status = STATUS_ERROR;
     }
@@ -220,7 +222,7 @@ class ViewStore {
       data: null,
       pagination: null,
       status: STATUS_LOADING,
-    }
+    };
   }
 
   linkHandler(e, page, id, subPage) {
@@ -235,13 +237,12 @@ class ViewStore {
   defineIdType(value) {
     if (value.length === 42) {
       return ACCOUNTS;
-    } else if (value.length > 42) {
+    } if (value.length > 42) {
       return TXNS;
-    } else if (value.length < 42){
+    } if (value.length < 42) {
       return LAYERS;
-    } else {
-      return false;
     }
+    return false;
   }
 }
 

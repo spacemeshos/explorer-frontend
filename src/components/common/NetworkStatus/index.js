@@ -11,4 +11,3 @@ const NetworkStatus = (props: Props) => {
 };
 
 export default NetworkStatus;
-

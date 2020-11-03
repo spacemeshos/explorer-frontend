@@ -5,7 +5,9 @@ import { observer } from 'mobx-react';
 
 import shortFormHash from '../../../helper/longFormHash';
 
-import { ACCOUNTS, ATXS, SMESHER } from '../../../config/constants';
+import {
+  ACCOUNTS, ATXS, SMESHER,
+} from '../../../config/constants';
 import { byteConverter } from '../../../helper/converter';
 
 type Props = {
