@@ -6,7 +6,7 @@
   @include theme-aware('background-color', 'backgroundInfoBlock');
 
   &-wrap {
-    padding: 14px 24px;
+    padding: 5px 24px;
   }
 
   &-title {
@@ -17,7 +17,7 @@
 
   &-desc {
     margin-top: 5px;
-    font-size: 16px;
+    font-size: 14px;
     @include theme-aware('color', 'titleDescColor');
   }
 }

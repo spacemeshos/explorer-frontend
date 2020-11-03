@@ -11,7 +11,6 @@ import longFormHash from '../../helper/longFormHash';
 import TxnsStatus from '../../components/common/TxnsStatus';
 import DetailAccount from '../../components/common/Details/DetailAccount';
 import DetailReward from '../../components/common/Details/DetailReward';
-import DetailsEmptyPage from '../../components/common/Details/DetailsEmptyPage';
 
 import { getColorByPageName } from '../../helper/getColorByPageName';
 
@@ -86,7 +85,6 @@ const RenderDetailPage = (props: Props) => {
             <RightSideBlock
               color={getColorByPageName(name)}
               number={layersObject.value}
-              caption="txns"
               unit={layersObject.unit}
               coinCaption="Rewards"
               coins={data && data.rewards}

@@ -1,16 +1,18 @@
-import {ACCOUNTS, EPOCHS, LAYERS, REWARDS, SMART_WALLET, SMESHER, TXNS} from "../config/constants";
+import {
+  ACCOUNTS, EPOCHS, LAYERS, REWARDS, SMART_WALLET, SMESHER, TXNS
+} from '../config/constants';
 
 const overviewData = {
   networks: [
     {
       "id": "1",
       "domain": "https://testnet1.com",
-      "name": "TestNet 0.1 'TweedleDee'"
+      "name": "TestNet 0.1 'TweedleDee'",
     },
     {
       "id": "2",
       "domain": "https://testnet2.com",
-      "name": "TestNet 0.2 'TweedleDee'"
+      "name": "TestNet 0.2 'TweedleDee'",
     },
   ],
   transactions: 0,

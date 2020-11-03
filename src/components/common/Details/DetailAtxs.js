@@ -8,7 +8,7 @@ import {
   LAYERS,
   SMESHER,
 } from '../../../config/constants';
-import {byteConverter} from '../../../helper/converter';
+import { byteConverter } from '../../../helper/converter';
 
 type Props = {
   data: Object,
@@ -66,7 +66,7 @@ const DetailAtxs = (props: Props) => {
             <a href={`/${ATXS}/${data.prevAtx}`} onClick={(e) => viewStore.linkHandler(e, ATXS, data.prevAtx)}>
               {data.prevAtx}
             </a>
-             <CopyButton value={data.prevAtx} />
+            <CopyButton value={data.prevAtx} />
           </span>
         </li>
       </ul>

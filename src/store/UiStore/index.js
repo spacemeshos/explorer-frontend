@@ -13,6 +13,7 @@ class UiStore {
   }
 
   color = 'green';
+
   fetch = null;
 
   async getNetworkInfo() {
@@ -20,12 +21,11 @@ class UiStore {
       const { network } = await this.fetch('network-info');
       if (network.lastlayerts < ((Math.floor(Date.now() / 1000)) - (network.duration))) {
         this.color = 'orange';
-      } else if ((network.lastlayer + 24) < network.lastapprovedlayer){
+      } else if ((network.lastlayer + 24) < network.lastapprovedlayer) {
         this.color = 'red';
       } else {
         this.color = 'green';
       }
-
     } catch (e) {
       console.log('Error', e);
     }

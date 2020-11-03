@@ -11,7 +11,7 @@ import {
 } from '../../../config/constants';
 import { fullDate } from '../../../helper/formatter';
 import getValueFromStatsObject from '../../../helper/getValueFromStatsObject';
-import {smhCoinConverter} from '../../../helper/converter';
+import { smhCoinConverter } from '../../../helper/converter';
 import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
@@ -42,7 +42,7 @@ const DetailsEpoch = (props: Props) => {
         <li className="item">
           <span className="item-name">Started</span>
           <span className="item-value">
-             <CustomTimeAgo time={data.start} /> {`${fullDate(data.start)}`}
+            <CustomTimeAgo time={data.start} /> {`${fullDate(data.start)}`}
           </span>
         </li>
         <li className="item">

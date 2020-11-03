@@ -20,8 +20,8 @@ const Main = (props: Props) => {
     uiStore.getNetworkInfo();
     const intervalId = setInterval(() => uiStore.getNetworkInfo(), 30000);
     return clearInterval(intervalId);
-    },
-    []);
+  },
+  []);
 
   return (
     <Layout uiStore={uiStore} viewStore={store}>

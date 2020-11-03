@@ -5,7 +5,9 @@ import { nanoid } from 'nanoid';
 
 import MenuItem from './MenuItem';
 import { pagesLink } from '../../../config/pagesLink';
-import { BLOCKS, LAYERS, OVERVIEW } from '../../../config/constants';
+import {
+  BLOCKS, LAYERS, OVERVIEW,
+} from '../../../config/constants';
 
 type Props = {
   viewStore: Object,

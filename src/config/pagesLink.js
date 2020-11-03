@@ -1,4 +1,6 @@
-import { ACCOUNTS, EPOCHS, LAYERS, OVERVIEW, REWARDS, SMART_WALLET, SMESHER, TXNS } from './constants';
+import {
+  ACCOUNTS, EPOCHS, LAYERS, OVERVIEW, REWARDS, SMART_WALLET, SMESHER, TXNS,
+} from './constants';
 
 export const pagesLink = [
   {
