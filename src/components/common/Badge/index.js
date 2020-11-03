@@ -9,7 +9,7 @@ type Props = {
 const Badge = (props: Props) => {
   const { type, className } = props;
   let badge = '';
-  let customClassName = className ? `badge ${className}` : 'badge';
+  const customClassName = className ? `badge ${className}` : 'badge';
 
   switch (type) {
     case 'sent':

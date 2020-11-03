@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 import longFormHash from '../../../helper/longFormHash';
 import { BLOCKS } from '../../../config/constants';
 import CustomTimeAgo from '../CustomTimeAgo';
-import {smhCoinConverter} from '../../../helper/converter';
+import { smhCoinConverter } from '../../../helper/converter';
 
 type Props = {
   data: Array<object>,
@@ -26,7 +26,7 @@ const BlocksRow = (props: Props) => {
         <div className="td">--</div>
         <div className="td">{item.txsnumber}</div>
         <div className="td">
-          <CustomTimeAgo time={item.start}/>
+          <CustomTimeAgo time={item.start} />
         </div>
         <div className="td">{smhCoinConverter(item.txsvalue)}</div>
       </div>

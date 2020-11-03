@@ -2,7 +2,7 @@
 import React from 'react';
 
 import CopyButton from '../CopyButton';
-import {ACCOUNTS, LAYERS, USD_RATE} from '../../../config/constants';
+import { ACCOUNTS, LAYERS } from '../../../config/constants';
 import { smhCoinConverter } from '../../../helper/converter';
 import { fullDate } from '../../../helper/formatter';
 import CustomTimeAgo from '../CustomTimeAgo';
@@ -64,7 +64,6 @@ const DetailsCoinTxns = (props: Props) => {
           <span className="item-name">Fee</span>
           <span className="item-value">
             {smhCoinConverter(data.gasProvided)}
-            {/*{smhCoinConverter(data.gasProvided)} (&#8765; {`${data.fee * USD_RATE}`} USD)*/}
           </span>
         </li>
       </ul>

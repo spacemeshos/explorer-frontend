@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { nanoid } from 'nanoid';
-import { observer } from "mobx-react";
+import { observer } from 'mobx-react';
 
 import shortFormHash from '../../../helper/shortFormHash';
 import longFormHash from '../../../helper/longFormHash';
