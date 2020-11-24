@@ -9,7 +9,7 @@ import {
   REWARDS,
   TXNS,
 } from '../../../config/constants';
-import {smhCoinConverter} from '../../../helper/converter';
+import { smhCoinConverter } from '../../../helper/converter';
 import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
@@ -25,12 +25,12 @@ const EpochsRow = (props: Props) => {
       <div key={nanoid()} className="tr">
         <div className="td"><a href={`/${EPOCHS}/${item.number}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, item.number)}>{item.number}</a></div>
         <div className="td">
-          <CustomTimeAgo time={item.start}/>
+          <CustomTimeAgo time={item.start} />
         </div>
         <div className="td">
           <a
             href={`/${EPOCHS}/${item.number}/${LAYERS}`}
-            onClick={(e) => {viewStore.linkHandler(e, EPOCHS, item.number, LAYERS)}}
+            onClick={(e) => { viewStore.linkHandler(e, EPOCHS, item.number, LAYERS); }}
           >
             {item.layers}
           </a>
@@ -38,7 +38,7 @@ const EpochsRow = (props: Props) => {
         <div className="td">
           <a
             href={`/${EPOCHS}/${item.number}/${TXNS}`}
-            onClick={(e) => { viewStore.linkHandler(e, EPOCHS, item.number, TXNS)}}
+            onClick={(e) => { viewStore.linkHandler(e, EPOCHS, item.number, TXNS); }}
           >
             {item.stats.current.transactions}
           </a>
@@ -47,12 +47,12 @@ const EpochsRow = (props: Props) => {
         <div className="td">
           <a
             href={`/${EPOCHS}/${item.number}/${REWARDS}`}
-            onClick={(e) => {viewStore.linkHandler(e, EPOCHS, item.number, REWARDS)}}
+            onClick={(e) => { viewStore.linkHandler(e, EPOCHS, item.number, REWARDS); }}
           >
             {smhCoinConverter(item.stats.current.rewards)}
           </a>
         </div>
-        <div className="td" style={{ flexGrow: 2}}>{smhCoinConverter(item.stats.current.circulation)}</div>
+        <div className="td" style={{ flexGrow: 2 }}>{smhCoinConverter(item.stats.current.circulation)}</div>
       </div>
     ))
   );

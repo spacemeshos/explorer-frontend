@@ -1,6 +1,7 @@
 // @flow
 import * as React from 'react';
 import { observer } from 'mobx-react';
+import { toJS } from 'mobx';
 
 import InfoBlock from '../../components/common/InfoBlock';
 import TitleBlock from '../../components/common/TitleBlock';
@@ -19,7 +20,6 @@ import {
   ACCOUNTS,
   SMART_WALLET,
 } from '../../config/constants';
-import {toJS} from 'mobx';
 
 type Props = {
   uiStore: Object,
@@ -182,7 +182,8 @@ const RenderMainPage = (props: Props) => {
               number={epoch && epoch.stats.cumulative.accounts}
               unit="accnts"
               startTime={network && network.genesis}
-            />          </div>
+            />
+          </div>
           <Table name={name} viewStore={viewStore} />
         </>
       );

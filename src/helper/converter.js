@@ -1,4 +1,5 @@
 import { commaNumber } from './comma';
+
 const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
 export const byteConverter = (x, returnObject: boolean) => {
@@ -9,7 +10,7 @@ export const byteConverter = (x, returnObject: boolean) => {
     n /= 1024;
   }
 
-  return returnObject ? { value: n.toFixed(n < 10 && l > 0 ? 1 : 0), unit: units[l]} : `${n.toFixed(n < 10 && l > 0 ? 1 : 0)} ${units[l]}`;
+  return returnObject ? { value: n.toFixed(n < 10 && l > 0 ? 1 : 0), unit: units[l] } : `${n.toFixed(n < 10 && l > 0 ? 1 : 0)} ${units[l]}`;
 };
 
 export const smhCoinConverter = (amount: number, returnObject: boolean) => {

@@ -6,15 +6,15 @@
   margin-top: 38px;
   width: 100%;
   height: 58px;
-  @include theme-aware('background-color', 'searchBackground');
-  background-color: #E9E9E9;
+  @include theme-aware("background-color", "searchBackground");
+  background-color: #e9e9e9;
 
   svg {
     position: absolute;
     left: 30px;
   }
 
-  input[type=text] {
+  input[type="text"] {
     font-family: $code-pro-font-family;
     font-size: 16px;
     text-transform: uppercase;
@@ -29,6 +29,7 @@
     border: 1px solid $dark;
     padding-left: 30px;
   }
+
   &-input::placeholder {
     font-size: 16px;
     text-transform: uppercase;
@@ -49,9 +50,9 @@
 }
 
 .search:before {
-  content: '';
+  content: "";
   position: absolute;
-  @include theme-aware('background', 'searchDecoration');
+  @include theme-aware("background", "searchDecoration");
   transform: rotate(90deg);
   top: 27px;
   left: -28px;
@@ -60,12 +61,23 @@
 }
 
 .search:after {
-  content: '';
+  content: "";
   position: absolute;
-  @include theme-aware('background', 'searchDecoration');
+  @include theme-aware("background", "searchDecoration");
   transform: rotate(90deg);
   top: 27px;
   right: -28px;
   width: 58px;
   height: 4px;
+}
+
+@media (max-width: 1150px) {
+  .search {
+    width: 95%;
+    margin: 0 auto;
+
+    &-button {
+      padding: 0 4px 0 4px;
+    }
+  }
 }

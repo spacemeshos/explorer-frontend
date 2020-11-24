@@ -2,8 +2,10 @@
 import * as React from 'react';
 
 import CopyButton from '../CopyButton';
-import {ACCOUNTS, REWARDS, TXNS} from '../../../config/constants';
-import {smhCoinConverter} from '../../../helper/converter';
+import {
+  ACCOUNTS, REWARDS, TXNS,
+} from '../../../config/constants';
+import { smhCoinConverter } from '../../../helper/converter';
 
 type Props = {
   data: Object,

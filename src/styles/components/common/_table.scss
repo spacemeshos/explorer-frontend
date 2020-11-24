@@ -80,3 +80,12 @@
     background-color: $preloaderTextColor70;
   }
 }
+
+@media (max-width: 1150px) {
+  .table {
+    overflow-x: scroll;
+  }
+  .responsive-table {
+    width: 1000px;
+  }
+}

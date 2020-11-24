@@ -2,10 +2,10 @@
 import * as React from 'react';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
-import {EPOCHS, LAYERS} from '../../../config/constants';
+import { EPOCHS, LAYERS } from '../../../config/constants';
 
 const Props = {
-  viewStore: Object
+  viewStore: Object,
 };
 
 const TimeBlock = (props: Props) => {
@@ -20,7 +20,7 @@ const TimeBlock = (props: Props) => {
         <div className="timeBlock-item">
           <div className="name">Epoch</div>
           <div className="value">
-            <a href={`/${EPOCHS}/${epoch.number}`} onClick={e => viewStore.linkHandler(e, EPOCHS, epoch.number)}>
+            <a href={`/${EPOCHS}/${epoch.number}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, epoch.number)}>
               {epoch.number}
             </a>
           </div>
@@ -30,7 +30,7 @@ const TimeBlock = (props: Props) => {
         <div className="timeBlock-item">
           <div className="name">Layer</div>
           <div className="value">
-            <a href={`/${LAYERS}/${layer.number}`} onClick={e => viewStore.linkHandler(e, LAYERS, layer.number)}>
+            <a href={`/${LAYERS}/${layer.number}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, layer.number)}>
               {layer.number}
             </a>
           </div>

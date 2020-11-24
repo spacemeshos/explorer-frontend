@@ -15,7 +15,6 @@ const Search = (props: Props) => {
     const listener = (event) => {
       if (event.code === 'Enter' || event.code === 'NumpadEnter') {
         viewStore.showSearchResult(searchValue);
-
       }
     };
     document.addEventListener('keydown', listener);
@@ -37,7 +36,7 @@ const Search = (props: Props) => {
         onChange={(e) => onChangeHandler(e)}
         type="text"
         className="search-input"
-        placeholder="search by account / transaction / layer"
+        placeholder={window.innerWidth < '1150' ? 'search' : 'search by account / transaction / layer'}
         value={searchValue}
       />
       <button type="button" onClick={onClickHandler} className="search-button">search &gt;</button>

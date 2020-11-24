@@ -3,7 +3,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { smhCoinConverter } from '../../../helper/converter';
 import { setFontSize, setLineHeight } from '../../../helper/cssHelper';
-import { formattedDate, formattedTime } from '../../../helper/formatter';
+import { formattedDate } from '../../../helper/formatter';
 import CustomTimeAgo from '../CustomTimeAgo';
 import { commaNumber } from '../../../helper/comma';
 
