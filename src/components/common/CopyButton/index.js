@@ -31,7 +31,7 @@ const CopyButton = (props: Props) => {
           </svg>
         </span>
       </CopyToClipboard>
-      {copied ? <div className="copyButton-message arrow-top show">Address copied!</div> : null}
+      {copied ? <div className="copyButton-message arrow-top show">copied</div> : null}
     </>
   );
 };
