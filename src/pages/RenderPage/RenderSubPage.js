@@ -286,7 +286,7 @@ const RenderSubPage = (props: Props) => {
               <RightSideBlock
                 color={getColorByPageName(name)}
                 number={pagination && pagination.totalCount}
-                unit="awards"
+                unit="rewards"
                 startTime={network?.genesis}
               />
             </div>
