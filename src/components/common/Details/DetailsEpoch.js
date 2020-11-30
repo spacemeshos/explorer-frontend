@@ -36,7 +36,6 @@ const DetailsEpoch = (props: Props) => {
           <span className="item-name">Number</span>
           <span className="item-value">
             {data.number}
-            <CopyButton value={data.number} />
           </span>
         </li>
         <li className="item">

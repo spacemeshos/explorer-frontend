@@ -29,7 +29,6 @@ const DetailAccount = (props: Props) => {
           <span className="item-name">Counter</span>
           <span className="item-value">
             {data.counter}
-            <CopyButton value={data.counter} />
           </span>
         </li>
         <li className="item">
