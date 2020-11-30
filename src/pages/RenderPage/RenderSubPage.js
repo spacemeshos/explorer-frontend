@@ -18,7 +18,7 @@ import {
   BLOCKS, ACCOUNTS,
 } from '../../config/constants';
 import longFormHash from '../../helper/longFormHash';
-import {smhCoinConverter} from '../../helper/converter';
+import { smhCoinConverter } from '../../helper/converter';
 import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
 import RightSideBlock from '../../components/common/CountBlock/RightSideBlock';
 
@@ -107,12 +107,12 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Epoch ${id} - Rewards`}
+                title={`Epoch ${id} Rewards`}
                 color={getColorByPageName(name)}
-                desc={`Rewards contained within Epoch ${id}`}
+                desc="Rewards awarded to Smeshers"
                 uiStore={uiStore}
               />
-              <AmountBlock number={pagination && pagination.totalCount} startTime={network && network.genesis} unit="awards" color={getColorByPageName(name)} />
+              <AmountBlock number={pagination && pagination.totalCount} startTime={network && network.genesis} unit="rewards" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -257,7 +257,7 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`ACCOUNT Transactions`}
+                title="ACCOUNT Transactions"
                 color={getColorByPageName(name)}
                 desc={longFormHash(id)}
                 uiStore={uiStore}
