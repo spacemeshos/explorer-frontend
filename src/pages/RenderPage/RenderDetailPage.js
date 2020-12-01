@@ -229,20 +229,20 @@ const RenderDetailPage = (props: Props) => {
         <>
           <div className="page-wrap">
             <TitleBlock
-              title="Specific details for this block"
+              title={`Block ${longFormHash(id)}`}
               color={getColorByPageName(name)}
-              desc="Specific details for this reward."
+              desc="Details"
               uiStore={uiStore}
             />
             <RightCountBlock
               color={getColorByPageName(name)}
               number={epoch && epoch.stats.cumulative.txs}
-              caption="txns"
+              caption="Transactions"
               coinCaption="total coin rewards"
               coins={epoch && smhCoinConverter(epoch && epoch.stats.cumulative.txsamount)}
             />
           </div>
-          {data ? <DetailsBlock data={data} viewStore={viewStore} /> : <NoData />}
+          {data ? <DetailsBlock data={data} viewStore={viewStore} network={network} /> : <NoData />}
         </>
       );
     case NOT_FOUND:
