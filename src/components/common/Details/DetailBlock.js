@@ -14,15 +14,14 @@ type Props = {
 
 const DetailsBlock = (props: Props) => {
   const { data, viewStore, network } = props;
-  console.log(`last approved layer: ${network.lastapprovedlayer}`);
-  console.log(`data layer: ${data.layer}`);
+
   return (
     <div className="details">
       <ul className="details-list">
         <li className="item">
           <span className="item-name">Block Number</span>
           <span className="item-value">
-            --
+            0
           </span>
         </li>
         <li className="item">
@@ -41,12 +40,12 @@ const DetailsBlock = (props: Props) => {
         <li className="item">
           <span className="item-name">Rewards</span>
           <span className="item-value">
-            --
+            0
           </span>
         </li>
         <li className="item">
           <span className="item-name">Total Rewards value</span>
-          <span className="item-value">--</span>
+          <span className="item-value">0</span>
         </li>
         <li className="item">
           <span className="item-name">Finality</span>
