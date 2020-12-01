@@ -175,13 +175,13 @@ export default {
       fieldName: 'smesher',
     },
     {
-      fieldName: 'transactions',
-    },
-    {
       fieldName: 'age',
     },
     {
-      fieldName: 'txn value',
+      fieldName: 'transactions',
+    },
+    {
+      fieldName: 'value',
     },
   ],
 };

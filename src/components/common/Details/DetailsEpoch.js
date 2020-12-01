@@ -1,7 +1,5 @@
 // @flow
 import * as React from 'react';
-
-import CopyButton from '../CopyButton';
 import {
   EPOCHS,
   LAYERS,

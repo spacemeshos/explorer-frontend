@@ -163,12 +163,11 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Layer ${id} - blocks`}
+                title={`Layer ${id} blocks`}
                 color={getColorByPageName(name)}
-                desc={`Blocks within layer ${id}`}
                 uiStore={uiStore}
               />
-              <RightSideBlock number={pagination && pagination.totalCount} startTime={layer && layer.start} unit="layer blocks" color={getColorByPageName(name)} />
+              <RightSideBlock number={pagination && pagination.totalCount} startTime={layer && layer.start} unit="blocks" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
