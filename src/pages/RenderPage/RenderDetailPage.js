@@ -161,8 +161,8 @@ const RenderDetailPage = (props: Props) => {
             <RightSideBlock
               color={getColorByPageName(name)}
               number={balance && balance.value}
-              unit={balance && balance.unit}
-              startTime={network && network.genesis}
+              unit={`${balance && balance.unit} Balance`}
+              startTime={data && data.timestamp}
             />
           </div>
           { data ? <DetailAccount data={data} viewStore={viewStore} /> : <NoData />}
