@@ -1,6 +1,5 @@
 // @flow
 import * as React from 'react';
-
 import CopyButton from '../CopyButton';
 import {
   EPOCHS,
@@ -9,7 +8,6 @@ import {
   BLOCKS,
   TXNS, SMESHER,
 } from '../../../config/constants';
-
 import { fullDate } from '../../../helper/formatter';
 import { smhCoinConverter } from '../../../helper/converter';
 import CustomTimeAgo from '../CustomTimeAgo';
@@ -35,14 +33,14 @@ const DetailsLayer = (props: Props) => {
           <span className="item-name">Start Timestamp</span>
           <span className="item-value">
             <CustomTimeAgo time={data.start} />
-             {` ${fullDate(data.start)}`}
+            {` ${fullDate(data.start)}`}
           </span>
         </li>
         <li className="item">
           <span className="item-name">End Timestamp</span>
           <span className="item-value">
             <CustomTimeAgo time={data.end} />
-             {` ${fullDate(data.end)}`}
+            {` ${fullDate(data.end)}`}
           </span>
         </li>
         <li className="item">
@@ -50,7 +48,7 @@ const DetailsLayer = (props: Props) => {
           <span className="item-value">
             <a
               href={`/${LAYERS}/${data.number}/${TXNS}`}
-              onClick={(e) => { viewStore.linkHandler(e, LAYERS, data.number, TXNS)}}
+              onClick={(e) => { viewStore.linkHandler(e, LAYERS, data.number, TXNS); }}
             >
               {data.txs}
             </a>
@@ -61,7 +59,7 @@ const DetailsLayer = (props: Props) => {
           <span className="item-value">
             <a
               href={`/${LAYERS}/${data.number}/${REWARDS}`}
-              onClick={(e) => {viewStore.linkHandler(e, LAYERS, data.number, REWARDS)}}
+              onClick={(e) => { viewStore.linkHandler(e, LAYERS, data.number, REWARDS); }}
             >
               {smhCoinConverter(data.rewards)}
             </a>
@@ -76,7 +74,7 @@ const DetailsLayer = (props: Props) => {
           <span className="item-value">
             <a
               href={`/${EPOCHS}/${data.epoch}`}
-              onClick={(e) => {viewStore.linkHandler(e, EPOCHS, data.epoch)}}
+              onClick={(e) => { viewStore.linkHandler(e, EPOCHS, data.epoch); }}
             >
               {data.epoch}
             </a>
@@ -84,13 +82,13 @@ const DetailsLayer = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Smeshers</span>
-          <span className="item-value"><a href={`/${LAYERS}/${data.number}/${SMESHER}`} onClick={(e) => {viewStore.linkHandler(e, LAYERS, data.number, SMESHER)}}>{data.smeshers}</a></span>
+          <span className="item-value"><a href={`/${LAYERS}/${data.number}/${SMESHER}`} onClick={(e) => { viewStore.linkHandler(e, LAYERS, data.number, SMESHER); }}>{data.smeshers}</a></span>
         </li>
         <li className="item">
           <span className="item-name">Hash</span>
           <span className="item-value">
             {data.hash}
-            <CopyButton value= {data.hash} />
+            <CopyButton value={data.hash} />
           </span>
         </li>
         <li className="item">
@@ -98,7 +96,8 @@ const DetailsLayer = (props: Props) => {
           <span className="item-value">
             <a
               href={`/${LAYERS}/${data.number}/${BLOCKS}`}
-              onClick={(e) => {viewStore.linkHandler(e, LAYERS, data.number, BLOCKS)}}>
+              onClick={(e) => { viewStore.linkHandler(e, LAYERS, data.number, BLOCKS); }}
+            >
               {data.blocksnumber}
             </a>
           </span>
