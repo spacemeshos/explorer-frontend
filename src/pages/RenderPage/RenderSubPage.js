@@ -178,9 +178,9 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Layers ${id} - Participating Smashers`}
+                title={`Layers ${id} Smeshers`}
                 color={getColorByPageName(name)}
-                desc="Smeshers in this layer who submit at least one honest block"
+                desc="Smeshers who submitted at least one block"
                 uiStore={uiStore}
               />
               <RightSideBlock number={layer && layer.smeshers} startTime={layer && layer.start} unit="smeshers" color={getColorByPageName(name)} />
