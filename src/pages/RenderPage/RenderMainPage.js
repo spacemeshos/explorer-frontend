@@ -75,7 +75,7 @@ const RenderMainPage = (props: Props) => {
             />
             <RightSideBlock
               color={getColorByPageName(name)}
-              number={epoch && epoch.number}
+              number={epoch && epoch.number + 1}
               unit="Epochs since genesis"
               startTime={network && network.genesis}
               label="Genesis Time"
