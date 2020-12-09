@@ -61,7 +61,7 @@ const Table = (props: Props) => {
   const [isFetching, setIsFetching] = useState(false);
 
   const pageEndDetection = () => {
-    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) {
+    if (window.innerHeight + Math.round(document.documentElement.scrollTop) !== document.documentElement.offsetHeight) {
       return;
     }
     setIsFetching(true);
@@ -75,7 +75,7 @@ const Table = (props: Props) => {
 
   useEffect(() => {
     if (!isFetching) return;
-    pagination && pagination.hasNext && viewStore.getPaginationData(name, pagination.next);
+    pagination?.hasNext && viewStore.getPaginationData(name, pagination.next);
     setIsFetching(false);
   }, [isFetching]);
 
