@@ -18,7 +18,7 @@ import {
   BLOCKS, ACCOUNTS,
 } from '../../config/constants';
 import longFormHash from '../../helper/longFormHash';
-import {smhCoinConverter} from '../../helper/converter';
+import { smhCoinConverter } from '../../helper/converter';
 import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
 import RightSideBlock from '../../components/common/CountBlock/RightSideBlock';
 
@@ -107,12 +107,12 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Epoch ${id} - Rewards`}
+                title={`Epoch ${id} Rewards`}
                 color={getColorByPageName(name)}
-                desc={`Rewards contained within Epoch ${id}`}
+                desc="Rewards awarded to Smeshers"
                 uiStore={uiStore}
               />
-              <AmountBlock number={pagination && pagination.totalCount} startTime={network && network.genesis} unit="awards" color={getColorByPageName(name)} />
+              <AmountBlock number={pagination && pagination.totalCount} startTime={network && network.genesis} unit="rewards" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -163,12 +163,11 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Layer ${id} - blocks`}
+                title={`Layer ${id} blocks`}
                 color={getColorByPageName(name)}
-                desc={`Blocks within layer ${id}`}
                 uiStore={uiStore}
               />
-              <RightSideBlock number={pagination && pagination.totalCount} startTime={layer && layer.start} unit="layer blocks" color={getColorByPageName(name)} />
+              <RightSideBlock number={pagination && pagination.totalCount} startTime={layer && layer.start} unit="blocks" color={getColorByPageName(name)} />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -179,9 +178,9 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Layers ${id} - Participating Smashers`}
+                title={`Layers ${id} Smeshers`}
                 color={getColorByPageName(name)}
-                desc="Smeshers in this layer who submit at least one honest block"
+                desc="Smeshers who submitted at least one block"
                 uiStore={uiStore}
               />
               <RightSideBlock number={layer && layer.smeshers} startTime={layer && layer.start} unit="smeshers" color={getColorByPageName(name)} />
@@ -257,7 +256,7 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`ACCOUNT Transactions`}
+                title="ACCOUNT Transactions"
                 color={getColorByPageName(name)}
                 desc={longFormHash(id)}
                 uiStore={uiStore}
@@ -286,7 +285,7 @@ const RenderSubPage = (props: Props) => {
               <RightSideBlock
                 color={getColorByPageName(name)}
                 number={pagination && pagination.totalCount}
-                unit="awards"
+                unit="rewards"
                 startTime={network?.genesis}
               />
             </div>

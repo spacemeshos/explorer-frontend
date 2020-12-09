@@ -40,7 +40,7 @@ const RightCountBlock = (props: Props) => {
       <div className="rightColumn-desc">{caption}</div>
       <div className="rightColumn-data">
         <p>
-          {`${coinCaption}: `}
+          {`${coinCaption} `}
         </p>
         <p>
           {`${smhCoinConverter(coins)}`}

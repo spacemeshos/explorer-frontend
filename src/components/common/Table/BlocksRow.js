@@ -24,10 +24,10 @@ const BlocksRow = (props: Props) => {
           </a>
         </div>
         <div className="td">--</div>
-        <div className="td">{item.txsnumber}</div>
         <div className="td">
           <CustomTimeAgo time={item.start} />
         </div>
+        <div className="td">{item.txsnumber}</div>
         <div className="td">{smhCoinConverter(item.txsvalue)}</div>
       </div>
     ))
