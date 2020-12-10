@@ -1,6 +1,6 @@
 // @flow
 import {
-  decorate,
+  makeAutoObservable,
   observable,
   action,
 } from 'mobx';
@@ -8,6 +8,13 @@ import {
 class UiStore {
   constructor(apiFetch: Object) {
     this.theme = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light';
+
+    makeAutoObservable(this, {
+      color: observable,
+      theme: observable,
+      changeTheme: action,
+      getNetworkInfo: action,
+    });
     document.documentElement.classList.add(`theme-${this.theme}`);
     this.fetch = apiFetch;
   }
@@ -39,11 +46,11 @@ class UiStore {
   }
 }
 
-decorate(UiStore, {
-  color: observable,
-  theme: observable,
-  changeTheme: action,
-  getNetworkInfo: action,
-});
+// decorate(UiStore, {
+//   color: observable,
+//   theme: observable,
+//   changeTheme: action,
+//   getNetworkInfo: action,
+// });
 
 export default UiStore;

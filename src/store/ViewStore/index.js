@@ -3,7 +3,7 @@ import {
   observable,
   computed,
   action,
-  decorate, runInAction,
+  makeAutoObservable, runInAction,
 } from 'mobx';
 
 import {
@@ -36,6 +36,19 @@ const smartWalletData = [
 
 class ViewStore {
   constructor(apiFetch: Object) {
+    makeAutoObservable(this, {
+      currentView: observable,
+      mainInfo: observable,
+      networks: observable,
+      currentPath: computed,
+      getNetworks: action,
+      linkHandler: action,
+      getPaginationData: action,
+      showSearchResult: action,
+      showPage: action,
+      showDetailPage: action,
+      showSubPage: action,
+    });
     this.fetch = apiFetch;
   }
 
@@ -246,18 +259,18 @@ class ViewStore {
   }
 }
 
-decorate(ViewStore, {
-  currentView: observable,
-  mainInfo: observable,
-  networks: observable,
-  currentPath: computed,
-  getNetworks: action,
-  linkHandler: action,
-  getPaginationData: action,
-  showSearchResult: action,
-  showPage: action,
-  showDetailPage: action,
-  showSubPage: action,
-});
+// decorate(ViewStore, {
+//   currentView: observable,
+//   mainInfo: observable,
+//   networks: observable,
+//   currentPath: computed,
+//   getNetworks: action,
+//   linkHandler: action,
+//   getPaginationData: action,
+//   showSearchResult: action,
+//   showPage: action,
+//   showDetailPage: action,
+//   showSubPage: action,
+// });
 
 export default ViewStore;

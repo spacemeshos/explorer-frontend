@@ -12,9 +12,6 @@ import {
   NOT_FOUND,
 } from '../config/constants';
 
-// Colors
-import * as colors from '../styles/utilities/_variables.scss';
-
 export const getColorByPageName = (pageName: string, theme?: string) => {
   switch (pageName) {
     case EPOCHS:
@@ -73,4 +70,30 @@ export const getColorByPageName = (pageName: string, theme?: string) => {
         bgColor: colors.overviewBgColor,
       };
   }
+};
+
+const colors = {
+  overviewColor: '#AA58B1',
+  overviewBgColor: 'rgba(223, 50, 175, 0.2)',
+  epochColor: '#F79F53',
+  epochBgColor: 'rgba(247, 159, 83, 0.2)',
+  layerColor: '#1776E3',
+  layerBgColor: 'rgba(23, 118, 227, 0.2)',
+  transactionColor: '#65B042',
+  transactionBgColor: 'rgba(101, 176, 66, 0.2)',
+  rewardsColor: '#24AEA6',
+  rewardsBgColor: 'rgba(36, 174, 166, 0.2)',
+  accountsColor: '#DF32AF',
+  activationColor: '#7B42F4',
+  activationBgColor: '#362A52',
+  activationLightBgColor: '#DBD0F3',
+  accountsBgColor: 'rgba(223, 50, 175, 0.2)',
+  smesherColor: '#F7D353',
+  smesherBgColor: '#4F4731',
+  smesherLightBgColor: '#F4EDD3',
+  blockColor: '#1744E3',
+  smartWalletColor: '#DF3266',
+  smartWalletBgColor: 'rgba(223, 50, 102, 0.2)',
+  notFoundColor: '#EC5C3D',
+  notFoundBgColor: 'rgba(236, 92, 61, 0.2)',
 };

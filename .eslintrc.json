@@ -10,7 +10,7 @@
     "flowtype",
     "react-hooks"
   ],
-  "ignorePatterns": [".netx/", "node_modules/"],
+  "ignorePatterns": [".netx/", "node_modules/", "src"],
   "rules": {
     "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
