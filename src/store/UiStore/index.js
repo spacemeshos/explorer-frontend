@@ -19,7 +19,6 @@ class UiStore {
   async getNetworkInfo() {
     try {
       const { network } = await this.fetch('network-info');
-      console.log(network.issynced);
       if (network.lastlayerts < ((Math.floor(Date.now() / 1000)) - (network.duration)) && network.issynced === false) {
         this.color = 'orange';
       } else if ((network.lastlayer + 24) < network.lastapprovedlayer) {
