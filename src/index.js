@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import reportWebVitals from './reportWebVitals';
 import ReactDOM from 'react-dom';
 import 'mobx-react-lite/batchingForReactDom';
 
@@ -9,8 +9,6 @@ import Main from './components/Main';
 
 import ViewStore from './store/ViewStore';
 import UiStore from './store/UiStore';
-
-import * as serviceWorker from './serviceWorker';
 
 const viewStore = new ViewStore(fetchAPI);
 const uiStore = new UiStore(fetchAPI);
@@ -22,4 +20,4 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-serviceWorker.unregister();
+reportWebVitals();
