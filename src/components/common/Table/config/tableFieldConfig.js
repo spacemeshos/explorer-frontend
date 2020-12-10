@@ -133,7 +133,7 @@ export default {
       fieldName: 'Last Active',
     },
     {
-      fieldName: 'awards',
+      fieldName: 'rewards',
     },
     {
       fieldName: 'balance',

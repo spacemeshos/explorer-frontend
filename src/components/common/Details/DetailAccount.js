@@ -35,7 +35,7 @@ const DetailAccount = (props: Props) => {
           <span className="item-name">Rewards</span>
           <span className="item-value">
             <a href={`/${ACCOUNTS}/${data.address}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, data.address, REWARDS)}>
-              {smhCoinConverter(data.balance)}
+              {smhCoinConverter(data.awards)}
             </a>
           </span>
         </li>
