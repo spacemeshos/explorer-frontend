@@ -11,4 +11,3 @@ export const setLineHeight = (number) => {
   if (num && num.length >= 4) return '30px';
   if (num && num.length > 8) return '28px';
 };
-

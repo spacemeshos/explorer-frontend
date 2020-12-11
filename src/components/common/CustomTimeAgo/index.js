@@ -1,8 +1,8 @@
 // @flow
 import * as React from 'react';
-import TimeAgo from 'react-timeago'
+import TimeAgo from 'react-timeago';
 
-import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
 
 type Props = {
   time: number
@@ -24,7 +24,7 @@ const enString = {
   months: '%d months',
   year: '1 year',
   years: '%d years',
-  wordSeparator: ' '
+  wordSeparator: ' ',
 };
 
 const CustomTimeAgo = (props: Props) => {
@@ -34,7 +34,7 @@ const CustomTimeAgo = (props: Props) => {
   const formatter = buildFormatter(enString);
 
   return (
-      <TimeAgo date={jsDate} formatter={formatter} />
+    <TimeAgo date={jsDate} formatter={formatter} />
   );
 };
 

@@ -1,5 +1,3 @@
-const getValueFromStatsObject = (object) => {
-  return object['current'];
-};
+const getValueFromStatsObject = (object) => object.current;
 
 export default getValueFromStatsObject;

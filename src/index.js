@@ -1,6 +1,7 @@
 // @flow
-import reportWebVitals from './reportWebVitals';
+import React from 'react';
 import ReactDOM from 'react-dom';
+import reportWebVitals from './reportWebVitals';
 import 'mobx-react-lite/batchingForReactDom';
 
 import { startRouter } from './router';
