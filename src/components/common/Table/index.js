@@ -75,6 +75,7 @@ const Table = (props: Props) => {
 
   useEffect(() => {
     if (!isFetching) return;
+    // eslint-disable-next-line no-unused-expressions
     pagination?.hasNext && viewStore.getPaginationData(name, pagination.next);
     setIsFetching(false);
   }, [isFetching]);

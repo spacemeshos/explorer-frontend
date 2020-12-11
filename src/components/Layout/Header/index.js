@@ -12,8 +12,8 @@ import NetworkStatus from '../../common/NetworkStatus';
 
 const links = [
   {
-    href: '/',
-    title: 'join spacemesh 0.1',
+    href: 'https://spacemesh.io/testnet/',
+    title: 'join testnet',
   },
   {
     href: '/',

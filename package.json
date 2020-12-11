@@ -9,6 +9,7 @@
     "mobx": "^6.0.4",
     "mobx-react": "^7.0.5",
     "mobx-utils": "^6.0.1",
+    "nanoid": "^3.1.20",
     "react": "^17.0.1",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^17.0.1",

@@ -19,6 +19,7 @@ const SidebarMenu = (props: Props) => {
 
   const onClickHandler = (e, page) => {
     e.preventDefault();
+    // eslint-disable-next-line no-unused-expressions
     page !== OVERVIEW ? viewStore.showPage({ page }) : viewStore.showOverview();
   };
 

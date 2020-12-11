@@ -13,13 +13,13 @@ type Props = {
 const RightCountBlock = (props: Props) => {
   const { color, number, caption, coinCaption, coins } = props;
 
-  const setFontSize = (number) => {
+  const setFontSize = () => {
     if (number && number.length < 5) return '60px';
     if (number && number.length >= 5) return '42px';
     if (number && number.length > 8) return '34px';
   };
 
-  const setLineHeight = (number) => {
+  const setLineHeight = () => {
     if (number && number.length < 5) return '42px';
     if (number && number.length >= 5) return '36px';
     if (number && number.length > 8) return '28px';
