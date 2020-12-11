@@ -3,17 +3,12 @@ import * as React from 'react';
 
 import Dropdown from 'react-dropdown';
 
-type Props = {
-  options: Array<Object>
-};
-
-const DropDown = (props: Props) => {
-  const { options } = props;
+const DropDown = () => {
   const onSelect = (e) => console.log('select', e);
   const testOptions = [
     {
-      value: 'test.net',
-      label: 'TestNet',
+      value: 'TweedleDee Open Testnet 122',
+      label: 'TweedleDee Open Testnet 122',
     },
   ];
 
@@ -21,7 +16,7 @@ const DropDown = (props: Props) => {
     <Dropdown
       options={testOptions}
       onChange={onSelect}
-      value="TestNet"
+      value="TweedleDee Open Testnet 122"
       placeholder="Select network"
     />
   );
