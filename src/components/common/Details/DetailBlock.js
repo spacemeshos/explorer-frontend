@@ -19,6 +19,13 @@ const DetailsBlock = (props: Props) => {
     <div className="details">
       <ul className="details-list">
         <li className="item">
+          <span className="item-name">Id</span>
+          <span className="item-value">
+            {data.id}
+            <CopyButton value={data.id} />
+          </span>
+        </li>
+        <li className="item">
           <span className="item-name">Block Number</span>
           <span className="item-value">
             0
@@ -61,13 +68,6 @@ const DetailsBlock = (props: Props) => {
           <span className="item-name">Layer</span>
           <span className="item-value">
             <a href={`/${LAYERS}/${data.layer}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, data.layer)}>{data.layer}</a>
-          </span>
-        </li>
-        <li className="item">
-          <span className="item-name">Hash</span>
-          <span className="item-value">
-            {data.id.slice(0, 8)}
-            <CopyButton value={data.id.slice(0, 8)} />
           </span>
         </li>
       </ul>
