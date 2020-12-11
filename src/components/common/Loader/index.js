@@ -11,7 +11,7 @@ const Loader = (props: Props) => {
   const loaderSize = size || 15;
 
   return (
-    <span style={{ textAlign: 'center' }}>
+    <span style={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}>
       <img style={{ width: `${loaderSize}px` }} src={loader} alt="loading..." />
     </span>
   );

@@ -53,7 +53,7 @@ export default {
     },
     {
       fieldName: 'value',
-      style: {flexGrow: 2}
+      style: { flexGrow: 2 },
     },
   ],
   [TXNS]: [

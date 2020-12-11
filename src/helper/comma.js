@@ -1,19 +1,41 @@
 // return a string with the provided number formatted with commas.
 // can specify either a Number or a String.
-export const commaNumber = (inputNumber, optionalSeparator, optionalDecimalChar) => {
 
+const parse = (stringNumber, separator) => {
+  // below here we split the number at spots to add a separator.
+  // then, combine it with the separator and add decimal value (if exists)
+
+  const start = stringNumber[0] === '-' ? 1 : 0; // start after minus sign
+  const count = stringNumber.length - start - 1; // count digits after first
+  let i = (count % 3) + 1 + start; // index for first separator
+  const strings = [ // hold string parts
+    // grab string content before where the first separator belongs
+    stringNumber.slice(0, i),
+  ];
+
+  // split remaining string in groups of 3 where a separator belongs
+  while (i < stringNumber.length) {
+    strings.push(stringNumber.substr(i, 3));
+    i += 3;
+  }
+
+  // finally, combine groups with the separator
+  return strings.join(separator);
+};
+
+export const commaNumber = (inputNumber, optionalSeparator, optionalDecimalChar) => {
   // we'll strip off and hold the decimal value to reattach later.
   // we'll hold both the `number` value and `stringNumber` value.
-  let number, stringNumber, decimal;
+  let number; let stringNumber; let
+    decimal;
 
   // default `separator` is a comma
-  const separator = optionalSeparator   || ',';
+  const separator = optionalSeparator || ',';
 
   // default `decimalChar` is a period
   const decimalChar = optionalDecimalChar || '.';
 
   switch (typeof inputNumber) {
-
     case 'string':
 
       // if there aren't enough digits to need separators then return it
@@ -21,7 +43,7 @@ export const commaNumber = (inputNumber, optionalSeparator, optionalDecimalChar)
       //       when they have decimal values which make them too long here.
       //       but, the number value check after this switch will catch it.
       if (inputNumber.length < (inputNumber[0] === '-' ? 5 : 4)) {
-        return inputNumber
+        return inputNumber;
       }
 
       // remember it as a string in `stringNumber` and convert to a Number
@@ -38,24 +60,24 @@ export const commaNumber = (inputNumber, optionalSeparator, optionalDecimalChar)
     //       because we'll need to return `stringNumber` anyway.
     case 'number':
       stringNumber = String(inputNumber);
-      number       = inputNumber;
+      number = inputNumber;
       break;
 
     // return invalid type as-is
-    default: return inputNumber
+    default: return inputNumber;
   }
 
   // when it doesn't need a separator or isn't a number then return it
-  if ((-1000 < number && number < 1000) || isNaN(number) || !isFinite(number)) {
-    return stringNumber
+  if ((number > -1000 && number < 1000) || Number.isNaN(number) || !Number.isFinite(number)) {
+    return stringNumber;
   }
 
   // strip off decimal value to append to the final result at the bottom
-  let decimalIndex = stringNumber.lastIndexOf(decimalChar);
+  const decimalIndex = stringNumber.lastIndexOf(decimalChar);
 
   if (decimalIndex > -1) {
     decimal = stringNumber.slice(decimalIndex);
-    stringNumber = stringNumber.slice(0, -decimal.length)
+    stringNumber = stringNumber.slice(0, -decimal.length);
   }
 
   // else {
@@ -67,30 +89,5 @@ export const commaNumber = (inputNumber, optionalSeparator, optionalDecimalChar)
 
   // if there's a decimal value add it back on the end.
   // NOTE: we sliced() it off including the decimalChar, so it's good.
-  return decimal ? stringNumber + decimal : stringNumber
-
-};
-
-
-const parse = (stringNumber, separator) => {
-
-  // below here we split the number at spots to add a separator.
-  // then, combine it with the separator and add decimal value (if exists)
-
-  const start = stringNumber[0] === '-' ? 1 : 0;  // start after minus sign
-  const count = stringNumber.length - start - 1;  // count digits after first
-  let i = (count % 3) + 1 + start;              // index for first separator
-  const strings = [                              // hold string parts
-    // grab string content before where the first separator belongs
-    stringNumber.slice(0, i)
-  ];
-
-  // split remaining string in groups of 3 where a separator belongs
-  while (i < stringNumber.length) {
-    strings.push(stringNumber.substr(i, 3));
-    i += 3
-  }
-
-  // finally, combine groups with the separator
-  return strings.join(separator)
+  return decimal ? stringNumber + decimal : stringNumber;
 };

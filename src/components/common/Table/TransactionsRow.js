@@ -28,6 +28,8 @@ const TransactionsRow = (props: Props) => {
         return 'ATX';
       case 2:
         return 'Smart Contract';
+      default:
+        return null;
     }
   };
 

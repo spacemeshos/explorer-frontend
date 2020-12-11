@@ -43,7 +43,8 @@ const DetailsCoinTxns = (props: Props) => {
           <span className="item-name">Timestamp</span>
           <span className="item-value">
             <CustomTimeAgo time={data.timestamp} />
-            &nbsp;{`${fullDate(data.timestamp)}`}
+            &nbsp;
+            {`${fullDate(data.timestamp)}`}
           </span>
         </li>
         <li className="item">

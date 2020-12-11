@@ -39,13 +39,15 @@ const DetailsEpoch = (props: Props) => {
         <li className="item">
           <span className="item-name">Started</span>
           <span className="item-value">
-            <CustomTimeAgo time={data.start} /> {`${fullDate(data.start)}`}
+            <CustomTimeAgo time={data.start} />
+            {`${fullDate(data.start)}`}
           </span>
         </li>
         <li className="item">
           <span className="item-name">Ended</span>
           <span className="item-value">
-            <CustomTimeAgo time={data.end} /> {`${fullDate(data.end)}`}
+            <CustomTimeAgo time={data.end} />
+            {`${fullDate(data.end)}`}
           </span>
         </li>
         <li className="item">

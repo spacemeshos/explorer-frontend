@@ -1,3 +1,4 @@
+/* eslint-disable */
 // @flow
 import {
   observable,
@@ -174,16 +175,17 @@ class ViewStore {
         this.currentView.status = STATUS_SUCCESS;
       },
       (error) => {
+        console.log(error);
         this.currentView.status = STATUS_ERROR;
       },
     );
   }
 
   getNetworks() {
-    // TODO uncomment when will be available
-    // this.fetch(`networks`).then(data => {
-    //   this.networks = data.map(item => ({value: item.domain, label: item.name}))
-    // });
+  //   // TODO uncomment when will be available
+  //   // this.fetch(`networks`).then(data => {
+  //   //   this.networks = data.map(item => ({value: item.domain, label: item.name}))
+  //   // });
   }
 
   async showDetailPage({ page, id }) {

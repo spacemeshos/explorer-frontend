@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { byteConverter, smhCoinConverter } from '../../../helper/converter';
 import Loader from '../Loader';
 import {
-  ACCOUNTS, EPOCHS, LAYERS, OVERVIEW, REWARDS, SMESHER,
+  ACCOUNTS, EPOCHS, LAYERS, REWARDS, SMESHER,
 } from '../../../config/constants';
 
 type Props = {
@@ -18,7 +18,7 @@ type Props = {
 }
 
 const InfoBlock = (props: Props) => {
-  const { viewStore, accounts, rewards, security, epoch, layer, smeshers, number } = props;
+  const { viewStore, accounts, rewards, security, epoch, layer, smeshers } = props;
 
   const onClickHandler = (e, page) => {
     e.preventDefault();
