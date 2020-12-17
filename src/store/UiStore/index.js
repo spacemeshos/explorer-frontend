@@ -34,7 +34,7 @@ class UiStore {
         this.color = 'green';
       }
     } catch (e) {
-      console.log('Error', e);
+      console.log('Error', e.message);
     }
   }
 
@@ -45,12 +45,5 @@ class UiStore {
     document.documentElement.classList.add(`theme-${this.theme}`);
   }
 }
-
-// decorate(UiStore, {
-//   color: observable,
-//   theme: observable,
-//   changeTheme: action,
-//   getNetworkInfo: action,
-// });
 
 export default UiStore;

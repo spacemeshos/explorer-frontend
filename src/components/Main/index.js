@@ -9,12 +9,12 @@ import '../../styles/Main.scss';
 
 const renderCurrentView = (store, uiStore) => <PageContainer viewStore={store} uiStore={uiStore} />;
 type Props = {
-  store: Object,
+  viewStore: Object,
   uiStore: Object,
 }
 
 const Main = (props: Props) => {
-  const { store, uiStore } = props;
+  const { viewStore, uiStore } = props;
 
   useEffect(() => {
     uiStore.getNetworkInfo();
@@ -24,8 +24,8 @@ const Main = (props: Props) => {
   []);
 
   return (
-    <Layout uiStore={uiStore} viewStore={store}>
-      { renderCurrentView(store, uiStore) }
+    <Layout uiStore={uiStore} viewStore={viewStore}>
+      { renderCurrentView(viewStore, uiStore) }
     </Layout>
   );
 };

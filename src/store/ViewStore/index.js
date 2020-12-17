@@ -4,7 +4,7 @@ import {
   observable,
   computed,
   action,
-  makeAutoObservable, runInAction,
+  makeAutoObservable, runInAction, reaction, toJS
 } from 'mobx';
 
 import {
@@ -19,6 +19,10 @@ import {
   BLOCKS,
   NOT_FOUND, STATUS_LOADING, STATUS_SUCCESS, STATUS_ERROR, ATXS,
 } from '../../config/constants';
+import { reMappingNetworkArray } from '../../helper/mapping';
+import isEmpty from '../../helper/isEmpty';
+
+const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL;
 
 const smartWalletData = [
   {
@@ -37,12 +41,14 @@ const smartWalletData = [
 
 class ViewStore {
   constructor(apiFetch: Object) {
+    this.networks = [];
+
     makeAutoObservable(this, {
       currentView: observable,
       mainInfo: observable,
-      networks: observable,
+      networks: observable.ref,
+      network: observable.ref,
       currentPath: computed,
-      getNetworks: action,
       linkHandler: action,
       getPaginationData: action,
       showSearchResult: action,
@@ -51,11 +57,31 @@ class ViewStore {
       showSubPage: action,
     });
     this.fetch = apiFetch;
+
+    reaction(
+      () => this.network,
+      (value, previousValue) => {
+        if (previousValue.value) {
+          const { name, id, subPage } =  this.currentView;
+          if (name && isEmpty(id) && isEmpty(subPage)) {
+            this.showPage(name);
+          }
+          else if (name && !isEmpty(id) && isEmpty(subPage)) {
+            this.showDetailPage({name, id});
+          }
+          else if (name && !isEmpty(id) && !isEmpty(subPage)) {
+            this.showSubPage({name, id, subPage})
+          } else {
+            this.showOverview();
+          }
+        }
+      }
+    )
   }
 
   fetch = null;
 
-  networks = [];
+  network = { value: null, label: null, explorer: null };
 
   mainInfo = [];
 
@@ -96,6 +122,14 @@ class ViewStore {
     }
   }
 
+  setNetworks(data) {
+    this.networks = data;
+  }
+
+  setNetwork(data) {
+    this.network = data;
+  }
+
   buildUrlString(data: Object) {
     if (data.name && (data.id || data.id === 0) && data.subPage) {
       return `/${data.name}/${data.id}/${data.subPage}`;
@@ -105,14 +139,28 @@ class ViewStore {
     return `/${data.name}`;
   }
 
+  async bootstrap() {
+    try {
+      const response = await this.fetch(DISCOVERY_SERVICE_URL);
+      const networks = reMappingNetworkArray(response);
+      // TODO remove this after moving dash to discovery service
+      networks.push({ value: 'https://stage-explore.spacemesh.io/api/', label: 'TweedleDee Open Testnet 122', explorer: 'https://stage-explore.spacemesh.io/' });
+      this.setNetworks(networks);
+      this.setNetwork(networks[1]);
+    } catch (e) {
+      console.log('Error: ', e.message);
+    }
+  }
+
   async showOverview() {
     this.resetCurrentView();
     this.currentView.name = OVERVIEW;
     this.currentView.status = STATUS_LOADING;
 
     try {
-      const rawData = await this.fetch('txs');
-      this.mainInfo = await this.fetch('network-info');
+      !this.network.value && await this.bootstrap();
+      const rawData = await this.fetch(`${this.network.value}txs`);
+      this.mainInfo = await this.fetch(`${this.network.value}network-info`);
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
@@ -130,8 +178,9 @@ class ViewStore {
     this.currentView.status = STATUS_LOADING;
 
     try {
-      const rawData = await this.fetch(page);
-      this.mainInfo = await this.fetch('network-info');
+      !this.network.value && await this.bootstrap();
+      const rawData = await this.fetch(`${this.network.value}${page}`);
+      this.mainInfo = await this.fetch(`${this.network.value}network-info`);
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
@@ -149,45 +198,6 @@ class ViewStore {
     }
   }
 
-  async showSearchResult(searchString) {
-    try {
-      const result = await this.fetch(`search/${searchString}`);
-      const stringData = result.redirect.split('/');
-      this.currentView.status = STATUS_SUCCESS;
-      this.showDetailPage({ page: stringData[1], id: stringData[2] });
-    } catch (e) {
-      this.resetCurrentView();
-      this.currentView.name = NOT_FOUND;
-      this.currentView.id = searchString;
-    }
-  }
-
-  getPaginationData(page, pageNumber) {
-    const pageSize = 20;
-
-    if (page === OVERVIEW) return;
-    const pathName = window.location.pathname.slice(1);
-
-    this.fetch(`${pathName}?page=${pageNumber}&pagesize=${pageSize}`).then(
-      (result) => {
-        this.currentView.data = [...this.currentView.data, ...result.data];
-        this.currentView.pagination = result.pagination;
-        this.currentView.status = STATUS_SUCCESS;
-      },
-      (error) => {
-        console.log(error);
-        this.currentView.status = STATUS_ERROR;
-      },
-    );
-  }
-
-  getNetworks() {
-  //   // TODO uncomment when will be available
-  //   // this.fetch(`networks`).then(data => {
-  //   //   this.networks = data.map(item => ({value: item.domain, label: item.name}))
-  //   // });
-  }
-
   async showDetailPage({ page, id }) {
     this.resetCurrentView();
     this.currentView.name = page;
@@ -195,8 +205,9 @@ class ViewStore {
     this.currentView.status = STATUS_LOADING;
 
     try {
-      const rawData = await this.fetch(`${page}/${id}`);
-      this.mainInfo = await this.fetch('network-info');
+      !this.network.value && await this.bootstrap();
+      const rawData = await this.fetch(`${this.network.value}${page}/${id}`);
+      this.mainInfo = await this.fetch(`${this.network.value}network-info`);
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
@@ -216,8 +227,9 @@ class ViewStore {
     this.currentView.status = STATUS_LOADING;
 
     try {
-      const rawData = await this.fetch(`${page}/${id}/${subPage}`);
-      this.mainInfo = await this.fetch('network-info');
+      !this.network.value && await this.bootstrap();
+      const rawData = await this.fetch(`${this.network.value}${page}/${id}/${subPage}`);
+      this.mainInfo = await this.fetch(`${this.network.value}network-info`);
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
@@ -227,6 +239,39 @@ class ViewStore {
     } catch (e) {
       this.currentView.status = STATUS_ERROR;
     }
+  }
+
+  async showSearchResult(searchString) {
+    try {
+      !this.network.value && await this.bootstrap();
+      const result = await this.fetch(`${this.network.value}search/${searchString}`);
+      const stringData = result.redirect.split('/');
+      this.currentView.status = STATUS_SUCCESS;
+      this.showDetailPage({ page: stringData[1], id: stringData[2] });
+    } catch (e) {
+      this.resetCurrentView();
+      this.currentView.name = NOT_FOUND;
+      this.currentView.id = searchString;
+    }
+  }
+
+  getPaginationData(page, pageNumber) {
+    const pageSize = 20;
+
+    if (page === OVERVIEW) return;
+    const pathName = window.location.pathname.slice(1);
+
+    this.fetch(`${this.network.value}${pathName}?page=${pageNumber}&pagesize=${pageSize}`).then(
+      (result) => {
+        this.currentView.data = [...this.currentView.data, ...result.data];
+        this.currentView.pagination = result.pagination;
+        this.currentView.status = STATUS_SUCCESS;
+      },
+      (error) => {
+        console.log(error);
+        this.currentView.status = STATUS_ERROR;
+      },
+    );
   }
 
   resetCurrentView() {
@@ -260,19 +305,5 @@ class ViewStore {
     return false;
   }
 }
-
-// decorate(ViewStore, {
-//   currentView: observable,
-//   mainInfo: observable,
-//   networks: observable,
-//   currentPath: computed,
-//   getNetworks: action,
-//   linkHandler: action,
-//   getPaginationData: action,
-//   showSearchResult: action,
-//   showPage: action,
-//   showDetailPage: action,
-//   showSubPage: action,
-// });
 
 export default ViewStore;

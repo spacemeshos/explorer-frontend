@@ -17,7 +17,7 @@ const uiStore = new UiStore(fetchAPI);
 startRouter(viewStore);
 
 ReactDOM.render(
-  <Main store={viewStore} uiStore={uiStore} />,
+  <Main viewStore={viewStore} uiStore={uiStore} />,
   document.getElementById('root'),
 );
 

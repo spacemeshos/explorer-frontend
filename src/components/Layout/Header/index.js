@@ -1,6 +1,5 @@
 // @flow
-import React, { useContext, useEffect } from 'react';
-import { toJS } from 'mobx';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import { StoreContext } from '../../../contextProviders/StoreContext';
 
@@ -29,17 +28,13 @@ const Header = () => {
   const store = useContext(StoreContext);
   const { uiStore, viewStore } = store;
 
-  useEffect(() => {
-    viewStore.getNetworks();
-  }, [viewStore]);
-
   return (
     <div className="header">
       <Logo />
       <NavBar links={links} />
       <div className="header_dropdown">
         <NetworkStatus color={uiStore.color} />
-        <DropDown options={toJS(viewStore.networks)} />
+        <DropDown options={viewStore.networks} selectedItem={viewStore.network} onSelect={(e) => viewStore.setNetwork(e)} />
       </div>
       <Switcher id="switch" onChange={(e) => uiStore.changeTheme(e)} checked={uiStore.theme === 'dark'} />
     </div>
