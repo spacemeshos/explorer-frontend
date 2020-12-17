@@ -15,10 +15,6 @@ const links = [
     title: 'join testnet',
   },
   {
-    href: '/',
-    title: 'community forums',
-  },
-  {
     href: 'https://stage-dash.spacemesh.io/',
     title: 'dashboard',
   },
