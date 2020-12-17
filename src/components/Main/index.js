@@ -17,8 +17,8 @@ const Main = (props: Props) => {
   const { viewStore, uiStore } = props;
 
   useEffect(() => {
-    uiStore.getNetworkInfo();
-    const intervalId = setInterval(() => uiStore.getNetworkInfo(), 30000);
+    // viewStore.getNetworkInfo();
+    const intervalId = setInterval(() => viewStore.getNetworkInfo(), 30000);
     return clearInterval(intervalId);
   },
   []);

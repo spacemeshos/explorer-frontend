@@ -22,7 +22,7 @@ import {
 import { reMappingNetworkArray } from '../../helper/mapping';
 import isEmpty from '../../helper/isEmpty';
 
-const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL;
+const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://discover.spacemesh.io/networks.json';
 
 const smartWalletData = [
   {
@@ -55,6 +55,8 @@ class ViewStore {
       showPage: action,
       showDetailPage: action,
       showSubPage: action,
+      getNetworkInfo: action,
+      color: observable,
     });
     this.fetch = apiFetch;
 
@@ -62,15 +64,15 @@ class ViewStore {
       () => this.network,
       (value, previousValue) => {
         if (previousValue.value) {
-          const { name, id, subPage } =  this.currentView;
-          if (name && isEmpty(id) && isEmpty(subPage)) {
-            this.showPage(name);
+          const { name, id, subPage } =  toJS(this.currentView);
+          if (name && name !== OVERVIEW &&isEmpty(id) && isEmpty(subPage)) {
+            this.showPage({page: name});
           }
           else if (name && !isEmpty(id) && isEmpty(subPage)) {
-            this.showDetailPage({name, id});
+            this.showDetailPage({page: name, id});
           }
           else if (name && !isEmpty(id) && !isEmpty(subPage)) {
-            this.showSubPage({name, id, subPage})
+            this.showSubPage({page: name, id, subPage})
           } else {
             this.showOverview();
           }
@@ -79,11 +81,13 @@ class ViewStore {
     )
   }
 
+  color = 'green';
+
   fetch = null;
 
-  network = { value: null, label: null, explorer: null };
+  network = { value: null, label: null, explorer: null, dash: null };
 
-  mainInfo = [];
+  mainInfo = {};
 
   currentView = {
     name: null,
@@ -127,7 +131,7 @@ class ViewStore {
   }
 
   setNetwork(data) {
-    this.network = data;
+    this.network = this.networks.find(item => item.value === data.value);
   }
 
   buildUrlString(data: Object) {
@@ -143,10 +147,9 @@ class ViewStore {
     try {
       const response = await this.fetch(DISCOVERY_SERVICE_URL);
       const networks = reMappingNetworkArray(response);
-      // TODO remove this after moving dash to discovery service
-      networks.push({ value: 'https://stage-explore.spacemesh.io/api/', label: 'TweedleDee Open Testnet 122', explorer: 'https://stage-explore.spacemesh.io/' });
       this.setNetworks(networks);
-      this.setNetwork(networks[1]);
+      this.setNetwork(networks[0]);
+      await this.getNetworkInfo();
     } catch (e) {
       console.log('Error: ', e.message);
     }
@@ -291,6 +294,23 @@ class ViewStore {
       this.showSubPage({ page, id, subPage });
     } else {
       this.showDetailPage({ page, id });
+    }
+  }
+
+  async getNetworkInfo() {
+    try {
+     this.mainInfo = await this.fetch(`${this.network.value}network-info`);
+     const { network } = toJS(this.mainInfo);
+
+      if ((network.lastlayer + 24) < network.lastapprovedlayer || network.issynced === false) {
+        this.color = 'red';
+      } else if (network.lastlayerts < ((Math.floor(Date.now() / 1000)) - (network.duration))) {
+        this.color = 'orange';
+      } else {
+        this.color = 'green';
+      }
+    } catch (e) {
+      console.log('Error', e.message);
     }
   }
 

@@ -12,7 +12,7 @@ import ViewStore from './store/ViewStore';
 import UiStore from './store/UiStore';
 
 const viewStore = new ViewStore(fetchAPI);
-const uiStore = new UiStore(fetchAPI);
+const uiStore = new UiStore();
 
 startRouter(viewStore);
 
