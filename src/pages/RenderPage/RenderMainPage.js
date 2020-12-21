@@ -18,7 +18,7 @@ import {
   TXNS,
   OVERVIEW,
   ACCOUNTS,
-  SMART_WALLET,
+  SMART_WALLET, NOT_FOUND,
 } from '../../config/constants';
 
 type Props = {
@@ -206,6 +206,19 @@ const RenderMainPage = (props: Props) => {
             />
           </div>
           <Table name={name} viewStore={viewStore} />
+        </>
+      );
+    case NOT_FOUND:
+      return (
+        <>
+          <div className="page-wrap page-wrap-search-not-found">
+            <TitleBlock
+              title="Search field is empty"
+              color={getColorByPageName(name)}
+              desc="No results"
+              uiStore={uiStore}
+            />
+          </div>
         </>
       );
     default:

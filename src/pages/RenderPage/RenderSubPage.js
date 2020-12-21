@@ -15,7 +15,8 @@ import {
   SMESHER,
   TXNS,
   ATXS,
-  BLOCKS, ACCOUNTS,
+  BLOCKS,
+  ACCOUNTS,
 } from '../../config/constants';
 import longFormHash from '../../helper/longFormHash';
 import { smhCoinConverter } from '../../helper/converter';
@@ -48,7 +49,12 @@ const RenderSubPage = (props: Props) => {
                 desc={`Layers contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
-              <RightSideBlock number={epoch && (epoch.layers)} startTime={epoch && epoch.start} unit="layers" color={getColorByPageName(name)} />
+              <RightSideBlock
+                number={epoch && epoch.layers}
+                startTime={epoch && epoch.start}
+                unit="layers"
+                color={getColorByPageName(name)}
+              />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -64,7 +70,12 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
-              <RightSideBlock number={epoch && epoch.stats.cumulative.transactions} unit="txns" startTime={network && network.genesis} color={getColorByPageName(name)} />
+              <RightSideBlock
+                number={epoch && epoch.stats.cumulative.transactions}
+                unit="txns"
+                startTime={network && network.genesis}
+                color={getColorByPageName(name)}
+              />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -80,7 +91,12 @@ const RenderSubPage = (props: Props) => {
                 desc="Smeshers submitting at least one honest block"
                 uiStore={uiStore}
               />
-              <RightSideBlock number={epoch && epoch.stats.cumulative.smeshers} startTime={network && network.genesis} unit="smeshers in the epoch" color={getColorByPageName(name)} />
+              <RightSideBlock
+                number={epoch && epoch.stats.cumulative.smeshers}
+                startTime={network && network.genesis}
+                unit="smeshers in the epoch"
+                color={getColorByPageName(name)}
+              />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -96,7 +112,12 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
-              <RightSideBlock number={epoch && epoch.stats.cumulative.transactions} startTime={network && network.genesis} unit="txns since genesis" color={getColorByPageName(name)} />
+              <RightSideBlock
+                number={epoch && epoch.stats.cumulative.transactions}
+                startTime={network && network.genesis}
+                unit="txns since genesis"
+                color={getColorByPageName(name)}
+              />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -112,7 +133,12 @@ const RenderSubPage = (props: Props) => {
                 desc="Rewards awarded to Smeshers"
                 uiStore={uiStore}
               />
-              <AmountBlock number={pagination && pagination.totalCount} startTime={network && network.genesis} unit="rewards" color={getColorByPageName(name)} />
+              <AmountBlock
+                number={pagination && pagination.totalCount}
+                startTime={network && network.genesis}
+                unit="rewards"
+                color={getColorByPageName(name)}
+              />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -152,7 +178,12 @@ const RenderSubPage = (props: Props) => {
                 desc={`Transactions within layer ${id}`}
                 uiStore={uiStore}
               />
-              <RightSideBlock number={epoch && epoch.stats.cumulative.transactions} startTime={network && network.genesis} unit="txns" color={getColorByPageName(name)} />
+              <RightSideBlock
+                number={epoch && epoch.stats.cumulative.transactions}
+                startTime={network && network.genesis}
+                unit="txns"
+                color={getColorByPageName(name)}
+              />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -167,7 +198,12 @@ const RenderSubPage = (props: Props) => {
                 color={getColorByPageName(name)}
                 uiStore={uiStore}
               />
-              <RightSideBlock number={pagination && pagination.totalCount} startTime={layer && layer.start} unit="blocks" color={getColorByPageName(name)} />
+              <RightSideBlock
+                number={pagination && pagination.totalCount}
+                startTime={layer && layer.start}
+                unit="blocks"
+                color={getColorByPageName(name)}
+              />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -183,7 +219,12 @@ const RenderSubPage = (props: Props) => {
                 desc="Smeshers who submitted at least one block"
                 uiStore={uiStore}
               />
-              <RightSideBlock number={layer && layer.smeshers} startTime={layer && layer.start} unit="smeshers" color={getColorByPageName(name)} />
+              <RightSideBlock
+                number={layer && layer.smeshers}
+                startTime={layer && layer.start}
+                unit="smeshers"
+                color={getColorByPageName(name)}
+              />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
@@ -199,7 +240,12 @@ const RenderSubPage = (props: Props) => {
                 desc={`Rewards within Layer ${id}`}
                 uiStore={uiStore}
               />
-              <AmountBlock number={layer && (layer.number)} startTime={layer && layer.start} unit="layers" color={getColorByPageName(name)} />
+              <AmountBlock
+                number={layer && layer.number}
+                startTime={layer && layer.start}
+                unit="layers"
+                color={getColorByPageName(name)}
+              />
             </div>
             <Table name={subPage} viewStore={viewStore} />
           </>
