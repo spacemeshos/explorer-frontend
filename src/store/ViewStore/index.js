@@ -122,7 +122,7 @@ class ViewStore {
       case NOT_FOUND:
         return this.buildUrlString(this.currentView);
       default:
-        return '/404';
+        return '/not-found';
     }
   }
 

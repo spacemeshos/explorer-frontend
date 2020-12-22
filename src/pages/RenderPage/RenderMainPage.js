@@ -213,7 +213,7 @@ const RenderMainPage = (props: Props) => {
         <>
           <div className="page-wrap page-wrap-search-not-found">
             <TitleBlock
-              title="Search field is empty"
+              title=""
               color={getColorByPageName(name)}
               desc="No results"
               uiStore={uiStore}
