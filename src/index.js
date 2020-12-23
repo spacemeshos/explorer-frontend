@@ -16,6 +16,8 @@ const uiStore = new UiStore();
 
 startRouter(viewStore);
 
+window.name = '_spacemesh';
+
 ReactDOM.render(
   <Main viewStore={viewStore} uiStore={uiStore} />,
   document.getElementById('root'),
