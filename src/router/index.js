@@ -16,7 +16,12 @@ export const startRouter = (store) => {
   router(window.location.pathname, window.location.search);
 
   // handle back button
-  history((href) => router(href.pathname, href.search));
+  history((href) => {
+    router(href.pathname, href.search);
+    if (window.location.pathname === '/not-found') {
+      window.history.back();
+    }
+  });
 
   // update url on state changes
   autorun(() => {

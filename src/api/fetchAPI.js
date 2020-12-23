@@ -1,9 +1,5 @@
 // @flow
-// TODO set env var on Server
-const testApi = 'https://stage-explore.spacemesh.io/api';
-const API_URL = process.env.REACT_APP_API_URL || testApi;
-
-export function fetchAPI(path, options) {
+export function fetchAPI(url, path, options) {
   const fetchOptions = {};
   fetchOptions.method = options && (options.method || 'GET');
 
@@ -11,7 +7,9 @@ export function fetchAPI(path, options) {
     fetchOptions.headers = { ...fetchOptions.headers, ...options.headers };
   }
 
-  return fetch(`${API_URL}/${path}`, fetchOptions)
+  const requestUrl = path ? `${url}${path}` : url;
+
+  return fetch(requestUrl, fetchOptions)
     .then((response) => response.json())
     .then((data) => data);
 }

@@ -6,36 +6,14 @@ import {
 } from 'mobx';
 
 class UiStore {
-  constructor(apiFetch: Object) {
+  constructor() {
     this.theme = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light';
 
     makeAutoObservable(this, {
-      color: observable,
       theme: observable,
       changeTheme: action,
-      getNetworkInfo: action,
     });
     document.documentElement.classList.add(`theme-${this.theme}`);
-    this.fetch = apiFetch;
-  }
-
-  color = 'green';
-
-  fetch = null;
-
-  async getNetworkInfo() {
-    try {
-      const { network } = await this.fetch('network-info');
-      if (network.lastlayerts < ((Math.floor(Date.now() / 1000)) - (network.duration)) && network.issynced === false) {
-        this.color = 'orange';
-      } else if ((network.lastlayer + 24) < network.lastapprovedlayer) {
-        this.color = 'red';
-      } else {
-        this.color = 'green';
-      }
-    } catch (e) {
-      console.log('Error', e);
-    }
   }
 
   changeTheme(e) {
@@ -45,12 +23,5 @@ class UiStore {
     document.documentElement.classList.add(`theme-${this.theme}`);
   }
 }
-
-// decorate(UiStore, {
-//   color: observable,
-//   theme: observable,
-//   changeTheme: action,
-//   getNetworkInfo: action,
-// });
 
 export default UiStore;

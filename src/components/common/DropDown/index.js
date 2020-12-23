@@ -3,20 +3,21 @@ import * as React from 'react';
 
 import Dropdown from 'react-dropdown';
 
-const DropDown = () => {
-  const onSelect = (e) => console.log('select', e);
-  const testOptions = [
-    {
-      value: 'TweedleDee Open Testnet 122',
-      label: 'TweedleDee Open Testnet 122',
-    },
-  ];
+type Props = {
+  options: Array<Object>,
+  selectedItem: Object,
+  onSelect: void
+}
+
+const DropDown = (props: Props) => {
+  const { options, selectedItem, onSelect } = props;
+  const handleChange = (e) => onSelect(e);
 
   return (
     <Dropdown
-      options={testOptions}
-      onChange={onSelect}
-      value="TweedleDee Open Testnet 122"
+      options={options}
+      onChange={handleChange}
+      value={selectedItem.value}
       placeholder="Select network"
     />
   );

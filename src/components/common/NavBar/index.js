@@ -9,12 +9,13 @@ type Props = {
 
 const NavBar = (props: Props) => {
   const { links } = props;
+
   return (
     <nav className="navbar">
       <ul className="navbar-list">
         {links.map((link) => (
           <li key={nanoid()} className="navbar-list-item">
-            <a href={link.href} target="_blank">{link.title}</a>
+            <a href={link.href} target="_">{link.title}</a>
           </li>
         ))}
       </ul>

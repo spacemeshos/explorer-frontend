@@ -4,7 +4,7 @@ import {
   observable,
   computed,
   action,
-  makeAutoObservable, runInAction,
+  makeAutoObservable, runInAction, reaction, toJS
 } from 'mobx';
 
 import {
@@ -19,6 +19,10 @@ import {
   BLOCKS,
   NOT_FOUND, STATUS_LOADING, STATUS_SUCCESS, STATUS_ERROR, ATXS,
 } from '../../config/constants';
+import { reMappingNetworkArray } from '../../helper/mapping';
+import isEmpty from '../../helper/isEmpty';
+
+const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://discover.spacemesh.io/networks.json';
 
 const smartWalletData = [
   {
@@ -37,27 +41,53 @@ const smartWalletData = [
 
 class ViewStore {
   constructor(apiFetch: Object) {
+    this.networks = [];
+
     makeAutoObservable(this, {
       currentView: observable,
       mainInfo: observable,
-      networks: observable,
+      networks: observable.ref,
+      network: observable.ref,
       currentPath: computed,
-      getNetworks: action,
       linkHandler: action,
       getPaginationData: action,
       showSearchResult: action,
       showPage: action,
       showDetailPage: action,
       showSubPage: action,
+      getNetworkInfo: action,
+      color: observable,
     });
     this.fetch = apiFetch;
+
+    reaction(
+      () => this.network,
+      (value, previousValue) => {
+        if (previousValue.value) {
+          const { name, id, subPage } =  toJS(this.currentView);
+          if (name && name !== OVERVIEW &&isEmpty(id) && isEmpty(subPage)) {
+            this.showPage({page: name});
+          }
+          else if (name && !isEmpty(id) && isEmpty(subPage)) {
+            this.showDetailPage({page: name, id});
+          }
+          else if (name && !isEmpty(id) && !isEmpty(subPage)) {
+            this.showSubPage({page: name, id, subPage})
+          } else {
+            this.showOverview();
+          }
+        }
+      }
+    )
   }
+
+  color = 'green';
 
   fetch = null;
 
-  networks = [];
+  network = { value: null, label: null, explorer: null, dash: null };
 
-  mainInfo = [];
+  mainInfo = {};
 
   currentView = {
     name: null,
@@ -92,8 +122,16 @@ class ViewStore {
       case NOT_FOUND:
         return this.buildUrlString(this.currentView);
       default:
-        return '/404';
+        return '/not-found';
     }
+  }
+
+  setNetworks(data) {
+    this.networks = data;
+  }
+
+  setNetwork(data) {
+    this.network = this.networks.find(item => item.value === data.value);
   }
 
   buildUrlString(data: Object) {
@@ -105,14 +143,27 @@ class ViewStore {
     return `/${data.name}`;
   }
 
+  async bootstrap() {
+    try {
+      const response = await this.fetch(DISCOVERY_SERVICE_URL);
+      const networks = reMappingNetworkArray(response);
+      this.setNetworks(networks);
+      this.setNetwork(networks[0]);
+      await this.getNetworkInfo();
+    } catch (e) {
+      console.log('Error: ', e.message);
+    }
+  }
+
   async showOverview() {
     this.resetCurrentView();
     this.currentView.name = OVERVIEW;
     this.currentView.status = STATUS_LOADING;
 
     try {
-      const rawData = await this.fetch('txs');
-      this.mainInfo = await this.fetch('network-info');
+      !this.network.value && await this.bootstrap();
+      const rawData = await this.fetch(`${this.network.value}txs`);
+      this.mainInfo = await this.fetch(`${this.network.value}network-info`);
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
@@ -130,8 +181,9 @@ class ViewStore {
     this.currentView.status = STATUS_LOADING;
 
     try {
-      const rawData = await this.fetch(page);
-      this.mainInfo = await this.fetch('network-info');
+      !this.network.value && await this.bootstrap();
+      const rawData = await this.fetch(`${this.network.value}${page}`);
+      this.mainInfo = await this.fetch(`${this.network.value}network-info`);
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
@@ -149,45 +201,6 @@ class ViewStore {
     }
   }
 
-  async showSearchResult(searchString) {
-    try {
-      const result = await this.fetch(`search/${searchString}`);
-      const stringData = result.redirect.split('/');
-      this.currentView.status = STATUS_SUCCESS;
-      this.showDetailPage({ page: stringData[1], id: stringData[2] });
-    } catch (e) {
-      this.resetCurrentView();
-      this.currentView.name = NOT_FOUND;
-      this.currentView.id = searchString;
-    }
-  }
-
-  getPaginationData(page, pageNumber) {
-    const pageSize = 20;
-
-    if (page === OVERVIEW) return;
-    const pathName = window.location.pathname.slice(1);
-
-    this.fetch(`${pathName}?page=${pageNumber}&pagesize=${pageSize}`).then(
-      (result) => {
-        this.currentView.data = [...this.currentView.data, ...result.data];
-        this.currentView.pagination = result.pagination;
-        this.currentView.status = STATUS_SUCCESS;
-      },
-      (error) => {
-        console.log(error);
-        this.currentView.status = STATUS_ERROR;
-      },
-    );
-  }
-
-  getNetworks() {
-  //   // TODO uncomment when will be available
-  //   // this.fetch(`networks`).then(data => {
-  //   //   this.networks = data.map(item => ({value: item.domain, label: item.name}))
-  //   // });
-  }
-
   async showDetailPage({ page, id }) {
     this.resetCurrentView();
     this.currentView.name = page;
@@ -195,8 +208,9 @@ class ViewStore {
     this.currentView.status = STATUS_LOADING;
 
     try {
-      const rawData = await this.fetch(`${page}/${id}`);
-      this.mainInfo = await this.fetch('network-info');
+      !this.network.value && await this.bootstrap();
+      const rawData = await this.fetch(`${this.network.value}${page}/${id}`);
+      this.mainInfo = await this.fetch(`${this.network.value}network-info`);
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
@@ -216,8 +230,9 @@ class ViewStore {
     this.currentView.status = STATUS_LOADING;
 
     try {
-      const rawData = await this.fetch(`${page}/${id}/${subPage}`);
-      this.mainInfo = await this.fetch('network-info');
+      !this.network.value && await this.bootstrap();
+      const rawData = await this.fetch(`${this.network.value}${page}/${id}/${subPage}`);
+      this.mainInfo = await this.fetch(`${this.network.value}network-info`);
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
@@ -227,6 +242,39 @@ class ViewStore {
     } catch (e) {
       this.currentView.status = STATUS_ERROR;
     }
+  }
+
+  async showSearchResult(searchString) {
+    try {
+      !this.network.value && await this.bootstrap();
+      const result = await this.fetch(`${this.network.value}search/${searchString}`);
+      const stringData = result.redirect.split('/');
+      this.currentView.status = STATUS_SUCCESS;
+      this.showDetailPage({ page: stringData[1], id: stringData[2] });
+    } catch (e) {
+      this.resetCurrentView();
+      this.currentView.name = NOT_FOUND;
+      this.currentView.id = searchString;
+    }
+  }
+
+  getPaginationData(page, pageNumber) {
+    const pageSize = 20;
+
+    if (page === OVERVIEW) return;
+    const pathName = window.location.pathname.slice(1);
+
+    this.fetch(`${this.network.value}${pathName}?page=${pageNumber}&pagesize=${pageSize}`).then(
+      (result) => {
+        this.currentView.data = [...this.currentView.data, ...result.data];
+        this.currentView.pagination = result.pagination;
+        this.currentView.status = STATUS_SUCCESS;
+      },
+      (error) => {
+        console.log(error);
+        this.currentView.status = STATUS_ERROR;
+      },
+    );
   }
 
   resetCurrentView() {
@@ -249,6 +297,23 @@ class ViewStore {
     }
   }
 
+  async getNetworkInfo() {
+    try {
+     this.mainInfo = await this.fetch(`${this.network.value}network-info`);
+     const { network } = toJS(this.mainInfo);
+
+      if ((network.lastlayer + 24) < network.lastapprovedlayer || network.issynced === false) {
+        this.color = 'red';
+      } else if (network.lastlayerts < ((Math.floor(Date.now() / 1000)) - (network.duration))) {
+        this.color = 'orange';
+      } else {
+        this.color = 'green';
+      }
+    } catch (e) {
+      console.log('Error', e.message);
+    }
+  }
+
   defineIdType(value) {
     if (value.length === 42) {
       return ACCOUNTS;
@@ -260,19 +325,5 @@ class ViewStore {
     return false;
   }
 }
-
-// decorate(ViewStore, {
-//   currentView: observable,
-//   mainInfo: observable,
-//   networks: observable,
-//   currentPath: computed,
-//   getNetworks: action,
-//   linkHandler: action,
-//   getPaginationData: action,
-//   showSearchResult: action,
-//   showPage: action,
-//   showDetailPage: action,
-//   showSubPage: action,
-// });
 
 export default ViewStore;
