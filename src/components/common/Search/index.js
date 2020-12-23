@@ -1,8 +1,8 @@
 // @flow
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 type Props = {
-  viewStore: Object;
+  viewStore: Object,
 };
 
 const Search = (props: Props) => {
@@ -15,6 +15,7 @@ const Search = (props: Props) => {
     const listener = (event) => {
       if (event.code === 'Enter' || event.code === 'NumpadEnter') {
         viewStore.showSearchResult(searchValue);
+        setSearchValue('');
       }
     };
     document.addEventListener('keydown', listener);
