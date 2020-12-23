@@ -19,7 +19,7 @@ const Header = () => {
       title: 'join testnet',
     },
     {
-      href: 'http://localhost:3001',
+      href: viewStore.network.dash,
       title: 'dashboard',
     },
   ];
