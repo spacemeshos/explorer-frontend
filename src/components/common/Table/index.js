@@ -65,7 +65,6 @@ const Table = (props: Props) => {
       return;
     }
     setIsFetching(true);
-    console.log('Fetch more list items!');
   };
 
   useEffect(() => {
