@@ -31,6 +31,8 @@ const RenderMainPage = (props: Props) => {
   const { name } = viewStore.currentView;
 
   const { epoch, layer, network } = toJS(viewStore.mainInfo);
+  const data = viewStore?.currentView?.data;
+  const dataTimeCreation = data && data.length && data.length > 0 && data[0].timestamp;
 
   switch (name) {
     case OVERVIEW:
@@ -160,7 +162,7 @@ const RenderMainPage = (props: Props) => {
               color={getColorByPageName(name)}
               number={epoch && epoch.stats.cumulative.accounts}
               unit="accounts"
-              startTime={network && network.genesis}
+              startTime={dataTimeCreation}
               label="Most Recent Account"
             />
           </div>
@@ -202,7 +204,7 @@ const RenderMainPage = (props: Props) => {
               color={getColorByPageName(name, uiStore.theme)}
               number={pagination?.totalCount}
               unit="smeshers"
-              startTime={network && network.genesis}
+              startTime={dataTimeCreation}
             />
           </div>
           <Table name={name} viewStore={viewStore} />
