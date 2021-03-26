@@ -99,7 +99,7 @@ const RenderMainPage = (props: Props) => {
             <RightSideBlock
               color={getColorByPageName(name)}
               number={layer && layer.number}
-              unit="layers"
+              unit="MOST RECENT LAYER"
               startTime={layer && layer.start}
             />
           </div>
@@ -203,7 +203,7 @@ const RenderMainPage = (props: Props) => {
             <RightSideBlock
               color={getColorByPageName(name, uiStore.theme)}
               number={pagination?.totalCount}
-              unit="smeshers"
+              unit="MOST RECENT SMESHER"
               startTime={dataTimeCreation}
             />
           </div>
