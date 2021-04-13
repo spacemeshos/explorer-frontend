@@ -60,6 +60,7 @@ class ViewStore {
     });
     this.fetch = apiFetch;
 
+    // TODO: Check functionality of the reaction code below (do nothing currently)
     reaction(
       () => this.network,
       (value, previousValue) => {

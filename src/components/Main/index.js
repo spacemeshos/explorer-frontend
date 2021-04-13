@@ -19,7 +19,7 @@ const Main = (props: Props) => {
   useEffect(() => {
     // viewStore.getNetworkInfo();
     const intervalId = setInterval(() => viewStore.getNetworkInfo(), 30000);
-    return clearInterval(intervalId);
+    return () => clearInterval(intervalId);
   },
   []);
 
