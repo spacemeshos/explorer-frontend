@@ -191,6 +191,8 @@ class ViewStore {
 
         if (page === SMART_WALLET) {
           this.currentView.data = smartWalletData;
+        } else if(page === REWARDS){
+          this.currentView.data = this.getRewardsData(rawData.data);
         } else {
           this.currentView.data = rawData.data;
         }
@@ -210,12 +212,18 @@ class ViewStore {
 
     try {
       !this.network.value && await this.bootstrap();
-      const rawData = await this.fetch(`${this.network.value}${page}/${id}`);
+      const correctId = page === REWARDS ? id.slice(2): id;
+
+      const rawData = await this.fetch(`${this.network.value}${page}/${correctId}`);
       this.mainInfo = await this.fetch(`${this.network.value}network-info`);
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
-        this.currentView.data = rawData.data[0];
+        if(page === REWARDS) {
+          this.currentView.data = this.getRewardsData(rawData.data)[0];
+        } else {
+          this.currentView.data = rawData.data[0];
+        }
       });
     } catch (e) {
       this.currentView.status = STATUS_ERROR;
@@ -237,7 +245,11 @@ class ViewStore {
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
-        this.currentView.data = rawData.data;
+        if(subPage === REWARDS) {
+          this.currentView.data = this.getRewardsData(rawData.data);
+        } else {
+          this.currentView.data = rawData.data;
+        }
         this.currentView.pagination = rawData.pagination;
       });
     } catch (e) {
@@ -267,7 +279,13 @@ class ViewStore {
 
     this.fetch(`${this.network.value}${pathName}?page=${pageNumber}&pagesize=${pageSize}`).then(
       (result) => {
-        this.currentView.data = [...this.currentView.data, ...result.data];
+        if(page === REWARDS) {
+          const rewardsData = this.getRewardsData(result.data);
+          this.currentView.data = [...this.currentView.data, ...rewardsData];
+        } else {
+          this.currentView.data = [...this.currentView.data, ...result.data];
+        }
+
         this.currentView.pagination = result.pagination;
         this.currentView.status = STATUS_SUCCESS;
       },
@@ -300,8 +318,8 @@ class ViewStore {
 
   async getNetworkInfo() {
     try {
-     this.mainInfo = await this.fetch(`${this.network.value}network-info`);
-     const { network } = toJS(this.mainInfo);
+      this.mainInfo = await this.fetch(`${this.network.value}network-info`);
+      const { network } = toJS(this.mainInfo);
 
       if ((network.lastlayer + 24) < network.lastapprovedlayer || network.issynced === false) {
         this.color = 'red';
@@ -313,6 +331,10 @@ class ViewStore {
     } catch (e) {
       console.log('Error', e.message);
     }
+  }
+
+  getRewardsData(data){
+    return data.map(item=>({...item, _id: `0x${item._id}`}))
   }
 
   defineIdType(value) {
