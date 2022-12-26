@@ -8,7 +8,7 @@ import {
   LAYERS,
   SMESHER,
 } from '../../../config/constants';
-import { byteConverter } from '../../../helper/converter';
+import { byteConverter, formatSmidge } from '../../../helper/converter';
 
 type Props = {
   data: Object,
@@ -52,6 +52,12 @@ const DetailAtxs = (props: Props) => {
             <a href={`/${LAYERS}/${data.layer}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, data.layer)}>
               {data.layer}
             </a>
+          </span>
+        </li>
+        <li className="item">
+          <span className="item-name">Fee</span>
+          <span className="item-value">
+            {formatSmidge(data.gasPrice * data.maxGas)}
           </span>
         </li>
         <li className="item">
