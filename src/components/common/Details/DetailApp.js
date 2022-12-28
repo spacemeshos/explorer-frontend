@@ -3,7 +3,7 @@ import React from 'react';
 
 import CopyButton from '../CopyButton';
 import { SMART_WALLET } from '../../../config/constants';
-import { smhCoinConverter } from '../../../helper/converter';
+import { formatSmidge } from '../../../helper/converter';
 import longFormHash from '../../../helper/longFormHash';
 import { fullDate } from '../../../helper/formatter';
 
@@ -80,7 +80,7 @@ const DetailApp = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Monthly Vested Amount</span>
-          <span className="item-value">{smhCoinConverter(0)}</span>
+          <span className="item-value">{formatSmidge(0)}</span>
         </li>
         <li className="item">
           <span className="item-name">Vesting Period</span>

@@ -5,7 +5,7 @@ import CopyButton from '../CopyButton';
 import {
   ACCOUNTS, ATXS, REWARDS, SMESHER,
 } from '../../../config/constants';
-import { byteConverter, smhCoinConverter } from '../../../helper/converter';
+import { byteConverter, formatSmidge } from '../../../helper/converter';
 
 type Props = {
   data: Object,
@@ -43,7 +43,7 @@ const DetailAccount = (props: Props) => {
         <li className="item">
           <span className="item-name">Reward</span>
           <span className="item-value">
-            <a href={`/${SMESHER}/${data.id}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, data.id, REWARDS)}>{smhCoinConverter(data.rewards)}</a>
+            <a href={`/${SMESHER}/${data.id}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, data.id, REWARDS)}>{formatSmidge(data.rewards)}</a>
           </span>
         </li>
         <li className="item">

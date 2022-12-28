@@ -9,7 +9,7 @@ import {
   TXNS, SMESHER,
 } from '../../../config/constants';
 import { fullDate } from '../../../helper/formatter';
-import { smhCoinConverter } from '../../../helper/converter';
+import { formatSmidge } from '../../../helper/converter';
 import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
@@ -61,7 +61,7 @@ const DetailsLayer = (props: Props) => {
               href={`/${LAYERS}/${data.number}/${REWARDS}`}
               onClick={(e) => { viewStore.linkHandler(e, LAYERS, data.number, REWARDS); }}
             >
-              {smhCoinConverter(data.rewards)}
+              {formatSmidge(data.rewards)}
             </a>
           </span>
         </li>

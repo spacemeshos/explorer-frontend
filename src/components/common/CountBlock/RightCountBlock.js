@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { smhCoinConverter } from '../../../helper/converter';
+import { formatSmidge } from '../../../helper/converter';
 
 type Props = {
   color: string,
@@ -43,7 +43,7 @@ const RightCountBlock = (props: Props) => {
           {`${coinCaption} `}
         </p>
         <p>
-          {`${smhCoinConverter(coins)}`}
+          {`${formatSmidge(coins)}`}
         </p>
       </div>
     </div>

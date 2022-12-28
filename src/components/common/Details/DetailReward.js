@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 import CopyButton from '../CopyButton';
-import { byteConverter, smhCoinConverter } from '../../../helper/converter';
+import { byteConverter, formatSmidge } from '../../../helper/converter';
 import {
   ACCOUNTS,
   LAYERS,
@@ -73,7 +73,7 @@ const DetailReward = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Block Reward</span>
-          <span className="item-value">{smhCoinConverter(data.total)}</span>
+          <span className="item-value">{formatSmidge(data.total)}</span>
         </li>
         <li className="item">
           <span className="item-name">Space</span>

@@ -57,7 +57,7 @@ const DetailAtxs = (props: Props) => {
         <li className="item">
           <span className="item-name">Fee</span>
           <span className="item-value">
-            {formatSmidge(data.gasPrice * data.maxGas)}
+            {formatSmidge(data.fee)}
           </span>
         </li>
         <li className="item">

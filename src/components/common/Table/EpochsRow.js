@@ -9,7 +9,7 @@ import {
   REWARDS,
   TXNS,
 } from '../../../config/constants';
-import { smhCoinConverter } from '../../../helper/converter';
+import { formatSmidge } from '../../../helper/converter';
 import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
@@ -49,10 +49,10 @@ const EpochsRow = (props: Props) => {
             href={`/${EPOCHS}/${item.number}/${REWARDS}`}
             onClick={(e) => { viewStore.linkHandler(e, EPOCHS, item.number, REWARDS); }}
           >
-            {smhCoinConverter(item.stats.current.rewards)}
+            {formatSmidge(item.stats.current.rewards)}
           </a>
         </div>
-        <div className="td" style={{ flexGrow: 2 }}>{smhCoinConverter(item.stats.current.circulation)}</div>
+        <div className="td" style={{ flexGrow: 2 }}>{formatSmidge(item.stats.current.circulation)}</div>
       </div>
     ))
   );

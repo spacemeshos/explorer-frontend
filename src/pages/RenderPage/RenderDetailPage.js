@@ -18,7 +18,9 @@ import DetailsBlock from '../../components/common/Details/DetailBlock';
 import DetailSmesher from '../../components/common/Details/DetailSmesher';
 import DetailApp from '../../components/common/Details/DetailApp';
 import Loader from '../../components/common/Loader';
-import { byteConverter, smhCoinConverter } from '../../helper/converter';
+import {
+  byteConverter, formatSmidge, parseSmidge,
+} from '../../helper/converter';
 import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
 import DetailAtxs from '../../components/common/Details/DetailAtxs';
 import NoData from '../../components/common/NoData';
@@ -72,7 +74,7 @@ const RenderDetailPage = (props: Props) => {
         </>
       );
     case LAYERS:
-      const layersObject = smhCoinConverter(data?.rewards, true);
+      const layersObject = parseSmidge(data?.rewards);
       return (
         <>
           <div className="page-wrap">
@@ -94,7 +96,7 @@ const RenderDetailPage = (props: Props) => {
         </>
       );
     case TXNS:
-      const txnsObject = smhCoinConverter(data?.amount, true);
+      const txnsObject = parseSmidge(data?.amount);
       return (
         <>
           <div className="page-wrap">
@@ -148,7 +150,7 @@ const RenderDetailPage = (props: Props) => {
         </>
       );
     case ACCOUNTS:
-      const balance = data && smhCoinConverter(data.balance, true);
+      const balance = data && parseSmidge(data.balance);
       return (
         <>
           <div className="page-wrap">
@@ -204,7 +206,7 @@ const RenderDetailPage = (props: Props) => {
         </>
       );
     case REWARDS:
-      const balanceReward = data && smhCoinConverter(data.total, true);
+      const balanceReward = data && parseSmidge(data.total);
       return (
         <>
           <div className="page-wrap">
@@ -239,7 +241,7 @@ const RenderDetailPage = (props: Props) => {
               number={epoch && epoch.stats.cumulative.txs}
               caption="Transactions"
               coinCaption="total coin rewards"
-              coins={epoch && smhCoinConverter(epoch && epoch.stats.cumulative.txsamount)}
+              coins={epoch && formatSmidge(epoch && epoch.stats.cumulative.txsamount)}
             />
           </div>
           {data ? <DetailsBlock data={data} viewStore={viewStore} network={network} /> : <NoData />}

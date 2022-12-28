@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { observer } from 'mobx-react';
-import { smhCoinConverter } from '../../../helper/converter';
+import { formatSmidge } from '../../../helper/converter';
 import { setFontSize, setLineHeight } from '../../../helper/cssHelper';
 import { formattedDate } from '../../../helper/formatter';
 import CustomTimeAgo from '../CustomTimeAgo';
@@ -64,7 +64,7 @@ const RightSideBlock = (props: Props) => {
       <div className="rightColumn-desc">{unit}</div>
       <div className="rightColumn-data">
         <p>{`${coinCaption}`}</p>
-        <p>{`${smhCoinConverter(coins)}`}</p>
+        <p>{`${formatSmidge(coins)}`}</p>
       </div>
     </div>
   );
