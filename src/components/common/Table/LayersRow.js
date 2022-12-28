@@ -9,7 +9,7 @@ import {
   REWARDS,
   TXNS,
 } from '../../../config/constants';
-import { byteConverter, smhCoinConverter } from '../../../helper/converter';
+import { byteConverter, formatSmidge } from '../../../helper/converter';
 import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
@@ -38,7 +38,7 @@ const LayersRow = (props: Props) => {
               viewStore.linkHandler(e, LAYERS, item.number, TXNS);
             }}
           >
-            {`${item.txs} Transactions (${smhCoinConverter(item.txsamount)})`}
+            {`${item.txs} Transactions (${formatSmidge(item.txsamount)})`}
           </a>
         </div>
         <div className="td">
@@ -58,7 +58,7 @@ const LayersRow = (props: Props) => {
               viewStore.linkHandler(e, LAYERS, item.number, REWARDS);
             }}
           >
-            {smhCoinConverter(item.rewards)}
+            {formatSmidge(item.rewards)}
           </a>
         </div>
       </div>

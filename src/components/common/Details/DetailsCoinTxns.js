@@ -3,7 +3,7 @@ import React from 'react';
 
 import CopyButton from '../CopyButton';
 import { ACCOUNTS, LAYERS } from '../../../config/constants';
-import { smhCoinConverter } from '../../../helper/converter';
+import { formatSmidge } from '../../../helper/converter';
 import { fullDate } from '../../../helper/formatter';
 import CustomTimeAgo from '../CustomTimeAgo';
 
@@ -55,7 +55,7 @@ const DetailsCoinTxns = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Value</span>
-          <span className="item-value">{smhCoinConverter(data.amount)}</span>
+          <span className="item-value">{formatSmidge(data.amount)}</span>
         </li>
         <li className="item">
           <span className="item-name">Counter</span>
@@ -64,7 +64,7 @@ const DetailsCoinTxns = (props: Props) => {
         <li className="item">
           <span className="item-name">Fee</span>
           <span className="item-value">
-            {smhCoinConverter(data.gasProvided)}
+            {formatSmidge(data.gasProvided)}
           </span>
         </li>
       </ul>

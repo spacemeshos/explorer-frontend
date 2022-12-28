@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import CustomTimeAgo from '../CustomTimeAgo';
 
 import shortFormHash from '../../../helper/longFormHash';
-import { smhCoinConverter } from '../../../helper/converter';
+import { formatSmidge } from '../../../helper/converter';
 import { ACCOUNTS } from '../../../config/constants';
 
 type Props = {
@@ -26,19 +26,19 @@ const AccountsRow = (props: Props) => {
           </a>
         </div>
         <div className="td">
-          {smhCoinConverter(item.sent)}
+          {formatSmidge(item.sent)}
         </div>
         <div className="td">
-          {smhCoinConverter(item.recieved)}
+          {formatSmidge(item.recieved)}
         </div>
         <div className="td">
           <CustomTimeAgo time={item.timestamp} />
         </div>
         <div className="td">
-          {smhCoinConverter(item.awards)}
+          {formatSmidge(item.awards)}
         </div>
         <div className="td">
-          {smhCoinConverter(item.balance)}
+          {formatSmidge(item.balance)}
         </div>
       </div>
     ))

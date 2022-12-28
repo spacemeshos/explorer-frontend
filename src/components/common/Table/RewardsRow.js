@@ -11,7 +11,7 @@ import {
   REWARDS,
   SMESHER,
 } from '../../../config/constants';
-import { byteConverter, smhCoinConverter } from '../../../helper/converter';
+import { byteConverter, formatSmidge } from '../../../helper/converter';
 
 type Props = {
   data: Array<Object>,
@@ -48,7 +48,7 @@ const RewardsRow = (props: Props) => {
           {byteConverter(item.space)}
         </div>
         <div className="td">
-          {smhCoinConverter(item.total)}
+          {formatSmidge(item.total)}
         </div>
       </div>
     ))

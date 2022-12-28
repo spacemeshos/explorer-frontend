@@ -9,7 +9,7 @@ import longFormHash from '../../../helper/longFormHash';
 import {
   ACCOUNTS, LAYERS, TXNS,
 } from '../../../config/constants';
-import { smhCoinConverter } from '../../../helper/converter';
+import { formatSmidge } from '../../../helper/converter';
 import { mappingStatus } from '../../../helper/mappingStatus';
 
 type Props = {
@@ -47,7 +47,7 @@ const TransactionsRow = (props: Props) => {
             {item.layer}
           </a>
         </div>
-        <div className="td">{smhCoinConverter(item.amount)}</div>
+        <div className="td">{formatSmidge(item.amount)}</div>
         <div className="td">
           <a
             href={`/${ACCOUNTS}/${item.sender}`}

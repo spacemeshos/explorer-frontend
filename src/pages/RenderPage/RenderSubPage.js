@@ -19,7 +19,7 @@ import {
   ACCOUNTS,
 } from '../../config/constants';
 import longFormHash from '../../helper/longFormHash';
-import { smhCoinConverter } from '../../helper/converter';
+import { formatSmidge } from '../../helper/converter';
 import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
 import RightSideBlock from '../../components/common/CountBlock/RightSideBlock';
 
@@ -161,7 +161,7 @@ const RenderSubPage = (props: Props) => {
                 number={layer && layer.txs}
                 caption="txns"
                 coinCaption="Transactions Value"
-                coins={layer && smhCoinConverter(layer.txsamount)}
+                coins={layer && formatSmidge(layer.txsamount)}
               />
             </div>
             <Table name={subPage} viewStore={viewStore} />

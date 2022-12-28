@@ -9,7 +9,7 @@ import {
 } from '../../../config/constants';
 import { fullDate } from '../../../helper/formatter';
 import getValueFromStatsObject from '../../../helper/getValueFromStatsObject';
-import { smhCoinConverter } from '../../../helper/converter';
+import { formatSmidge } from '../../../helper/converter';
 import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
@@ -67,7 +67,7 @@ const DetailsEpoch = (props: Props) => {
         </li>
         <li className="item">
           <span className="item-name">Rewards Amount</span>
-          <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, REWARDS)}>{smhCoinConverter(stats.rewards)}</a></span>
+          <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, REWARDS)}>{formatSmidge(stats.rewards)}</a></span>
         </li>
         <li className="item">
           <span className="item-name">Smeshers</span>
