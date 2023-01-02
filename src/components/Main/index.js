@@ -1,5 +1,5 @@
 // @flow
-import React, { useEffect } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
 
 import Layout from '../Layout';
@@ -15,14 +15,6 @@ type Props = {
 
 const Main = (props: Props) => {
   const { viewStore, uiStore } = props;
-
-  useEffect(() => {
-    // viewStore.getNetworkInfo();
-    const intervalId = setInterval(() => viewStore.getNetworkInfo(), 30000);
-    return () => clearInterval(intervalId);
-  },
-  []);
-
   return (
     <Layout uiStore={uiStore} viewStore={viewStore}>
       { renderCurrentView(viewStore, uiStore) }
