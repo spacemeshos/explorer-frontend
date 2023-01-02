@@ -1,6 +1,5 @@
 // @flow
 import * as React from 'react';
-import { formatSmidge } from '../../../helper/converter';
 
 type Props = {
   color: string,
@@ -43,7 +42,7 @@ const RightCountBlock = (props: Props) => {
           {`${coinCaption} `}
         </p>
         <p>
-          {`${formatSmidge(coins)}`}
+          {coins}
         </p>
       </div>
     </div>
