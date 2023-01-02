@@ -11,7 +11,6 @@ type Props = {
 
 const RightCountBlock = (props: Props) => {
   const { color, number, caption, coinCaption, coins } = props;
-
   const setFontSize = () => {
     if (number && number.length < 5) return '60px';
     if (number && number.length >= 5) return '42px';

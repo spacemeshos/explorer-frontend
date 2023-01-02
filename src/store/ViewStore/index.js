@@ -55,7 +55,7 @@ class ViewStore {
       showPage: action,
       showDetailPage: action,
       showSubPage: action,
-      getNetworkInfo: action,
+      networkInfo: action,
       color: observable,
     });
     this.fetch = apiFetch;
@@ -133,6 +133,7 @@ class ViewStore {
 
   setNetwork(data) {
     this.network = this.networks.find(item => item.value === data.value);
+    this.network.value += this.network.value.endsWith("/") ? "" : "/"
   }
 
   buildUrlString(data: Object) {
@@ -150,7 +151,7 @@ class ViewStore {
       const networks = reMappingNetworkArray(response);
       this.setNetworks(networks);
       this.setNetwork(networks[0]);
-      await this.getNetworkInfo();
+      await this.networkInfo();
     } catch (e) {
       console.log('Error: ', e.message);
     }
@@ -164,7 +165,6 @@ class ViewStore {
     try {
       !this.network.value && await this.bootstrap();
       const rawData = await this.fetch(`${this.network.value}txs`);
-      this.mainInfo = await this.fetch(`${this.network.value}network-info`);
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
@@ -184,7 +184,6 @@ class ViewStore {
     try {
       !this.network.value && await this.bootstrap();
       const rawData = await this.fetch(`${this.network.value}${page}`);
-      this.mainInfo = await this.fetch(`${this.network.value}network-info`);
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
@@ -215,7 +214,6 @@ class ViewStore {
       const correctId = page === REWARDS ? id.slice(2): id;
 
       const rawData = await this.fetch(`${this.network.value}${page}/${correctId}`);
-      this.mainInfo = await this.fetch(`${this.network.value}network-info`);
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
@@ -241,7 +239,6 @@ class ViewStore {
     try {
       !this.network.value && await this.bootstrap();
       const rawData = await this.fetch(`${this.network.value}${page}/${id}/${subPage}`);
-      this.mainInfo = await this.fetch(`${this.network.value}network-info`);
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
@@ -316,36 +313,32 @@ class ViewStore {
     }
   }
 
-  async getNetworkInfo() {
-    try {
-      this.mainInfo = await this.fetch(`${this.network.value}network-info`);
-      const { network } = toJS(this.mainInfo);
+  processNetworkInfo() {
+    const { network } = toJS(this.mainInfo);
 
-      if ((network.lastlayer + 24) < network.lastapprovedlayer || network.issynced === false) {
-        this.color = 'red';
-      } else if (network.lastlayerts < ((Math.floor(Date.now() / 1000)) - (network.duration))) {
-        this.color = 'orange';
-      } else {
-        this.color = 'green';
-      }
-    } catch (e) {
-      console.log('Error', e.message);
+    if ((network.lastlayer + 24) < network.lastapprovedlayer || network.issynced === false) {
+      this.color = 'red';
+    } else if (network.lastlayerts < ((Math.floor(Date.now() / 1000)) - (network.duration))) {
+      this.color = 'orange';
+    } else {
+      this.color = 'green';
+    }
+  }
+
+  async networkInfo() {
+    let wsUrl = this.network.value.replace(/^https(.*)/, 'wss$1').replace(/^http(.*)/, 'ws$1')
+    let ws = new WebSocket(`${wsUrl}ws/network-info`)
+    let that = this;
+    ws.onmessage = (event) => {
+      runInAction(async () => {
+        that.mainInfo = JSON.parse(event.data);
+        that.processNetworkInfo(this.mainInfo);
+      })
     }
   }
 
   getRewardsData(data){
     return data.map(item=>({...item, _id: `0x${item._id}`}))
-  }
-
-  defineIdType(value) {
-    if (value.length === 42) {
-      return ACCOUNTS;
-    } if (value.length > 42) {
-      return TXNS;
-    } if (value.length < 42) {
-      return LAYERS;
-    }
-    return false;
   }
 }
 
