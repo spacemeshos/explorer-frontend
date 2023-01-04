@@ -94,6 +94,7 @@ class ViewStore {
     name: null,
     id: null,
     subPage: null,
+    pageData: null,
     data: null,
     pagination: null,
     status: STATUS_LOADING,
@@ -242,13 +243,15 @@ class ViewStore {
       !this.network.value && await this.bootstrap();
       const rawData = await this.fetch(`${this.network.value}${page}/${id}/${subPage}`);
       this.mainInfo = await this.fetch(`${this.network.value}network-info`);
+      const pageData = await this.fetch(`${this.network.value}${page}/${id}`);
 
       runInAction(() => {
         this.currentView.status = STATUS_SUCCESS;
+        this.currentView.pageData = pageData.data[0];
         if(subPage === REWARDS) {
           this.currentView.data = this.getRewardsData(rawData.data);
         } else {
-          this.currentView.data = rawData.data;
+            this.currentView.data = rawData.data;
         }
         this.currentView.pagination = rawData.pagination;
       });

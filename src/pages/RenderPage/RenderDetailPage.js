@@ -238,10 +238,10 @@ const RenderDetailPage = (props: Props) => {
             />
             <RightCountBlock
               color={getColorByPageName(name)}
-              number={epoch && epoch.stats.cumulative.txs}
+              number={data && data.txsnumber}
               caption="Transactions"
-              coinCaption="total coin rewards"
-              coins={epoch && formatSmidge(epoch && epoch.stats.cumulative.txsamount)}
+              coinCaption="transactions value"
+              coins={epoch && formatSmidge(data && data.txsvalue)}
             />
           </div>
           {data ? <DetailsBlock data={data} viewStore={viewStore} network={network} /> : <NoData />}
