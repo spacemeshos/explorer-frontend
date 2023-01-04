@@ -33,7 +33,7 @@ type Props = {
 
 const RenderSubPage = (props: Props) => {
   const { name, id, subPage, uiStore, viewStore } = props;
-  const { data, pagination } = toJS(viewStore.currentView);
+  const { data, pagination, pageData } = toJS(viewStore.currentView);
 
   const { epoch, layer, network } = toJS(viewStore.mainInfo);
 
@@ -158,10 +158,10 @@ const RenderSubPage = (props: Props) => {
               />
               <RightCountBlock
                 color={getColorByPageName(name)}
-                number={layer && layer.txs}
+                number={pageData && pageData.txs}
                 caption="txns"
                 coinCaption="Transactions Value"
-                coins={layer && formatSmidge(layer.txsamount)}
+                coins={pageData && formatSmidge(pageData.txsamount)}
               />
             </div>
             <Table name={subPage} viewStore={viewStore} />
