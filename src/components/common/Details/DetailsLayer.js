@@ -4,12 +4,10 @@ import CopyButton from '../CopyButton';
 import {
   EPOCHS,
   LAYERS,
-  REWARDS,
   BLOCKS,
   TXNS, SMESHER,
 } from '../../../config/constants';
 import { fullDate } from '../../../helper/formatter';
-import { formatSmidge } from '../../../helper/converter';
 import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
@@ -54,21 +52,21 @@ const DetailsLayer = (props: Props) => {
             </a>
           </span>
         </li>
-        <li className="item">
-          <span className="item-name">Rewards </span>
-          <span className="item-value">
-            <a
-              href={`/${LAYERS}/${data.number}/${REWARDS}`}
-              onClick={(e) => { viewStore.linkHandler(e, LAYERS, data.number, REWARDS); }}
-            >
-              {formatSmidge(data.rewards)}
-            </a>
-          </span>
-        </li>
-        <li className="item">
-          <span className="item-name">Confidence</span>
-          <span className="item-value">--</span>
-        </li>
+        {/* <li className="item"> */}
+        {/*  <span className="item-name">Rewards </span> */}
+        {/*  <span className="item-value"> */}
+        {/*    <a */}
+        {/*      href={`/${LAYERS}/${data.number}/${REWARDS}`} */}
+        {/*      onClick={(e) => { viewStore.linkHandler(e, LAYERS, data.number, REWARDS); }} */}
+        {/*    > */}
+        {/*      {formatSmidge(data.rewards)} */}
+        {/*    </a> */}
+        {/*  </span> */}
+        {/* </li> */}
+        {/* <li className="item"> */}
+        {/*  <span className="item-name">Confidence</span> */}
+        {/*  <span className="item-value">--</span> */}
+        {/* </li> */}
         <li className="item">
           <span className="item-name">Epoch</span>
           <span className="item-value">

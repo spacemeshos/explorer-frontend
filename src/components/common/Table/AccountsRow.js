@@ -34,9 +34,9 @@ const AccountsRow = (props: Props) => {
         <div className="td">
           <CustomTimeAgo time={item.timestamp} />
         </div>
-        <div className="td">
-          {formatSmidge(item.awards)}
-        </div>
+        {/* <div className="td"> */}
+        {/*  {formatSmidge(item.awards)} */}
+        {/* </div> */}
         <div className="td">
           {formatSmidge(item.balance)}
         </div>

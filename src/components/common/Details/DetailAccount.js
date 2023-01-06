@@ -31,14 +31,14 @@ const DetailAccount = (props: Props) => {
             {data.counter}
           </span>
         </li>
-        <li className="item">
-          <span className="item-name">Rewards</span>
-          <span className="item-value">
-            <a href={`/${ACCOUNTS}/${data.address}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, data.address, REWARDS)}>
-              {formatSmidge(data.awards)}
-            </a>
-          </span>
-        </li>
+        {/* <li className="item"> */}
+        {/*  <span className="item-name">Rewards</span> */}
+        {/*  <span className="item-value"> */}
+        {/*    <a href={`/${ACCOUNTS}/${data.address}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, data.address, REWARDS)}> */}
+        {/*      {formatSmidge(data.awards)} */}
+        {/*    </a> */}
+        {/*  </span> */}
+        {/* </li> */}
         <li className="item">
           <span className="item-name">Balance</span>
           <span className="item-value">

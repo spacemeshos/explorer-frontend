@@ -44,16 +44,16 @@ const DetailsBlock = (props: Props) => {
             {data.txsnumber}
           </span>
         </li>
-        <li className="item">
-          <span className="item-name">Rewards</span>
-          <span className="item-value">
-            0
-          </span>
-        </li>
-        <li className="item">
-          <span className="item-name">Total Rewards value</span>
-          <span className="item-value">0</span>
-        </li>
+        {/* <li className="item"> */}
+        {/*  <span className="item-name">Rewards</span> */}
+        {/*  <span className="item-value"> */}
+        {/*    0 */}
+        {/*  </span> */}
+        {/* </li> */}
+        {/* <li className="item"> */}
+        {/*  <span className="item-name">Total Rewards value</span> */}
+        {/*  <span className="item-value">0</span> */}
+        {/* </li> */}
         <li className="item">
           <span className="item-name">Finality</span>
           <span className="item-value">{data.layer > network.lastapprovedlayer ? '0%' : '99%' }</span>
