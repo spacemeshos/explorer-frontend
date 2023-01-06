@@ -1,20 +1,13 @@
-name: Deploy
+name: CI
 
 on:
-  push:
-    branches:
-      - master
+  pull_request:
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      - name: Init gcloud
-        run: |
-          echo "${{ secrets.GCLOUD_KEY }}" | base64 -d > key.json
-          gcloud auth activate-service-account --key-file=key.json
 
       - name: Build
         env:
@@ -22,6 +15,3 @@ jobs:
         run: |
           yarn
           yarn build
-
-      - name: Upload
-        run: gsutil -m rsync -r -d ./build gs://spacemesh-explorer
