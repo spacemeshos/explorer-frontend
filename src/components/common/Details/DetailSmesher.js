@@ -3,9 +3,9 @@ import * as React from 'react';
 
 import CopyButton from '../CopyButton';
 import {
-  ACCOUNTS, ATXS, REWARDS, SMESHER,
+  ACCOUNTS, ATXS, SMESHER,
 } from '../../../config/constants';
-import { byteConverter, formatSmidge } from '../../../helper/converter';
+import { byteConverter } from '../../../helper/converter';
 
 type Props = {
   data: Object,
@@ -40,12 +40,12 @@ const DetailAccount = (props: Props) => {
             {byteConverter(data.cSize)}
           </span>
         </li>
-        <li className="item">
-          <span className="item-name">Reward</span>
-          <span className="item-value">
-            <a href={`/${SMESHER}/${data.id}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, data.id, REWARDS)}>{formatSmidge(data.rewards)}</a>
-          </span>
-        </li>
+        {/* <li className="item"> */}
+        {/*  <span className="item-name">Reward</span> */}
+        {/*  <span className="item-value"> */}
+        {/*    <a href={`/${SMESHER}/${data.id}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, data.id, REWARDS)}>{formatSmidge(data.rewards)}</a> */}
+        {/*  </span> */}
+        {/* </li> */}
         <li className="item">
           <span className="item-name">Activations</span>
           <span className="item-value">

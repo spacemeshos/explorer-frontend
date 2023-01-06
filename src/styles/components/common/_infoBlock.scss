@@ -5,14 +5,17 @@
   &-list {
     display: flex;
     justify-content: space-around;
+    list-style: none;
   }
 
+  li+li { border-left: 1px solid $secondGrey }
+
   &-item {
-    padding: 0 30px;
     margin: 10px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex: 1 1 auto;
 
     &-number {
       color: $overviewColor;
@@ -33,18 +36,6 @@
       font-size: 16px;
       text-transform: uppercase;
     }
-  }
-
-  &-item:first-child {
-    align-items: flex-start;
-  }
-
-  &-item:last-child {
-    align-items: flex-end;
-  }
-
-  &-item:not(:last-child) {
-    border-right: 1px solid $secondGrey;
   }
 }
 

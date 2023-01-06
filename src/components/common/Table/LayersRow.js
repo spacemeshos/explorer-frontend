@@ -4,9 +4,8 @@ import { nanoid } from 'nanoid';
 import { observer } from 'mobx-react';
 
 import {
-  ATXS,
   LAYERS,
-  REWARDS,
+  ATXS,
   TXNS,
 } from '../../../config/constants';
 import { byteConverter, formatSmidge } from '../../../helper/converter';
@@ -51,16 +50,16 @@ const LayersRow = (props: Props) => {
             {byteConverter(item.atxssize)}
           </a>
         </div>
-        <div className="td">
-          <a
-            href={`/${LAYERS}/${item.number}/${REWARDS}`}
-            onClick={(e) => {
-              viewStore.linkHandler(e, LAYERS, item.number, REWARDS);
-            }}
-          >
-            {formatSmidge(item.rewards)}
-          </a>
-        </div>
+        {/* <div className="td"> */}
+        {/*  <a */}
+        {/*    href={`/${LAYERS}/${item.number}/${REWARDS}`} */}
+        {/*    onClick={(e) => { */}
+        {/*      viewStore.linkHandler(e, LAYERS, item.number, REWARDS); */}
+        {/*    }} */}
+        {/*  > */}
+        {/*    {formatSmidge(item.rewards)} */}
+        {/*  </a> */}
+        {/* </div> */}
       </div>
     ))
   );

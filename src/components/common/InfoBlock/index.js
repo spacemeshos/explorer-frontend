@@ -1,10 +1,10 @@
 // @flow
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { byteConverter, formatSmidge } from '../../../helper/converter';
+import { byteConverter } from '../../../helper/converter';
 import Loader from '../Loader';
 import {
-  ACCOUNTS, EPOCHS, LAYERS, REWARDS, SMESHER,
+  ACCOUNTS, EPOCHS, LAYERS, SMESHER,
 } from '../../../config/constants';
 
 type Props = {
@@ -18,7 +18,7 @@ type Props = {
 }
 
 const InfoBlock = (props: Props) => {
-  const { viewStore, accounts, rewards, security, epoch, layer, smeshers } = props;
+  const { viewStore, accounts, security, epoch, layer, smeshers } = props;
 
   const onClickHandler = (e, page) => {
     e.preventDefault();
@@ -36,14 +36,14 @@ const InfoBlock = (props: Props) => {
           </p>
           <p className="infoBlock-item-title">Accounts</p>
         </li>
-        <li className="infoBlock-item">
-          <p className="infoBlock-item-number">
-            <a href={`/${REWARDS}`} onClick={(e) => onClickHandler(e, REWARDS)}>
-              {formatSmidge(rewards) || (<Loader size={15} />)}
-            </a>
-          </p>
-          <p className="infoBlock-item-title">smeshing rewards</p>
-        </li>
+        {/* <li className="infoBlock-item"> */}
+        {/*  <p className="infoBlock-item-number"> */}
+        {/*    <a href={`/${REWARDS}`} onClick={(e) => onClickHandler(e, REWARDS)}> */}
+        {/*      {formatSmidge(rewards) || (<Loader size={15} />)} */}
+        {/*    </a> */}
+        {/*  </p> */}
+        {/*  <p className="infoBlock-item-title">smeshing rewards</p> */}
+        {/* </li> */}
         <li className="infoBlock-item">
           <p className="infoBlock-item-number">{byteConverter(security)}</p>
           <p className="infoBlock-item-title">security</p>

@@ -6,10 +6,8 @@ import { nanoid } from 'nanoid';
 import {
   EPOCHS,
   LAYERS,
-  REWARDS,
   TXNS,
 } from '../../../config/constants';
-import { formatSmidge } from '../../../helper/converter';
 import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
@@ -44,15 +42,15 @@ const EpochsRow = (props: Props) => {
           </a>
         </div>
         <div className="td">{item.stats.current.smeshers}</div>
-        <div className="td">
-          <a
-            href={`/${EPOCHS}/${item.number}/${REWARDS}`}
-            onClick={(e) => { viewStore.linkHandler(e, EPOCHS, item.number, REWARDS); }}
-          >
-            {formatSmidge(item.stats.current.rewards)}
-          </a>
-        </div>
-        <div className="td" style={{ flexGrow: 2 }}>{formatSmidge(item.stats.current.circulation)}</div>
+        {/* <div className="td"> */}
+        {/*  <a */}
+        {/*    href={`/${EPOCHS}/${item.number}/${REWARDS}`} */}
+        {/*    onClick={(e) => { viewStore.linkHandler(e, EPOCHS, item.number, REWARDS); }} */}
+        {/*  > */}
+        {/*    {formatSmidge(item.stats.current.rewards)} */}
+        {/*  </a> */}
+        {/* </div> */}
+        {/* <div className="td" style={{ flexGrow: 2 }}>{formatSmidge(item.stats.current.circulation)}</div> */}
       </div>
     ))
   );

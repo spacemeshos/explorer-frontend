@@ -3,13 +3,11 @@ import * as React from 'react';
 import {
   EPOCHS,
   LAYERS,
-  REWARDS,
   SMESHER,
   TXNS,
 } from '../../../config/constants';
 import { fullDate } from '../../../helper/formatter';
 import getValueFromStatsObject from '../../../helper/getValueFromStatsObject';
-import { formatSmidge } from '../../../helper/converter';
 import CustomTimeAgo from '../CustomTimeAgo';
 
 type Props = {
@@ -61,14 +59,14 @@ const DetailsEpoch = (props: Props) => {
             </a>
           </span>
         </li>
-        <li className="item">
-          <span className="item-name">Rewards</span>
-          <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, REWARDS)}>{stats.rewardsnumber}</a></span>
-        </li>
-        <li className="item">
-          <span className="item-name">Rewards Amount</span>
-          <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, REWARDS)}>{formatSmidge(stats.rewards)}</a></span>
-        </li>
+        {/* <li className="item"> */}
+        {/*  <span className="item-name">Rewards</span> */}
+        {/*  <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, REWARDS)}>{stats.rewardsnumber}</a></span> */}
+        {/* </li> */}
+        {/* <li className="item"> */}
+        {/*  <span className="item-name">Rewards Amount</span> */}
+        {/*  <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, REWARDS)}>{formatSmidge(stats.rewards)}</a></span> */}
+        {/* </li> */}
         <li className="item">
           <span className="item-name">Smeshers</span>
           <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${SMESHER}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, SMESHER)}>{stats.smeshers}</a></span>
