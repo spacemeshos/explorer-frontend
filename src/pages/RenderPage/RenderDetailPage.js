@@ -117,7 +117,7 @@ const RenderDetailPage = (props: Props) => {
           {data ? (
             <>
               <TxnsStatus status={data.state} />
-              {data.type === 0 ? (<DetailsCoinTxns data={data} viewStore={viewStore} />) : (<DetailAtxs data={data} viewStore={viewStore} />)}
+              <DetailsCoinTxns data={data} viewStore={viewStore} />
             </>
           ) : (<Loader size={100} />)}
         </>

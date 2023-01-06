@@ -6,6 +6,7 @@ import { ACCOUNTS, LAYERS } from '../../../config/constants';
 import { formatSmidge } from '../../../helper/converter';
 import { fullDate } from '../../../helper/formatter';
 import CustomTimeAgo from '../CustomTimeAgo';
+import { typeOfTransaction } from '../../../helper/tx';
 
 type Props = {
   data: Object,
@@ -23,6 +24,12 @@ const DetailsCoinTxns = (props: Props) => {
           <span className="item-value">
             {data.id}
             <CopyButton value={data.id} />
+          </span>
+        </li>
+        <li className="item">
+          <span className="item-name">Type</span>
+          <span className="item-value">
+            {typeOfTransaction(data.type)}
           </span>
         </li>
         <li className="item">
@@ -64,7 +71,7 @@ const DetailsCoinTxns = (props: Props) => {
         <li className="item">
           <span className="item-name">Fee</span>
           <span className="item-value">
-            {formatSmidge(data.gasProvided)}
+            {formatSmidge(data.fee)}
           </span>
         </li>
       </ul>
