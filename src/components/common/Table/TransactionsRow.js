@@ -11,6 +11,7 @@ import {
 } from '../../../config/constants';
 import { formatSmidge } from '../../../helper/converter';
 import { mappingStatus } from '../../../helper/mappingStatus';
+import { typeOfTransaction } from '../../../helper/tx';
 
 type Props = {
   data: Array<Object>,
@@ -19,19 +20,6 @@ type Props = {
 
 const TransactionsRow = (props: Props) => {
   const { data, viewStore } = props;
-
-  const typeOfTxns = (type) => {
-    switch (type) {
-      case 0:
-        return 'Coin';
-      case 1:
-        return 'ATX';
-      case 2:
-        return 'Smart Contract';
-      default:
-        return null;
-    }
-  };
 
   return (
     data && data.map((item) => (
@@ -69,7 +57,7 @@ const TransactionsRow = (props: Props) => {
             {longFormHash(item.receiver)}
           </a>
         </div>
-        <div className="td">{typeOfTxns(item.type)}</div>
+        <div className="td">{typeOfTransaction(item.type)}</div>
       </div>
     ))
   );
