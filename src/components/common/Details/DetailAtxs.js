@@ -8,7 +8,6 @@ import {
   LAYERS,
   SMESHER,
 } from '../../../config/constants';
-import { byteConverter } from '../../../helper/converter';
 
 type Props = {
   data: Object,
@@ -55,9 +54,9 @@ const DetailAtxs = (props: Props) => {
           </span>
         </li>
         <li className="item">
-          <span className="item-name">Space</span>
+          <span className="item-name">Data commitment units</span>
           <span className="item-value">
-            {byteConverter(data.cSize)}
+            {data.numunits}
           </span>
         </li>
         <li className="item">
