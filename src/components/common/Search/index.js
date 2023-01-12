@@ -1,12 +1,9 @@
 // @flow
 import React, { useEffect, useState } from 'react';
+import {useStore} from "../../../store";
 
-type Props = {
-  viewStore: Object,
-};
-
-const Search = (props: Props) => {
-  const { viewStore } = props;
+const Search = () => {
+  const store = useStore();
   const [searchValue, setSearchValue] = useState('');
 
   const onChangeHandler = (e) => setSearchValue(e.target.value);
@@ -14,7 +11,7 @@ const Search = (props: Props) => {
   useEffect(() => {
     const listener = (event) => {
       if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-        viewStore.showSearchResult(searchValue);
+        store.showSearchResult(searchValue);
         setSearchValue('');
       }
     };
@@ -25,7 +22,7 @@ const Search = (props: Props) => {
   }, [searchValue, setSearchValue]);
 
   const onClickHandler = () => {
-    viewStore.showSearchResult(searchValue);
+    store.showSearchResult(searchValue);
   };
 
   return (

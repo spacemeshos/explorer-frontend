@@ -5,12 +5,6 @@ import {TXNS} from "../config/constants";
 import RightSideBlock from "../components/common/CountBlock/RightSideBlock";
 import Table from "../components/common/Table";
 import {toJS} from "mobx";
-import store from "../store/store";
-
-type Props = {
-    viewStore: Object,
-    uiStore: Object,
-}
 
 export const Overview = (props) => {
     // const {viewStore, uiStore} = props;
