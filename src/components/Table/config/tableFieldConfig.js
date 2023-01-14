@@ -9,7 +9,7 @@ import {
   SMART_WALLET,
   ATXS,
   BLOCKS,
-} from '../../../../config/constants';
+} from '../../../config/constants';
 
 export default {
   [OVERVIEW]: [

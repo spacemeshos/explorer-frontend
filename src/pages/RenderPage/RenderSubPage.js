@@ -3,10 +3,10 @@ import * as React from 'react';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 
-import TitleBlock from '../../components/common/TitleBlock';
+import TitleBlock from '../../components/TitleBlock';
 import { getColorByPageName } from '../../helper/getColorByPageName';
-import { AmountBlock } from '../../components/common/CountBlock';
-import Table from '../../components/common/Table';
+import { AmountBlock } from '../../components/CountBlock';
+import Table from '../../components/Table';
 
 import {
   EPOCHS,
@@ -20,8 +20,8 @@ import {
 } from '../../config/constants';
 import longFormHash from '../../helper/longFormHash';
 import { formatSmidge } from '../../helper/converter';
-import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
-import RightSideBlock from '../../components/common/CountBlock/RightSideBlock';
+import RightCountBlock from '../../components/CountBlock/RightCountBlock';
+import RightSideBlock from '../../components/CountBlock/RightSideBlock';
 
 type Props = {
   name: string,

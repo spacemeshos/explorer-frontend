@@ -1,14 +1,15 @@
 // @flow
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { byteConverter } from '../../../helper/converter';
-import Loader from '../Loader';
+import { byteConverter } from '../../helper/converter';
+import Loader from '../common/Loader';
 import {
   ACCOUNTS, EPOCHS, LAYERS, SMESHER,
-} from '../../../config/constants';
+} from '../../config/constants';
+import {useStore} from "../../store";
+import {Link} from "react-router-dom";
 
 type Props = {
-  viewStore: Object,
   accounts: string,
   rewards: string,
   security: string,
@@ -18,12 +19,7 @@ type Props = {
 }
 
 const InfoBlock = (props: Props) => {
-  const { viewStore, accounts, security, epoch, layer, smeshers } = props;
-
-  const onClickHandler = (e, page) => {
-    e.preventDefault();
-    viewStore.showPage({ page });
-  };
+  const { accounts, security, epoch, layer, smeshers } = props;
 
   return (
     <div className="infoBlock">
@@ -50,25 +46,26 @@ const InfoBlock = (props: Props) => {
         </li>
         <li className="infoBlock-item">
           <p className="infoBlock-item-number">
-            <a href={`/${EPOCHS}/${epoch}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, epoch)}>
+            {/*//onClick={(e) => viewStore.linkHandler(e, EPOCHS, epoch)}*/}
+            <Link to={`/${EPOCHS}/${epoch}`}>
               {JSON.stringify(epoch) || (<Loader size={15} />)}
-            </a>
+            </Link>
           </p>
           <p className="infoBlock-item-title">epoch</p>
         </li>
         <li className="infoBlock-item">
           <p className="infoBlock-item-number">
-            <a href={`/${LAYERS}/${layer}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, layer)}>
+            <Link to={`/${LAYERS}/${layer}`}>
               {JSON.stringify(layer) || (<Loader size={15} />)}
-            </a>
+            </Link>
           </p>
           <p className="infoBlock-item-title">layer</p>
         </li>
         <li className="infoBlock-item">
           <p className="infoBlock-item-number">
-            <a href={`/${SMESHER}`} onClick={(e) => onClickHandler(e, SMESHER)}>
+            <Link to={`/${SMESHER}`}>
               {JSON.stringify(smeshers) || (<Loader size={15} />)}
-            </a>
+            </Link>
           </p>
           <p className="infoBlock-item-title">active smeshers</p>
         </li>

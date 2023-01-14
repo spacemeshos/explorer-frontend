@@ -2,26 +2,20 @@
 import * as React from 'react';
 
 import { nanoid } from 'nanoid';
-import longFormHash from '../../../helper/longFormHash';
-import { BLOCKS } from '../../../config/constants';
-import CustomTimeAgo from '../CustomTimeAgo';
-import { formatSmidge } from '../../../helper/converter';
+import longFormHash from '../../helper/longFormHash';
+import { BLOCKS } from '../../config/constants';
+import CustomTimeAgo from '../common/CustomTimeAgo';
+import { formatSmidge } from '../../helper/converter';
+import {Link} from "react-router-dom";
 
-type Props = {
-  data: Array<object>,
-  viewStore: Object,
-};
-
-const BlocksRow = (props: Props) => {
-  const { data, viewStore } = props;
-
+const BlocksRow = ({ data }) => {
   return (
     data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
-          <a href={`/${BLOCKS}/${item.id}`} onClick={(e) => viewStore.linkHandler(e, BLOCKS, item.id)}>
+          <Link to={`/${BLOCKS}/${item.id}`}>
             {longFormHash(item.id)}
-          </a>
+          </Link>
         </div>
         <div className="td">--</div>
         <div className="td">

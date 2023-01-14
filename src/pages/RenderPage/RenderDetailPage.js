@@ -3,8 +3,8 @@ import * as React from 'react';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 
-import TitleBlock from '../../components/common/TitleBlock';
-import { AmountBlock, CountTxnsBlock } from '../../components/common/CountBlock';
+import TitleBlock from '../../components/TitleBlock';
+import { AmountBlock, CountTxnsBlock } from '../../components/CountBlock';
 import { DetailsEpoch, DetailsCoinTxns } from '../../components/common/Details';
 import DetailsLayer from '../../components/common/Details/DetailsLayer';
 import longFormHash from '../../helper/longFormHash';
@@ -21,10 +21,10 @@ import Loader from '../../components/common/Loader';
 import {
   byteConverter, formatSmidge, parseSmidge,
 } from '../../helper/converter';
-import RightCountBlock from '../../components/common/CountBlock/RightCountBlock';
+import RightCountBlock from '../../components/CountBlock/RightCountBlock';
 import DetailAtxs from '../../components/common/Details/DetailAtxs';
 import NoData from '../../components/common/NoData';
-import RightSideBlock from '../../components/common/CountBlock/RightSideBlock';
+import RightSideBlock from '../../components/CountBlock/RightSideBlock';
 
 import {
   EPOCHS,
@@ -37,7 +37,7 @@ import {
   BLOCKS,
   SMART_WALLET, ATXS,
 } from '../../config/constants';
-import CountAtxBlock from '../../components/common/CountBlock/CountAtxBlock';
+import CountAtxBlock from '../../components/CountBlock/CountAtxBlock';
 
 type Props = {
   name: string,

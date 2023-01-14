@@ -7,48 +7,32 @@ import {
   LAYERS,
   ATXS,
   TXNS,
-} from '../../../config/constants';
-import { byteConverter, formatSmidge } from '../../../helper/converter';
-import CustomTimeAgo from '../CustomTimeAgo';
+} from '../../config/constants';
+import { byteConverter, formatSmidge } from '../../helper/converter';
+import CustomTimeAgo from '../common/CustomTimeAgo';
+import {Link} from "react-router-dom";
 
-type Props = {
-  data: Array<object>,
-  viewStore: Object,
-};
-
-const LayersRow = (props: Props) => {
-  const { data, viewStore } = props;
-
+const LayersRow = ({ data }) => {
   return (
     data && data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
-          <a href={`/${LAYERS}/${item.number}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, item.number)}>
+          <Link to={`/${LAYERS}/${item.number}`}>
             {item.number}
-          </a>
+          </Link>
         </div>
         <div className="td">
           <CustomTimeAgo time={item.start} />
         </div>
         <div className="td">
-          <a
-            href={`/${LAYERS}/${item.number}/${TXNS}`}
-            onClick={(e) => {
-              viewStore.linkHandler(e, LAYERS, item.number, TXNS);
-            }}
-          >
-            {`${item.txs} Transactions (${formatSmidge(item.txsamount)})`}
-          </a>
+          <Link to={`/${LAYERS}/${item.number}/${TXNS}`}>
+              {`${item.txs} Transactions (${formatSmidge(item.txsamount)})`}
+          </Link>
         </div>
         <div className="td">
-          <a
-            href={`/${LAYERS}/${item.number}/${ATXS}`}
-            onClick={(e) => {
-              viewStore.linkHandler(e, LAYERS, item.number, ATXS);
-            }}
-          >
+          <Link to={`/${LAYERS}/${item.number}/${ATXS}`}>
             {byteConverter(item.atxssize)}
-          </a>
+          </Link>
         </div>
         {/* <div className="td"> */}
         {/*  <a */}
