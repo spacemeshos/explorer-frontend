@@ -49,7 +49,7 @@ const RenderMainPage = (props: Props) => {
           />
           <div className="page-wrap">
             <TitleBlock
-              title="Transactions"
+              title="Txs"
               color={getColorByPageName(TXNS)}
               desc="Recent transactions"
               uiStore={uiStore}
@@ -111,9 +111,9 @@ const RenderMainPage = (props: Props) => {
         <>
           <div className="page-wrap">
             <TitleBlock
-              title="Transactions"
+              title="Txs"
               color={getColorByPageName(name)}
-              desc="Transactions across the entire mesh"
+              desc="Txs across the entire mesh"
               uiStore={uiStore}
             />
             <RightSideBlock

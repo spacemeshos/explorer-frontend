@@ -58,6 +58,7 @@ const Table = ({name}) => {
     const pageSize = 20;
 
     useEffect(() => {
+        if(store.network.value === null) return;
         let path = name;
         if(name === OVERVIEW) {
             path = TXNS;
@@ -159,7 +160,7 @@ const Table = ({name}) => {
                 return (
                     <AccountsRow
                         key={nanoid()}
-                        data={viewStore.currentView.data}
+                        data={data}
                         config={tableFieldConfig[name]}
                     />
                 );

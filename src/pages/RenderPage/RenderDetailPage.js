@@ -239,7 +239,7 @@ const RenderDetailPage = (props: Props) => {
             <RightCountBlock
               color={getColorByPageName(name)}
               number={data && data.txsnumber}
-              caption="Transactions"
+              caption="Txs"
               coinCaption="transactions value"
               coins={epoch && formatSmidge(data && data.txsvalue)}
             />

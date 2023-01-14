@@ -1,4 +1,4 @@
-import {makeAutoObservable, observable, action, toJS} from 'mobx';
+import {makeAutoObservable, observable, action, toJS, runInAction} from 'mobx';
 import React from "react";
 import {NOT_FOUND, STATUS_SUCCESS} from "../config/constants";
 import {reMappingNetworkArray} from "../helper/mapping";
@@ -20,10 +20,11 @@ export default class Store {
             network: observable.ref,
             networkInfo: observable,
             networkColor: observable,
+            color: observable,
 
             getNetworkInfo: action,
             showSearchResult: action,
-        });
+        }, {autoBind: true});
         this.fetch = fetch;
         document.documentElement.classList.add(`theme-${this.theme}`);
         this.bootstrap();
@@ -58,16 +59,20 @@ export default class Store {
 
     async getNetworkInfo() {
         try {
-            this.networkInfo = await this.fetch(`${this.network.value}network-info`);
-            const {network} = toJS(this.networkInfo);
+            const networkInfo = await this.fetch(`${this.network.value}network-info`);
+            const {network} = toJS(networkInfo);
+            let color = 'green';
 
             if ((network.lastlayer + 24) < network.lastapprovedlayer || network.issynced === false) {
-                this.color = 'red';
+                color = 'red';
             } else if (network.lastlayerts < ((Math.floor(Date.now() / 1000)) - (network.duration))) {
-                this.color = 'orange';
-            } else {
-                this.color = 'green';
+                color = 'orange';
             }
+
+            runInAction(() => {
+                this.networkInfo = networkInfo;
+                this.color = color;
+            })
         } catch (e) {
             console.log('Error', e.message);
         }
