@@ -11,6 +11,7 @@ import router from "./router";
 window.name = '_spacemesh';
 
 const store = new Store(fetchAPI);
+store.bootstrap();
 
 ReactDOM.render(
     <StoreProvider store={store}>

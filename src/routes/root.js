@@ -11,7 +11,6 @@ import SidebarMenu from "../components/SidebarMenu/SidebarMenu";
 const Root = () => {
     const store = useStore();
     useEffect(() => {
-        // viewStore.getNetworkInfo();
         const intervalId = setInterval(() => store.getNetworkInfo(), 30000);
         return () => clearInterval(intervalId);
     }, []);

@@ -10,8 +10,8 @@ import {observer} from "mobx-react";
 
 const Overview = () => {
     const store = useStore();
-    const { epoch, layer, network } = store.networkInfo;
-    console.log(epoch)
+    const { epoch, layer } = store.networkInfo;
+
     return (
         <>
             <InfoBlock
@@ -24,7 +24,7 @@ const Overview = () => {
             />
             <div className="page-wrap">
                 <TitleBlock
-                    title="Transactions"
+                    title="Txs"
                     color={getColorByPageName(TXNS)}
                     desc="Recent transactions"
                 />
@@ -34,6 +34,7 @@ const Overview = () => {
                     unit="txns since genesis"
                     coinCaption="Coin transferred"
                     coins={epoch && epoch.stats.cumulative.txsamount}
+                    coin = {true}
                 />
             </div>
             <Table name={OVERVIEW}/>
