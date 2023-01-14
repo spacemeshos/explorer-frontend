@@ -3,26 +3,20 @@ import * as React from 'react';
 import { nanoid } from 'nanoid';
 import { observer } from 'mobx-react';
 
-import shortFormHash from '../../../helper/longFormHash';
+import shortFormHash from '../../helper/longFormHash';
 
-import { SMART_WALLET } from '../../../config/constants';
-import { formatSmidge } from '../../../helper/converter';
+import { SMART_WALLET } from '../../config/constants';
+import { formatSmidge } from '../../helper/converter';
+import {Link} from "react-router-dom";
 
-type Props = {
-  data: Array<Object>,
-  viewStore: Object,
-};
-
-const AppRow = (props: Props) => {
-  const { data, viewStore } = props;
-
+const AppRow = ({data}) => {
   return (
     data && data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
-          <a href={`${SMART_WALLET}/${item.address}`} onClick={(e) => viewStore.linkHandler(e, SMART_WALLET, item.address)}>
+          <Link to={`${SMART_WALLET}/${item.address}`}>
             {shortFormHash(item.address)}
-          </a>
+          </Link>
         </div>
         <div className="td">
           {item.name}

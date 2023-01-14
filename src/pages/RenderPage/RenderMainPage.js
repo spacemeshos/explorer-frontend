@@ -3,10 +3,10 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 
-import InfoBlock from '../../components/common/InfoBlock';
-import TitleBlock from '../../components/common/TitleBlock';
-import Table from '../../components/common/Table';
-import RightSideBlock from '../../components/common/CountBlock/RightSideBlock';
+import InfoBlock from '../../components/InfoBlock';
+import TitleBlock from '../../components/TitleBlock';
+import Table from '../../components/Table';
+import RightSideBlock from '../../components/CountBlock/RightSideBlock';
 
 import { getColorByPageName } from '../../helper/getColorByPageName';
 

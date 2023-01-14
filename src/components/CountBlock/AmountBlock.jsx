@@ -2,9 +2,9 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 
-import CustomTimeAgo from '../CustomTimeAgo';
+import CustomTimeAgo from '../common/CustomTimeAgo';
 
-import { formattedDate } from '../../../helper/formatter';
+import { formattedDate } from '../../helper/formatter';
 
 type Props = {
   color: string,

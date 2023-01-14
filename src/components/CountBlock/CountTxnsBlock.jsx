@@ -1,8 +1,8 @@
 // @flow
 import * as React from 'react';
-import Badge from '../Badge';
-import CustomTimeAgo from '../CustomTimeAgo';
-import { formattedDate } from '../../../helper/formatter';
+import Badge from '../common/Badge';
+import CustomTimeAgo from '../common/CustomTimeAgo';
+import { formattedDate } from '../../helper/formatter';
 
 type Props = {
   color: string,

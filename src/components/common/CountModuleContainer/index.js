@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 import { getColorByPageName } from "../../../helper/getColorByPageName";
-import { AmountBlock } from '../CountBlock';
+import { AmountBlock } from '../../CountBlock';
 import { LAYERS, OVERVIEW } from '../../../config/constants';
 
 type Props = {

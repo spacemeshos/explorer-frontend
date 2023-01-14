@@ -7,17 +7,11 @@ import {
   EPOCHS,
   LAYERS,
   TXNS,
-} from '../../../config/constants';
-import CustomTimeAgo from '../CustomTimeAgo';
+} from '../../config/constants';
+import CustomTimeAgo from '../common/CustomTimeAgo';
+import {Link} from "react-router-dom";
 
-type Props = {
-  data: Array<Object>,
-  viewStore: Object,
-};
-
-const EpochsRow = (props: Props) => {
-  const { data, viewStore } = props;
-
+const EpochsRow = ({ data }) => {
   return (
     data && data.map((item) => (
       <div key={nanoid()} className="tr">
@@ -26,20 +20,10 @@ const EpochsRow = (props: Props) => {
           <CustomTimeAgo time={item.start} />
         </div>
         <div className="td">
-          <a
-            href={`/${EPOCHS}/${item.number}/${LAYERS}`}
-            onClick={(e) => { viewStore.linkHandler(e, EPOCHS, item.number, LAYERS); }}
-          >
-            {item.layers}
-          </a>
+          <Link href={`/${EPOCHS}/${item.number}/${LAYERS}`}>{item.layers}</Link>
         </div>
         <div className="td">
-          <a
-            href={`/${EPOCHS}/${item.number}/${TXNS}`}
-            onClick={(e) => { viewStore.linkHandler(e, EPOCHS, item.number, TXNS); }}
-          >
-            {item.stats.current.transactions}
-          </a>
+          <Link to={`/${EPOCHS}/${item.number}/${TXNS}`}>{item.stats.current.transactions}</Link>
         </div>
         <div className="td">{item.stats.current.smeshers}</div>
         {/* <div className="td"> */}

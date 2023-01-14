@@ -274,31 +274,6 @@ class ViewStore {
     }
   }
 
-  getPaginationData(page, pageNumber) {
-    const pageSize = 20;
-
-    if (page === OVERVIEW) return;
-    const pathName = window.location.pathname.slice(1);
-
-    this.fetch(`${this.network.value}${pathName}?page=${pageNumber}&pagesize=${pageSize}`).then(
-      (result) => {
-        if(page === REWARDS) {
-          const rewardsData = this.getRewardsData(result.data);
-          this.currentView.data = [...this.currentView.data, ...rewardsData];
-        } else {
-          this.currentView.data = [...this.currentView.data, ...result.data];
-        }
-
-        this.currentView.pagination = result.pagination;
-        this.currentView.status = STATUS_SUCCESS;
-      },
-      (error) => {
-        console.log(error);
-        this.currentView.status = STATUS_ERROR;
-      },
-    );
-  }
-
   resetCurrentView() {
     return this.currentView = {
       name: null,
@@ -316,23 +291,6 @@ class ViewStore {
       this.showSubPage({ page, id, subPage });
     } else {
       this.showDetailPage({ page, id });
-    }
-  }
-
-  async getNetworkInfo() {
-    try {
-      this.mainInfo = await this.fetch(`${this.network.value}network-info`);
-      const { network } = toJS(this.mainInfo);
-
-      if ((network.lastlayer + 24) < network.lastapprovedlayer || network.issynced === false) {
-        this.color = 'red';
-      } else if (network.lastlayerts < ((Math.floor(Date.now() / 1000)) - (network.duration))) {
-        this.color = 'orange';
-      } else {
-        this.color = 'green';
-      }
-    } catch (e) {
-      console.log('Error', e.message);
     }
   }
 

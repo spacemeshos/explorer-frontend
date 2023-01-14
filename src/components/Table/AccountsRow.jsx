@@ -3,27 +3,21 @@ import * as React from 'react';
 import { nanoid } from 'nanoid';
 import { observer } from 'mobx-react';
 
-import CustomTimeAgo from '../CustomTimeAgo';
+import CustomTimeAgo from '../common/CustomTimeAgo';
 
-import shortFormHash from '../../../helper/longFormHash';
-import { formatSmidge } from '../../../helper/converter';
-import { ACCOUNTS } from '../../../config/constants';
+import shortFormHash from '../../helper/longFormHash';
+import { formatSmidge } from '../../helper/converter';
+import { ACCOUNTS } from '../../config/constants';
+import {Link} from "react-router-dom";
 
-type Props = {
-  data: Array<Object>,
-  viewStore: Object,
-};
-
-const AccountsRow = (props: Props) => {
-  const { data, viewStore } = props;
-
+const AccountsRow = ({data}) => {
   return (
     data && data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
-          <a href={`${ACCOUNTS}/${item.address}`} onClick={(e) => viewStore.linkHandler(e, ACCOUNTS, item.address)}>
+          <Link to={`${ACCOUNTS}/${item.address}`}>
             {shortFormHash(item.address)}
-          </a>
+          </Link>
         </div>
         <div className="td">
           {formatSmidge(item.sent)}
