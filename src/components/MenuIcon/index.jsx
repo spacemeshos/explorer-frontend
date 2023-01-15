@@ -10,7 +10,7 @@ import {
   ACCOUNTS,
   SMESHER,
   SMART_WALLET,
-} from '../../../config/constants';
+} from '../../config/constants';
 
 type Props = {
   name: string;

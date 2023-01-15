@@ -8,7 +8,7 @@ import {
   LAYERS,
   TXNS,
 } from '../../config/constants';
-import CustomTimeAgo from '../common/CustomTimeAgo';
+import CustomTimeAgo from '../CustomTimeAgo';
 import {Link} from "react-router-dom";
 
 const EpochsRow = ({ data }) => {

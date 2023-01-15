@@ -2,11 +2,11 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 
-import Logo from '../common/Logo';
-import NavBar from '../common/NavBar';
-import Switcher from '../common/Switcher';
+import Logo from '../Logo';
+import NavBar from '../NavBar';
+import Switcher from '../Switcher';
 import DropDown from '../DropDown';
-import NetworkStatus from '../common/NetworkStatus';
+import NetworkStatus from '../NetworkStatus';
 import {useStore} from "../../store";
 
 const Header = () => {

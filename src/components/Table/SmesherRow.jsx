@@ -16,12 +16,12 @@ const SmesherRow = ({data}) => {
     data && data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
-          <Link to={`${SMESHER}/${item.id}`}>
+          <Link to={`/${SMESHER}/${item.id}`}>
             {shortFormHash(item.id)}
           </Link>
         </div>
         <div className="td">
-          <Link to={`${ACCOUNTS}/${item.coinbase}`}>
+          <Link to={`/${ACCOUNTS}/${item.coinbase}`}>
             {shortFormHash(item.coinbase)}
           </Link>
         </div>

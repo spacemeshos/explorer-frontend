@@ -1,9 +1,9 @@
 // @flow
 import * as React from 'react';
 
-import CopyButton from '../CopyButton';
+import CopyButton from '../../CopyButton';
 import { fullDate } from '../../../helper/formatter';
-import CustomTimeAgo from '../CustomTimeAgo';
+import CustomTimeAgo from '../../CustomTimeAgo';
 import { EPOCHS, LAYERS } from '../../../config/constants';
 
 type Props = {

@@ -28,8 +28,8 @@ import LayersRow from './LayersRow';
 import AtxsRow from './AtxsRow';
 import BlocksRow from './BlocksRow';
 import AppRow from './AppRow';
-import Loader from '../common/Loader';
-import NoData from '../common/NoData';
+import Loader from '../Loader';
+import NoData from '../NoData';
 import {useStore} from "../../store";
 import {fetchAPI} from "../../api/fetchAPI";
 

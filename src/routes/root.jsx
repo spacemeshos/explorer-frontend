@@ -2,7 +2,7 @@ import {useEffect} from "react";
 import {useStore} from "../store";
 import {observer} from "mobx-react";
 import Header from "../components/Header";
-import Search from "../components/common/Search";
+import Search from "../components/Search";
 import CornerBoxWrapper from "../components/CornerBoxWrapper";
 import {Link, Outlet, useLocation} from "react-router-dom";
 import '../styles/Main.scss';

@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 import SmoothCollapse from 'react-smooth-collapse';
 
-import CopyButton from '../CopyButton';
+import CopyButton from '../../CopyButton';
 import { ACCOUNTS, USD_RATE } from '../../../config/constants';
 import { fullDate } from '../../../helper/formatter';
-import CustomTimeAgo from '../CustomTimeAgo';
+import CustomTimeAgo from '../../CustomTimeAgo';
 
 type Props = {
   data: Object,

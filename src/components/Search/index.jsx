@@ -1,9 +1,12 @@
 // @flow
 import React, { useEffect, useState } from 'react';
-import {useStore} from "../../../store";
+import { useNavigate } from 'react-router-dom';
+import {useStore} from "../../store";
+import {fetchAPI} from "../../api/fetchAPI";
 
 const Search = () => {
   const store = useStore();
+  const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
 
   const onChangeHandler = (e) => setSearchValue(e.target.value);
@@ -11,7 +14,8 @@ const Search = () => {
   useEffect(() => {
     const listener = (event) => {
       if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-        store.showSearchResult(searchValue);
+        //store.showSearchResult(searchValue);
+        onClickHandler();
         setSearchValue('');
       }
     };
@@ -22,7 +26,11 @@ const Search = () => {
   }, [searchValue, setSearchValue]);
 
   const onClickHandler = () => {
-    store.showSearchResult(searchValue);
+    //store.showSearchResult(searchValue);
+    fetchAPI(`${store.network.value}search/${searchValue}`).then((res) => {
+      const stringData = res.redirect.split('/');
+      navigate(`/${stringData[1]}/${stringData[2]}`);
+    })
   };
 
   return (

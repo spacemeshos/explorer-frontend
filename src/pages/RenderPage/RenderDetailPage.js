@@ -8,7 +8,7 @@ import { AmountBlock, CountTxnsBlock } from '../../components/CountBlock';
 import { DetailsEpoch, DetailsCoinTxns } from '../../components/common/Details';
 import DetailsLayer from '../../components/common/Details/DetailsLayer';
 import longFormHash from '../../helper/longFormHash';
-import TxnsStatus from '../../components/common/TxnsStatus';
+import TxnsStatus from '../../components/TxnsStatus';
 import DetailAccount from '../../components/common/Details/DetailAccount';
 import DetailReward from '../../components/common/Details/DetailReward';
 
@@ -17,13 +17,13 @@ import { getColorByPageName } from '../../helper/getColorByPageName';
 import DetailsBlock from '../../components/common/Details/DetailBlock';
 import DetailSmesher from '../../components/common/Details/DetailSmesher';
 import DetailApp from '../../components/common/Details/DetailApp';
-import Loader from '../../components/common/Loader';
+import Loader from '../../components/Loader';
 import {
   byteConverter, formatSmidge, parseSmidge,
 } from '../../helper/converter';
 import RightCountBlock from '../../components/CountBlock/RightCountBlock';
 import DetailAtxs from '../../components/common/Details/DetailAtxs';
-import NoData from '../../components/common/NoData';
+import NoData from '../../components/NoData';
 import RightSideBlock from '../../components/CountBlock/RightSideBlock';
 
 import {

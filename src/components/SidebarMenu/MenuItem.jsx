@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import MenuIcon from '../common/MenuIcon';
+import MenuIcon from '../MenuIcon';
 import {Link} from "react-router-dom";
 
 type Props = {
