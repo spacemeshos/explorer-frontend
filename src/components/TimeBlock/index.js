@@ -2,16 +2,14 @@
 import * as React from 'react';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
-import { EPOCHS, LAYERS } from '../../../config/constants';
+import { EPOCHS, LAYERS } from '../../config/constants';
+import {useStore} from "../../store";
+import {Link} from "react-router-dom";
 
-const Props = {
-  viewStore: Object,
-};
+const TimeBlock = () => {
+  const store = useStore();
 
-const TimeBlock = (props: Props) => {
-  const { viewStore } = props;
-
-  const networkInfo = toJS(viewStore.mainInfo);
+  const networkInfo = toJS(store.networkInfo);
   const { epoch, layer } = networkInfo;
 
   return (
@@ -20,9 +18,9 @@ const TimeBlock = (props: Props) => {
         <div className="timeBlock-item">
           <div className="name">Epoch</div>
           <div className="value">
-            <a href={`/${EPOCHS}/${epoch.number}`} onClick={(e) => viewStore.linkHandler(e, EPOCHS, epoch.number)}>
+            <Link to={`/${EPOCHS}/${epoch.number}`}>
               {epoch.number}
-            </a>
+            </Link>
           </div>
         </div>
       )}
@@ -30,9 +28,9 @@ const TimeBlock = (props: Props) => {
         <div className="timeBlock-item">
           <div className="name">Layer</div>
           <div className="value">
-            <a href={`/${LAYERS}/${layer.number}`} onClick={(e) => viewStore.linkHandler(e, LAYERS, layer.number)}>
+            <Link to={`/${LAYERS}/${layer.number}`}>
               {layer.number}
-            </a>
+            </Link>
           </div>
         </div>
       )}
