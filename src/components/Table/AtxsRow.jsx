@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 import { nanoid } from 'nanoid';
-import StatusIcon from '../common/StatusIcon';
+import StatusIcon from '../StatusIcon';
 import shortFormHash from '../../helper/shortFormHash';
 import longFormHash from '../../helper/longFormHash';
 import { ATXS, LAYERS } from '../../config/constants';

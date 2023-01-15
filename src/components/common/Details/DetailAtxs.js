@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 
-import CopyButton from '../CopyButton';
+import CopyButton from '../../CopyButton';
 import {
   ACCOUNTS,
   ATXS,

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { nanoid } from 'nanoid';
 import { observer } from 'mobx-react';
 
-import CustomTimeAgo from '../common/CustomTimeAgo';
+import CustomTimeAgo from '../CustomTimeAgo';
 
 import shortFormHash from '../../helper/longFormHash';
 import { formatSmidge } from '../../helper/converter';
@@ -15,7 +15,7 @@ const AccountsRow = ({data}) => {
     data && data.map((item) => (
       <div key={nanoid()} className="tr">
         <div className="td">
-          <Link to={`${ACCOUNTS}/${item.address}`}>
+          <Link to={`/${ACCOUNTS}/${item.address}`}>
             {shortFormHash(item.address)}
           </Link>
         </div>

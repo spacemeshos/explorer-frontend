@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 import { byteConverter } from '../../helper/converter';
-import Loader from '../common/Loader';
+import Loader from '../Loader';
 import {
   ACCOUNTS, EPOCHS, LAYERS, SMESHER,
 } from '../../config/constants';

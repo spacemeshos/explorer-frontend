@@ -12,19 +12,18 @@ import {fetchAPI} from "../api/fetchAPI";
 
 const Accounts = () => {
     const store = useStore();
-    let apiPath = store.network.value;
     const {epoch} = store.networkInfo;
     const name = ACCOUNTS;
 
     let [dataTimeCreation, setDataTimeCreation] = useState([]);
 
     useEffect(() => {
-        if (apiPath === null) return;
-        fetchAPI(`${apiPath}${ACCOUNTS}`).then((res) => {
+        if (store.network.value === null) return;
+        fetchAPI(`${store.network.value}${ACCOUNTS}`).then((res) => {
             const creation = res.data && res.data.length && res.data.length > 0 && res.data[0].timestamp;
             setDataTimeCreation(creation);
         })
-    }, [apiPath]);
+    }, [store.network.value]);
 
     return (
         <>

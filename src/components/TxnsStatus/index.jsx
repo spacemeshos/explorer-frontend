@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { mappingStatus } from '../../../helper/mappingStatus';
+import { mappingStatus } from '../../helper/mappingStatus';
 
 type Props = {
   status: string

@@ -9,7 +9,7 @@ import {
   TXNS,
 } from '../../config/constants';
 import { byteConverter, formatSmidge } from '../../helper/converter';
-import CustomTimeAgo from '../common/CustomTimeAgo';
+import CustomTimeAgo from '../CustomTimeAgo';
 import {Link} from "react-router-dom";
 
 const LayersRow = ({ data }) => {

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import CopyButton from '../CopyButton';
+import CopyButton from '../../CopyButton';
 import { SMART_WALLET } from '../../../config/constants';
 import { formatSmidge } from '../../../helper/converter';
 import longFormHash from '../../../helper/longFormHash';

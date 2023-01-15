@@ -8,6 +8,7 @@ import Txs from "../routes/txs";
 import Accounts from "../routes/accounts";
 import Epochs from "../routes/epochs";
 import Smeshers from "../routes/smeshers";
+import Tx from "../routes/tx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: '/txs',
         element: <Txs/>
+      },
+      {
+        path: '/txs/:id',
+        element: <Tx/>
       },
       {
         path: '/accounts',

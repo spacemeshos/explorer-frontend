@@ -4,7 +4,7 @@ import * as React from 'react';
 import { nanoid } from 'nanoid';
 import longFormHash from '../../helper/longFormHash';
 import { BLOCKS } from '../../config/constants';
-import CustomTimeAgo from '../common/CustomTimeAgo';
+import CustomTimeAgo from '../CustomTimeAgo';
 import { formatSmidge } from '../../helper/converter';
 import {Link} from "react-router-dom";
 

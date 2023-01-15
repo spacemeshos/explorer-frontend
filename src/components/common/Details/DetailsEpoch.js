@@ -8,7 +8,7 @@ import {
 } from '../../../config/constants';
 import { fullDate } from '../../../helper/formatter';
 import getValueFromStatsObject from '../../../helper/getValueFromStatsObject';
-import CustomTimeAgo from '../CustomTimeAgo';
+import CustomTimeAgo from '../../CustomTimeAgo';
 
 type Props = {
   data: Object,

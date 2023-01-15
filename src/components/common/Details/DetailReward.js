@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 
-import CopyButton from '../CopyButton';
+import CopyButton from '../../CopyButton';
 import { byteConverter, formatSmidge } from '../../../helper/converter';
 import {
   ACCOUNTS,
@@ -9,7 +9,7 @@ import {
   SMESHER,
 } from '../../../config/constants';
 import { fullDate } from '../../../helper/formatter';
-import CustomTimeAgo from '../CustomTimeAgo';
+import CustomTimeAgo from '../../CustomTimeAgo';
 
 type Props = {
   data: Object,

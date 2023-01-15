@@ -1,11 +1,11 @@
 // @flow
 import React from 'react';
 
-import CopyButton from '../CopyButton';
+import CopyButton from '../../CopyButton';
 import { ACCOUNTS, LAYERS } from '../../../config/constants';
 import { formatSmidge } from '../../../helper/converter';
 import { fullDate } from '../../../helper/formatter';
-import CustomTimeAgo from '../CustomTimeAgo';
+import CustomTimeAgo from '../../CustomTimeAgo';
 import { typeOfTransaction } from '../../../helper/tx';
 
 type Props = {

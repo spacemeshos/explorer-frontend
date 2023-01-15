@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { formatSmidge } from '../../helper/converter';
 import { setFontSize, setLineHeight } from '../../helper/cssHelper';
 import { formattedDate } from '../../helper/formatter';
-import CustomTimeAgo from '../common/CustomTimeAgo';
+import CustomTimeAgo from '../CustomTimeAgo';
 import { commaNumber } from '../../helper/comma';
 
 type Props = {

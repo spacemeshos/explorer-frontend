@@ -3,7 +3,7 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import { nanoid } from 'nanoid';
 
-import StatusIcon from '../common/StatusIcon';
+import StatusIcon from '../StatusIcon';
 import longFormHash from '../../helper/longFormHash';
 
 import {
