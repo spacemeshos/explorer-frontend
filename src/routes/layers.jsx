@@ -28,7 +28,6 @@ const Layers = () => {
                     number={layer && layer.number}
                     unit="MOST RECENT LAYER"
                     startTime={layer && layer.start}
-                    coin = {false}
                 />
             </div>
             <Table name={name} />

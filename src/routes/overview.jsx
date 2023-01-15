@@ -34,7 +34,6 @@ const Overview = () => {
                     unit="txns since genesis"
                     coinCaption="Coin transferred"
                     coins={epoch && epoch.stats.cumulative.txsamount}
-                    coin = {true}
                 />
             </div>
             <Table name={OVERVIEW}/>

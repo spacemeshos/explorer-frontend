@@ -18,7 +18,7 @@ type Props = {
 };
 
 const RightSideBlock = (props: Props) => {
-  const { color, unit, number, startTime, coinCaption, coins, label, coin } = props;
+  const { color, unit, number, startTime, coinCaption, coins, label } = props;
 
   const blockWithTime = () => (
     <div style={{ backgroundColor: color.bgColor }} className="amountBlock">
@@ -68,7 +68,7 @@ const RightSideBlock = (props: Props) => {
       </div>
     </div>
   );
-  return (coin ? blockWithCoin() : blockWithTime());
+  return (coins ? blockWithCoin() : blockWithTime());
 };
 
 export default observer(RightSideBlock);
