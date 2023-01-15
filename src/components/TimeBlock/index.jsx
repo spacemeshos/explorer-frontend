@@ -8,9 +8,7 @@ import {Link} from "react-router-dom";
 
 const TimeBlock = () => {
   const store = useStore();
-
-  const networkInfo = toJS(store.networkInfo);
-  const { epoch, layer } = networkInfo;
+  const { epoch, layer } = store.networkInfo;
 
   return (
     <div className="timeBlock">

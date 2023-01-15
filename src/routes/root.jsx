@@ -3,7 +3,7 @@ import {useStore} from "../store";
 import {observer} from "mobx-react";
 import Header from "../components/Header";
 import Search from "../components/common/Search";
-import CornerBoxWrapper from "../components/common/CornerBoxWrapper";
+import CornerBoxWrapper from "../components/CornerBoxWrapper";
 import {Link, Outlet, useLocation} from "react-router-dom";
 import '../styles/Main.scss';
 import SidebarMenu from "../components/SidebarMenu/SidebarMenu";

@@ -65,6 +65,7 @@ const Table = ({name}) => {
         }
         fetchAPI(`${store.network.value}${path}`).then((result) => {
             setData(result.data);
+            setPagination(result.pagination);
         })
     }, [store.network.value]);
 

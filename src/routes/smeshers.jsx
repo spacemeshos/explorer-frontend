@@ -1,7 +1,7 @@
 import InfoBlock from "../components/InfoBlock";
 import TitleBlock from "../components/TitleBlock";
 import {getColorByPageName} from "../helper/getColorByPageName";
-import {ACCOUNTS, LAYERS, OVERVIEW, TXNS} from "../config/constants";
+import {ACCOUNTS, EPOCHS, LAYERS, OVERVIEW, SMESHER, TXNS} from "../config/constants";
 import RightSideBlock from "../components/CountBlock/RightSideBlock";
 import {toJS} from "mobx";
 import {useStore} from "../store";
@@ -10,41 +10,39 @@ import {observer} from "mobx-react";
 import {useEffect, useState} from "react";
 import {fetchAPI} from "../api/fetchAPI";
 
-const Accounts = () => {
+const Smeshers = () => {
     const store = useStore();
-    let apiPath = store.network.value;
-    const {epoch} = store.networkInfo;
-    const name = ACCOUNTS;
+    const name = SMESHER;
 
+    let [pagination, setPagination] = useState({totalCount: 0});
     let [dataTimeCreation, setDataTimeCreation] = useState([]);
-
     useEffect(() => {
-        if (apiPath === null) return;
-        fetchAPI(`${apiPath}${ACCOUNTS}`).then((res) => {
+        if (store.network.value === null) return;
+        fetchAPI(`${store.network.value}${SMESHER}`).then((res) => {
             const creation = res.data && res.data.length && res.data.length > 0 && res.data[0].timestamp;
             setDataTimeCreation(creation);
+            setPagination(res.pagination);
         })
-    }, [apiPath]);
+    }, [store.network.value]);
 
     return (
         <>
             <div className="page-wrap">
                 <TitleBlock
-                    title="All Accounts"
+                    title="Smeshers"
                     color={getColorByPageName(name)}
-                    desc="Accounts across the entire mesh"
+                    desc=""
                 />
                 <RightSideBlock
-                    color={getColorByPageName(name)}
-                    number={epoch && epoch.stats.cumulative.accounts}
-                    unit="accounts"
+                    color={getColorByPageName(name, store.theme)}
+                    number={pagination?.totalCount}
+                    unit="MOST RECENT SMESHER"
                     startTime={dataTimeCreation}
-                    label="Most Recent Account"
                 />
             </div>
-            <Table name={name}/>
+            <Table name={name} />
         </>
     )
 }
 
-export default observer(Accounts);
+export default observer(Smeshers);
