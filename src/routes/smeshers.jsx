@@ -36,7 +36,7 @@ const Smeshers = () => {
                 <RightSideBlock
                     color={getColorByPageName(name, store.theme)}
                     number={pagination?.totalCount}
-                    unit="MOST RECENT SMESHER"
+                    unit="TOTAL SMESHERS"
                     startTime={dataTimeCreation}
                 />
             </div>
