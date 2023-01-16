@@ -14,8 +14,9 @@ const Smeshers = () => {
     const store = useStore();
     const name = SMESHER;
 
-    let [pagination, setPagination] = useState({totalCount: 0});
-    let [dataTimeCreation, setDataTimeCreation] = useState([]);
+    const [pagination, setPagination] = useState({totalCount: 0});
+    const [dataTimeCreation, setDataTimeCreation] = useState([]);
+
     useEffect(() => {
         if (store.network.value === null) return;
         fetchAPI(`${store.network.value}${SMESHER}`).then((res) => {

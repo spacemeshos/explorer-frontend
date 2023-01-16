@@ -9,6 +9,10 @@ import Accounts from "../routes/accounts";
 import Epochs from "../routes/epochs";
 import Smeshers from "../routes/smeshers";
 import Tx from "../routes/tx";
+import Account from "../routes/account";
+import Layer from "../routes/layer";
+import Epoch from "../routes/epoch";
+import Smesher from "../routes/smesher";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +33,10 @@ const router = createBrowserRouter([
         element: <Layers/>
       },
       {
+        path: '/layers/:id',
+        element: <Layer/>
+      },
+      {
         path: '/txs',
         element: <Txs/>
       },
@@ -41,12 +49,24 @@ const router = createBrowserRouter([
         element: <Accounts/>
       },
       {
+        path: '/accounts/:id',
+        element: <Account/>
+      },
+      {
         path: '/epochs',
         element: <Epochs/>
       },
       {
+        path: '/epochs/:id',
+        element: <Epoch/>
+      },
+      {
         path: '/smeshers',
         element: <Smeshers/>
+      },
+      {
+        path: '/smeshers/:id',
+        element: <Smesher/>
       }
     ]
   },

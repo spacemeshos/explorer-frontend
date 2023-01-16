@@ -24,8 +24,8 @@ const Tx = () => {
     const name = TXNS;
     const params = useParams();
 
-    let [data, setData] = useState({});
-    let [smidge, setSmidge] = useState({value: 0, unit: 'SMH'});
+    const [data, setData] = useState({});
+    const [smidge, setSmidge] = useState({value: 0, unit: 'SMH'});
 
     useEffect(() => {
         if (store.network.value === null) return;
