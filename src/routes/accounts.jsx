@@ -14,8 +14,7 @@ const Accounts = () => {
     const store = useStore();
     const {epoch} = store.networkInfo;
     const name = ACCOUNTS;
-
-    let [dataTimeCreation, setDataTimeCreation] = useState([]);
+    const [dataTimeCreation, setDataTimeCreation] = useState([]);
 
     useEffect(() => {
         if (store.network.value === null) return;
