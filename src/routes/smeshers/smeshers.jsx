@@ -1,14 +1,14 @@
-import InfoBlock from "../components/InfoBlock";
-import TitleBlock from "../components/TitleBlock";
-import {getColorByPageName} from "../helper/getColorByPageName";
-import {ACCOUNTS, EPOCHS, LAYERS, OVERVIEW, SMESHER, TXNS} from "../config/constants";
-import RightSideBlock from "../components/CountBlock/RightSideBlock";
+import InfoBlock from "../../components/InfoBlock";
+import TitleBlock from "../../components/TitleBlock";
+import {getColorByPageName} from "../../helper/getColorByPageName";
+import {ACCOUNTS, EPOCHS, LAYERS, OVERVIEW, SMESHER, TXNS} from "../../config/constants";
+import RightSideBlock from "../../components/CountBlock/RightSideBlock";
 import {toJS} from "mobx";
-import {useStore} from "../store";
-import Table from "../components/Table";
+import {useStore} from "../../store";
+import Table from "../../components/Table";
 import {observer} from "mobx-react";
 import {useEffect, useState} from "react";
-import {fetchAPI} from "../api/fetchAPI";
+import {fetchAPI} from "../../api/fetchAPI";
 
 const Smeshers = () => {
     const store = useStore();

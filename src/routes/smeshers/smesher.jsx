@@ -1,24 +1,24 @@
-import TitleBlock from "../components/TitleBlock";
-import {getColorByPageName} from "../helper/getColorByPageName";
-import {ACCOUNTS, ATXS, BLOCKS, EPOCHS, LAYERS, REWARDS, SMESHER, TXNS} from "../config/constants";
-import RightSideBlock from "../components/CountBlock/RightSideBlock";
-import {useStore} from "../store";
-import Table from "../components/Table";
+import TitleBlock from "../../components/TitleBlock";
+import {getColorByPageName} from "../../helper/getColorByPageName";
+import {ACCOUNTS, ATXS, BLOCKS, EPOCHS, LAYERS, REWARDS, SMESHER, TXNS} from "../../config/constants";
+import RightSideBlock from "../../components/CountBlock/RightSideBlock";
+import {useStore} from "../../store";
+import Table from "../../components/Table";
 import {observer} from "mobx-react";
-import {fetchAPI} from "../api/fetchAPI";
+import {fetchAPI} from "../../api/fetchAPI";
 import {useEffect, useState} from "react";
-import longFormHash from "../helper/longFormHash";
-import {CountTxnsBlock} from "../components/CountBlock";
-import TxnsStatus from "../components/TxnsStatus";
-import {DetailsCoinTxns} from "../components/common/Details";
-import Loader from "../components/Loader";
+import longFormHash from "../../helper/longFormHash";
+import {CountTxnsBlock} from "../../components/CountBlock";
+import TxnsStatus from "../../components/TxnsStatus";
+import {DetailsCoinTxns} from "../../components/common/Details";
+import Loader from "../../components/Loader";
 import {Link, useParams} from "react-router-dom";
-import {byteConverter, formatSmidge, parseSmidge} from "../helper/converter";
-import CopyButton from "../components/CopyButton";
-import {typeOfTransaction} from "../helper/tx";
-import CustomTimeAgo from "../components/CustomTimeAgo";
-import {fullDate} from "../helper/formatter";
-import getValueFromStatsObject from "../helper/getValueFromStatsObject";
+import {byteConverter, formatSmidge, parseSmidge} from "../../helper/converter";
+import CopyButton from "../../components/CopyButton";
+import {typeOfTransaction} from "../../helper/tx";
+import CustomTimeAgo from "../../components/CustomTimeAgo";
+import {fullDate} from "../../helper/formatter";
+import getValueFromStatsObject from "../../helper/getValueFromStatsObject";
 
 const Smesher = () => {
     const store = useStore();
@@ -73,12 +73,12 @@ const Smesher = () => {
                                 {byteConverter(data.cSize)}
                               </span>
                             </li>
-                            {/* <li className="item"> */}
-                            {/*  <span className="item-name">Reward</span> */}
-                            {/*  <span className="item-value"> */}
-                            {/*    <a href={`/${SMESHER}/${data.id}/${REWARDS}`} onClick={(e) => viewStore.linkHandler(e, SMESHER, data.id, REWARDS)}>{formatSmidge(data.rewards)}</a> */}
-                            {/*  </span> */}
-                            {/* </li> */}
+                             <li className="item">
+                              <span className="item-name">Reward</span>
+                              <span className="item-value">
+                                <Link to={`/${SMESHER}/${data.id}/${REWARDS}`}>{formatSmidge(data.rewards)}</Link>
+                              </span>
+                             </li>
                             <li className="item">
                                 <span className="item-name">Activations</span>
                                 <span className="item-value">

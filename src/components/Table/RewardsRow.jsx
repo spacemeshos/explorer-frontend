@@ -24,19 +24,19 @@ const RewardsRow = ({data}) => {
           </Link>
         </div>
         <div className="td">
-          <a to={`/${ACCOUNTS}/${item.coinbase}`}>
+          <Link to={`/${ACCOUNTS}/${item.coinbase}`}>
             {longFormHash(item.coinbase)}
-          </a>
+          </Link>
         </div>
         <div className="td">
-          <a to={`/${SMESHER}/${item.smesher}`}>
+          <Link to={`/${SMESHER}/${item.smesher}`}>
             {longFormHash(item.smesher)}
-          </a>
+          </Link>
         </div>
         <div className="td">
-          <a to={`/${LAYERS}/${item.layer}`}>
+          <Link to={`/${LAYERS}/${item.layer}`}>
             {item.layer}
-          </a>
+          </Link>
         </div>
         <div className="td">
           {byteConverter(item.space)}

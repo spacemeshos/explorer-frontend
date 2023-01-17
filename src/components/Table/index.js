@@ -48,24 +48,38 @@ const smartWalletData = [
     },
 ];
 
-const Table = ({name}) => {
+const Table = ({name, subPage, id, results}) => {
     const store = useStore();
-    let [data, setData] = useState(null);
-    let [status, setStatus] = useState(STATUS_LOADING);
-    let [pagination, setPagination] = useState(null);
+    const [data, setData] = useState(results?.data);
+    const [status, setStatus] = useState(STATUS_LOADING);
+    const [pagination, setPagination] = useState(results?.pagination);
     const [isFetching, setIsFetching] = useState(false);
 
+    const tableConfigName = subPage ? subPage : name;
     const pageSize = 20;
 
-    useEffect(() => {
-        if(store.network.value === null) return;
-        let path = name;
-        if(name === OVERVIEW) {
-            path = TXNS;
+    const getUri = () => {
+        let pathName = name;
+
+        if(subPage && id) {
+            pathName = `${name}/${id}/${subPage}`
         }
-        fetchAPI(`${store.network.value}${path}`).then((result) => {
+
+        if(name === OVERVIEW) {
+            pathName = TXNS;
+        }
+
+        return pathName
+    }
+
+    useEffect(() => {
+        if(store.network.value === null || data === null) return;
+        if(results) setStatus(STATUS_SUCCESS);
+
+        fetchAPI(`${store.network.value}${getUri()}`).then((result) => {
             setData(result.data);
             setPagination(result.pagination);
+            setStatus(STATUS_SUCCESS);
         })
     }, [store.network.value]);
 
@@ -94,9 +108,7 @@ const Table = ({name}) => {
 
     const getPaginationData = (page, pageNumber) => {
         if (page === OVERVIEW) return;
-        const pathName = window.location.pathname.slice(1);
-
-        fetchAPI(`${store.network.value}${pathName}?page=${pageNumber}&pagesize=${pageSize}`).then(
+        fetchAPI(`${store.network.value}${getUri()}?page=${pageNumber}&pagesize=${pageSize}`).then(
             (result) => {
                 if (page === REWARDS) {
                     const rewardsData = getRewardsData(result.data);
@@ -110,19 +122,19 @@ const Table = ({name}) => {
             },
             (error) => {
                 console.log(error);
-                setStatus(STATUS_SUCCESS);
+                setStatus(STATUS_ERROR);
             },
         );
     }
 
     const renderTableData = () => {
-        switch (name) {
+        switch (tableConfigName) {
             case OVERVIEW:
                 return (
                     <TransactionsRow
                         key={nanoid()}
                         data={data.slice(0, 7)}
-                        config={tableFieldConfig[name]}
+                        config={tableFieldConfig[tableConfigName]}
                     />
                 );
             case EPOCHS:
@@ -130,7 +142,7 @@ const Table = ({name}) => {
                     <EpochsRow
                         key={nanoid()}
                         data={data}
-                        config={tableFieldConfig[name]}
+                        config={tableFieldConfig[tableConfigName]}
                     />
                 );
             case LAYERS:
@@ -138,7 +150,7 @@ const Table = ({name}) => {
                     <LayersRow
                         key={nanoid()}
                         data={data}
-                        config={tableFieldConfig[name]}
+                        config={tableFieldConfig[tableConfigName]}
                     />
                 );
             case TXNS:
@@ -146,7 +158,7 @@ const Table = ({name}) => {
                     <TransactionsRow
                         key={nanoid()}
                         data={data}
-                        config={tableFieldConfig[name]}
+                        config={tableFieldConfig[tableConfigName]}
                     />
                 );
             case REWARDS:
@@ -154,7 +166,7 @@ const Table = ({name}) => {
                     <RewardsRow
                         key={nanoid()}
                         data={data}
-                        config={tableFieldConfig[name]}
+                        config={tableFieldConfig[tableConfigName]}
                     />
                 );
             case ACCOUNTS:
@@ -162,7 +174,7 @@ const Table = ({name}) => {
                     <AccountsRow
                         key={nanoid()}
                         data={data}
-                        config={tableFieldConfig[name]}
+                        config={tableFieldConfig[tableConfigName]}
                     />
                 );
             case SMART_WALLET:
@@ -170,7 +182,7 @@ const Table = ({name}) => {
                     <AppRow
                         key={nanoid()}
                         data={data}
-                        config={tableFieldConfig[name]}
+                        config={tableFieldConfig[tableConfigName]}
                     />
                 );
             case SMESHER:
@@ -178,7 +190,7 @@ const Table = ({name}) => {
                     <SmesherRow
                         key={nanoid()}
                         data={data}
-                        config={tableFieldConfig[name]}
+                        config={tableFieldConfig[tableConfigName]}
                     />
                 );
             case ATXS:
@@ -186,7 +198,7 @@ const Table = ({name}) => {
                     <AtxsRow
                         key={nanoid()}
                         data={data}
-                        config={tableFieldConfig[name]}
+                        config={tableFieldConfig[tableConfigName]}
                     />
                 );
             case BLOCKS:
@@ -194,7 +206,7 @@ const Table = ({name}) => {
                     <BlocksRow
                         key={nanoid()}
                         data={data}
-                        config={tableFieldConfig[name]}
+                        config={tableFieldConfig[tableConfigName]}
                     />
                 );
             default:
@@ -206,7 +218,7 @@ const Table = ({name}) => {
         <div className="table">
             <div className="responsive-table">
                 <div className="tr th">
-                    {tableFieldConfig[name].map((item) => (
+                    {tableFieldConfig[tableConfigName].map((item) => (
                         <div key={nanoid()} style={item.style} className="td">
                             {item.fieldName}
                         </div>

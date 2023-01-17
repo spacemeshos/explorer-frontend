@@ -1,5 +1,5 @@
 import {
-  ACCOUNTS, EPOCHS, LAYERS, OVERVIEW, SMESHER, TXNS,
+  ACCOUNTS, EPOCHS, LAYERS, OVERVIEW, REWARDS, SMESHER, TXNS,
 } from './constants';
 
 export const pagesLink = [
@@ -23,11 +23,11 @@ export const pagesLink = [
     page: TXNS,
     icon: TXNS,
   },
-  // {
-  //   title: 'rewards',
-  //   page: REWARDS,
-  //   icon: 'rewards',
-  // },
+  {
+    title: 'rewards',
+    page: REWARDS,
+    icon: 'rewards',
+  },
   {
     title: 'accounts',
     page: ACCOUNTS,

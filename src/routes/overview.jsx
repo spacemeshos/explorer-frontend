@@ -24,7 +24,7 @@ const Overview = () => {
             />
             <div className="page-wrap">
                 <TitleBlock
-                    title="Txs"
+                    title="Txns"
                     color={getColorByPageName(TXNS)}
                     desc="Recent transactions"
                 />
