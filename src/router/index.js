@@ -3,13 +3,11 @@ import {createBrowserRouter, Navigate} from "react-router-dom";
 import Root from "../routes/root";
 import Overview from "../routes/overview";
 import NotFound from "../routes/not-found";
-import Layers from "../routes/layers/layers";
 import Txs from "../routes/txns";
 import Accounts from "../routes/accounts/accounts";
 import Smeshers from "../routes/smeshers/smeshers";
 import Tx from "../routes/tx";
 import Account from "../routes/accounts/account";
-import Layer from "../routes/layers/layer";
 import Smesher from "../routes/smeshers/smesher";
 import React from "react";
 import Rewards from "../routes/rewards";
@@ -19,6 +17,7 @@ import SmesherRewards from "../routes/smeshers/smesher-rewards";
 import {Epoch, EpochAtxs, EpochLayers, EpochRewards, Epochs, EpochSmeshers, EpochTxns} from "../routes/epochs";
 import AccountTxns from "../routes/accounts/account-txns";
 import AccountRewards from "../routes/accounts/account-rewards";
+import {Layer, LayerAtxs, LayerBlocks, LayerRewards, Layers, LayerSmeshers, LayerTxns} from "../routes/layers";
 
 const router = createBrowserRouter([
     {
@@ -42,6 +41,26 @@ const router = createBrowserRouter([
             {
                 path: '/layers/:id',
                 element: <Layer/>
+            },
+            {
+                path: '/layers/:id/atxs',
+                element: <LayerAtxs/>
+            },
+            {
+                path: '/layers/:id/blocks',
+                element: <LayerBlocks/>
+            },
+            {
+                path: '/layers/:id/rewards',
+                element: <LayerRewards/>
+            },
+            {
+                path: '/layers/:id/smeshers',
+                element: <LayerSmeshers/>
+            },
+            {
+                path: '/layers/:id/txs',
+                element: <LayerTxns/>
             },
             // TXNS
             {
