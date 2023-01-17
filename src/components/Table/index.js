@@ -74,7 +74,7 @@ const Table = ({name, subPage, id, results}) => {
 
     useEffect(() => {
         if(store.network.value === null || data === null) return;
-        if(results) setStatus(STATUS_SUCCESS);
+        if(data && pagination) setStatus(STATUS_SUCCESS);
 
         fetchAPI(`${store.network.value}${getUri()}`).then((result) => {
             setData(result.data);
