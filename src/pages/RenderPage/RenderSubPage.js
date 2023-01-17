@@ -65,9 +65,9 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Epoch ${id} - Txs`}
+                title={`Epoch ${id} - Txns`}
                 color={getColorByPageName(name)}
-                desc={`Txs contained within Epoch ${id}`}
+                desc={`Txns contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
               <RightSideBlock
@@ -107,9 +107,9 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Epoch ${id} - Txs`}
+                title={`Epoch ${id} - Txns`}
                 color={getColorByPageName(name)}
-                desc={`Txs contained within Epoch ${id}`}
+                desc={`Txns contained within Epoch ${id}`}
                 uiStore={uiStore}
               />
               <RightSideBlock
@@ -151,7 +151,7 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Layer ${id} - Txs`}
+                title={`Layer ${id} - Txns`}
                 color={getColorByPageName(name)}
                 desc=""
                 uiStore={uiStore}
@@ -160,7 +160,7 @@ const RenderSubPage = (props: Props) => {
                 color={getColorByPageName(name)}
                 number={pageData && pageData.txs}
                 caption="txns"
-                coinCaption="Txs Value"
+                coinCaption="Txns Value"
                 coins={pageData && formatSmidge(pageData.txsamount)}
               />
             </div>
@@ -173,9 +173,9 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title={`Layer ${id} - Txs`}
+                title={`Layer ${id} - Txns`}
                 color={getColorByPageName(name)}
-                desc={`Txs within layer ${id}`}
+                desc={`Txns within layer ${id}`}
                 uiStore={uiStore}
               />
               <RightSideBlock
@@ -302,7 +302,7 @@ const RenderSubPage = (props: Props) => {
           <>
             <div className="page-wrap">
               <TitleBlock
-                title="ACCOUNT Txs"
+                title="ACCOUNT Txns"
                 color={getColorByPageName(name)}
                 desc={longFormHash(id)}
                 uiStore={uiStore}

@@ -1,24 +1,24 @@
-import TitleBlock from "../components/TitleBlock";
-import {getColorByPageName} from "../helper/getColorByPageName";
-import {ACCOUNTS, EPOCHS, LAYERS, REWARDS, SMESHER, TXNS} from "../config/constants";
-import RightSideBlock from "../components/CountBlock/RightSideBlock";
-import {useStore} from "../store";
-import Table from "../components/Table";
+import TitleBlock from "../../components/TitleBlock";
+import {getColorByPageName} from "../../helper/getColorByPageName";
+import {ACCOUNTS, EPOCHS, LAYERS, REWARDS, SMESHER, TXNS} from "../../config/constants";
+import RightSideBlock from "../../components/CountBlock/RightSideBlock";
+import {useStore} from "../../store";
+import Table from "../../components/Table";
 import {observer} from "mobx-react";
-import {fetchAPI} from "../api/fetchAPI";
+import {fetchAPI} from "../../api/fetchAPI";
 import {useEffect, useState} from "react";
-import longFormHash from "../helper/longFormHash";
-import {CountTxnsBlock} from "../components/CountBlock";
-import TxnsStatus from "../components/TxnsStatus";
-import {DetailsCoinTxns} from "../components/common/Details";
-import Loader from "../components/Loader";
+import longFormHash from "../../helper/longFormHash";
+import {CountTxnsBlock} from "../../components/CountBlock";
+import TxnsStatus from "../../components/TxnsStatus";
+import {DetailsCoinTxns} from "../../components/common/Details";
+import Loader from "../../components/Loader";
 import {Link, useParams} from "react-router-dom";
-import {formatSmidge, parseSmidge} from "../helper/converter";
-import CopyButton from "../components/CopyButton";
-import {typeOfTransaction} from "../helper/tx";
-import CustomTimeAgo from "../components/CustomTimeAgo";
-import {fullDate} from "../helper/formatter";
-import getValueFromStatsObject from "../helper/getValueFromStatsObject";
+import {formatSmidge, parseSmidge} from "../../helper/converter";
+import CopyButton from "../../components/CopyButton";
+import {typeOfTransaction} from "../../helper/tx";
+import CustomTimeAgo from "../../components/CustomTimeAgo";
+import {fullDate} from "../../helper/formatter";
+import getValueFromStatsObject from "../../helper/getValueFromStatsObject";
 
 const Epoch = () => {
     const store = useStore();
@@ -79,21 +79,25 @@ const Epoch = () => {
                                     <Link to={`/${EPOCHS}/${data.number}/${LAYERS}`}>{data.layers}</Link>
                                 </span>
                             </li>
-                            {/* <li className="item"> */}
-                            {/*  <span className="item-name">Rewards</span> */}
-                            {/*  <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, REWARDS)}>{stats.rewardsnumber}</a></span> */}
-                            {/* </li> */}
-                            {/* <li className="item"> */}
-                            {/*  <span className="item-name">Rewards Amount</span> */}
-                            {/*  <span className="item-value"><a href={`/${EPOCHS}/${data.number}/${REWARDS}`} onClick={(e) => onClickHandler(e, EPOCHS, data.number, REWARDS)}>{formatSmidge(stats.rewards)}</a></span> */}
-                            {/* </li> */}
+                             <li className="item">
+                              <span className="item-name">Rewards</span>
+                              <span className="item-value">
+                                  <Link to={`/${EPOCHS}/${data.number}/${REWARDS}`}>
+                                      {`${stats.rewardsnumber} (${formatSmidge(stats.rewards)})`}
+                                  </Link>
+                              </span>
+                             </li>
                             <li className="item">
                                 <span className="item-name">Smeshers</span>
-                                <span className="item-value"><Link to={`/${EPOCHS}/${data.number}/${SMESHER}`}>{stats.smeshers}</Link></span>
+                                <span className="item-value">
+                                    <Link to={`/${EPOCHS}/${data.number}/${SMESHER}`}>{stats.smeshers}</Link>
+                                </span>
                             </li>
                             <li className="item">
                                 <span className="item-name">Transactions</span>
-                                <span className="item-value"><Link to={`/${EPOCHS}/${data.number}/${TXNS}`}>{stats.transactions}</Link></span>
+                                <span className="item-value">
+                                    <Link to={`/${EPOCHS}/${data.number}/${TXNS}`}>{stats.transactions}</Link>
+                                </span>
                             </li>
                         </ul>
                     </div>

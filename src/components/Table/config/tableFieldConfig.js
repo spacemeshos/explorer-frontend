@@ -48,13 +48,13 @@ export default {
     {
       fieldName: 'smeshers',
     },
-    // {
-    //   fieldName: 'rewards',
-    // },
-    // {
-    //   fieldName: 'value',
-    //   style: { flexGrow: 2 },
-    // },
+    {
+      fieldName: 'rewards',
+    },
+    {
+      fieldName: 'value',
+      style: { flexGrow: 2 },
+    },
   ],
   [TXNS]: [
     {
@@ -95,9 +95,9 @@ export default {
     {
       fieldName: 'activations',
     },
-    // {
-    //   fieldName: 'rewards',
-    // },
+    {
+      fieldName: 'rewards',
+    },
   ],
   [REWARDS]: [
     {
@@ -132,9 +132,9 @@ export default {
     {
       fieldName: 'Last Active',
     },
-    // {
-    //   fieldName: 'rewards',
-    // },
+    {
+      fieldName: 'rewards',
+    },
     {
       fieldName: 'balance',
     },
