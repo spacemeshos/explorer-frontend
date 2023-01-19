@@ -73,11 +73,18 @@ const Table = ({name, subPage, id, results}) => {
     }
 
     useEffect(() => {
-        if(store.network.value === null || data === null) return;
-        if(data && pagination) setStatus(STATUS_SUCCESS);
+        if(store.network.value === null) return;
+        if(data !== null && data !== undefined && (Object.entries(data).length > 0)) {
+            return;
+        }
 
         fetchAPI(`${store.network.value}${getUri()}`).then((result) => {
-            setData(result.data);
+            if(name === REWARDS || subPage === REWARDS) {
+                setData(getRewardsData(result.data));
+            } else {
+                setData(result.data);
+            }
+
             setPagination(result.pagination);
             setStatus(STATUS_SUCCESS);
         })
@@ -103,16 +110,17 @@ const Table = ({name, subPage, id, results}) => {
     };
 
     const getRewardsData = (data) => {
-        return data.map(item => ({...item, _id: `0x${item._id}`}))
+        return data.map(item => {
+            return {...item, _id: `0x${item._id}`}
+        })
     }
 
-    const getPaginationData = (page, pageNumber) => {
-        if (page === OVERVIEW) return;
+    const getPaginationData = (pageNumber) => {
+        if (name === OVERVIEW) return;
         fetchAPI(`${store.network.value}${getUri()}?page=${pageNumber}&pagesize=${pageSize}`).then(
             (result) => {
-                if (page === REWARDS) {
-                    const rewardsData = getRewardsData(result.data);
-                    setData([...data, ...rewardsData]);
+                if (name === REWARDS || subPage === REWARDS) {
+                    setData([...data, ...getRewardsData(result.data)]);
                 } else {
                     setData([...data, ...result.data])
                 }

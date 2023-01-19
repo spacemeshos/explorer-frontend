@@ -218,7 +218,6 @@ const RenderMainPage = (props: Props) => {
               title=""
               color={getColorByPageName(name)}
               desc="No results"
-              uiStore={uiStore}
             />
           </div>
         </>

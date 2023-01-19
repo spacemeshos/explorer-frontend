@@ -9,24 +9,23 @@ import {observer} from "mobx-react";
 const Txns = () => {
     const store = useStore();
     const { epoch } = store.networkInfo;
-    const name = TXNS;
     return (
         <>
             <div className="page-wrap">
                 <TitleBlock
                     title="transactions"
-                    color={getColorByPageName(name)}
+                    color={getColorByPageName(TXNS)}
                     desc="txns across the entire mesh"
                 />
                 <RightSideBlock
-                    color={getColorByPageName(name)}
+                    color={getColorByPageName(TXNS)}
                     number={epoch && epoch.stats.cumulative.transactions}
                     unit="txns since genesis"
                     coinCaption="Value Since Genesis"
                     coins={epoch && epoch.stats.cumulative.txsamount}
                 />
             </div>
-            <Table name={name} />
+            <Table name={TXNS} />
         </>
     )
 }

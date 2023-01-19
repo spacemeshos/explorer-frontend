@@ -9,40 +9,42 @@ import Table from "../../components/Table";
 import {observer} from "mobx-react";
 import {useEffect, useState} from "react";
 import {fetchAPI} from "../../api/fetchAPI";
+import Loader from "../../components/Loader";
 
 const Smeshers = () => {
     const store = useStore();
-    const name = SMESHER;
 
-    const [pagination, setPagination] = useState({totalCount: 0});
     const [dataTimeCreation, setDataTimeCreation] = useState([]);
+    const [data, setData] = useState();
 
     useEffect(() => {
         if (store.network.value === null) return;
         fetchAPI(`${store.network.value}${SMESHER}`).then((res) => {
             const creation = res.data && res.data.length && res.data.length > 0 && res.data[0].timestamp;
             setDataTimeCreation(creation);
-            setPagination(res.pagination);
+            setData(res);
         })
     }, [store.network.value]);
 
     return (
-        <>
-            <div className="page-wrap">
-                <TitleBlock
-                    title="Smeshers"
-                    color={getColorByPageName(name)}
-                    desc=""
-                />
-                <RightSideBlock
-                    color={getColorByPageName(name, store.theme)}
-                    number={pagination?.totalCount}
-                    unit="TOTAL SMESHERS"
-                    startTime={dataTimeCreation}
-                />
-            </div>
-            <Table name={name} />
-        </>
+        data ? (
+            <>
+                <div className="page-wrap">
+                    <TitleBlock
+                        title="Smeshers"
+                        color={getColorByPageName(SMESHER)}
+                        desc=""
+                    />
+                    <RightSideBlock
+                        color={getColorByPageName(SMESHER, store.theme)}
+                        number={data.pagination?.totalCount}
+                        unit="TOTAL SMESHERS"
+                        startTime={dataTimeCreation}
+                    />
+                </div>
+                <Table name={SMESHER} results={data}/>
+            </>
+        ) : <Loader size={100}/>
     )
 }
 

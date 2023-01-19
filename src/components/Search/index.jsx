@@ -8,6 +8,8 @@ const Search = () => {
   const store = useStore();
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
+  const [error, setError] = useState();
+  if(error) throw error;
 
   const onChangeHandler = (e) => setSearchValue(e.target.value);
 
@@ -30,6 +32,10 @@ const Search = () => {
     fetchAPI(`${store.network.value}search/${searchValue}`).then((res) => {
       const stringData = res.redirect.split('/');
       navigate(`/${stringData[1]}/${stringData[2]}`);
+    }).catch((e) => {
+      let error = new Error('Not found');
+      error.id = searchValue;
+      setError(error);
     })
   };
 
