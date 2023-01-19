@@ -1,5 +1,4 @@
 // @flow
-import React from 'react';
 import { observer } from 'mobx-react';
 import { formatSmidge } from '../../helper/converter';
 import { setFontSize, setLineHeight } from '../../helper/cssHelper';

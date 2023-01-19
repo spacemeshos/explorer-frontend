@@ -1,10 +1,8 @@
 // @flow
-import * as React from 'react';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
+import { Link } from 'react-router-dom';
 import { EPOCHS, LAYERS } from '../../config/constants';
-import {useStore} from "../../store";
-import {Link} from "react-router-dom";
+import { useStore } from '../../store';
 
 const TimeBlock = () => {
   const store = useStore();

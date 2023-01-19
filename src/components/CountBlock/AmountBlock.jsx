@@ -1,5 +1,4 @@
 // @flow
-import * as React from 'react';
 import { observer } from 'mobx-react';
 
 import CustomTimeAgo from '../CustomTimeAgo';

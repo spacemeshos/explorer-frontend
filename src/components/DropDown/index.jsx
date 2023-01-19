@@ -1,6 +1,4 @@
 // @flow
-import * as React from 'react';
-
 import Dropdown from 'react-dropdown';
 
 type Props = {

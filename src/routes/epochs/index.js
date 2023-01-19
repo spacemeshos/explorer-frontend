@@ -6,5 +6,4 @@ import EpochRewards from './epoch-rewards';
 import EpochSmeshers from './epoch-smeshers';
 import EpochTxns from './epoch-txns';
 
-
 export { Epochs, Epoch, EpochAtxs, EpochLayers, EpochRewards, EpochSmeshers, EpochTxns };

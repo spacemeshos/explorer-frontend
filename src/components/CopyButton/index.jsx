@@ -1,5 +1,5 @@
 // @flow
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 type Props = {
