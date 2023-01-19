@@ -4,11 +4,11 @@ import {observer} from 'mobx-react';
 import {byteConverter, formatSmidge} from '../../helper/converter';
 import Loader from '../Loader';
 import {
-    ACCOUNTS, EPOCHS, LAYERS, SMESHER,
+    ACCOUNTS, EPOCHS, LAYERS, REWARDS, SMESHER,
 } from '../../config/constants';
 import {Link} from "react-router-dom";
 
-const InfoBlock = ({accounts, security, epoch, layer, smeshers}) => {
+const InfoBlock = ({accounts, security, epoch, layer, rewards, smeshers}) => {
     return (
         <div className="infoBlock">
             <ul className="infoBlock-list">
