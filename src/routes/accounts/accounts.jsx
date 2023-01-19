@@ -12,7 +12,7 @@ import Loader from "../../components/Loader";
 const Accounts = () => {
     const store = useStore();
     const {epoch} = store.networkInfo;
-    const [dataTimeCreation, setDataTimeCreation] = useState([]);
+    const [dataTimeCreation, setDataTimeCreation] = useState(null);
     const [data, setData] = useState();
 
     useEffect(() => {

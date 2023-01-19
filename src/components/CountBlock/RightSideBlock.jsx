@@ -68,7 +68,7 @@ const RightSideBlock = (props: Props) => {
       </div>
     </div>
   );
-  return (startTime ? blockWithTime() : blockWithCoin());
+  return (startTime || startTime === 0 ? blockWithTime() : blockWithCoin());
 };
 
 export default observer(RightSideBlock);
