@@ -1,30 +1,22 @@
 import TitleBlock from "../../components/TitleBlock";
 import {getColorByPageName} from "../../helper/getColorByPageName";
-import {ACCOUNTS, LAYERS, REWARDS, TXNS} from "../../config/constants";
+import {ACCOUNTS, REWARDS, TXNS} from "../../config/constants";
 import RightSideBlock from "../../components/CountBlock/RightSideBlock";
 import {useStore} from "../../store";
-import Table from "../../components/Table";
 import {observer} from "mobx-react";
 import {fetchAPI} from "../../api/fetchAPI";
 import {useEffect, useState} from "react";
-import longFormHash from "../../helper/longFormHash";
-import {CountTxnsBlock} from "../../components/CountBlock";
-import TxnsStatus from "../../components/TxnsStatus";
-import {DetailsCoinTxns} from "../../components/common/Details";
 import Loader from "../../components/Loader";
 import {Link, useParams} from "react-router-dom";
 import {formatSmidge, parseSmidge} from "../../helper/converter";
 import CopyButton from "../../components/CopyButton";
-import {typeOfTransaction} from "../../helper/tx";
-import CustomTimeAgo from "../../components/CustomTimeAgo";
-import {fullDate} from "../../helper/formatter";
 
 const Account = () => {
     const store = useStore();
     const name = ACCOUNTS;
     const params = useParams();
 
-    const [data, setData] = useState({});
+    const [data, setData] = useState();
     const [smidge, setSmidge] = useState({value: 0, unit: 'SMH'});
 
     useEffect(() => {
@@ -64,14 +56,14 @@ const Account = () => {
                                 <span className="item-name">Counter</span>
                                 <span className="item-value">{data.counter}</span>
                             </li>
-                             <li className="item">
-                              <span className="item-name">Rewards</span>
-                              <span className="item-value">
+                            <li className="item">
+                                <span className="item-name">Rewards</span>
+                                <span className="item-value">
                                 <Link to={`/${ACCOUNTS}/${data.address}/${REWARDS}`}>
                                   {formatSmidge(data.awards)}
                                 </Link>
                               </span>
-                             </li>
+                            </li>
                             <li className="item">
                                 <span className="item-name">Balance</span>
                                 <span className="item-value">

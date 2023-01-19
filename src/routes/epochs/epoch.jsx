@@ -1,21 +1,14 @@
 import TitleBlock from "../../components/TitleBlock";
 import {getColorByPageName} from "../../helper/getColorByPageName";
-import {ACCOUNTS, EPOCHS, LAYERS, REWARDS, SMESHER, TXNS} from "../../config/constants";
+import {EPOCHS, LAYERS, REWARDS, SMESHER, TXNS} from "../../config/constants";
 import RightSideBlock from "../../components/CountBlock/RightSideBlock";
 import {useStore} from "../../store";
-import Table from "../../components/Table";
 import {observer} from "mobx-react";
 import {fetchAPI} from "../../api/fetchAPI";
 import {useEffect, useState} from "react";
-import longFormHash from "../../helper/longFormHash";
-import {CountTxnsBlock} from "../../components/CountBlock";
-import TxnsStatus from "../../components/TxnsStatus";
-import {DetailsCoinTxns} from "../../components/common/Details";
 import Loader from "../../components/Loader";
 import {Link, useParams} from "react-router-dom";
 import {formatSmidge, parseSmidge} from "../../helper/converter";
-import CopyButton from "../../components/CopyButton";
-import {typeOfTransaction} from "../../helper/tx";
 import CustomTimeAgo from "../../components/CustomTimeAgo";
 import {fullDate} from "../../helper/formatter";
 import getValueFromStatsObject from "../../helper/getValueFromStatsObject";
@@ -25,7 +18,7 @@ const Epoch = () => {
     const name = EPOCHS;
     const params = useParams();
 
-    const [data, setData] = useState({});
+    const [data, setData] = useState();
     const [stats, setStats] = useState({});
 
     useEffect(() => {
@@ -48,9 +41,9 @@ const Epoch = () => {
                         />
                         <RightSideBlock
                             color={getColorByPageName(name)}
-                            number={data && (data.layers)}
+                            number={data.layers}
                             unit="layers"
-                            startTime={data && data.start}
+                            startTime={data.start}
                         />
                     </div>
                     <div className="details">

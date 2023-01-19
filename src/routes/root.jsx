@@ -10,7 +10,7 @@ import SidebarMenu from "../components/SidebarMenu/SidebarMenu";
 import {LAYERS, OVERVIEW, TXNS} from "../config/constants";
 import TimeBlock from "../components/TimeBlock";
 
-const Root = () => {
+const Root = ({errorElement}) => {
     const store = useStore();
     const { pathname } = useLocation();
     const activePage = pathname !== '/' ? pathname.split('/')[1] : OVERVIEW;
@@ -39,10 +39,10 @@ const Root = () => {
                     <section className="main">
                         <CornerBoxWrapper>
                             <div className="page">
-                                <Outlet/>
+                                {errorElement ? errorElement : <Outlet/>}
                             </div>
                         </CornerBoxWrapper>
-                        {activePage === OVERVIEW && (
+                        {activePage === OVERVIEW && !errorElement && (
                           <div className="browseAll-link">
                             <Link to={`/${TXNS}`}>browse all</Link>
                           </div>

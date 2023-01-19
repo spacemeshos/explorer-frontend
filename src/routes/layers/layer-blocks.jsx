@@ -8,37 +8,40 @@ import {useStore} from "../../store";
 import Table from "../../components/Table";
 import {useEffect, useState} from "react";
 import {fetchAPI} from "../../api/fetchAPI";
+import Loader from "../../components/Loader";
 
 const LayerBlocks = () => {
     const store = useStore();
-    const { layer } = store.networkInfo;
+    const {layer} = store.networkInfo;
     const params = useParams();
 
-    const [data, setData] = useState({});
+    const [data, setData] = useState();
 
     useEffect(() => {
-        if(store.network.value === null || data === null) return;
+        if (store.network.value === null) return;
         fetchAPI(`${store.network.value}${LAYERS}/${params.id}/${BLOCKS}`).then((result) => {
             setData(result);
         })
     }, [store.network.value]);
 
     return (
-        <>
-            <div className="page-wrap">
-                <TitleBlock
-                    title={`Layer ${params.id} blocks`}
-                    color={getColorByPageName(BLOCKS)}
-                />
-                <RightSideBlock
-                    number={data.pagination && data.pagination.totalCount}
-                    startTime={layer && layer.start}
-                    unit="blocks"
-                    color={getColorByPageName(BLOCKS)}
-                />
-            </div>
-            <Table name={LAYERS} subPage={BLOCKS} id={params.id} results={data} />
-        </>
+        data ? (
+            <>
+                <div className="page-wrap">
+                    <TitleBlock
+                        title={`Layer ${params.id} blocks`}
+                        color={getColorByPageName(BLOCKS)}
+                    />
+                    <RightSideBlock
+                        number={data.pagination && data.pagination.totalCount}
+                        startTime={layer && layer.start}
+                        unit="blocks"
+                        color={getColorByPageName(BLOCKS)}
+                    />
+                </div>
+                <Table name={LAYERS} subPage={BLOCKS} id={params.id} results={data}/>
+            </>
+        ) : <Loader size={100}/>
     )
 }
 

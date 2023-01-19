@@ -16,9 +16,7 @@ const EpochsRow = ({data}) => {
     return (
         data && data.map((item) => (
             <div key={nanoid()} className="tr">
-                <div className="td"><a href={`/${EPOCHS}/${item.number}`}
-                                       onClick={(e) => viewStore.linkHandler(e, EPOCHS, item.number)}>{item.number}</a>
-                </div>
+                <div className="td"><Link to={`/${EPOCHS}/${item.number}`}>{item.number}</Link></div>
                 <div className="td">
                     <CustomTimeAgo time={item.start}/>
                 </div>
