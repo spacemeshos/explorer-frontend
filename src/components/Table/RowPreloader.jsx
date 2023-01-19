@@ -1,8 +1,7 @@
-//@flow
-import * as React from 'react';
+// @flow
 import { nanoid } from 'nanoid';
 
-const RowPreloader = ({rowCount}) => {
+const RowPreloader = ({ rowCount }) => {
   const arr = Array.from(Array(rowCount).keys());
 
   return (
@@ -13,7 +12,7 @@ const RowPreloader = ({rowCount}) => {
         </div>
       </div>
     ))
-  )
+  );
 };
 
 export default RowPreloader;

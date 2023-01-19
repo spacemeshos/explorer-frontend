@@ -1,9 +1,8 @@
 // @flow
-import * as React from 'react';
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
 
 import BitmapSVG from './BitmapSVG';
-import {useStore} from "../../store";
+import { useStore } from '../../store';
 
 type Props = {
     title: string;
@@ -13,18 +12,18 @@ type Props = {
 };
 
 const TitleBlock = (props: Props) => {
-    const store = useStore();
-    const {title, desc, color} = props;
+  const store = useStore();
+  const { title, desc, color } = props;
 
-    return (
-        <div className="titleBlock">
-            <div className="titleBlock-wrap">
-                <p style={{color: color.textColor}} className="titleBlock-title">{title}</p>
-                <p className="titleBlock-desc">{desc}</p>
-            </div>
-            <BitmapSVG invert={store.theme !== 'dark'}/>
-        </div>
-    );
+  return (
+    <div className="titleBlock">
+      <div className="titleBlock-wrap">
+        <p style={{ color: color.textColor }} className="titleBlock-title">{title}</p>
+        <p className="titleBlock-desc">{desc}</p>
+      </div>
+      <BitmapSVG invert={store.theme !== 'dark'} />
+    </div>
+  );
 };
 
 export default observer(TitleBlock);

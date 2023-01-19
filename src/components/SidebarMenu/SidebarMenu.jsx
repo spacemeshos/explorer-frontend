@@ -1,14 +1,13 @@
 // @flow
-import React from 'react';
 import { observer } from 'mobx-react';
 import { nanoid } from 'nanoid';
 
+import { useLocation } from 'react-router-dom';
 import MenuItem from './MenuItem';
 import { pagesLink } from '../../config/pagesLink';
 import {
   BLOCKS, LAYERS, OVERVIEW,
 } from '../../config/constants';
-import {useLocation} from "react-router-dom";
 
 const SidebarMenu = () => {
   const { pathname } = useLocation();

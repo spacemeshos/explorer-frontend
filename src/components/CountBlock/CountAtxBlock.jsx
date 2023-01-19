@@ -1,5 +1,4 @@
 // @flow
-import * as React from 'react';
 import Badge from '../Badge';
 import CustomTimeAgo from '../CustomTimeAgo';
 import { formattedDate } from '../../helper/formatter';

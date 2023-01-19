@@ -1,18 +1,18 @@
 import {
-  ACCOUNTS, EPOCHS, LAYERS, REWARDS, SMART_WALLET, SMESHER, TXNS
+  ACCOUNTS, EPOCHS, REWARDS, SMART_WALLET, SMESHER,
 } from '../config/constants';
 
 const overviewData = {
   networks: [
     {
-      "id": "1",
-      "domain": "https://testnet1.com",
-      "name": "TestNet 0.1 'TweedleDee'",
+      id: '1',
+      domain: 'https://testnet1.com',
+      name: "TestNet 0.1 'TweedleDee'",
     },
     {
-      "id": "2",
-      "domain": "https://testnet2.com",
-      "name": "TestNet 0.2 'TweedleDee'",
+      id: '2',
+      domain: 'https://testnet2.com',
+      name: "TestNet 0.2 'TweedleDee'",
     },
   ],
   transactions: 0,
@@ -197,7 +197,7 @@ const appsData = [
     name: 'SM W #1',
     created: '3 days ago',
     balance: '11',
-  }
+  },
 ];
 const smeshersData = [
   {
@@ -239,66 +239,50 @@ const smeshersData = [
 ];
 
 function randomInteger(min, max) {
-  let rand = min + Math.random() * (max + 1 - min);
+  const rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
 }
 
-export const overviewMocker = () => {
-  return new Promise(resolve => {
-    setTimeout(() => resolve(overviewData), randomInteger(600, 1200));
-  });
-};
+export const overviewMocker = () => new Promise((resolve) => {
+  setTimeout(() => resolve(overviewData), randomInteger(600, 1200));
+});
 
-export const transactionMocker = () => {
-  return new Promise(resolve => {
-    setTimeout(() => resolve(transactionsData), randomInteger(600, 1200));
-  });
-};
+// export const transactionMocker = () => new Promise((resolve) => {
+//   setTimeout(() => resolve(transactionsData), randomInteger(600, 1200));
+// });
 
-export const epochsMocker = () => {
-  return new Promise(resolve => {
-    setTimeout(() => resolve(epochsData), randomInteger(600, 1200));
-  });
-};
+export const epochsMocker = () => new Promise((resolve) => {
+  setTimeout(() => resolve(epochsData), randomInteger(600, 1200));
+});
 
-export const layersMocker = () => {
-  return new Promise(resolve => {
-    setTimeout(() => resolve(layersData), randomInteger(600, 1200));
-  });
-};
+// export const layersMocker = () => new Promise((resolve) => {
+//   setTimeout(() => resolve(layersData), randomInteger(600, 1200));
+// });
 
-export const rewardsMocker = () => {
-  return new Promise(resolve => {
-    setTimeout(() => resolve(rewardsData), randomInteger(600, 1200));
-  });
-};
+export const rewardsMocker = () => new Promise((resolve) => {
+  setTimeout(() => resolve(rewardsData), randomInteger(600, 1200));
+});
 
-export const accountsMocker = () => {
-  return new Promise(resolve => {
-    setTimeout(() => resolve(accountsData), randomInteger(600, 1200));
-  });
-};
+export const accountsMocker = () => new Promise((resolve) => {
+  setTimeout(() => resolve(accountsData), randomInteger(600, 1200));
+});
 
-export const appsMocker = () => {
-  return new Promise(resolve => {
-    setTimeout(() => resolve(appsData), randomInteger(600, 1200));
-  });
-};
+export const appsMocker = () => new Promise((resolve) => {
+  setTimeout(() => resolve(appsData), randomInteger(600, 1200));
+});
 
-export const smeshersMocker = () => {
-  return new Promise(resolve => {
-    setTimeout(() => resolve(smeshersData), randomInteger(600, 1200));
-  });
-};
+export const smeshersMocker = () => new Promise((resolve) => {
+  setTimeout(() => resolve(smeshersData), randomInteger(600, 1200));
+});
 
 export const getMockerByPage = (page) => {
-  switch(page) {
-    case TXNS:
-      return transactionMocker();
+  switch (page) {
+    // case TXNS:
+    //   return transactionMocker();
     case EPOCHS:
       return epochsMocker();
-    case LAYERS:
-      return layersMocker();
+    // case LAYERS:
+    //   return layersMocker();
     case REWARDS:
       return rewardsMocker();
     case ACCOUNTS:
@@ -307,7 +291,7 @@ export const getMockerByPage = (page) => {
       return appsMocker();
     case SMESHER:
       return smeshersMocker();
+    default:
+      return null;
   }
 };
-
-

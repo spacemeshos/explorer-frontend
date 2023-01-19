@@ -1,22 +1,34 @@
 // @flow
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {useStore} from "../../store";
-import {fetchAPI} from "../../api/fetchAPI";
+import { useStore } from '../../store';
+import { fetchAPI } from '../../api/fetchAPI';
 
 const Search = () => {
   const store = useStore();
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
   const [error, setError] = useState();
-  if(error) throw error;
+  if (error) throw error;
 
   const onChangeHandler = (e) => setSearchValue(e.target.value);
+
+  const onClickHandler = () => {
+    // store.showSearchResult(searchValue);
+    fetchAPI(`${store.network.value}search/${searchValue}`).then((res) => {
+      const stringData = res.redirect.split('/');
+      navigate(`/${stringData[1]}/${stringData[2]}`);
+    }).catch(() => {
+      const err = new Error('Not found');
+      err.id = searchValue;
+      setError(err);
+    });
+  };
 
   useEffect(() => {
     const listener = (event) => {
       if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-        //store.showSearchResult(searchValue);
+        // store.showSearchResult(searchValue);
         onClickHandler();
         setSearchValue('');
       }
@@ -26,18 +38,6 @@ const Search = () => {
       document.removeEventListener('keydown', listener);
     };
   }, [searchValue, setSearchValue]);
-
-  const onClickHandler = () => {
-    //store.showSearchResult(searchValue);
-    fetchAPI(`${store.network.value}search/${searchValue}`).then((res) => {
-      const stringData = res.redirect.split('/');
-      navigate(`/${stringData[1]}/${stringData[2]}`);
-    }).catch((e) => {
-      let error = new Error('Not found');
-      error.id = searchValue;
-      setError(error);
-    })
-  };
 
   return (
     <div className="search">

@@ -1,6 +1,4 @@
 // @flow
-import * as React from 'react';
-
 type Props = {
   color: string,
   number: string,
