@@ -12,6 +12,7 @@ import {Epoch, EpochAtxs, EpochLayers, EpochRewards, Epochs, EpochSmeshers, Epoc
 import {Layer, LayerAtxs, LayerBlocks, LayerRewards, Layers, LayerSmeshers, LayerTxns} from "../routes/layers";
 import {Account, AccountRewards, Accounts, AccountTxns} from "../routes/accounts";
 import {Smesher, SmesherAtxs, SmesherRewards, Smeshers} from "../routes/smeshers";
+import Atx from "../routes/atx";
 
 const router = createBrowserRouter([
     {
@@ -136,6 +137,11 @@ const router = createBrowserRouter([
             {
                 path: '/rewards/:id',
                 element: <Reward/>
+            },
+            // ATXS
+            {
+                path: '/atxs/:id',
+                element: <Atx/>
             }
         ]
     },
