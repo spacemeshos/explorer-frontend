@@ -56,11 +56,14 @@ const Table = ({ name, subPage, id, results }) => {
     return pathName;
   };
 
-  const getRewardsData = (d) => d.map((item) => ({ ...item, _id: `0x${item._id}` }));
+  const getRewardsData = (d) => d.map((item) => ({ ...item, displayName: `0x${item._id}` }));
 
   useEffect(() => {
     if (store.network.value === null) return;
     if (data !== null && data !== undefined && (Object.entries(data).length > 0)) {
+      if (name === REWARDS || subPage === REWARDS) {
+        setData(getRewardsData(data));
+      }
       return;
     }
 
