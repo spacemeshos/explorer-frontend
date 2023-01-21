@@ -33,7 +33,7 @@ const CustomTimeAgo = (props: Props) => {
   const formatter = buildFormatter(enString);
 
   return (
-    time > 0 && <TimeAgo date={jsDate} formatter={formatter} />
+    time > 0 ? <TimeAgo date={jsDate} formatter={formatter} /> : 'N/A'
   );
 };
 

@@ -18,7 +18,7 @@ const RewardsRow = ({ data }) => (
     <div key={nanoid()} className="tr">
       <div className="td">
         <Link to={`/${REWARDS}/${item._id}`}>
-          {item._id ? shortFormHash(item._id) : '--'}
+          {item.displayName ? shortFormHash(item.displayName) : '--'}
         </Link>
       </div>
       <div className="td">

@@ -27,9 +27,6 @@ const AccountsRow = ({ data }) => (
         <CustomTimeAgo time={item.timestamp} />
       </div>
       <div className="td">
-        {formatSmidge(item.awards)}
-      </div>
-      <div className="td">
         {formatSmidge(item.balance)}
       </div>
     </div>
