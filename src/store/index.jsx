@@ -49,6 +49,7 @@ export default class Store {
 
   setNetwork(data) {
     this.network = this.networks.find((item) => item.value === data.value);
+    this.network.value += this.network.value.endsWith('/') ? '' : '/';
   }
 
   async bootstrap() {
@@ -63,25 +64,28 @@ export default class Store {
     }
   }
 
-  async getNetworkInfo() {
-    try {
-      const networkInfo = await this.fetch(`${this.network.value}network-info`);
-      const { network } = toJS(networkInfo);
-      let color = 'green';
+  processNetworkInfo() {
+    const { network } = toJS(this.networkInfo);
+    console.log(network);
 
-      if ((network.lastlayer + 24) < network.lastapprovedlayer || network.issynced === false) {
-        color = 'red';
-      } else if (network.lastlayerts < ((Math.floor(Date.now() / 1000)) - (network.duration))) {
-        color = 'orange';
-      }
-
-      runInAction(() => {
-        this.networkInfo = networkInfo;
-        this.color = color;
-      });
-    } catch (e) {
-      console.log('Error', e.message);
+    if ((network.lastlayer + 24) < network.lastapprovedlayer || network.issynced === false) {
+      this.color = 'red';
+    } else if (network.lastlayerts < ((Math.floor(Date.now() / 1000)) - (network.duration))) {
+      this.color = 'orange';
+    } else {
+      this.color = 'green';
     }
+  }
+
+  async getNetworkInfo() {
+    const wsUrl = this.network.value.replace(/^https(.*)/, 'wss$1').replace(/^http(.*)/, 'ws$1');
+    const ws = new WebSocket(`${wsUrl}ws/network-info`);
+    ws.onmessage = (event) => {
+      runInAction(async () => {
+        this.networkInfo = JSON.parse(event.data);
+        this.processNetworkInfo(this.networkInfo);
+      });
+    };
   }
 }
 
