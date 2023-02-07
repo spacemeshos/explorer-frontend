@@ -4,8 +4,8 @@
     "requireConfigFile": false
   },
   "extends": [
+    "react-app",
     "airbnb",
-    "plugin:react/jsx-runtime",
     "plugin:flowtype/recommended"
   ],
   "env": {
