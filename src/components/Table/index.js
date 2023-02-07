@@ -102,7 +102,7 @@ const Table = ({ name, subPage, id, results }) => {
   useEffect(() => {
     if (!isFetching) return;
     // eslint-disable-next-line no-unused-expressions
-    pagination?.hasNext && getPaginationData(name, pagination.next);
+    pagination?.hasNext && getPaginationData(pagination.next);
     setIsFetching(false);
   }, [isFetching]);
 

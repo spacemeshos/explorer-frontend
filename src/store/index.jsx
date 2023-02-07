@@ -66,7 +66,6 @@ export default class Store {
 
   processNetworkInfo() {
     const { network } = toJS(this.networkInfo);
-    console.log(network);
 
     if ((network.lastlayer + 24) < network.lastapprovedlayer || network.issynced === false) {
       this.color = 'red';
