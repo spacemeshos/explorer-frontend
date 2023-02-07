@@ -5,6 +5,7 @@
   },
   "extends": [
     "react-app",
+    "plugin:react/jsx-runtime",
     "airbnb",
     "plugin:flowtype/recommended"
   ],
@@ -57,6 +58,10 @@
     "react/prop-types": 0,
     "consistent-return": "off",
     "no-param-reassign": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/function-component-definition": "off",
+    "react/prefer-exact-props": "off",
+    "react/jsx-no-useless-fragment": "off"
   }
 }
