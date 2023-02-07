@@ -4,8 +4,7 @@ type Props = {
   invert: boolean;
 };
 
-const BitmapSVG = (props: Props) => {
-  const { invert } = props;
+function BitmapSVG({ invert }: Props) {
   return (
     invert ? (
       <svg width="85" height="76" viewBox="0 0 85 76" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,6 +62,6 @@ const BitmapSVG = (props: Props) => {
       </svg>
     )
   );
-};
+}
 
 export default BitmapSVG;
