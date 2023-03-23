@@ -1,5 +1,5 @@
 import {
-  makeAutoObservable, observable, action, toJS, runInAction,
+  makeAutoObservable, toJS, runInAction, observable, action,
 } from 'mobx';
 import React from 'react';
 import { reMappingNetworkArray } from '../helper/mapping';
@@ -23,17 +23,18 @@ export default class Store {
     makeAutoObservable(this, {
       theme: observable,
       networks: observable.ref,
-      network: observable.ref,
+      network: observable,
       networkInfo: observable,
       networkColor: observable,
       color: observable,
 
+      setNetwork: action,
       getNetworkInfo: action,
       showSearchResult: action,
     }, { autoBind: true });
     this.fetch = fetch;
     document.documentElement.classList.add(`theme-${this.theme}`);
-    this.bootstrap();
+    // this.bootstrap();
   }
 
   changeTheme(e) {
@@ -66,7 +67,6 @@ export default class Store {
 
   processNetworkInfo() {
     const { network } = toJS(this.networkInfo);
-    console.log(network);
 
     if ((network.lastlayer + 24) < network.lastapprovedlayer || network.issynced === false) {
       this.color = 'red';
@@ -78,13 +78,18 @@ export default class Store {
   }
 
   async getNetworkInfo() {
-    const wsUrl = this.network.value.replace(/^https(.*)/, 'wss$1').replace(/^http(.*)/, 'ws$1');
+    const network = this.network.value;
+    const wsUrl = network.replace(/^https(.*)/, 'wss$1').replace(/^http(.*)/, 'ws$1');
     const ws = new WebSocket(`${wsUrl}ws/network-info`);
     ws.onmessage = (event) => {
-      runInAction(async () => {
-        this.networkInfo = JSON.parse(event.data);
-        this.processNetworkInfo(this.networkInfo);
-      });
+      if (network !== this.network.value) {
+        ws.close();
+      } else {
+        runInAction(async () => {
+          this.networkInfo = JSON.parse(event.data);
+          this.processNetworkInfo(this.networkInfo);
+        });
+      }
     };
   }
 }

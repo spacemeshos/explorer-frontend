@@ -38,6 +38,7 @@ const Table = ({ name, subPage, id, results }) => {
   const [status, setStatus] = useState(STATUS_LOADING);
   const [pagination, setPagination] = useState(results?.pagination);
   const [isFetching, setIsFetching] = useState(false);
+  const [currentNetwork, setCurrentNetwork] = useState(store.network.value);
 
   const tableConfigName = subPage || name;
   const pageSize = 20;
@@ -60,12 +61,13 @@ const Table = ({ name, subPage, id, results }) => {
 
   useEffect(() => {
     if (store.network.value === null) return;
-    if (data !== null && data !== undefined && (Object.entries(data).length > 0)) {
+    if (data !== null && data !== undefined && (Object.entries(data).length > 0) && currentNetwork === store.network.value) {
       if (name === REWARDS || subPage === REWARDS) {
         setData(getRewardsData(data));
       }
       return;
     }
+    setCurrentNetwork(store.network.value);
 
     fetchAPI(`${store.network.value}${getUri()}`).then((result) => {
       if (name === REWARDS || subPage === REWARDS) {

@@ -31,7 +31,10 @@ const Header = () => {
         <DropDown
           options={store.networks}
           selectedItem={store.network}
-          onSelect={(e) => store.setNetwork(e)}
+          onSelect={(e) => {
+            store.setNetwork(e);
+            store.getNetworkInfo();
+          }}
         />
       </div>
       <Switcher id="switch" onChange={(e) => store.changeTheme(e)} checked={store.theme === 'dark'} />

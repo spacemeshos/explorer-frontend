@@ -35,7 +35,7 @@ const LayerAtxs = () => {
             color={getColorByPageName(LAYERS)}
             number={data.pagination && data.pagination.totalCount}
             unit="atxs"
-            startTime={data.pagination && data.data[0].timestamp}
+            startTime={(data.data[0] && data.data[0].timestamp) || 0}
           />
         </div>
         <Table name={LAYERS} subPage={ATXS} id={params.id} results={data} />
