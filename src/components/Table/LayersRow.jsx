@@ -5,7 +5,6 @@ import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import {
   LAYERS,
-  ATXS,
   TXNS, REWARDS,
 } from '../../config/constants';
 import { formatSmidge } from '../../helper/converter';
@@ -25,11 +24,6 @@ const LayersRow = ({ data }) => (
       <div className="td">
         <Link to={`/${LAYERS}/${item.number}/${TXNS}`}>
           {`${item.txs} Transactions (${formatSmidge(item.txsamount)})`}
-        </Link>
-      </div>
-      <div className="td">
-        <Link to={`/${LAYERS}/${item.number}/${ATXS}`}>
-          {`${item.atxnumunits} Activations`}
         </Link>
       </div>
       <div className="td">
