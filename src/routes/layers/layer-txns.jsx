@@ -19,7 +19,7 @@ const LayerTxns = () => {
 
   useEffect(() => {
     if (store.network.value === null) return;
-    fetchAPI(`${store.network.value}${LAYERS}/${params.id}`).then((result) => {
+    fetchAPI(`${store.network.value}${LAYERS}/${params.id}/${TXNS}`).then((result) => {
       setData(result);
     });
   }, [store.network.value]);
