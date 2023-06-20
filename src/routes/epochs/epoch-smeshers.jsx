@@ -29,7 +29,7 @@ const EpochSmeshers = () => {
       <>
         <div className="page-wrap">
           <TitleBlock
-            title={`Epoch ${params.id} - Participating Smashers`}
+            title={`Epoch ${params.id} - Participating Smeshers`}
             color={getColorByPageName(EPOCHS)}
             desc="Smeshers submitting at least one honest block"
           />

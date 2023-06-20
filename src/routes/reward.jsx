@@ -77,7 +77,7 @@ const Reward = () => {
                 </span>
               </li>
               <li className="item">
-                <span className="item-name">Smasher Id</span>
+                <span className="item-name">Smesher Id</span>
                 <span className="item-value">
                   <Link to={`/${SMESHER}/${data.smesher}`}>
                     {data.smesher}
