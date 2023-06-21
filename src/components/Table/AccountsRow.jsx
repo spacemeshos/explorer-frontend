@@ -21,7 +21,7 @@ const AccountsRow = ({ data }) => (
         {formatSmidge(item.sent)}
       </div>
       <div className="td">
-        {formatSmidge(item.recieved)}
+        {formatSmidge(item.received)}
       </div>
       <div className="td">
         <CustomTimeAgo time={item.timestamp} />
