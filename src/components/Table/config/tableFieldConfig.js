@@ -124,7 +124,7 @@ export default {
       fieldName: 'sent',
     },
     {
-      fieldName: 'recieved',
+      fieldName: 'received',
     },
     {
       fieldName: 'Last Active',
