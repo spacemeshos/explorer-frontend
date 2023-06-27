@@ -62,7 +62,7 @@ const Epoch = () => {
                 </span>
               </li>
               <li className="item">
-                <span className="item-name">Ended</span>
+                <span className="item-name">{ Math.floor(Date.now() / 1000) > data.end ? 'Ended' : 'Ends'}</span>
                 <span className="item-value">
                   <CustomTimeAgo time={data.end} />
                   {`${fullDate(data.end)}`}

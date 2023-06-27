@@ -30,13 +30,13 @@ const SmesherRewards = () => {
           <TitleBlock
             title={`Smesher ${longFormHash(params.id)} - Details`}
             color={getColorByPageName(SMESHER)}
-            desc="Smesher details for this reward"
+            desc="Smesher rewards"
           />
           <RightSideBlock
             color={getColorByPageName(SMESHER, store.theme)}
             number={data.pagination && data.pagination.totalCount}
             unit="total rewards"
-            startTime={data.data && data.data[0].timestamp}
+            startTime={data.data && data.data.length > 0 ? data.data[0].timestamp : 0}
           />
         </div>
         <Table name={SMESHER} subPage={REWARDS} id={params.id} results={data} />
