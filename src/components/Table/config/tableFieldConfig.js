@@ -104,13 +104,7 @@ export default {
       fieldName: 'account',
     },
     {
-      fieldName: 'smesher',
-    },
-    {
       fieldName: 'layer',
-    },
-    {
-      fieldName: 'space',
     },
     {
       fieldName: 'value',

@@ -9,9 +9,8 @@ import {
   ACCOUNTS,
   LAYERS,
   REWARDS,
-  SMESHER,
 } from '../../config/constants';
-import { byteConverter, formatSmidge } from '../../helper/converter';
+import { formatSmidge } from '../../helper/converter';
 
 const RewardsRow = ({ data }) => (
   data && data.length !== 0 && data.map((item) => (
@@ -27,17 +26,9 @@ const RewardsRow = ({ data }) => (
         </Link>
       </div>
       <div className="td">
-        <Link to={`/${SMESHER}/${item.smesher}`}>
-          {longFormHash(item.smesher)}
-        </Link>
-      </div>
-      <div className="td">
         <Link to={`/${LAYERS}/${item.layer}`}>
           {item.layer}
         </Link>
-      </div>
-      <div className="td">
-        {byteConverter(item.space)}
       </div>
       <div className="td">
         {formatSmidge(item.total)}
