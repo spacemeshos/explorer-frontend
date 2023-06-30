@@ -83,8 +83,8 @@ const Atx = () => {
                 </span>
               </li>
               <li className="item">
-                <span className="item-name">Data commitment units</span>
-                <span className="item-value">{data.numunits}</span>
+                <span className="item-name">Commitment size</span>
+                <span className="item-value">{byteConverter(data.commitmentSize)}</span>
               </li>
               <li className="item">
                 <span className="item-name">Previous Activation</span>
