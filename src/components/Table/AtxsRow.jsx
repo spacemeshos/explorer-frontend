@@ -17,7 +17,7 @@ const AtxsRow = ({ data }) => (
         </Link>
       </div>
       <div className="td">
-        {byteConverter(item.cSize)}
+        {byteConverter(item.commitmentSize)}
       </div>
       <div className="td">
         <Link to={`/${LAYERS}/${item.layer}`}>
