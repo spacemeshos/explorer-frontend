@@ -13,8 +13,8 @@ const Header = () => {
 
   const links = [
     {
-      href: 'https://spacemesh.io/testnet/',
-      title: 'join testnet',
+      href: 'https://spacemesh.io/start/',
+      title: 'join the network',
     },
     {
       href: store.network.dash,
