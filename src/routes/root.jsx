@@ -11,7 +11,6 @@ import {
   LAYERS, OVERVIEW, TXNS,
 } from '../config/constants';
 import TimeBlock from '../components/TimeBlock';
-import GenesisPopup from '../components/GenesisPopup';
 
 const Root = ({ errorElement }) => {
   const { pathname } = useLocation();
@@ -24,7 +23,6 @@ const Root = ({ errorElement }) => {
       <Search />
 
       <div className="container">
-        <GenesisPopup />
         <div className="grid">
           <aside className="sidebar">
             <SidebarMenu />
