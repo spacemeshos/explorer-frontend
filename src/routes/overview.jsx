@@ -16,7 +16,7 @@ const Overview = () => {
       <InfoBlock
         accounts={epoch && epoch.stats.cumulative.accounts}
         rewards={epoch && epoch.stats.cumulative.rewards}
-        security={epoch && epoch.stats.cumulative.security}
+        security={epoch && epoch.stats.current.security}
         epoch={epoch && epoch.number}
         layer={epoch && layer.number}
         smeshers={epoch && epoch.stats.cumulative.smeshers}
