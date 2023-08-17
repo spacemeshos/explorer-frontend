@@ -9,7 +9,7 @@ import {
   SMESHER,
   SMART_WALLET,
   BLOCKS,
-  NOT_FOUND,
+  NOT_FOUND, MALFEASANCE,
 } from '../config/constants';
 
 export const getColorByPageName = (pageName: string, theme?: string) => {
@@ -86,6 +86,11 @@ export const getColorByPageName = (pageName: string, theme?: string) => {
         bgColor: colors.layerBgColor,
       };
     case NOT_FOUND:
+      return {
+        textColor: colors.notFoundColor,
+        bgColor: colors.notFoundBgColor,
+      };
+    case MALFEASANCE:
       return {
         textColor: colors.notFoundColor,
         bgColor: colors.notFoundBgColor,
