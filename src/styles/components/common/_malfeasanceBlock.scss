@@ -1,0 +1,43 @@
+.malfeasanceBlock {
+  display: flex;
+  flex: 2;
+  justify-content: space-between;
+  height: 136px;
+  @include theme-aware('background-color', 'backgroundInfoBlock');
+
+  &-wrap {
+    padding: 5px 24px;
+  }
+
+  &-title {
+    font-size: 16px;
+    text-transform: uppercase;
+    font-style: normal;
+  }
+
+  &-desc {
+    margin-top: 5px;
+    font-size: 14px;
+    @include theme-aware('color', 'titleDescColor');
+  }
+
+  &-link {
+    margin-top: 5px;
+    font-size: 14px;
+    @include theme-aware('color', 'titleDescColor');
+
+    a {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 1150px) {
+  .malfeasanceBlock {
+    height: unset;
+
+    &-wrap {
+      padding: 0 0 0 15px;
+    }
+  }
+}

@@ -18,3 +18,5 @@ export const STATUS_ERROR = 'error';
 
 // TXS rate
 export const USD_RATE = 1;
+
+export const MALFEASANCE = 'malfeasance';

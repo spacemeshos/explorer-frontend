@@ -13,6 +13,7 @@ import longFormHash from '../../helper/longFormHash';
 import Loader from '../../components/Loader';
 import { byteConverter, formatSmidge } from '../../helper/converter';
 import CopyButton from '../../components/CopyButton';
+import MalfeasanceBlock from '../../components/MalfeasanceBlock';
 
 const Smesher = () => {
   const store = useStore();
@@ -32,6 +33,12 @@ const Smesher = () => {
     <>
       {data ? (
         <>
+          {data.proofs.length > 0 && data?.proofs.map((item) => (
+            <MalfeasanceBlock
+              layer={item.layer}
+              type={item.type}
+            />
+          ))}
           <div className="page-wrap">
             <TitleBlock
               title={`Smesher ${longFormHash(params.id)}`}
