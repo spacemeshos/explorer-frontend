@@ -12,23 +12,23 @@ type Props = {
 };
 
 const MalfeasanceBlock = (props: Props) => {
-  const { type, layer } = props;
+  const { kind, layer } = props;
 
-  const typeTranslation = {
+  const kindTranslation = {
     MALFEASANCE_ATX: 'ATXs',
     MALFEASANCE_BALLOT: 'ballots',
     MALFEASANCE_HARE: 'Hare messages',
   };
 
   return (
-    <div style={{ display: 'grid', 'padding-bottom': '20px' }}>
+    <div style={{ display: 'grid', paddingBottom: '20px' }}>
       <div className="malfeasanceBlock">
         <div className="malfeasanceBlock-wrap">
           <p style={{ color: getColorByPageName(MALFEASANCE).textColor }} className="malfeasanceBlock-title">This smesher identity is disqualified from participating in the protocol due to violation of protocol rules.</p>
           <p className="malfeasanceBlock-desc">
             The key associated with this smesher was used to sign two contradictory
             {' '}
-            {typeTranslation[type]}
+            {kindTranslation[kind]}
             {' '}
             in layer
             {' '}

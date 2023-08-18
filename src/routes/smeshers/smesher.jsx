@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { nanoid } from 'nanoid';
 import TitleBlock from '../../components/TitleBlock';
 import { getColorByPageName } from '../../helper/getColorByPageName';
 import {
@@ -25,9 +26,11 @@ const Smesher = () => {
   useEffect(() => {
     if (store.network.value === null) return;
     fetchAPI(`${store.network.value}${SMESHER}/${params.id}`).then((res) => {
-      setData(res.data[0]);
+      if (res.data) {
+        setData(res.data[0]);
+      }
     });
-  }, [store.network.value]);
+  }, [store.network.value, params.id]);
 
   return (
     <>
@@ -35,8 +38,9 @@ const Smesher = () => {
         <>
           {data.proofs && data.proofs.length > 0 && data?.proofs.map((item) => (
             <MalfeasanceBlock
+              key={`proof-${nanoid()}`}
               layer={item.layer}
-              type={item.type}
+              kind={item.kind}
             />
           ))}
           <div className="page-wrap">
