@@ -33,7 +33,7 @@ const Smesher = () => {
     <>
       {data ? (
         <>
-          {data.proofs.length > 0 && data?.proofs.map((item) => (
+          {data.proofs && data.proofs.length > 0 && data?.proofs.map((item) => (
             <MalfeasanceBlock
               layer={item.layer}
               type={item.type}
