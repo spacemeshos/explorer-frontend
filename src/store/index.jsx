@@ -4,7 +4,7 @@ import {
 import React from 'react';
 import { reMappingNetworkArray } from '../helper/mapping';
 
-const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://discover.spacemesh.io/networks.json';
+const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://configs.spacemesh.network/networks.json';
 
 export default class Store {
   theme = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light';
