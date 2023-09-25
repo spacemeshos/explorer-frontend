@@ -26,6 +26,10 @@ jobs:
       - name: Upload
         run: gsutil -m rsync -r -d ./build gs://spacemesh-explorer
 
+      - name: Remove build dir
+          run: |
+            rm -rf ./build
+
       - name: Build dev
         env:
           REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-dev.json
