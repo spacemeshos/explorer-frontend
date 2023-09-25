@@ -27,8 +27,7 @@ jobs:
         run: gsutil -m rsync -r -d ./build gs://spacemesh-explorer
 
       - name: Remove build dir
-          run: |
-            rm -rf ./build
+        run: rm -rf ./build
 
       - name: Build dev
         env:
