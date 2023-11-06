@@ -23,11 +23,18 @@ const Smesher = () => {
   const { network } = store.networkInfo;
   const [data, setData] = useState();
 
+  const [error, setError] = useState();
+  if (error) throw error;
+
   useEffect(() => {
     if (store.network.value === null) return;
     fetchAPI(`${store.network.value}${SMESHER}/${params.id}`).then((res) => {
       if (res.data) {
         setData(res.data[0]);
+      } else {
+        const err = new Error('Not found');
+        err.id = params.id;
+        setError(err);
       }
     });
   }, [store.network.value, params.id]);
