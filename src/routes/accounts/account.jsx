@@ -68,14 +68,6 @@ const Account = () => {
                 </span>
               </li>
               <li className="item">
-                <span className="item-name">Balance</span>
-                <span className="item-value">
-                  <Link to={`/${ACCOUNTS}/${data.address}/${REWARDS}`}>
-                    {formatSmidge(data.balance)}
-                  </Link>
-                </span>
-              </li>
-              <li className="item">
                 <span className="item-name">Transactions</span>
                 <span className="item-value">
                   <Link to={`/${ACCOUNTS}/${data.address}/${TXNS}`}>
