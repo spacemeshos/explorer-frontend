@@ -12,6 +12,7 @@ import { fetchAPI } from '../../api/fetchAPI';
 import Loader from '../../components/Loader';
 import { formatSmidge, parseSmidge } from '../../helper/converter';
 import CopyButton from '../../components/CopyButton';
+import Table from '../../components/Table';
 
 const Account = () => {
   const store = useStore();
@@ -19,6 +20,7 @@ const Account = () => {
   const params = useParams();
 
   const [data, setData] = useState();
+  const [txData, setTxData] = useState();
   const [smidge, setSmidge] = useState({ value: 0, unit: 'SMH' });
 
   useEffect(() => {
@@ -26,6 +28,13 @@ const Account = () => {
     fetchAPI(`${store.network.value}${name}/${params.id}`).then((res) => {
       setData(res.data[0]);
       setSmidge(parseSmidge(res.data[0].balance));
+    });
+  }, [store.network.value]);
+
+  useEffect(() => {
+    if (store.network.value === null) return;
+    fetchAPI(`${store.network.value}${ACCOUNTS}/${params.id}/${TXNS}`).then((result) => {
+      setTxData(result);
     });
   }, [store.network.value]);
 
@@ -46,7 +55,7 @@ const Account = () => {
               startTime={data && data.timestamp}
             />
           </div>
-          <div className="details">
+          <div className="details" style={{ marginBottom: '20px' }}>
             <ul className="details-list">
               <li className="item">
                 <span className="item-name">Address</span>
@@ -76,6 +85,14 @@ const Account = () => {
                 </span>
               </li>
             </ul>
+          </div>
+          <div className="details">
+            <TitleBlock
+              title="Transactions"
+              color={getColorByPageName(name)}
+              desc="account transactions"
+            />
+            <Table name={ACCOUNTS} subPage={TXNS} id={params.id} results={txData} />
           </div>
         </>
       ) : (<Loader size={100} />)}
