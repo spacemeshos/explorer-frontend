@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { observer } from 'mobx-react';
 
+import ReactPaginate from 'react-paginate';
 import TransactionsRow from './TransactionsRow';
 import EpochsRow from './EpochsRow';
 import RewardsRow from './RewardsRow';
@@ -36,12 +37,13 @@ const Table = ({ name, subPage, id, results }) => {
   const store = useStore();
   const [data, setData] = useState(results?.data);
   const [status, setStatus] = useState(STATUS_LOADING);
-  const [pagination, setPagination] = useState(results?.pagination);
-  const [isFetching, setIsFetching] = useState(false);
   const [currentNetwork, setCurrentNetwork] = useState(store.network.value);
 
   const tableConfigName = subPage || name;
   const pageSize = 20;
+  const pages = Math.ceil((results?.pagination.totalCount || 0) / pageSize);
+  const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState(pages);
 
   const getUri = () => {
     let pathName = name;
@@ -75,8 +77,8 @@ const Table = ({ name, subPage, id, results }) => {
       } else {
         setData(result.data);
       }
-
-      setPagination(result.pagination);
+      const totalPages = Math.ceil(result.pagination.totalCount / pageSize);
+      setPageCount(totalPages);
       setStatus(STATUS_SUCCESS);
     });
   }, [store.network.value]);
@@ -86,12 +88,10 @@ const Table = ({ name, subPage, id, results }) => {
     fetchAPI(`${store.network.value}${getUri()}?page=${pageNumber}&pagesize=${pageSize}`).then(
       (result) => {
         if (name === REWARDS || subPage === REWARDS) {
-          setData([...data, ...getRewardsData(result.data)]);
+          setData(getRewardsData(result.data));
         } else {
-          setData([...data, ...result.data]);
+          setData(result.data);
         }
-
-        setPagination(result.pagination);
         setStatus(STATUS_SUCCESS);
       },
       (error) => {
@@ -100,25 +100,6 @@ const Table = ({ name, subPage, id, results }) => {
       },
     );
   };
-
-  useEffect(() => {
-    if (!isFetching) return;
-    // eslint-disable-next-line no-unused-expressions
-    pagination?.hasNext && getPaginationData(pagination.next);
-    setIsFetching(false);
-  }, [isFetching]);
-
-  const pageEndDetection = () => {
-    if (window.innerHeight + Math.round(document.documentElement.scrollTop) !== document.documentElement.offsetHeight) {
-      return;
-    }
-    setIsFetching(true);
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', pageEndDetection);
-    return () => window.removeEventListener('scroll', pageEndDetection);
-  }, []);
 
   const renderTableData = () => {
     switch (tableConfigName) {
@@ -207,20 +188,49 @@ const Table = ({ name, subPage, id, results }) => {
     }
   };
 
+  const handlePageClick = (event) => {
+    const nextPage = event.selected + 1;
+    setPage(nextPage);
+    getPaginationData(nextPage);
+  };
+
   return (
-    <div className="table">
-      <div className="responsive-table">
-        <div className="tr th">
-          {tableFieldConfig[tableConfigName].map((item) => (
-            <div key={nanoid()} style={item.style} className="td">
-              {item.fieldName}
-            </div>
-          ))}
+    <>
+      <div className="table">
+        <div className="responsive-table">
+          <div className="tr th">
+            {tableFieldConfig[tableConfigName].map((item) => (
+              <div key={nanoid()} style={item.style} className="td">
+                {item.fieldName}
+              </div>
+            ))}
+          </div>
+          {data ? renderTableData() : <Loader size={100} />}
+          {status === STATUS_SUCCESS && data.length === 0 && <NoData />}
         </div>
-        {data ? renderTableData() : <Loader size={100} />}
-        {status === STATUS_SUCCESS && data.length === 0 && <NoData />}
       </div>
-    </div>
+      {(pageCount && name !== OVERVIEW) && (
+        <div className="pagination-wrap">
+          <ReactPaginate
+            containerClassName="pagination"
+            previousLinkClassName="pagination_link"
+            nextLinkClassName="pagination_link"
+            disabledClassName="pagination_link--disabled"
+            activeClassName="pagination_link--active"
+            pageLinkClassName="pagination_link"
+            breakClassName="pagination_break"
+            onPageChange={handlePageClick}
+            pageCount={pageCount}
+            forcePage={page - 1}
+            pageRangeDisplayed={2}
+            disableInitialCallback
+            nextLabel="»"
+            previousLabel="«"
+            renderOnZeroPageCount={null}
+          />
+        </div>
+      )}
+    </>
   );
 };
 

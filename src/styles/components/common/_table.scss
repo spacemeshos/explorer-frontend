@@ -89,3 +89,43 @@
     width: 1000px;
   }
 }
+
+.pagination-wrap {
+  padding: 15px 15px;
+  @include theme-aware('background-color', 'backgroundInfoBlock');
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  cursor: pointer;
+}
+
+.pagination_link {
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination_link--active {
+  a {
+    background-color: $green;
+    color: white;
+  }
+  a:hover {
+    background-color: $green;
+  }
+}
+
+.pagination_link:hover {
+  background-color: $secondGrey;
+}
+
+.pagination_link--disabled {
+  a {
+    color: $textColor;
+  }
+  a:hover {
+    background-color: initial;
+  }
+}
