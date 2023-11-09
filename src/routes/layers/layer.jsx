@@ -83,10 +83,6 @@ const Layer = () => {
                 </span>
               </li>
               <li className="item">
-                <span className="item-name">Confidence</span>
-                <span className="item-value">--</span>
-              </li>
-              <li className="item">
                 <span className="item-name">Epoch</span>
                 <span className="item-value">
                   <Link to={`/${EPOCHS}/${data.epoch}`}>{data.epoch}</Link>
