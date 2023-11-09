@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import TitleBlock from '../../components/TitleBlock';
 import { getColorByPageName } from '../../helper/getColorByPageName';
+
 import {
   ACCOUNTS, REWARDS, TXNS,
 } from '../../config/constants';
@@ -29,14 +30,14 @@ const Account = () => {
       setData(res.data[0]);
       setSmidge(parseSmidge(res.data[0].balance));
     });
-  }, [store.network.value]);
+  }, [store.network.value, params.id]);
 
   useEffect(() => {
     if (store.network.value === null) return;
     fetchAPI(`${store.network.value}${ACCOUNTS}/${params.id}/${TXNS}`).then((result) => {
       setTxData(result);
     });
-  }, [store.network.value]);
+  }, [store.network.value, params.id]);
 
   return (
     <>
@@ -92,7 +93,7 @@ const Account = () => {
               color={getColorByPageName(name)}
               desc="account transactions"
             />
-            <Table name={ACCOUNTS} subPage={TXNS} id={params.id} results={txData} />
+            <Table name={ACCOUNTS} subPage={TXNS} id={params.id} results={txData} key={params.id} />
           </div>
         </>
       ) : (<Loader size={100} />)}
