@@ -17,7 +17,7 @@ type Props = {
 };
 
 const RightSideBlock = (props: Props) => {
-  const { color, unit, number, startTime, coinCaption, coins, label } = props;
+  const { color, unit, number, startTime, coinCaption, coins, label, rewards } = props;
 
   const blockWithTime = () => (
     <div style={{ backgroundColor: color.bgColor }} className="amountBlock">
@@ -48,8 +48,11 @@ const RightSideBlock = (props: Props) => {
     </div>
   );
 
+  const blockWithCoinStyle = { backgroundColor: color.bgColor };
+  if (rewards) blockWithCoinStyle['grid-template-columns'] = '1fr 1fr 2fr';
+
   const blockWithCoin = () => (
-    <div className="rightColumn" style={{ backgroundColor: color.bgColor }}>
+    <div className="rightColumn" style={blockWithCoinStyle}>
       <div
         className="rightColumn-number"
         style={{
