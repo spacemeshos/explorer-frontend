@@ -79,7 +79,7 @@ export default {
   [ATXS]: [
     { fieldName: 'id' },
     { fieldName: 'space' },
-    { fieldName: 'layer' },
+    { fieldName: 'target epoch' },
     { fieldName: 'Previous Activation' },
   ],
   [LAYERS]: [

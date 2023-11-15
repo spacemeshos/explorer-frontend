@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import StatusIcon from '../StatusIcon';
 import shortFormHash from '../../helper/shortFormHash';
 import longFormHash from '../../helper/longFormHash';
-import { ATXS, LAYERS } from '../../config/constants';
+import { ATXS, EPOCHS } from '../../config/constants';
 import { byteConverter } from '../../helper/converter';
 
 const AtxsRow = ({ data }) => (
@@ -20,8 +20,8 @@ const AtxsRow = ({ data }) => (
         {byteConverter(item.commitmentSize)}
       </div>
       <div className="td">
-        <Link to={`/${LAYERS}/${item.layer}`}>
-          {item.layer}
+        <Link to={`/${EPOCHS}/${item.targetEpoch}`}>
+          {item.targetEpoch}
         </Link>
       </div>
       <div className="td">

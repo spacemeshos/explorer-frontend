@@ -48,7 +48,7 @@ const Search = () => {
         onChange={(e) => onChangeHandler(e)}
         type="text"
         className="search-input"
-        placeholder={window.innerWidth < '1150' ? 'search' : 'search by account / transaction / layer'}
+        placeholder={window.innerWidth < '1150' ? 'search' : 'search by account / transaction / layer / atx'}
         value={searchValue}
       />
       <button type="button" onClick={onClickHandler} className="search-button">search &gt;</button>

@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import TitleBlock from '../components/TitleBlock';
 import { getColorByPageName } from '../helper/getColorByPageName';
 import {
-  ACCOUNTS, ATXS, LAYERS, SMESHER,
+  ACCOUNTS, ATXS, EPOCHS, SMESHER,
 } from '../config/constants';
 import { useStore } from '../store';
 import { fetchAPI } from '../api/fetchAPI';
@@ -75,10 +75,10 @@ const Atx = () => {
                 </span>
               </li>
               <li className="item">
-                <span className="item-name">Layer</span>
+                <span className="item-name">Target Epoch</span>
                 <span className="item-value">
-                  <Link to={`/${LAYERS}/${data.layer}`}>
-                    {data.layer}
+                  <Link to={`/${EPOCHS}/${data.targetEpoch}`}>
+                    {data.targetEpoch}
                   </Link>
                 </span>
               </li>
