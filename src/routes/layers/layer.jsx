@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import TitleBlock from '../../components/TitleBlock';
 import { getColorByPageName } from '../../helper/getColorByPageName';
 import {
-  BLOCKS, EPOCHS, LAYERS, REWARDS, SMESHER, TXNS,
+  BLOCKS, EPOCHS, LAYERS, REWARDS, TXNS,
 } from '../../config/constants';
 import RightSideBlock from '../../components/CountBlock/RightSideBlock';
 import { useStore } from '../../store';
@@ -88,12 +88,12 @@ const Layer = () => {
                   <Link to={`/${EPOCHS}/${data.epoch}`}>{data.epoch}</Link>
                 </span>
               </li>
-              <li className="item">
-                <span className="item-name">Smeshers</span>
-                <span className="item-value">
-                  <Link to={`/${LAYERS}/${data.number}/${SMESHER}`}>{data.smeshers}</Link>
-                </span>
-              </li>
+              {/* <li className="item"> */}
+              {/*  <span className="item-name">Smeshers</span> */}
+              {/*  <span className="item-value"> */}
+              {/*    <Link to={`/${LAYERS}/${data.number}/${SMESHER}`}>{data.smeshers}</Link> */}
+              {/*  </span> */}
+              {/* </li> */}
               <li className="item">
                 <span className="item-name">Hash</span>
                 <span className="item-value">
