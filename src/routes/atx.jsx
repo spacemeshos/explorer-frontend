@@ -28,7 +28,7 @@ const Atx = () => {
       setData(res.data[0]);
       setCSize(byteConverter(res.data[0]?.cSize, true));
     });
-  }, [store.network.value]);
+  }, [store.network.value, params.id]);
 
   return (
     <>
