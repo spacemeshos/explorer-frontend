@@ -105,6 +105,10 @@ const Table = ({ name, subPage, id, results }) => {
   };
 
   const renderTableData = () => {
+    if (isFetching) {
+      return <Loader size={100} />;
+    }
+
     switch (tableConfigName) {
       case OVERVIEW:
         return (
@@ -209,9 +213,7 @@ const Table = ({ name, subPage, id, results }) => {
               </div>
             ))}
           </div>
-          {
-            isFetching ? <Loader size={100} /> : renderTableData()
-          }
+          {data ? renderTableData() : <Loader size={100} />}
           {status === STATUS_SUCCESS && data.length === 0 && <NoData />}
         </div>
       </div>
