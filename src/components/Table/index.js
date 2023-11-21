@@ -44,6 +44,7 @@ const Table = ({ name, subPage, id, results }) => {
   const pages = Math.ceil((results?.pagination.totalCount || 0) / pageSize);
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(pages);
+  const [isFetching, setIsFetching] = useState(false);
 
   const getUri = () => {
     let pathName = name;
@@ -93,9 +94,11 @@ const Table = ({ name, subPage, id, results }) => {
           setData(result.data);
         }
         setStatus(STATUS_SUCCESS);
+        setIsFetching(false);
       },
       (error) => {
         console.log(error);
+        setIsFetching(false);
         setStatus(STATUS_ERROR);
       },
     );
@@ -189,6 +192,7 @@ const Table = ({ name, subPage, id, results }) => {
   };
 
   const handlePageClick = (event) => {
+    setIsFetching(true);
     const nextPage = event.selected + 1;
     setPage(nextPage);
     getPaginationData(nextPage);
@@ -205,7 +209,9 @@ const Table = ({ name, subPage, id, results }) => {
               </div>
             ))}
           </div>
-          {data ? renderTableData() : <Loader size={100} />}
+          {
+            isFetching ? <Loader size={100} /> : renderTableData()
+          }
           {status === STATUS_SUCCESS && data.length === 0 && <NoData />}
         </div>
       </div>
