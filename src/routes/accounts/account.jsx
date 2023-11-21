@@ -53,7 +53,7 @@ const Account = () => {
               color={getColorByPageName(name)}
               number={smidge && smidge.value}
               unit={`${smidge && smidge.unit} Balance`}
-              startTime={data && data.timestamp}
+              startTime={data && data.lastActivity}
             />
           </div>
           <div className="details" style={{ marginBottom: '20px' }}>
