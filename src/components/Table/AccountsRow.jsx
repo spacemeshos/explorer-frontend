@@ -24,7 +24,7 @@ const AccountsRow = ({ data }) => (
         {formatSmidge(item.received)}
       </div>
       <div className="td">
-        <CustomTimeAgo time={item.timestamp} />
+        <CustomTimeAgo time={item.lastActivity} />
       </div>
       <div className="td">
         {formatSmidge(item.balance)}

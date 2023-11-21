@@ -12,14 +12,14 @@ import Loader from '../../components/Loader';
 const Accounts = () => {
   const store = useStore();
   const { epoch } = store.networkInfo;
-  const [dataTimeCreation, setDataTimeCreation] = useState(null);
+  const [recentActivityTimestamp, setRecentActivityTimestamp] = useState(null);
   const [data, setData] = useState();
 
   useEffect(() => {
     if (store.network.value === null) return;
     fetchAPI(`${store.network.value}${ACCOUNTS}`).then((res) => {
-      const creation = res.data && res.data.length && res.data.length > 0 && res.data[0].timestamp;
-      setDataTimeCreation(creation);
+      const recentActivity = res.data && res.data.length && res.data.length > 0 && res.data[0].lastActivity;
+      setRecentActivityTimestamp(recentActivity);
       setData(res);
     });
   }, [store.network.value]);
@@ -37,8 +37,8 @@ const Accounts = () => {
             color={getColorByPageName(ACCOUNTS)}
             number={epoch && epoch.stats.cumulative.accounts}
             unit="accounts"
-            startTime={dataTimeCreation}
-            label="Most Recent Account"
+            startTime={recentActivityTimestamp}
+            label="Recent activity"
           />
         </div>
         <Table name={ACCOUNTS} results={data} />
