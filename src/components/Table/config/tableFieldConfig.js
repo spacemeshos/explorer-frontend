@@ -50,9 +50,6 @@ export default {
     },
     {
       fieldName: 'rewards',
-    },
-    {
-      fieldName: 'value',
       style: { flexGrow: 2 },
     },
   ],

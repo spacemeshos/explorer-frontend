@@ -27,12 +27,11 @@ const EpochsRow = ({ data }) => (
       <div className="td">
         <Link to={`/${EPOCHS}/${item.number}/${SMESHER}`}>{item.stats.current.smeshers}</Link>
       </div>
-      <div className="td">
+      <div className="td" style={{ flexGrow: 2 }}>
         <Link to={`/${EPOCHS}/${item.number}/${REWARDS}`}>
           {formatSmidge(item.stats.current.rewards)}
         </Link>
       </div>
-      <div className="td" style={{ flexGrow: 2 }}>{formatSmidge(item.stats.current.circulation)}</div>
     </div>
   ))
 );
