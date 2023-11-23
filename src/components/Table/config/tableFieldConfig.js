@@ -157,16 +157,10 @@ export default {
       fieldName: 'block',
     },
     {
-      fieldName: 'smesher',
-    },
-    {
-      fieldName: 'age',
-    },
-    {
       fieldName: 'transactions',
     },
     {
-      fieldName: 'value',
+      fieldName: 'transactions value',
     },
   ],
 };
