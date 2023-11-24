@@ -13,7 +13,7 @@ import { formatSmidge } from '../../helper/converter';
 import { mappingStatus } from '../../helper/mappingStatus';
 import { typeOfTransaction } from '../../helper/tx';
 
-const TransactionsRow = ({ data }) => (
+const TransactionsRow = ({ data, pathname }) => (
   data && data.map((item) => (
     <div key={nanoid()} className="tr">
       <div className="td">
@@ -29,15 +29,23 @@ const TransactionsRow = ({ data }) => (
       </div>
       <div className="td">{formatSmidge(item.amount)}</div>
       <div className="td">
-        <Link to={`/${ACCOUNTS}/${item.sender}`}>
-          {longFormHash(item.sender)}
-        </Link>
+        {
+          pathname === `/${ACCOUNTS}/${item.sender}` ? longFormHash(item.sender) : (
+            <Link to={`/${ACCOUNTS}/${item.sender}`}>
+              {longFormHash(item.sender)}
+            </Link>
+          )
+        }
         <div className="arrow">-&gt;</div>
       </div>
       <div className="td">
-        <Link to={`/${ACCOUNTS}/${item.receiver}`}>
-          {longFormHash(item.receiver)}
-        </Link>
+        {
+          pathname === `/${ACCOUNTS}/${item.receiver}` ? longFormHash(item.receiver) : (
+            <Link to={`/${ACCOUNTS}/${item.receiver}`}>
+              {longFormHash(item.receiver)}
+            </Link>
+          )
+        }
       </div>
       <div className="td">{typeOfTransaction(item.type)}</div>
     </div>
