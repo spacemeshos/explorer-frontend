@@ -20,7 +20,6 @@ const Smesher = () => {
   const store = useStore();
   const params = useParams();
 
-  const { network } = store.networkInfo;
   const [data, setData] = useState();
 
   const [error, setError] = useState();
@@ -60,7 +59,7 @@ const Smesher = () => {
               color={getColorByPageName(SMESHER, store.theme)}
               number={data?.atxcount}
               unit="atxs"
-              startTime={network?.genesis}
+              startTime={data?.timestamp}
             />
           </div>
           <div className="details">
