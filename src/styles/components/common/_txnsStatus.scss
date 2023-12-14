@@ -25,4 +25,8 @@
     background-color: $conflicting;
   }
 
+  &.pending {
+    background-color: $pending;
+  }
+
 }

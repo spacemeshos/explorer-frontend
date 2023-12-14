@@ -16,12 +16,8 @@ const TxnsStatus = (props: Props) => {
     switch (data) {
       case 'approved':
         return 'success';
-      case 'confirmed':
-        return 'success';
-      case 'insufficientFunds':
-        return 'Error - insufficient funds';
-      case 'conflicting':
-        return 'conflicting';
+      case 'pending':
+        return 'pending';
       default:
         break;
     }
