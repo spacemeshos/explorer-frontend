@@ -9,7 +9,6 @@ import {
 import { useStore } from '../store';
 import { fetchAPI } from '../api/fetchAPI';
 import longFormHash from '../helper/longFormHash';
-import TxnsStatus from '../components/TxnsStatus';
 import Loader from '../components/Loader';
 import { byteConverter } from '../helper/converter';
 import CopyButton from '../components/CopyButton';
