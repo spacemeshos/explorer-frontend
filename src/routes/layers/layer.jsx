@@ -28,7 +28,7 @@ const Layer = () => {
       setData(res.data[0]);
       setRewards(parseSmidge(res.data[0].rewards));
     });
-  }, [store.network.value]);
+  }, [store.network.value, params.id]);
 
   return (
     <>
