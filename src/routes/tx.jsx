@@ -32,7 +32,7 @@ const Tx = () => {
       setData(res.data[0]);
       setSmidge(parseSmidge(res.data[0].amount));
     });
-  }, [store.network.value]);
+  }, [store.network.value, params.id]);
 
   return (
     <>
