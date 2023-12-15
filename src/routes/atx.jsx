@@ -48,7 +48,6 @@ const Atx = () => {
               color={getColorByPageName(ATXS, store.theme)}
             />
           </div>
-          <TxnsStatus status={data.state} />
           <div className="details">
             <ul className="details-list">
               <li className="item">
