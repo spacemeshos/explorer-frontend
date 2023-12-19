@@ -5,6 +5,7 @@ export const LAYERS = 'layers';
 export const TXNS = 'txs';
 export const REWARDS = 'rewards';
 export const ACCOUNTS = 'accounts';
+export const ACCOUNTS_TXNS = 'accounts-txs';
 export const SMART_WALLET = 'apps';
 export const SMESHER = 'smeshers';
 export const ATXS = 'atxs';
