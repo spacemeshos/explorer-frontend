@@ -7,11 +7,11 @@ export const TransactionType = {
 export const typeOfTransaction = (type) => {
   switch (type) {
     case 1:
-      return 'SingleSig.Spawn';
+      return 'Spawn';
     case 2:
       return 'MultiSig.Spawn';
     case 3:
-      return 'SingleSig.Spend';
+      return 'Spend';
     default:
       return null;
   }

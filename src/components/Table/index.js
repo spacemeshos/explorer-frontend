@@ -6,6 +6,7 @@ import { observer } from 'mobx-react';
 import ReactPaginate from 'react-paginate';
 import { useLocation } from 'react-router-dom';
 import TransactionsRow from './TransactionsRow';
+import AccountTxsRow from './AccountTxsRow';
 import EpochsRow from './EpochsRow';
 import RewardsRow from './RewardsRow';
 import AccountsRow from './AccountsRow';
@@ -22,7 +23,7 @@ import {
   TXNS,
   ATXS,
   BLOCKS,
-  STATUS_SUCCESS, STATUS_ERROR, STATUS_LOADING,
+  STATUS_SUCCESS, STATUS_ERROR, STATUS_LOADING, ACCOUNTS_TXNS,
 } from '../../config/constants';
 import tableFieldConfig from './config/tableFieldConfig';
 import LayersRow from './LayersRow';
@@ -37,7 +38,6 @@ import { fetchAPI } from '../../api/fetchAPI';
 const Table = ({ name, subPage, id, results }) => {
   const store = useStore();
   const { pathname } = useLocation();
-  console.log(pathname);
   const [data, setData] = useState(results?.data);
   const [status, setStatus] = useState(STATUS_LOADING);
   const [currentNetwork, setCurrentNetwork] = useState(store.network.value);
@@ -58,6 +58,10 @@ const Table = ({ name, subPage, id, results }) => {
 
     if (name === OVERVIEW) {
       pathName = TXNS;
+    }
+
+    if (subPage === ACCOUNTS_TXNS) {
+      pathName = `${name}/${id}/${TXNS}`;
     }
 
     return pathName;
@@ -192,6 +196,15 @@ const Table = ({ name, subPage, id, results }) => {
             key={nanoid()}
             data={data}
             config={tableFieldConfig[tableConfigName]}
+          />
+        );
+      case ACCOUNTS_TXNS:
+        return (
+          <AccountTxsRow
+            key={nanoid()}
+            data={data}
+            config={tableFieldConfig[tableConfigName]}
+            pathname={pathname}
           />
         );
       default:

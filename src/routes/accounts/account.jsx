@@ -5,7 +5,7 @@ import TitleBlock from '../../components/TitleBlock';
 import { getColorByPageName } from '../../helper/getColorByPageName';
 
 import {
-  ACCOUNTS, REWARDS, TXNS,
+  ACCOUNTS, ACCOUNTS_TXNS, REWARDS, TXNS,
 } from '../../config/constants';
 import RightSideBlock from '../../components/CountBlock/RightSideBlock';
 import { useStore } from '../../store';
@@ -93,7 +93,7 @@ const Account = () => {
               color={getColorByPageName(name)}
               desc="account transactions"
             />
-            <Table name={ACCOUNTS} subPage={TXNS} id={params.id} results={txData} key={params.id} />
+            <Table name={ACCOUNTS} subPage={ACCOUNTS_TXNS} id={params.id} results={txData} key={params.id} />
           </div>
         </>
       ) : (<Loader size={100} />)}
