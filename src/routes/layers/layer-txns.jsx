@@ -16,11 +16,27 @@ const LayerTxns = () => {
   const params = useParams();
 
   const [data, setData] = useState();
+  const [info, setInfo] = useState({
+    txs: 0,
+    txsamount: 0,
+  });
 
   useEffect(() => {
     if (store.network.value === null) return;
     fetchAPI(`${store.network.value}${LAYERS}/${params.id}/${TXNS}`).then((result) => {
       setData(result);
+    });
+  }, [store.network.value]);
+
+  useEffect(() => {
+    if (store.network.value === null) return;
+    fetchAPI(`${store.network.value}${LAYERS}/${params.id}`).then((result) => {
+      if (result.data && result.data[0]) {
+        setInfo({
+          txs: result.data[0].txs,
+          txsamount: result.data[0].txsamount,
+        });
+      }
     });
   }, [store.network.value]);
 
@@ -35,10 +51,10 @@ const LayerTxns = () => {
           />
           <RightCountBlock
             color={getColorByPageName(LAYERS)}
-            number={data.txs}
+            number={info.txs}
             caption="txns"
-            coinCaption="Txns Value"
-            coins={formatSmidge(data.txsamount)}
+            coinCaption="Transactions Value"
+            coins={formatSmidge(info.txsamount)}
           />
         </div>
         <Table name={LAYERS} subPage={TXNS} id={params.id} results={data} />
