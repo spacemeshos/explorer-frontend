@@ -106,6 +106,16 @@ const Tx = () => {
                 <span className="item-name">Fee</span>
                 <span className="item-value">{formatSmidge(data.fee)}</span>
               </li>
+              <li className="item">
+                <span className="item-name">Block</span>
+                <span className="item-value">
+                  <Link to={`/${LAYERS}/${data.layer}/blocks`}>{data.block}</Link>
+                </span>
+              </li>
+              <li className="item">
+                <span className="item-name">Position in block</span>
+                <span className="item-value">{data.blockIndex}</span>
+              </li>
             </ul>
           </div>
         </>
