@@ -13,16 +13,16 @@
     background-color: $approved;
   }
 
-  &.confirmed {
-    background-color: $confirmed;
+  &.success {
+    background-color: $approved;
   }
 
-  &.insufficientFunds {
-    background-color: $insufficientFunds;
+  &.failure {
+    background-color: $failure;
   }
 
-  &.conflicting {
-    background-color: $conflicting;
+  &.invalid {
+    background-color: $failure;
   }
 
   &.pending {
