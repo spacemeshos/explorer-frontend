@@ -10,14 +10,13 @@ import {
   ACCOUNTS, LAYERS, TXNS,
 } from '../../config/constants';
 import { formatSmidge } from '../../helper/converter';
-import { mappingStatus } from '../../helper/mappingStatus';
-import { typeOfTransaction } from '../../helper/tx';
+import { typeOfTransaction, mapTxResult } from '../../helper/tx';
 
 const AccountTxsRow = ({ data, pathname }) => (
   data && data.map((item) => (
     <div key={nanoid()} className="tr">
       <div className="td">
-        <StatusIcon status={mappingStatus(item.state)} />
+        <StatusIcon status={mapTxResult(item.state, item.result)} />
         <Link to={`/${TXNS}/${item.id}`}>
           {longFormHash(item.id)}
         </Link>

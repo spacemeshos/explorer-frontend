@@ -1,21 +1,26 @@
 // @flow
 import { observer } from 'mobx-react';
-import { mappingStatus } from '../../helper/mappingStatus';
+import { mapTxResult } from '../../helper/tx';
 
 type Props = {
   status: string
 };
 
 const TxnsStatus = (props: Props) => {
-  const { status } = props;
+  const { state, result } = props;
 
-  const currentStatus = mappingStatus(status);
-  const txnsStatusClass = `txnsStatus ${currentStatus}`;
+  const status = mapTxResult(state, result);
+  const txnsStatusClass = `txnsStatus ${status}`;
 
   const getStatusText = (data) => {
     switch (data) {
       case 'approved':
+      case 'success':
         return 'success';
+      case 'failure':
+        return 'failure';
+      case 'invalid':
+        return 'invalid';
       case 'pending':
         return 'pending';
       default:
@@ -25,7 +30,7 @@ const TxnsStatus = (props: Props) => {
 
   return (
     <div className={txnsStatusClass}>
-      { getStatusText(currentStatus) }
+      { getStatusText(status) }
     </div>
   );
 };
