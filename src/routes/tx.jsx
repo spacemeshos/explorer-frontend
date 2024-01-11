@@ -52,7 +52,7 @@ const Tx = () => {
               color={getColorByPageName(name)}
             />
           </div>
-          <TxnsStatus state={data.state} result={data.result} />
+          <TxnsStatus state={data.state} result={data.result} message={data.message} />
           <div className="details">
             <ul className="details-list">
               <li className="item">

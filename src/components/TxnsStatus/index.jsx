@@ -7,7 +7,7 @@ type Props = {
 };
 
 const TxnsStatus = (props: Props) => {
-  const { state, result } = props;
+  const { state, result, message } = props;
 
   const status = mapTxResult(state, result);
   const txnsStatusClass = `txnsStatus ${status}`;
@@ -31,6 +31,7 @@ const TxnsStatus = (props: Props) => {
   return (
     <div className={txnsStatusClass}>
       { getStatusText(status) }
+      { status === 'failure' && ` - ${message}`}
     </div>
   );
 };
