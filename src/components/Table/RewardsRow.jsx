@@ -8,7 +8,7 @@ import longFormHash from '../../helper/longFormHash';
 import {
   ACCOUNTS,
   LAYERS,
-  REWARDS,
+  REWARDS, SMESHER,
 } from '../../config/constants';
 import { formatSmidge } from '../../helper/converter';
 
@@ -23,6 +23,11 @@ const RewardsRow = ({ data }) => (
       <div className="td">
         <Link to={`/${ACCOUNTS}/${item.coinbase}`}>
           {longFormHash(item.coinbase)}
+        </Link>
+      </div>
+      <div className="td">
+        <Link to={`/${SMESHER}/${item.smesher}`}>
+          {longFormHash(item.smesher)}
         </Link>
       </div>
       <div className="td">
