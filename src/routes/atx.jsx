@@ -85,6 +85,10 @@ const Atx = () => {
                 <span className="item-value">{byteConverter(data.commitmentSize)}</span>
               </li>
               <li className="item">
+                <span className="item-name">Tick count</span>
+                <span className="item-value">{data.tickCount}</span>
+              </li>
+              <li className="item">
                 <span className="item-name">Previous Activation</span>
                 <span className="item-value">
                   <Link to={`/${ATXS}/${data.prevAtx}`}>

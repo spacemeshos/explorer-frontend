@@ -6,9 +6,11 @@ function addZeroAheadToDate(num) {
 }
 
 const convertTime = (unixTimestamp) => {
-  const timestampMilliseconds = unixTimestamp * 1000;
+  let timestampMilliseconds = unixTimestamp * 1000;
+  if (unixTimestamp.toString().length > 10) {
+    timestampMilliseconds = unixTimestamp / 1000000;
+  }
   const dateObject = new Date(timestampMilliseconds);
-
   return dateObject.getTime() - (dateObject.getTimezoneOffset() * 60000);
 };
 
