@@ -25,7 +25,7 @@ const Atx = () => {
     if (store.network.value === null) return;
     fetchAPI(`${store.network.value}${ATXS}/${params.id}`).then((res) => {
       setData(res.data[0]);
-      setCSize(byteConverter(res.data[0]?.cSize, true));
+      setCSize(byteConverter(res.data[0]?.commitmentSize, true));
     });
   }, [store.network.value, params.id]);
 
@@ -43,7 +43,7 @@ const Atx = () => {
               badgeType="atx"
               amount={cSize.value}
               unit={cSize.unit}
-              startTime={data && data.timestamp}
+              startTime={data && data.received}
               color={getColorByPageName(ATXS, store.theme)}
             />
           </div>
