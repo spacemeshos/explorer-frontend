@@ -20,7 +20,7 @@ const CoinUnits = {
 };
 
 const packValueAndUnit = (value: number, unit: string) => ({
-  value: parseFloat(value.toFixed(3)).toString(),
+  value: Number.isInteger(value) ? value.toString() : value.toFixed(3),
   unit,
 });
 
