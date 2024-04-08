@@ -7,7 +7,7 @@ function addZeroAheadToDate(num) {
 
 const convertTime = (unixTimestamp) => {
   let timestampMilliseconds = unixTimestamp * 1000;
-  if (unixTimestamp.toString().length > 10) {
+  if (unixTimestamp !== undefined && unixTimestamp.toString().length > 10) {
     timestampMilliseconds = unixTimestamp / 1000000;
   }
   const dateObject = new Date(timestampMilliseconds);
