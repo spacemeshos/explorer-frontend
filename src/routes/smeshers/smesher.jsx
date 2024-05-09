@@ -48,6 +48,7 @@ const Smesher = () => {
               key={`proof-${nanoid()}`}
               layer={item.layer}
               kind={item.kind}
+              debugInfo={item.debugInfo}
             />
           ))}
           <div className="page-wrap">
