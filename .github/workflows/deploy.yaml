@@ -16,20 +16,20 @@ jobs:
           echo "${{ secrets.GCLOUD_KEY }}" | base64 -d > key.json
           gcloud auth activate-service-account --key-file=key.json
 
-      - name: Build
+      - name: Build to Mainnet Explorer
         env:
           REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks.json
         run: |
           yarn
           yarn build
 
-      - name: Upload
+      - name: Upload to Mainnet Explorer
         run: gsutil -m rsync -r -d ./build gs://spacemesh-explorer
 
       - name: Remove build dir
         run: rm -rf ./build
 
-      - name: Build dev
+      - name: Build to Dev Explorer
         env:
           REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-dev.json
           PUBLIC_URL: /spacemesh-explorer-dev/
@@ -37,5 +37,15 @@ jobs:
           yarn
           yarn build
 
-      - name: Upload dev
+      - name: Upload to Dev Explorer
         run: gsutil -m rsync -r -d ./build gs://spacemesh-explorer-dev
+
+      - name: Build to testnet-12 Explorer
+        env:
+          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-testnet-12.json
+        run: |
+          yarn
+          yarn build
+
+      - name: Upload to testnet-12 Explorer
+        run: gsutil -m rsync -r -d ./build gs://testnet-12-explorer.spacemesh.network
