@@ -20,6 +20,7 @@ import {
   Smesher, SmesherAtxs, SmesherRewards, Smeshers,
 } from '../routes/smeshers';
 import Atx from '../routes/atx';
+import RewardV2 from '../routes/rewardv2';
 
 const router = createBrowserRouter([
   {
@@ -144,6 +145,10 @@ const router = createBrowserRouter([
       {
         path: '/rewards/:id',
         element: <Reward />,
+      },
+      {
+        path: '/v2/rewards/:smesherId/:layer',
+        element: <RewardV2 />,
       },
       // ATXS
       {
