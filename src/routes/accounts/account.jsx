@@ -24,11 +24,20 @@ const Account = () => {
   const [txData, setTxData] = useState();
   const [smidge, setSmidge] = useState({ value: 0, unit: 'SMH' });
 
+  const [error, setError] = useState();
+  if (error) throw error;
+
   useEffect(() => {
     if (store.network.value === null) return;
     fetchAPI(`${store.network.value}${name}/${params.id}`).then((res) => {
-      setData(res.data[0]);
-      setSmidge(parseSmidge(res.data[0].balance));
+      if (res.data) {
+        setData(res.data[0]);
+        setSmidge(parseSmidge(res.data[0].balance));
+      } else {
+        const err = new Error('Not found');
+        err.id = params.id;
+        setError(err);
+      }
     });
   }, [store.network.value, params.id]);
 

@@ -27,13 +27,32 @@ const RewardV2 = () => {
   const [data, setData] = useState();
   const [smidge, setSmidge] = useState({ value: 0, unit: 'SMH' });
 
+  const [error, setError] = useState();
+  if (error) throw error;
+
   useEffect(() => {
     if (store.network.value === null) return;
+    if (!params.smesherId.startsWith('0x')) {
+      const err = new Error('Smesher ID should start with \'0x\'');
+      err.id = params.smesherId;
+      setError(err);
+    }
+
     fetchAPI(`${store.network.value}v2/${name}/${params.smesherId}/${params.layer}`).then((res) => {
-      setData(res.data[0]);
-      setSmidge(parseSmidge(res.data[0].total));
+      if (res.data) {
+        setData(res.data[0]);
+        setSmidge(parseSmidge(res.data[0].total));
+      } else {
+        const err = new Error('Not found');
+        err.id = params.smesherId;
+        setError(err);
+      }
+    }).catch(() => {
+      const err = new Error('Not found');
+      err.id = params.smesherId;
+      setError(err);
     });
-  }, [store.network.value]);
+  }, [store.network.value, params.smesherId, params.layer]);
 
   return (
     <>
