@@ -19,22 +19,31 @@ const CoinUnits = {
   Smidge: 'Smidge',
 };
 
+// Truncates a number to a specified number of decimal places without rounding
+const truncateToDecimalPlaces = (num: number, decimalPlaces: number) => {
+  const numPower = 10 ** decimalPlaces;
+  return Math.floor(num * numPower) / numPower;
+};
+
 const packValueAndUnit = (value: number, unit: string) => ({
-  value: Number.isInteger(value) ? value.toString() : value.toFixed(3),
+  value: value.toString(),
   unit,
 });
 
 export const toSMH = (smidge: number) => smidge / 10 ** 9;
-export const toSmidge = (smh: number) => Math.ceil(smh * 10 ** 9);
+export const toSmidge = (smh: number) => Math.round(smh * 10 ** 9);
 
 // Parses number into { value, unit } format.
 // Used to format smidge strings
 export const parseSmidge = (amount: number) => {
   // If amount is "falsy" (0 | undefined | null)
   if (!amount) return packValueAndUnit(0, CoinUnits.SMH);
-  // Show `23.053 SMH` for big amount
-  if (amount >= 10 ** 6) return packValueAndUnit(toSMH(amount), CoinUnits.SMH);
-  // Or `6739412 Smidge` (without dot) for small amount
+  if (amount >= 10 ** 9) {
+    // Truncate to 3 decimal places without rounding
+    const smhValue = truncateToDecimalPlaces(toSMH(amount), 3);
+    return packValueAndUnit(smhValue, CoinUnits.SMH);
+    // Or `6739412 Smidge` (without dot) for small amount
+  }
   if (!Number.isNaN(amount)) return packValueAndUnit(amount, CoinUnits.Smidge);
   // Show `0 SMH` for zero amount and NaN
   return packValueAndUnit(0, CoinUnits.SMH);
