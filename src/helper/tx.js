@@ -12,6 +12,14 @@ export const typeOfTransaction = (type) => {
       return 'MultiSig.Spawn';
     case 3:
       return 'Spend';
+    case 4:
+      return 'MultiSig.Spend';
+    case 5:
+      return 'Vesting.Spawn';
+    case 6:
+      return 'Vault.Spawn';
+    case 7:
+      return 'Drain.Vault';
     default:
       return null;
   }

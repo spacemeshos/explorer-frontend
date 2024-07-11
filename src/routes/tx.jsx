@@ -116,6 +116,15 @@ const Tx = () => {
                 <span className="item-name">Position in block</span>
                 <span className="item-value">{data.blockIndex}</span>
               </li>
+              {data.type === 7 && (
+                <li className="item">
+                  <span className="item-name">Vault</span>
+                  <span className="item-value">
+                    <Link to={`/${ACCOUNTS}/${data.vault}`}>{data.vault}</Link>
+                    <CopyButton value={data.vault} />
+                  </span>
+                </li>
+              )}
             </ul>
           </div>
         </>
