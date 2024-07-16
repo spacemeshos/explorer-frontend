@@ -3,14 +3,18 @@ import { nanoid } from 'nanoid';
 import { observer } from 'mobx-react';
 
 import { Link } from 'react-router-dom';
-import CustomTimeAgo from '../CustomTimeAgo';
+import { Spacemeshv2alpha1Account } from 'api';
 
 import shortFormHash from '../../helper/longFormHash';
 import { formatSmidge } from '../../helper/converter';
 import { ACCOUNTS } from '../../config/constants';
 
-const AccountsRow = ({ data }) => (
-  data && data.map((item) => (
+type Props = {
+  data: Spacemeshv2alpha1Account[],
+}
+
+const AccountsRow = ({ data }: Props) => (
+  data && data.map((item: Spacemeshv2alpha1Account) => (
     <div key={nanoid()} className="tr">
       <div className="td">
         <Link to={`/${ACCOUNTS}/${item.address}`}>
@@ -18,16 +22,17 @@ const AccountsRow = ({ data }) => (
         </Link>
       </div>
       <div className="td">
-        {formatSmidge(item.sent)}
+        ---
       </div>
       <div className="td">
-        {formatSmidge(item.received)}
+        ---
       </div>
       <div className="td">
-        <CustomTimeAgo time={item.lastActivity} />
+        {/* <CustomTimeAgo time={item.lastActivity} /> */}
+        ---
       </div>
       <div className="td">
-        {formatSmidge(item.balance)}
+        {formatSmidge(item.current.balance)}
       </div>
     </div>
   ))

@@ -8,40 +8,41 @@ import { getColorByPageName } from '../../helper/getColorByPageName';
 import RightSideBlock from '../../components/CountBlock/RightSideBlock';
 import { useStore } from '../../store';
 import Table from '../../components/Table';
-import { fetchAPI } from '../../api/fetchAPI';
 import Loader from '../../components/Loader';
 
 const SmesherRewards = () => {
   const store = useStore();
   const params = useParams();
+
   const [data, setData] = useState();
 
   useEffect(() => {
-    if (store.network.value === null) return;
-    fetchAPI(`${store.network.value}${SMESHER}/${params.id}/${REWARDS}`).then((result) => {
-      setData(result);
+    fetch(`${store.statsApiUrl}/smesher/${params.id}`).then((res) => res.json()).then((res) => {
+      setData(res);
     });
-  }, [store.network.value]);
+  }, [params.id]);
+
+  if (!data) {
+    return <Loader size={100} />;
+  }
 
   return (
-    data ? (
-      <>
-        <div className="page-wrap">
-          <TitleBlock
-            title={`Smesher ${longFormHash(params.id)} - Details`}
-            color={getColorByPageName(SMESHER)}
-            desc="Smesher rewards"
-          />
-          <RightSideBlock
-            color={getColorByPageName(SMESHER, store.theme)}
-            number={data.pagination && data.pagination.totalCount}
-            unit="total rewards"
-            startTime={data.data && data.data.length > 0 ? data.data[0].timestamp : 0}
-          />
-        </div>
-        <Table name={SMESHER} subPage={REWARDS} id={params.id} results={data} />
-      </>
-    ) : <Loader size={100} />
+    <>
+      <div className="page-wrap">
+        <TitleBlock
+          title={`Smesher ${longFormHash(params.id)} - Details`}
+          color={getColorByPageName(SMESHER)}
+          desc="Smesher rewards"
+        />
+        <RightSideBlock
+          color={getColorByPageName(SMESHER, store.theme)}
+          number={data.rewards_count}
+          unit="total rewards"
+          startTime={0}
+        />
+      </div>
+      <Table name={SMESHER} subPage={REWARDS} id={params.id} />
+    </>
   );
 };
 

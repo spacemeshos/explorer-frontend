@@ -6,7 +6,6 @@ import {
   REWARDS,
   ACCOUNTS,
   SMESHER,
-  SMART_WALLET,
   ATXS,
   BLOCKS, ACCOUNTS_TXNS,
 } from '../../../config/constants';
@@ -77,7 +76,6 @@ export default {
     { fieldName: 'id' },
     { fieldName: 'space' },
     { fieldName: 'target epoch' },
-    { fieldName: 'Previous Activation' },
   ],
   [LAYERS]: [
     {
@@ -94,9 +92,6 @@ export default {
     },
   ],
   [REWARDS]: [
-    {
-      fieldName: 'reward',
-    },
     {
       fieldName: 'account',
     },
@@ -122,20 +117,6 @@ export default {
     },
     {
       fieldName: 'Last Active',
-    },
-    {
-      fieldName: 'balance',
-    },
-  ],
-  [SMART_WALLET]: [
-    {
-      fieldName: 'address',
-    },
-    {
-      fieldName: 'name',
-    },
-    {
-      fieldName: 'created',
     },
     {
       fieldName: 'balance',

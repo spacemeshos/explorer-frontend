@@ -1,9 +1,11 @@
 // @flow
 import { observer } from 'mobx-react';
+import { Spacemeshv2alpha1TransactionResult, Spacemeshv2alpha1TransactionState } from 'api';
 import { mapTxResult } from '../../helper/tx';
 
 type Props = {
-  status: string
+  result: Spacemeshv2alpha1TransactionResult,
+  state: Spacemeshv2alpha1TransactionState
 };
 
 const TxnsStatus = (props: Props) => {

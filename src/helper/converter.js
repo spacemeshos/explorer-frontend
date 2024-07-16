@@ -55,3 +55,14 @@ export const formatSmidge = (amount: number): string => {
   const { value, unit } = parseSmidge(amount);
   return `${value} ${unit}`;
 };
+
+// hex to base64
+export const hexToBase64 = (hex: string) => {
+  const hexWithoutPrefix = hex.replace(/^0x/, '');
+  return btoa(hexWithoutPrefix.match(/\w{2}/g).map((a) => String.fromCharCode(parseInt(a, 16))).join(''));
+};
+
+// base64 to hex
+export const base64ToHex = (base64: string) => `0x${atob(base64).split('').map((c) => (`0${c.charCodeAt(0).toString(16)}`).slice(-2)).join('')}`;
+
+export const calculateEpoch = (layer: number, layersPerEpoch: number) => Math.floor(layer / layersPerEpoch);

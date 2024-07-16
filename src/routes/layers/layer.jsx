@@ -1,34 +1,50 @@
+// @flow
 import { observer } from 'mobx-react';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { Spacemeshv2alpha1Layer } from 'api';
 import TitleBlock from '../../components/TitleBlock';
 import { getColorByPageName } from '../../helper/getColorByPageName';
 import {
-  BLOCKS, EPOCHS, LAYERS, REWARDS, TXNS,
+  EPOCHS, LAYERS, REWARDS, TXNS,
 } from '../../config/constants';
 import RightSideBlock from '../../components/CountBlock/RightSideBlock';
 import { useStore } from '../../store';
-import { fetchAPI } from '../../api/fetchAPI';
 import Loader from '../../components/Loader';
-import { formatSmidge, parseSmidge } from '../../helper/converter';
+import {
+  base64ToHex, calculateEpoch, formatSmidge, parseSmidge,
+} from '../../helper/converter';
 import CopyButton from '../../components/CopyButton';
 import CustomTimeAgo from '../../components/CustomTimeAgo';
 import { fullDate } from '../../helper/formatter';
 
 const Layer = () => {
-  const store = useStore();
+  const { api, netInfo, layerTimestamp, layerEndTimestamp, statsApiUrl } = useStore();
   const params = useParams();
 
-  const [data, setData] = useState({});
+  const [data, setData] = useState<Spacemeshv2alpha1Layer>();
+  const [epoch, setEpoch] = useState(0);
   const [rewards, setRewards] = useState({});
+  const [stats, setStats] = useState({});
 
   useEffect(() => {
-    if (store.network.value === null) return;
-    fetchAPI(`${store.network.value}${LAYERS}/${params.id}`).then((res) => {
-      setData(res.data[0]);
-      setRewards(parseSmidge(res.data[0].rewards));
+    if (netInfo === null) return;
+    api.layer.layerServiceList({
+      startLayer: params.id,
+      endLayer: params.id,
+      limit: 1,
+    }).then((res) => {
+      setData(res.layers[0]);
+      setEpoch(calculateEpoch(res.layers[0].number, netInfo.layersPerEpoch));
     });
-  }, [store.network.value, params.id]);
+  }, [params.id, netInfo]);
+
+  useEffect(() => {
+    fetch(`${statsApiUrl}/stats/layer/${params.id}`).then((res) => res.json()).then((res) => {
+      setStats(res);
+      setRewards(parseSmidge(res.rewards_sum));
+    });
+  }, [params.id]);
 
   return (
     <>
@@ -45,7 +61,7 @@ const Layer = () => {
               number={rewards.value}
               unit={rewards.unit}
               coinCaption="Rewards"
-              coins={data && data.rewards}
+              coins={stats.rewards_sum}
             />
           </div>
           <div className="details">
@@ -57,35 +73,35 @@ const Layer = () => {
               <li className="item">
                 <span className="item-name">Start Timestamp</span>
                 <span className="item-value">
-                  <CustomTimeAgo time={data.start} />
-                  {` ${fullDate(data.start)}`}
+                  <CustomTimeAgo time={layerTimestamp(data.number)} />
+                  {` ${fullDate(layerTimestamp(data.number))}`}
                 </span>
               </li>
               <li className="item">
                 <span className="item-name">End Timestamp</span>
                 <span className="item-value">
-                  <CustomTimeAgo time={data.end} />
-                  {` ${fullDate(data.end)}`}
+                  <CustomTimeAgo time={layerEndTimestamp(data.number)} />
+                  {` ${fullDate(layerEndTimestamp(data.number))}`}
                 </span>
               </li>
               <li className="item">
                 <span className="item-name">Transactions</span>
                 <span className="item-value">
-                  <Link to={`/${LAYERS}/${data.number}/${TXNS}`}>{data.txs}</Link>
+                  <Link to={`/${LAYERS}/${data.number}/${TXNS}`}>{stats.transactions_count}</Link>
                 </span>
               </li>
               <li className="item">
-                <span className="item-name">Rewards </span>
+                <span className="item-name">Rewards</span>
                 <span className="item-value">
                   <Link to={`/${LAYERS}/${data.number}/${REWARDS}`}>
-                    {formatSmidge(data.rewards)}
+                    {formatSmidge(stats.rewards_sum)}
                   </Link>
                 </span>
               </li>
               <li className="item">
                 <span className="item-name">Epoch</span>
                 <span className="item-value">
-                  <Link to={`/${EPOCHS}/${data.epoch}`}>{data.epoch}</Link>
+                  <Link to={`/${EPOCHS}/${epoch}`}>{epoch}</Link>
                 </span>
               </li>
               {/* <li className="item"> */}
@@ -97,14 +113,14 @@ const Layer = () => {
               <li className="item">
                 <span className="item-name">Hash</span>
                 <span className="item-value">
-                  {data.hash}
-                  <CopyButton value={data.hash} />
+                  {base64ToHex(data.cumulativeStateHash)}
+                  <CopyButton value={data.stateHash} />
                 </span>
               </li>
               <li className="item">
-                <span className="item-name">Blocks</span>
+                <span className="item-name">Block</span>
                 <span className="item-value">
-                  <Link to={`/${LAYERS}/${data.number}/${BLOCKS}`}>{data.blocksnumber}</Link>
+                  {base64ToHex(data.block.id)}
                 </span>
               </li>
             </ul>
