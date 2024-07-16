@@ -7,10 +7,9 @@ import {
   ACCOUNTS, ATXS, EPOCHS, SMESHER,
 } from '../config/constants';
 import { useStore } from '../store';
-import { fetchAPI } from '../api/fetchAPI';
 import longFormHash from '../helper/longFormHash';
 import Loader from '../components/Loader';
-import { byteConverter } from '../helper/converter';
+import { byteConverter, hexToBase64 } from '../helper/converter';
 import CopyButton from '../components/CopyButton';
 import CountAtxBlock from '../components/CountBlock/CountAtxBlock';
 
@@ -22,12 +21,15 @@ const Atx = () => {
   const [cSize, setCSize] = useState({ value: 0, unit: '' });
 
   useEffect(() => {
-    if (store.network.value === null) return;
-    fetchAPI(`${store.network.value}${ATXS}/${params.id}`).then((res) => {
-      setData(res.data[0]);
-      setCSize(byteConverter(res.data[0]?.commitmentSize, true));
+    store.api.activation.activationServiceList({
+      id: [hexToBase64(params.id)],
+      limit: 1,
+    }).then((res) => {
+      setData(res.activations[0]);
+      // setCSize(byteConverter(res.data[0]?.commitmentSize, true));
+      setCSize(0);
     });
-  }, [store.network.value, params.id]);
+  }, [store.netInfo, params.id]);
 
   return (
     <>

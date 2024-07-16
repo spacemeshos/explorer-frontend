@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../store';
-import { fetchAPI } from '../../api/fetchAPI';
 
 const Search = () => {
   const store = useStore();
@@ -15,7 +14,7 @@ const Search = () => {
 
   const onClickHandler = () => {
     // store.showSearchResult(searchValue);
-    fetchAPI(`${store.network.value}search/${searchValue}`).then((res) => {
+    fetch(`${store.network.value}search/${searchValue}`).then((res) => {
       const stringData = res.redirect.split('/');
       navigate(`/${stringData[1]}/${stringData[2]}`);
     }).catch(() => {

@@ -8,7 +8,6 @@ import Table from '../components/Table';
 
 const Txns = () => {
   const store = useStore();
-  const { epoch } = store.networkInfo;
   return (
     <>
       <div className="page-wrap">
@@ -19,10 +18,10 @@ const Txns = () => {
         />
         <RightSideBlock
           color={getColorByPageName(TXNS)}
-          number={epoch && epoch.stats.cumulative.transactions}
+          number={store.overview.transactions_count || 0}
           unit="txns since genesis"
           coinCaption="Value Since Genesis"
-          coins={epoch && epoch.stats.cumulative.txsamount}
+          coins={0}
         />
       </div>
       <Table name={TXNS} />

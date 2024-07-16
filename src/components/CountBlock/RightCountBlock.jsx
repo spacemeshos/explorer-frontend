@@ -1,4 +1,6 @@
 // @flow
+import { commaNumber } from '../../helper/comma';
+
 type Props = {
   color: string,
   number: string,
@@ -32,9 +34,11 @@ const RightCountBlock = (props: Props) => {
           lineHeight: setLineHeight(number),
         }}
       >
-        {number || '000'}
+        {commaNumber(number) || '000'}
       </div>
       <div className="rightColumn-desc">{caption}</div>
+      {coinCaption && coins !== undefined
+      && (
       <div className="rightColumn-data">
         <p>
           {`${coinCaption} `}
@@ -43,6 +47,7 @@ const RightCountBlock = (props: Props) => {
           {coins}
         </p>
       </div>
+      )}
     </div>
   );
 };

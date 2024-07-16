@@ -6,7 +6,6 @@ import TitleBlock from '../../components/TitleBlock';
 import { getColorByPageName } from '../../helper/getColorByPageName';
 import { useStore } from '../../store';
 import Table from '../../components/Table';
-import { fetchAPI } from '../../api/fetchAPI';
 import RightCountBlock from '../../components/CountBlock/RightCountBlock';
 import { formatSmidge } from '../../helper/converter';
 import Loader from '../../components/Loader';
@@ -15,51 +14,36 @@ const LayerTxns = () => {
   const store = useStore();
   const params = useParams();
 
-  const [data, setData] = useState();
-  const [info, setInfo] = useState({
-    txs: 0,
-    txsamount: 0,
-  });
+  const [stats, setStats] = useState({});
 
   useEffect(() => {
-    if (store.network.value === null) return;
-    fetchAPI(`${store.network.value}${LAYERS}/${params.id}/${TXNS}`).then((result) => {
-      setData(result);
+    fetch(`${store.statsApiUrl}/stats/layer/${params.id}`).then((res) => res.json()).then((res) => {
+      setStats(res);
     });
-  }, [store.network.value]);
+  }, [params.id]);
 
-  useEffect(() => {
-    if (store.network.value === null) return;
-    fetchAPI(`${store.network.value}${LAYERS}/${params.id}`).then((result) => {
-      if (result.data && result.data[0]) {
-        setInfo({
-          txs: result.data[0].txs,
-          txsamount: result.data[0].txsamount,
-        });
-      }
-    });
-  }, [store.network.value]);
+  if (!stats) {
+    return <Loader size={100} />;
+  }
 
   return (
-    data ? (
-      <>
-        <div className="page-wrap">
-          <TitleBlock
-            title={`Layer ${params.id} - Txns`}
-            color={getColorByPageName(LAYERS)}
-            desc=""
-          />
-          <RightCountBlock
-            color={getColorByPageName(LAYERS)}
-            number={info.txs}
-            caption="txns"
-            coinCaption="Transactions Value"
-            coins={formatSmidge(info.txsamount)}
-          />
-        </div>
-        <Table name={LAYERS} subPage={TXNS} id={params.id} results={data} />
-      </>
-    ) : <Loader size={100} />
+    <>
+      <div className="page-wrap">
+        <TitleBlock
+          title={`Layer ${params.id} - Txns`}
+          color={getColorByPageName(LAYERS)}
+          desc=""
+        />
+        <RightCountBlock
+          color={getColorByPageName(LAYERS)}
+          number={stats.transactions_count}
+          caption="txns"
+          coinCaption="Transactions Value"
+          coins={formatSmidge(stats.transactions_sum)}
+        />
+      </div>
+      <Table name={LAYERS} subPage={TXNS} id={params.id} />
+    </>
   );
 };
 

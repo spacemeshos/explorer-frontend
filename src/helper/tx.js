@@ -1,33 +1,27 @@
-export const TransactionType = {
-  SingleSigSpawn: 1,
-  MultiSigSpawn: 2,
-  SingleSigSpend: 3,
-};
-
 export const typeOfTransaction = (type) => {
   switch (type) {
-    case 1:
+    case 'TRANSACTION_TYPE_SINGLE_SIG_SEND':
+      return 'Send';
+    case 'TRANSACTION_TYPE_SINGLE_SIG_SPAWN':
       return 'Spawn';
-    case 2:
+    case 'TRANSACTION_TYPE_MULTI_SIG_SEND':
+      return 'MultiSig.Send';
+    case 'TRANSACTION_TYPE_MULTI_SIG_SPAWN':
       return 'MultiSig.Spawn';
-    case 3:
-      return 'Spend';
-    case 4:
-      return 'MultiSig.Spend';
-    case 5:
+    case 'TRANSACTION_TYPE_VESTING_SPAWN':
       return 'Vesting.Spawn';
-    case 6:
+    case 'TRANSACTION_TYPE_VAULT_SPAWN':
       return 'Vault.Spawn';
-    case 7:
-      return 'Drain.Vault';
+    case 'TRANSACTION_TYPE_DRAIN_VAULT':
+      return 'Vault.Drain';
     default:
-      return null;
+      return 'Unspecified';
   }
 };
 
 export const mappingStatus = (status) => {
   switch (status) {
-    case 6:
+    case 'TRANSACTION_STATE_PROCESSED':
       return 'approved';
     default:
       return 'pending';
@@ -36,9 +30,9 @@ export const mappingStatus = (status) => {
 
 export const mappingResult = (status) => {
   switch (status) {
-    case 1:
+    case 'TRANSACTION_STATE_REJECTED':
       return 'failure';
-    case 2:
+    case 'TRANSACTION_STATE_INSUFFICIENT_FUNDS':
       return 'invalid';
     default:
       return null;

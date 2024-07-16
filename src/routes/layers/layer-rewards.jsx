@@ -10,7 +10,6 @@ import { AmountBlock } from '../../components/CountBlock';
 const LayerRewards = () => {
   const store = useStore();
   const params = useParams();
-  const { layer } = store.networkInfo;
 
   return (
     <>
@@ -21,8 +20,8 @@ const LayerRewards = () => {
           desc={`Rewards within Layer ${params.id}`}
         />
         <AmountBlock
-          number={layer && layer.number}
-          startTime={layer && layer.start}
+          number={params.id}
+          startTime={store.layerTimestamp(params.id)}
           unit="layers"
           color={getColorByPageName(LAYERS)}
         />

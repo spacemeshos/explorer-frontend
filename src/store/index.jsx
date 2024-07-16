@@ -1,15 +1,32 @@
 import {
-  makeAutoObservable, toJS, runInAction, observable, action,
+  action, makeAutoObservable, observable, runInAction, toJS,
 } from 'mobx';
 import React from 'react';
-import { reMappingNetworkArray } from '../helper/mapping';
+import {
+  AccountServiceApi,
+  ActivationServiceApi,
+  Configuration,
+  LayerServiceApi,
+  NetworkServiceApi,
+  NodeServiceApi,
+  RewardServiceApi,
+  TransactionServiceApi,
+  Spacemeshv2alpha1NetworkInfoResponse,
+  V2alpha1NodeStatusResponse,
+} from 'api';
 
-const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://configs.spacemesh.network/networks.json';
+// const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://configs.spacemesh.network/networks.json';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://mainnet-api.spacemesh.network';
+const CUSTOM_API_URL = process.env.REACT_APP_CUSTOM_API_URL || 'https://mainnet-custom-api.spacemesh.network';
+const BITS_PER_LABEL = process.env.REACT_APP_BITS_PER_LABEL || 128;
+const LABELS_PER_UNIT = process.env.REACT_APP_LABELS_PER_UNIT || 1024;
 
 export default class Store {
   theme = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light';
 
   networks = [];
+
+  postUnitSize = (BITS_PER_LABEL * LABELS_PER_UNIT) / 8;
 
   network = { value: null, label: null, explorer: null, dash: null };
 
@@ -19,7 +36,36 @@ export default class Store {
 
   fetch = null;
 
-  constructor(fetch) {
+  netInfo: Spacemeshv2alpha1NetworkInfoResponse = null;
+
+  nodeStatus: V2alpha1NodeStatusResponse = null;
+
+  apiConf = new Configuration({
+    basePath: API_BASE_URL,
+  });
+
+  api = {
+    account: new AccountServiceApi(this.apiConf),
+    activation: new ActivationServiceApi(this.apiConf),
+    layer: new LayerServiceApi(this.apiConf),
+    network: new NetworkServiceApi(this.apiConf),
+    node: new NodeServiceApi(this.apiConf),
+    reward: new RewardServiceApi(this.apiConf),
+    transaction: new TransactionServiceApi(this.apiConf),
+  };
+
+  overview = {
+    transactions_count: 0,
+    accounts_count: 0,
+    rewards_count: 0,
+    layers_count: 0,
+    smeshers_count: 0,
+    num_units: 0,
+  };
+
+  statsApiUrl = CUSTOM_API_URL;
+
+  constructor() {
     makeAutoObservable(this, {
       theme: observable,
       networks: observable.ref,
@@ -27,12 +73,20 @@ export default class Store {
       networkInfo: observable,
       networkColor: observable,
       color: observable,
+      overview: observable,
+      netInfo: observable,
+      nodeStatus: observable,
 
       setNetwork: action,
       getNetworkInfo: action,
       showSearchResult: action,
+      setTotalTransactions: action,
+      setTotalAccounts: action,
+      setTotalRewards: action,
+      setTotalLayers: action,
+      setNetInfo: action,
+      setNodeStatus: action,
     }, { autoBind: true });
-    this.fetch = fetch;
     document.documentElement.classList.add(`theme-${this.theme}`);
     // this.bootstrap();
   }
@@ -44,22 +98,56 @@ export default class Store {
     document.documentElement.classList.add(`theme-${this.theme}`);
   }
 
-  setNetworks(data) {
-    this.networks = data;
-  }
+  // setNetworks(data) {
+  //   this.networks = data;
+  // }
 
   setNetwork(data) {
     this.network = this.networks.find((item) => item.value === data.value);
     this.network.value += this.network.value.endsWith('/') ? '' : '/';
   }
 
+  setNetInfo(data) {
+    this.netInfo = data;
+  }
+
+  setNodeStatus(data) {
+    this.nodeStatus = data;
+  }
+
+  setOverview(data) {
+    this.overview = data;
+  }
+
   async bootstrap() {
+    // try {
+    //   const response = await this.fetch(DISCOVERY_SERVICE_URL);
+    //   const networks = reMappingNetworkArray(response);
+    //   this.setNetworks(networks);
+    //   this.setNetwork(networks[0]);
+    //   await this.getNetworkInfo();
+    // } catch (e) {
+    //   console.log('Error: ', e.message);
+    // }
     try {
-      const response = await this.fetch(DISCOVERY_SERVICE_URL);
-      const networks = reMappingNetworkArray(response);
-      this.setNetworks(networks);
-      this.setNetwork(networks[0]);
-      await this.getNetworkInfo();
+      this.setNodeStatus(await this.api.node.nodeServiceStatus({}));
+    } catch (e) {
+      console.log('Error: ', e.message);
+    }
+
+    try {
+      this.setNetInfo(await this.api.network.networkServiceInfo({}));
+    } catch (e) {
+      console.log('Error: ', e.message);
+    }
+
+    try {
+      const response = await fetch(`${this.statsApiUrl}/overview`);
+      if (!response.ok) {
+        throw new Error('Error fetching data');
+      }
+      const res = await response.json();
+      this.setOverview(res);
     } catch (e) {
       console.log('Error: ', e.message);
     }
@@ -91,6 +179,38 @@ export default class Store {
         });
       }
     };
+  }
+
+  layerTimestamp(layer: number) {
+    const genesisTime = new Date(this.netInfo?.genesisTime || 0);
+    const durationMs = parseInt(this.netInfo?.layerDuration, 10);
+    return (genesisTime.getTime() / 1000 + (layer * durationMs));
+  }
+
+  layerEndTimestamp(layer: number) {
+    const genesisTime = new Date(this.netInfo?.genesisTime || 0);
+    const durationMs = parseInt(this.netInfo?.layerDuration, 10);
+    return (genesisTime.getTime() / 1000 + (layer * durationMs) + durationMs) - 1;
+  }
+
+  setTotalTransactions(total) {
+    this.total.transactions = total;
+  }
+
+  setTotalAccounts(total) {
+    this.total.accounts = total;
+  }
+
+  setTotalRewards(total) {
+    this.total.rewards = total;
+  }
+
+  setTotalLayers(total) {
+    this.total.layers = total;
+  }
+
+  setTotalSmeshers(total) {
+    this.total.smeshers = total;
   }
 }
 

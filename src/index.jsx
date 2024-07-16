@@ -3,12 +3,11 @@ import { RouterProvider } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
 import Store, { StoreProvider } from './store';
-import { fetchAPI } from './api/fetchAPI';
 import router from './router';
 
 window.name = '_spacemesh';
 
-const store = new Store(fetchAPI);
+const store = new Store();
 store.bootstrap();
 
 ReactDOM.render(
