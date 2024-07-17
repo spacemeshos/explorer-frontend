@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react';
+import { useEffect, useState } from 'react';
 import TitleBlock from '../../components/TitleBlock';
 import { getColorByPageName } from '../../helper/getColorByPageName';
 import { ACCOUNTS } from '../../config/constants';
@@ -8,6 +9,17 @@ import Table from '../../components/Table';
 
 const Accounts = () => {
   const store = useStore();
+  const [recentActivity, setRecentActivity] = useState(0);
+
+  useEffect(() => {
+    store.api.account.accountServiceList({
+      limit: 1,
+    }).then((res) => {
+      if (res.accounts.length === 1) {
+        setRecentActivity(store.layerTimestamp(res.accounts[0].current.layer));
+      }
+    });
+  }, [store.netInfo]);
 
   return (
     <>
@@ -21,7 +33,7 @@ const Accounts = () => {
           color={getColorByPageName(ACCOUNTS)}
           number={store.overview.accounts_count}
           unit="accounts"
-          startTime={0}
+          startTime={recentActivity || 0}
           label="Recent activity"
         />
       </div>

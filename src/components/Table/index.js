@@ -226,7 +226,7 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
           if (!epochs) {
             break;
           }
-          setData(epochs.slice(offset, pageSize));
+          setData(epochs.slice(offset, offset + pageSize));
           setStatus(STATUS_SUCCESS);
           setIsFetching(false);
         }
@@ -402,7 +402,7 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
               </div>
             ))}
           </div>
-          {data ? renderTableData() : <Loader size={100} />}
+          {data && data.length > 0 && renderTableData()}
           {status === STATUS_SUCCESS && data.length === 0 && <NoData />}
         </div>
       </div>
