@@ -32,10 +32,10 @@ const Rewards = () => {
         />
         <RightSideBlock
           color={getColorByPageName(REWARDS)}
-          number={formatNumber(store.overview.rewardsCount || 0)}
+          number={formatNumber(store.overview.rewards_count || 0)}
           unit="rewards distributed"
           coinCaption="Rewards value since genesis"
-          coins={0}
+          coins={store.overview.rewards_sum}
           rewards
         />
       </div>
