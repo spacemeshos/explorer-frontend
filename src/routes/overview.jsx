@@ -47,7 +47,7 @@ const Overview = () => {
     <>
       <InfoBlock
         accounts={store.overview.accounts_count || 0}
-        rewards={store.overview.rewards_sum || 0}
+        rewards={epochInfo.rewards_sum || 0}
         security={epochInfo.num_units * store.postUnitSize || 0}
         epoch={currentEpoch}
         layer={layer}

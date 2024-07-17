@@ -2,32 +2,80 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../store';
+import { calculateEpoch, hexToBase64 } from '../../helper/converter';
+
+const addressTestLength = 51;
+const addressLength = 48;
+const idLength = 66;
 
 const Search = () => {
-  const store = useStore();
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
+  const store = useStore();
   const [error, setError] = useState();
   if (error) throw error;
 
   const onChangeHandler = (e) => setSearchValue(e.target.value);
 
-  const onClickHandler = () => {
-    // store.showSearchResult(searchValue);
-    fetch(`${store.network.value}search/${searchValue}`).then((res) => {
-      const stringData = res.redirect.split('/');
-      navigate(`/${stringData[1]}/${stringData[2]}`);
-    }).catch(() => {
-      const err = new Error('Not found');
-      err.id = searchValue;
-      setError(err);
-    });
+  const onClickHandler = async () => {
+    switch (searchValue.length) {
+      case addressLength:
+      case addressTestLength:
+        navigate(`/accounts/${searchValue}`);
+        break;
+      case idLength:
+        const tx = await store.api.transaction.transactionServiceList({
+          txid: [hexToBase64(searchValue)],
+          limit: 1,
+          includeResult: false,
+          includeState: false,
+        });
+        if (tx.transactions.length > 0) {
+          navigate(`/txs/${searchValue}`);
+          break;
+        }
+
+        const atx = await store.api.activation.activationServiceList({
+          id: [hexToBase64(searchValue)],
+          limit: 1,
+        });
+        if (atx.activations.length > 0) {
+          navigate(`/atxs/${searchValue}`);
+          break;
+        }
+
+        const response = await fetch(`${store.statsApiUrl}/smesher/${searchValue}`);
+        if (!response.ok) {
+          const err = new Error('Not found');
+          err.id = searchValue;
+          setError(err);
+          break;
+        }
+        navigate(`/smesher/${searchValue}`);
+        break;
+      default:
+        const id = parseInt(searchValue, 10);
+        if (Number.isNaN(id)) {
+          const err = new Error('Not found');
+          err.id = searchValue;
+          setError(err);
+        }
+        const currentLayer = store.nodeStatus.currentLayer;
+        const currentEpoch = calculateEpoch(currentLayer, store.netInfo.layersPerEpoch);
+        if (id > currentEpoch + 1) {
+          if (id <= currentLayer && id > 0) {
+            navigate(`/layers/${id}`);
+          }
+        } else if (id > 0) {
+          navigate(`/epochs/${id}`);
+        }
+        break;
+    }
   };
 
   useEffect(() => {
     const listener = (event) => {
       if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-        // store.showSearchResult(searchValue);
         onClickHandler();
         setSearchValue('');
       }
