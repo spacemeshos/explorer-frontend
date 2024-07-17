@@ -40,7 +40,7 @@ const Tx = () => {
     }).then((res) => {
       const tx = res.transactions[0];
       setData(tx);
-      setSmidge(parseSmidge(tx?.tx.contents.send.amount || 0));
+      setSmidge(parseSmidge(tx?.tx.contents.send?.amount || 0));
     });
   }, [params.id, store.netInfo]);
 
@@ -62,7 +62,7 @@ const Tx = () => {
               color={getColorByPageName(name)}
             />
           </div>
-          <TxnsStatus state={data.txState} result={data.txResult} />
+          <TxnsStatus state={data.txState} result={data.txResult?.status} message={data.txResult?.message} />
           <div className="details">
             <ul className="details-list">
               <li className="item">
@@ -79,10 +79,10 @@ const Tx = () => {
               <li className="item">
                 <span className="item-name">To</span>
                 <span className="item-value">
-                  <Link to={`/${ACCOUNTS}/${data.tx.contents.send.destination || data.tx.principal}`}>
-                    {data.tx.contents.send.destination || data.tx.principal}
+                  <Link to={`/${ACCOUNTS}/${data.tx.contents.send?.destination || data.tx.principal}`}>
+                    {data.tx.contents.send?.destination || data.tx.principal}
                   </Link>
-                  <CopyButton value={data.tx.contents.send.destination || data.tx.principal} />
+                  <CopyButton value={data.tx.contents.send?.destination || data.tx.principal} />
                 </span>
               </li>
               <li className="item">
@@ -108,7 +108,7 @@ const Tx = () => {
               </li>
               <li className="item">
                 <span className="item-name">Value</span>
-                <span className="item-value">{formatSmidge(data?.tx.contents.send.amount || 0)}</span>
+                <span className="item-value">{formatSmidge(data?.tx.contents.send?.amount || 0)}</span>
               </li>
               <li className="item">
                 <span className="item-name">Counter</span>

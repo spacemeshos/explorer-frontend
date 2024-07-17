@@ -57,6 +57,7 @@ export default class Store {
   overview = {
     transactions_count: 0,
     accounts_count: 0,
+    rewards_sum: 0,
     rewards_count: 0,
     layers_count: 0,
     smeshers_count: 0,

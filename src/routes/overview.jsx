@@ -15,7 +15,14 @@ const Overview = () => {
 
   const [layer, setLayer] = useState(0);
   const [currentEpoch, setCurrentEpoch] = useState(0);
-  const [numUnits, setNumUnits] = useState(0);
+  const [epochInfo, setEpochInfo] = useState({
+    transactions_count: 0,
+    activations_count: 0,
+    rewards_count: 0,
+    rewards_sum: 0,
+    num_units: 0,
+    smeshers_count: 0,
+  });
 
   useEffect(() => {
     if (store.netInfo === null) return;
@@ -29,8 +36,8 @@ const Overview = () => {
       setCurrentEpoch(epoch);
 
       const res = await fetch(`${store.statsApiUrl}/stats/epoch/${epoch}`);
-      const epochInfo = await res.json();
-      setNumUnits(epochInfo.num_units || 0);
+      const data = await res.json();
+      setEpochInfo(data);
     };
 
     fetchInfo();
@@ -40,11 +47,11 @@ const Overview = () => {
     <>
       <InfoBlock
         accounts={store.overview.accounts_count || 0}
-        rewards={store.overview.rewards_count || 0}
-        security={numUnits * store.postUnitSize || 0}
+        rewards={store.overview.rewards_sum || 0}
+        security={epochInfo.num_units * store.postUnitSize || 0}
         epoch={currentEpoch}
         layer={layer}
-        smeshers={store.overview.smeshers_count || 0}
+        smeshers={epochInfo.smeshers_count || 0}
       />
       <div className="page-wrap">
         <TitleBlock
