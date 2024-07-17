@@ -1,3 +1,5 @@
+import type { Spacemeshv2alpha1TransactionResultStatus, Spacemeshv2alpha1TransactionState } from 'api';
+
 export const typeOfTransaction = (type) => {
   switch (type) {
     case 'TRANSACTION_TYPE_SINGLE_SIG_SEND':
@@ -19,7 +21,7 @@ export const typeOfTransaction = (type) => {
   }
 };
 
-export const mappingStatus = (status) => {
+export const mappingState = (status: Spacemeshv2alpha1TransactionState) => {
   switch (status) {
     case 'TRANSACTION_STATE_PROCESSED':
       return 'approved';
@@ -28,19 +30,19 @@ export const mappingStatus = (status) => {
   }
 };
 
-export const mappingResult = (status) => {
+export const mappingResult = (status: Spacemeshv2alpha1TransactionResultStatus) => {
   switch (status) {
-    case 'TRANSACTION_STATE_REJECTED':
+    case 'TRANSACTION_STATUS_FAILURE':
       return 'failure';
-    case 'TRANSACTION_STATE_INSUFFICIENT_FUNDS':
+    case 'TRANSACTION_STATUS_INVALID':
       return 'invalid';
     default:
       return null;
   }
 };
 
-export const mapTxResult = (state, result) => {
-  const status = mappingStatus(state);
+export const mapTxResult = (state: Spacemeshv2alpha1TransactionState, result: Spacemeshv2alpha1TransactionResultStatus) => {
+  const status = mappingState(state);
   const res = mappingResult(result);
 
   return res === null ? status : res;

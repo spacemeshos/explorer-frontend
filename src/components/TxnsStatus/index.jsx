@@ -5,7 +5,8 @@ import { mapTxResult } from '../../helper/tx';
 
 type Props = {
   result: Spacemeshv2alpha1TransactionResult,
-  state: Spacemeshv2alpha1TransactionState
+  state: Spacemeshv2alpha1TransactionState,
+  message?: string
 };
 
 const TxnsStatus = (props: Props) => {

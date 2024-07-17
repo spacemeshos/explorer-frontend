@@ -2,30 +2,29 @@
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import { EPOCHS, LAYERS } from '../../config/constants';
-import { useStore } from '../../store';
 import { calculateEpoch } from '../../helper/converter';
+import { useStore } from '../../store';
 
 const TimeBlock = () => {
-  const store = useStore();
-
+  const { nodeStatus, netInfo } = useStore();
   return (
     <div className="timeBlock">
-      {store.nodeStatus.latestLayer && store.netInfo.layersPerEpoch && (
+      {nodeStatus && nodeStatus.latestLayer && netInfo && netInfo.layersPerEpoch && (
         <div className="timeBlock-item">
           <div className="name">Epoch</div>
           <div className="value">
-            <Link to={`/${EPOCHS}/${calculateEpoch(store.nodeStatus.latestLayer, store.netInfo.layersPerEpoch)}`}>
-              {calculateEpoch(store.nodeStatus.latestLayer, store.netInfo.layersPerEpoch)}
+            <Link to={`/${EPOCHS}/${calculateEpoch(nodeStatus.latestLayer, netInfo.layersPerEpoch)}`}>
+              {calculateEpoch(nodeStatus.latestLayer, netInfo.layersPerEpoch)}
             </Link>
           </div>
         </div>
       )}
-      {store.nodeStatus.latestLayer && (
+      {nodeStatus && nodeStatus.latestLayer && (
         <div className="timeBlock-item">
           <div className="name">Layer</div>
           <div className="value">
-            <Link to={`/${LAYERS}/${store.nodeStatus.latestLayer}`}>
-              {store.nodeStatus.latestLayer}
+            <Link to={`/${LAYERS}/${nodeStatus.latestLayer}`}>
+              {nodeStatus.latestLayer}
             </Link>
           </div>
         </div>
