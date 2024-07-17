@@ -120,7 +120,7 @@ const Layer = () => {
               <li className="item">
                 <span className="item-name">Block</span>
                 <span className="item-value">
-                  {base64ToHex(data.block.id)}
+                  {base64ToHex(data.block?.id)}
                 </span>
               </li>
             </ul>
