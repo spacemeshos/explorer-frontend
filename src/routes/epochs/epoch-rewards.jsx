@@ -17,7 +17,7 @@ const EpochRewards = () => {
 
   useEffect(() => {
     if (store.netInfo === null) return;
-    fetch(`${store.statsApiUrl}/stats/epoch/${params.id}`).then((res) => res.json()).then((res) => {
+    fetch(`${store.statsApiUrl}/epoch/${params.id}`).then((res) => res.json()).then((res) => {
       setStats(res);
     });
 

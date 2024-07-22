@@ -11,22 +11,20 @@ import {
 } from '../../config/constants';
 import CustomTimeAgo from '../CustomTimeAgo';
 import { useStore } from '../../store';
-import Loader from '../Loader';
 import { formatSmidge } from '../../helper/converter';
+import Loader from '../Loader';
 
 const EpochsRow = ({ data }) => {
   const store = useStore();
 
   const [stats, setStats] = useState({});
-  const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       if (data && data.length > 0) {
-        setIsFetching(true);
         try {
           const promises = data.map(async (item) => {
-            const response = await fetch(`${store.statsApiUrl}/stats/epoch/${item.number}`);
+            const response = await fetch(`${store.statsApiUrl}/epoch/${item.number}`);
             if (!response.ok) {
               throw new Error(`Error fetching data for item ${item.number}`);
             }
@@ -39,17 +37,11 @@ const EpochsRow = ({ data }) => {
           setStats(combinedStats);
         } catch (error) {
           console.error(error);
-        } finally {
-          setIsFetching(false);
         }
       }
     };
     fetchData();
   }, [data]);
-
-  if (isFetching) {
-    return <Loader size={100} />;
-  }
 
   return data && data.map((item) => {
     const futureEpoch = store.layerTimestamp(item.startLayer) * 1000 > Date.now();
@@ -67,14 +59,18 @@ const EpochsRow = ({ data }) => {
           <Link to={`/${EPOCHS}/${item.number}/${LAYERS}`}>{item.layers}</Link>
         </div>
         <div className="td">
-          <Link to={`/${EPOCHS}/${item.number}/${TXNS}`}>{stats[item.number].transactions_count}</Link>
+          <Link to={`/${EPOCHS}/${item.number}/${TXNS}`}>
+            {stats[item.number] ? stats[item.number]?.transactions_count : <Loader size={20} />}
+          </Link>
         </div>
         <div className="td">
-          <Link to={`/${EPOCHS}/${item.number}/${SMESHER}`}>{stats[item.number].activations_count}</Link>
+          <Link to={`/${EPOCHS}/${item.number}/${SMESHER}`}>
+            {stats[item.number] ? stats[item.number]?.activations_count : <Loader size={20} />}
+          </Link>
         </div>
         <div className="td" style={{ flexGrow: 2 }}>
           <Link to={`/${EPOCHS}/${item.number}/${REWARDS}`}>
-            {formatSmidge(stats[item.number].rewards_sum)}
+            {stats[item.number] ? formatSmidge(stats[item.number].rewards_sum || 0) : <Loader size={20} />}
           </Link>
         </div>
       </div>

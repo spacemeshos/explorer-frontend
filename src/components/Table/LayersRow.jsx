@@ -21,15 +21,13 @@ const LayersRow = ({ data }: Props) => {
   const store = useStore();
 
   const [stats, setStats] = useState({});
-  const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       if (data && data.length > 0) {
-        setIsFetching(true);
         try {
           const promises = data.map(async (item) => {
-            const response = await fetch(`${store.statsApiUrl}/stats/layer/${item.number}`);
+            const response = await fetch(`${store.statsApiUrl}/layer/${item.number}`);
             if (!response.ok) {
               throw new Error(`Error fetching data for item ${item.number}`);
             }
@@ -42,17 +40,11 @@ const LayersRow = ({ data }: Props) => {
           setStats(combinedStats);
         } catch (error) {
           console.error(error);
-        } finally {
-          setIsFetching(false);
         }
       }
     };
     fetchData();
   }, [data]);
-
-  if (isFetching) {
-    return <Loader size={100} />;
-  }
 
   return data && data.map((item: Spacemeshv2alpha1Layer) => (
     <div key={nanoid()} className="tr">
@@ -66,12 +58,14 @@ const LayersRow = ({ data }: Props) => {
       </div>
       <div className="td">
         <Link to={`/${LAYERS}/${item.number}/${TXNS}`}>
-          {`${stats[item.number].transactions_count} Transactions (${formatSmidge(stats[item.number].transactions_sum)})`}
+          { stats[item.number] ? (
+            `${stats[item.number].transactions_count} Transactions (${formatSmidge(stats[item.number].transactions_sum)})`
+          ) : <Loader size={20} /> }
         </Link>
       </div>
       <div className="td">
         <Link to={`/${LAYERS}/${item.number}/${REWARDS}`}>
-          {formatSmidge(stats[item.number].rewards_sum)}
+          {stats[item.number] ? formatSmidge(stats[item.number].rewards_sum) : <Loader size={20} />}
         </Link>
       </div>
     </div>

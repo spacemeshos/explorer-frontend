@@ -11,6 +11,7 @@ import { useStore } from '../../store';
 import { formatSmidge } from '../../helper/converter';
 import CustomTimeAgo from '../../components/CustomTimeAgo';
 import { fullDate } from '../../helper/formatter';
+import Loader from '../../components/Loader';
 
 const Epoch = () => {
   const store = useStore();
@@ -19,11 +20,11 @@ const Epoch = () => {
 
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(0);
-  const [stats, setStats] = useState({});
+  const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    if (store.netInfo === null) return;
-    fetch(`${store.statsApiUrl}/stats/epoch/${params.id}`).then((res) => res.json()).then((res) => {
+    if (store.netInfo === null || store.netInfo.layersPerEpoch === null) return;
+    fetch(`${store.statsApiUrl}/epoch/${params.id}`).then((res) => res.json()).then((res) => {
       setStats(res);
     });
 
@@ -43,7 +44,7 @@ const Epoch = () => {
           />
           <RightSideBlock
             color={getColorByPageName(name)}
-            number={store.netInfo.layersPerEpoch}
+            number={store.netInfo?.layersPerEpoch || 0}
             unit="layers"
             startTime={store.layerTimestamp(start)}
           />
@@ -75,27 +76,27 @@ const Epoch = () => {
             <li className="item">
               <span className="item-name">Layers</span>
               <span className="item-value">
-                <Link to={`/${EPOCHS}/${params.id}/${LAYERS}`}>{store.netInfo.layersPerEpoch}</Link>
+                <Link to={`/${EPOCHS}/${params.id}/${LAYERS}`}>{store.netInfo?.layersPerEpoch || 0}</Link>
               </span>
             </li>
             <li className="item">
               <span className="item-name">Rewards</span>
               <span className="item-value">
                 <Link to={`/${EPOCHS}/${params.id}/${REWARDS}`}>
-                  {`${stats.rewards_count} (${formatSmidge(stats.rewards_sum)})`}
+                  {stats ? `${stats.rewards_count} (${formatSmidge(stats.rewards_sum)})` : <Loader size={20} />}
                 </Link>
               </span>
             </li>
             <li className="item">
               <span className="item-name">Smeshers</span>
               <span className="item-value">
-                <Link to={`/${EPOCHS}/${params.id}/${SMESHER}`}>{stats.smeshers_count}</Link>
+                <Link to={`/${EPOCHS}/${params.id}/${SMESHER}`}>{stats ? stats.smeshers_count : <Loader size={20} />}</Link>
               </span>
             </li>
             <li className="item">
               <span className="item-name">Transactions</span>
               <span className="item-value">
-                <Link to={`/${EPOCHS}/${params.id}/${TXNS}`}>{stats.transactions_count}</Link>
+                <Link to={`/${EPOCHS}/${params.id}/${TXNS}`}>{stats ? stats.transactions_count : <Loader size={20} />}</Link>
               </span>
             </li>
           </ul>

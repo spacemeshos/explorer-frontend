@@ -31,7 +31,7 @@ const Accounts = () => {
         />
         <RightSideBlock
           color={getColorByPageName(ACCOUNTS)}
-          number={store.overview.accounts_count}
+          number={store.overview?.accounts_count || 0}
           unit="accounts"
           startTime={recentActivity || 0}
           label="Recent activity"

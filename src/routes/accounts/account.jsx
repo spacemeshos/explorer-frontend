@@ -5,14 +5,13 @@ import { Link, useParams } from 'react-router-dom';
 import { Spacemeshv2alpha1Account } from 'api';
 import TitleBlock from '../../components/TitleBlock';
 import { getColorByPageName } from '../../helper/getColorByPageName';
-
 import {
   ACCOUNTS, REWARDS, TXNS,
 } from '../../config/constants';
 import RightSideBlock from '../../components/CountBlock/RightSideBlock';
 import { useStore } from '../../store';
 import Loader from '../../components/Loader';
-import { parseSmidge } from '../../helper/converter';
+import { formatSmidge, parseSmidge } from '../../helper/converter';
 import CopyButton from '../../components/CopyButton';
 import Table from '../../components/Table';
 
@@ -24,6 +23,7 @@ const Account = () => {
   const [data, setData] = useState <Spacemeshv2alpha1Account>();
   const [totalRewards, setTotalRewards] = useState(0);
   const [totalTransactions, setTotalTransactions] = useState(0);
+  const [rewardsSum, setRewardsSum] = useState(0);
   const [smidge, setSmidge] = useState({ value: 0, unit: 'SMH' });
 
   useEffect(() => {
@@ -37,21 +37,12 @@ const Account = () => {
   }, [params.id]);
 
   useEffect(() => {
-    store.api.reward.rewardServiceList({
-      coinbase: params.id,
-      limit: 1,
-    }).then((res) => {
-      setTotalRewards(res.total);
-    });
-  }, [params.id]);
-
-  useEffect(() => {
-    store.api.transaction.transactionServiceList({
-      address: params.id,
-      limit: 1,
-    }).then((res) => {
-      setTotalTransactions(res.total);
-    });
+    fetch(`${store.statsApiUrl}/account/${params.id}`).then((res) => res.json())
+      .then((res) => {
+        setRewardsSum(formatSmidge(res.rewards_sum));
+        setTotalRewards(res.rewards_count);
+        setTotalTransactions(res.transactions_count);
+      });
   }, [params.id]);
 
   return (
@@ -89,6 +80,10 @@ const Account = () => {
                 <span className="item-value">
                   <Link to={`/${ACCOUNTS}/${data.address}/${REWARDS}`}>
                     {totalRewards}
+                    {' '}
+                    (
+                    {rewardsSum}
+                    )
                   </Link>
                 </span>
               </li>
