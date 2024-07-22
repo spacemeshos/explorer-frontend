@@ -17,7 +17,7 @@ const LayerTxns = () => {
   const [stats, setStats] = useState({});
 
   useEffect(() => {
-    fetch(`${store.statsApiUrl}/stats/layer/${params.id}`).then((res) => res.json()).then((res) => {
+    fetch(`${store.statsApiUrl}/layer/${params.id}`).then((res) => res.json()).then((res) => {
       setStats(res);
     });
   }, [params.id]);

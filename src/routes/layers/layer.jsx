@@ -40,7 +40,7 @@ const Layer = () => {
   }, [params.id, netInfo]);
 
   useEffect(() => {
-    fetch(`${statsApiUrl}/stats/layer/${params.id}`).then((res) => res.json()).then((res) => {
+    fetch(`${statsApiUrl}/layer/${params.id}`).then((res) => res.json()).then((res) => {
       setStats(res);
       setRewards(parseSmidge(res.rewards_sum));
     });

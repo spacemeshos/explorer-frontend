@@ -35,7 +35,7 @@ const Overview = () => {
       const epoch = calculateEpoch(layers.layers[0].number, store.netInfo.layersPerEpoch);
       setCurrentEpoch(epoch);
 
-      const res = await fetch(`${store.statsApiUrl}/stats/epoch/${epoch}`);
+      const res = await fetch(`${store.statsApiUrl}/epoch/${epoch}`);
       const data = await res.json();
       setEpochInfo(data);
     };
@@ -46,12 +46,12 @@ const Overview = () => {
   return (
     <>
       <InfoBlock
-        accounts={store.overview.accounts_count || 0}
-        rewards={epochInfo.rewards_sum || 0}
-        security={epochInfo.num_units * store.postUnitSize || 0}
+        accounts={store.overview?.accounts_count}
+        rewards={epochInfo.rewards_sum}
+        security={epochInfo.num_units * store.postUnitSize}
         epoch={currentEpoch}
         layer={layer}
-        smeshers={epochInfo.smeshers_count || 0}
+        smeshers={epochInfo.smeshers_count}
       />
       <div className="page-wrap">
         <TitleBlock
@@ -61,7 +61,7 @@ const Overview = () => {
         />
         <RightCountBlock
           color={getColorByPageName(TXNS)}
-          number={store.overview.transactions_count || 0}
+          number={store.overview?.transactions_count || 0}
           caption="transactions since genesis"
         />
       </div>

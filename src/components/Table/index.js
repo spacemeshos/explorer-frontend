@@ -391,6 +391,10 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
     getData(nextOffset);
   };
 
+  if (isFetching) {
+    return <Loader size={100} />;
+  }
+
   return (
     <>
       <div className="table">

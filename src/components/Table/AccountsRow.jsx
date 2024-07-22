@@ -20,15 +20,13 @@ type Props = {
 const AccountsRow = ({ data }: Props) => {
   const store = useStore();
   const [stats, setStats] = useState({});
-  const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       if (data && data.length > 0) {
-        setIsFetching(true);
         try {
           const promises = data.map(async (item) => {
-            const response = await fetch(`${store.statsApiUrl}/stats/account/${item.address}`);
+            const response = await fetch(`${store.statsApiUrl}/account/${item.address}`);
             if (!response.ok) {
               throw new Error(`Error fetching data for item ${item.address}`);
             }
@@ -41,17 +39,11 @@ const AccountsRow = ({ data }: Props) => {
           setStats(combinedStats);
         } catch (error) {
           console.error(error);
-        } finally {
-          setIsFetching(false);
         }
       }
     };
     fetchData();
   }, [data]);
-
-  if (isFetching) {
-    return <Loader size={100} />;
-  }
 
   return data && data.map((item: Spacemeshv2alpha1Account) => (
     <div key={nanoid()} className="tr">
@@ -61,10 +53,10 @@ const AccountsRow = ({ data }: Props) => {
         </Link>
       </div>
       <div className="td">
-        {stats[item.address] ? formatSmidge(stats[item.address].sent) : '---'}
+        {stats[item.address] ? formatSmidge(stats[item.address].sent) : <Loader size={20} />}
       </div>
       <div className="td">
-        {stats[item.address] ? formatSmidge(stats[item.address].received) : '---'}
+        {stats[item.address] ? formatSmidge(stats[item.address].received) : <Loader size={20} />}
       </div>
       <div className="td">
         <CustomTimeAgo time={store.layerTimestamp(item.current.layer)} />

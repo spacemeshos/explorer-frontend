@@ -1,5 +1,5 @@
 import {
-  action, makeAutoObservable, observable, runInAction, toJS,
+  action, makeAutoObservable, observable, toJS,
 } from 'mobx';
 import React from 'react';
 import {
@@ -17,7 +17,7 @@ import {
 
 // const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://configs.spacemesh.network/networks.json';
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://mainnet-api.spacemesh.network';
-const CUSTOM_API_URL = process.env.REACT_APP_CUSTOM_API_URL || 'https://mainnet-custom-api.spacemesh.network';
+const STATS_API_URL = process.env.REACT_APP_STATS_API_URL || 'https://mainnet-stats-api.spacemesh.network';
 const BITS_PER_LABEL = process.env.REACT_APP_BITS_PER_LABEL || 128;
 const LABELS_PER_UNIT = process.env.REACT_APP_LABELS_PER_UNIT || 1024;
 
@@ -64,7 +64,7 @@ export default class Store {
     num_units: 0,
   };
 
-  statsApiUrl = CUSTOM_API_URL;
+  statsApiUrl = STATS_API_URL;
 
   constructor() {
     makeAutoObservable(this, {
@@ -81,10 +81,6 @@ export default class Store {
       setNetwork: action,
       getNetworkInfo: action,
       showSearchResult: action,
-      setTotalTransactions: action,
-      setTotalAccounts: action,
-      setTotalRewards: action,
-      setTotalLayers: action,
       setNetInfo: action,
       setNodeStatus: action,
     }, { autoBind: true });
@@ -166,22 +162,6 @@ export default class Store {
     }
   }
 
-  async getNetworkInfo() {
-    const network = this.network.value;
-    const wsUrl = network.replace(/^https(.*)/, 'wss$1').replace(/^http(.*)/, 'ws$1');
-    const ws = new WebSocket(`${wsUrl}ws/network-info`);
-    ws.onmessage = (event) => {
-      if (network !== this.network.value) {
-        ws.close();
-      } else {
-        runInAction(async () => {
-          this.networkInfo = JSON.parse(event.data);
-          this.processNetworkInfo(this.networkInfo);
-        });
-      }
-    };
-  }
-
   layerTimestamp(layer: number) {
     const genesisTime = new Date(this.netInfo?.genesisTime || 0);
     const durationMs = parseInt(this.netInfo?.layerDuration, 10);
@@ -192,26 +172,6 @@ export default class Store {
     const genesisTime = new Date(this.netInfo?.genesisTime || 0);
     const durationMs = parseInt(this.netInfo?.layerDuration, 10);
     return (genesisTime.getTime() / 1000 + (layer * durationMs) + durationMs) - 1;
-  }
-
-  setTotalTransactions(total) {
-    this.total.transactions = total;
-  }
-
-  setTotalAccounts(total) {
-    this.total.accounts = total;
-  }
-
-  setTotalRewards(total) {
-    this.total.rewards = total;
-  }
-
-  setTotalLayers(total) {
-    this.total.layers = total;
-  }
-
-  setTotalSmeshers(total) {
-    this.total.smeshers = total;
   }
 }
 
