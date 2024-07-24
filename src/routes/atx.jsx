@@ -22,16 +22,25 @@ const Atx = () => {
 
   const [data: Spacemeshv2alpha1Activation, setData] = useState();
   const [cSize, setCSize] = useState({ value: 0, unit: '' });
+  const [error, setError] = useState();
+  if (error) throw error;
 
   useEffect(() => {
     store.api.activation.activationServiceList({
       id: [hexToBase64(params.id)],
       limit: 1,
     }).then((res) => {
+      if (res.activations.length === 0) {
+        throw new Error();
+      }
       setData(res.activations[0]);
       if (res.activations[0] !== undefined) {
         setCSize(byteConverter(res.activations[0].numUnits * store.postUnitSize, true));
       }
+    }).catch(() => {
+      const err = new Error('Activation not found');
+      err.id = params.id;
+      setError(err);
     });
   }, [store.netInfo, params.id]);
 

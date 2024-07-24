@@ -26,6 +26,8 @@ const Layer = () => {
   const [epoch, setEpoch] = useState(0);
   const [rewards, setRewards] = useState({});
   const [stats, setStats] = useState({});
+  const [error, setError] = useState();
+  if (error) throw error;
 
   useEffect(() => {
     if (netInfo === null) return;
@@ -36,6 +38,10 @@ const Layer = () => {
     }).then((res) => {
       setData(res.layers[0]);
       setEpoch(calculateEpoch(res.layers[0].number, netInfo.layersPerEpoch));
+    }).catch(() => {
+      const err = new Error('Layer not found');
+      err.id = params.id;
+      setError(err);
     });
   }, [params.id, netInfo]);
 

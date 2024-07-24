@@ -6,9 +6,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import shortFormHash from '../../helper/longFormHash';
 
-import {
-  ACCOUNTS, ATXS, SMESHER,
-} from '../../config/constants';
+import { ACCOUNTS, SMESHER } from '../../config/constants';
 import { base64ToHex, byteConverter } from '../../helper/converter';
 import { useStore } from '../../store';
 import Loader from '../Loader';
@@ -64,7 +62,7 @@ const SmesherRow = ({ data }) => {
         {byteConverter(atxs[item.pubkey].activations[atxs[item.pubkey].activations.length - 1].numUnits * store.postUnitSize)}
       </div>
       <div className="td">
-        <Link to={`/${SMESHER}/${base64ToHex(item.pubkey)}/${ATXS}`}>{item.atxs}</Link>
+        <Link to={`/${SMESHER}/${base64ToHex(item.pubkey)}`}>{item.atxs}</Link>
       </div>
     </div>
   ));
