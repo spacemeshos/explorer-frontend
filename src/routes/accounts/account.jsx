@@ -25,6 +25,8 @@ const Account = () => {
   const [totalTransactions, setTotalTransactions] = useState(0);
   const [rewardsSum, setRewardsSum] = useState(0);
   const [smidge, setSmidge] = useState({ value: 0, unit: 'SMH' });
+  const [error, setError] = useState();
+  if (error) throw error;
 
   useEffect(() => {
     store.api.account.accountServiceList({
@@ -33,16 +35,28 @@ const Account = () => {
     }).then((res) => {
       setData(res.accounts[0]);
       setSmidge(parseSmidge(res.accounts[0].current.balance));
+    }).catch(() => {
+      const err = new Error('Account not found');
+      err.id = params.id;
+      setError(err);
     });
   }, [params.id]);
 
   useEffect(() => {
-    fetch(`${store.statsApiUrl}/account/${params.id}`).then((res) => res.json())
-      .then((res) => {
-        setRewardsSum(formatSmidge(res.rewards_sum));
-        setTotalRewards(res.rewards_count);
-        setTotalTransactions(res.transactions_count);
-      });
+    fetch(`${store.statsApiUrl}/account/${params.id}`).then(async (res) => {
+      if (res.ok) {
+        const r = await res.json();
+        setRewardsSum(formatSmidge(r.rewards_sum));
+        setTotalRewards(r.rewards_count);
+        setTotalTransactions(r.transactions_count);
+      } else {
+        throw new Error();
+      }
+    }).catch(() => {
+      const err = new Error('Account not found');
+      err.id = params.id;
+      setError(err);
+    });
   }, [params.id]);
 
   return (

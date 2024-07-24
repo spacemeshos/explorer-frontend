@@ -15,10 +15,21 @@ const LayerTxns = () => {
   const params = useParams();
 
   const [stats, setStats] = useState({});
+  const [error, setError] = useState();
+  if (error) throw error;
 
   useEffect(() => {
-    fetch(`${store.statsApiUrl}/layer/${params.id}`).then((res) => res.json()).then((res) => {
-      setStats(res);
+    fetch(`${store.statsApiUrl}/layer/${params.id}`).then(async (res) => {
+      if (res.ok) {
+        const r = await res.json();
+        setStats(r);
+      } else {
+        throw new Error();
+      }
+    }).catch(() => {
+      const err = new Error('Layer not found');
+      err.id = params.id;
+      setError(err);
     });
   }, [params.id]);
 

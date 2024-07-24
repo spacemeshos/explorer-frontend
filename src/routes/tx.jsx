@@ -30,6 +30,8 @@ const Tx = () => {
 
   const [data, setData] = useState<V2alpha1TransactionResponse, Function>();
   const [smidge, setSmidge] = useState({ value: 0, unit: 'SMH' });
+  const [error, setError] = useState();
+  if (error) throw error;
 
   useEffect(() => {
     store.api.transaction.transactionServiceList({
@@ -38,9 +40,16 @@ const Tx = () => {
       includeResult: true,
       includeState: true,
     }).then((res) => {
+      if (res.transactions.length === 0) {
+        throw new Error();
+      }
       const tx = res.transactions[0];
       setData(tx);
       setSmidge(parseSmidge(tx?.tx.contents.send?.amount || 0));
+    }).catch(() => {
+      const err = new Error('Transaction not found');
+      err.id = params.id;
+      setError(err);
     });
   }, [params.id, store.netInfo]);
 

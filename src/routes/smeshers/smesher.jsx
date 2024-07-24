@@ -21,10 +21,21 @@ const Smesher = () => {
   const params = useParams();
 
   const [data, setData] = useState();
+  const [error, setError] = useState();
+  if (error) throw error;
 
   useEffect(() => {
-    fetch(`${store.statsApiUrl}/smesher/${params.id}`).then((res) => res.json()).then((res) => {
-      setData(res);
+    fetch(`${store.statsApiUrl}/smesher/${params.id}`).then(async (res) => {
+      if (res.ok) {
+        const r = await res.json();
+        setData(r);
+      } else {
+        throw new Error();
+      }
+    }).catch(() => {
+      const err = new Error('Smesher not found');
+      err.id = params.id;
+      setError(err);
     });
   }, [params.id]);
 
