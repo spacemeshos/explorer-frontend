@@ -25,18 +25,14 @@ const AccountsRow = ({ data }: Props) => {
     const fetchData = async () => {
       if (data && data.length > 0) {
         try {
-          const promises = data.map(async (item) => {
+          data.map(async (item) => {
             const response = await fetch(`${store.statsApiUrl}/account/${item.address}`);
             if (!response.ok) {
               throw new Error(`Error fetching data for item ${item.address}`);
             }
             const res = await response.json();
-            return { [item.address]: res };
+            setStats((prev) => ({ ...prev, [item.address]: res }));
           });
-
-          const allStats = await Promise.all(promises);
-          const combinedStats = allStats.reduce((acc, result) => ({ ...acc, ...result }), {});
-          setStats(combinedStats);
         } catch (error) {
           console.error(error);
         }

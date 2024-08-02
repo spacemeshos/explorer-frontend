@@ -21,17 +21,13 @@ const SmesherRow = ({ data }) => {
       if (data && data.length > 0) {
         setIsFetching(true);
         try {
-          const promises = data.map(async (item) => {
+          data.map(async (item) => {
             const res = await store.api.activation.activationServiceList({
               smesherId: [item.pubkey],
               limit: 100,
             });
-            return { [item.pubkey]: res };
+            setAtxs((prev) => ({ ...prev, [item.pubkey]: res }));
           });
-
-          const allStats = await Promise.all(promises);
-          const combinedStats = allStats.reduce((acc, result) => ({ ...acc, ...result }), {});
-          setAtxs(combinedStats);
         } catch (error) {
           console.error(error);
         } finally {
@@ -54,12 +50,17 @@ const SmesherRow = ({ data }) => {
         </Link>
       </div>
       <div className="td">
-        <Link to={`/${ACCOUNTS}/${item.coinbase}`}>
-          {shortFormHash(atxs[item.pubkey].activations[atxs[item.pubkey].activations.length - 1].coinbase)}
+        <Link to={`/${ACCOUNTS}/${item.pubkey}`}>
+          {atxs[item.pubkey]
+            ? shortFormHash(atxs[item.pubkey].activations[atxs[item.pubkey].activations.length - 1].coinbase)
+            : <Loader size={20} />}
         </Link>
       </div>
       <div className="td">
-        {byteConverter(atxs[item.pubkey].activations[atxs[item.pubkey].activations.length - 1].numUnits * store.postUnitSize)}
+        {atxs[item.pubkey] ? byteConverter(
+          atxs[item.pubkey].activations[atxs[item.pubkey].activations.length - 1].numUnits * store.postUnitSize,
+        )
+          : <Loader size={20} />}
       </div>
       <div className="td">
         <Link to={`/${SMESHER}/${base64ToHex(item.pubkey)}`}>{item.atxs}</Link>
