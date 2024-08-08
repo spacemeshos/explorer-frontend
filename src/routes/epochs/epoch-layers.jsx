@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react';
 import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { EPOCHS, LAYERS } from '../../config/constants';
 import TitleBlock from '../../components/TitleBlock';
 import { getColorByPageName } from '../../helper/getColorByPageName';
@@ -9,8 +10,14 @@ import Table from '../../components/Table';
 
 const EpochLayers = () => {
   const store = useStore();
-  const { epoch } = store.networkInfo;
   const params = useParams();
+
+  const [start, setStart] = useState(0);
+
+  useEffect(() => {
+    const epochStart = params.id * store.netInfo.layersPerEpoch;
+    setStart(store.layerTimestamp(epochStart));
+  }, [store.netInfo]);
 
   return (
     <>
@@ -21,8 +28,8 @@ const EpochLayers = () => {
           desc={`Layers contained within Epoch ${params.id}`}
         />
         <RightSideBlock
-          number={epoch && epoch.layers}
-          startTime={epoch && epoch.start}
+          number={store.netInfo.layersPerEpoch}
+          startTime={start}
           unit="layers"
           color={getColorByPageName(EPOCHS)}
         />

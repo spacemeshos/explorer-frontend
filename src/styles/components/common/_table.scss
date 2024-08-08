@@ -133,6 +133,7 @@
 .pagination_link--disabled {
   a {
     color: $textColor;
+    cursor: default;
   }
   a:hover {
     background-color: initial;

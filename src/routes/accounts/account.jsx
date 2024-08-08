@@ -1,15 +1,15 @@
+// @flow
 import { observer } from 'mobx-react';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { Spacemeshv2alpha1Account } from 'api';
 import TitleBlock from '../../components/TitleBlock';
 import { getColorByPageName } from '../../helper/getColorByPageName';
-
 import {
-  ACCOUNTS, ACCOUNTS_TXNS, REWARDS, TXNS,
+  ACCOUNTS, REWARDS, TXNS,
 } from '../../config/constants';
 import RightSideBlock from '../../components/CountBlock/RightSideBlock';
 import { useStore } from '../../store';
-import { fetchAPI } from '../../api/fetchAPI';
 import Loader from '../../components/Loader';
 import { formatSmidge, parseSmidge } from '../../helper/converter';
 import CopyButton from '../../components/CopyButton';
@@ -20,33 +20,44 @@ const Account = () => {
   const name = ACCOUNTS;
   const params = useParams();
 
-  const [data, setData] = useState();
-  const [txData, setTxData] = useState();
+  const [data, setData] = useState <Spacemeshv2alpha1Account>();
+  const [totalRewards, setTotalRewards] = useState(0);
+  const [totalTransactions, setTotalTransactions] = useState(0);
+  const [rewardsSum, setRewardsSum] = useState(0);
   const [smidge, setSmidge] = useState({ value: 0, unit: 'SMH' });
-
   const [error, setError] = useState();
   if (error) throw error;
 
   useEffect(() => {
-    if (store.network.value === null) return;
-    fetchAPI(`${store.network.value}${name}/${params.id}`).then((res) => {
-      if (res.data) {
-        setData(res.data[0]);
-        setSmidge(parseSmidge(res.data[0].balance));
-      } else {
-        const err = new Error('Not found');
-        err.id = params.id;
-        setError(err);
-      }
+    store.api.account.accountServiceList({
+      addresses: [params.id],
+      limit: 1,
+    }).then((res) => {
+      setData(res.accounts[0]);
+      setSmidge(parseSmidge(res.accounts[0].current.balance));
+    }).catch(() => {
+      const err = new Error('Account not found');
+      err.id = params.id;
+      setError(err);
     });
-  }, [store.network.value, params.id]);
+  }, [params.id]);
 
   useEffect(() => {
-    if (store.network.value === null) return;
-    fetchAPI(`${store.network.value}${ACCOUNTS}/${params.id}/${TXNS}`).then((result) => {
-      setTxData(result);
+    fetch(`${store.statsApiUrl}/account/${params.id}`).then(async (res) => {
+      if (res.ok) {
+        const r = await res.json();
+        setRewardsSum(formatSmidge(r.rewards_sum));
+        setTotalRewards(r.rewards_count);
+        setTotalTransactions(r.transactions_count);
+      } else {
+        throw new Error();
+      }
+    }).catch(() => {
+      const err = new Error('Account not found');
+      err.id = params.id;
+      setError(err);
     });
-  }, [store.network.value, params.id]);
+  }, [params.id]);
 
   return (
     <>
@@ -62,7 +73,7 @@ const Account = () => {
               color={getColorByPageName(name)}
               number={smidge && smidge.value}
               unit={`${smidge && smidge.unit} Balance`}
-              startTime={data && data.lastActivity}
+              startTime={0}
             />
           </div>
           <div className="details" style={{ marginBottom: '20px' }}>
@@ -76,13 +87,17 @@ const Account = () => {
               </li>
               <li className="item">
                 <span className="item-name">Counter</span>
-                <span className="item-value">{data.counter}</span>
+                <span className="item-value">{data.current.counter}</span>
               </li>
               <li className="item">
                 <span className="item-name">Rewards</span>
                 <span className="item-value">
                   <Link to={`/${ACCOUNTS}/${data.address}/${REWARDS}`}>
-                    {formatSmidge(data.awards)}
+                    {totalRewards}
+                    {' '}
+                    (
+                    {rewardsSum}
+                    )
                   </Link>
                 </span>
               </li>
@@ -90,7 +105,7 @@ const Account = () => {
                 <span className="item-name">Transactions</span>
                 <span className="item-value">
                   <Link to={`/${ACCOUNTS}/${data.address}/${TXNS}`}>
-                    {data.txs}
+                    {totalTransactions}
                   </Link>
                 </span>
               </li>
@@ -102,7 +117,7 @@ const Account = () => {
               color={getColorByPageName(name)}
               desc="account transactions"
             />
-            <Table name={ACCOUNTS} subPage={ACCOUNTS_TXNS} id={params.id} results={txData} key={params.id} />
+            <Table name={ACCOUNTS} subPage={TXNS} id={params.id} key={params.id} />
           </div>
         </>
       ) : (<Loader size={100} />)}

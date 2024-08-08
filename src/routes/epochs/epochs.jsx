@@ -1,14 +1,44 @@
 import { observer } from 'mobx-react';
+import { useEffect, useState } from 'react';
 import TitleBlock from '../../components/TitleBlock';
 import { getColorByPageName } from '../../helper/getColorByPageName';
 import { EPOCHS } from '../../config/constants';
 import RightSideBlock from '../../components/CountBlock/RightSideBlock';
 import { useStore } from '../../store';
 import Table from '../../components/Table';
+import Loader from '../../components/Loader';
 
 const Epochs = () => {
   const store = useStore();
-  const { network, epoch } = store.networkInfo;
+
+  const [isFetching, setIsFetching] = useState(true);
+  const [genesisTime, setGenesisTime] = useState(0);
+  const [epochs, setEpochs] = useState([]);
+
+  useEffect(() => {
+    if (store.netInfo === null) return;
+    setGenesisTime(new Date(store.netInfo.genesisTime || 0).getTime() / 1000);
+
+    store.api.layer.layerServiceList({
+      limit: 1,
+      sort_order: 1,
+    }).then((res) => {
+      const epochNums = Math.floor(res.layers[0].number / store.netInfo.layersPerEpoch);
+      for (let i = epochNums + 1; i >= 0; i--) {
+        setEpochs((prev) => [...prev, {
+          number: i,
+          layers: store.netInfo.layersPerEpoch,
+          startLayer: i * store.netInfo.layersPerEpoch,
+          endLayer: i * store.netInfo.layersPerEpoch + store.netInfo.layersPerEpoch - 1,
+        }]);
+      }
+      setIsFetching(false);
+    });
+  }, [store.netInfo]);
+
+  if (isFetching) {
+    return <Loader size={100} />;
+  }
 
   return (
     <>
@@ -20,13 +50,13 @@ const Epochs = () => {
         />
         <RightSideBlock
           color={getColorByPageName(EPOCHS)}
-          number={epoch && epoch.number + 1}
+          number={epochs[0]?.number || 0}
           unit="Epochs since genesis"
-          startTime={network && network.genesis}
+          startTime={genesisTime}
           label="Genesis Time"
         />
       </div>
-      <Table name={EPOCHS} />
+      <Table name={EPOCHS} epochs={epochs} />
     </>
   );
 };

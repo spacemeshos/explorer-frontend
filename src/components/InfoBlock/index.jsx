@@ -13,7 +13,7 @@ const InfoBlock = ({ accounts, security, epoch, layer, rewards, smeshers }) => (
       <li className="infoBlock-item">
         <p className="infoBlock-item-number">
           <Link to={`/${ACCOUNTS}`}>
-            {JSON.stringify(accounts) || (<Loader size={15} />)}
+            {accounts || (<Loader size={20} />)}
           </Link>
         </p>
         <p className="infoBlock-item-title">Accounts</p>
@@ -21,19 +21,19 @@ const InfoBlock = ({ accounts, security, epoch, layer, rewards, smeshers }) => (
       <li className="infoBlock-item">
         <p className="infoBlock-item-number">
           <Link to={`/${REWARDS}`}>
-            {formatSmidge(rewards) || (<Loader size={15} />)}
+            {rewards ? formatSmidge(rewards) : (<Loader size={20} />)}
           </Link>
         </p>
         <p className="infoBlock-item-title">smeshing rewards</p>
       </li>
       <li className="infoBlock-item">
-        <p className="infoBlock-item-number">{byteConverter(security)}</p>
+        <p className="infoBlock-item-number">{security ? byteConverter(security) : (<Loader size={20} />)}</p>
         <p className="infoBlock-item-title">security</p>
       </li>
       <li className="infoBlock-item">
         <p className="infoBlock-item-number">
           <Link to={`/${EPOCHS}/${epoch}`}>
-            {JSON.stringify(epoch) || (<Loader size={15} />)}
+            {epoch || (<Loader size={20} />)}
           </Link>
         </p>
         <p className="infoBlock-item-title">epoch</p>
@@ -41,7 +41,7 @@ const InfoBlock = ({ accounts, security, epoch, layer, rewards, smeshers }) => (
       <li className="infoBlock-item">
         <p className="infoBlock-item-number">
           <Link to={`/${LAYERS}/${layer}`}>
-            {JSON.stringify(layer) || (<Loader size={15} />)}
+            {layer || (<Loader size={20} />)}
           </Link>
         </p>
         <p className="infoBlock-item-title">layer</p>
@@ -49,7 +49,7 @@ const InfoBlock = ({ accounts, security, epoch, layer, rewards, smeshers }) => (
       <li className="infoBlock-item">
         <p className="infoBlock-item-number">
           <Link to={`/${SMESHER}`}>
-            {JSON.stringify(smeshers) || (<Loader size={15} />)}
+            {smeshers || (<Loader size={20} />)}
           </Link>
         </p>
         <p className="infoBlock-item-title">active smeshers</p>
