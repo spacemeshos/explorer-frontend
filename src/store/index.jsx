@@ -15,10 +15,8 @@ import {
   V2alpha1NodeStatusResponse,
 } from 'api';
 
-// const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://configs.spacemesh.network/networks.json';
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://mainnet-api.spacemesh.network';
-const STATS_API_URL = process.env.REACT_APP_STATS_API_URL || 'https://mainnet-stats-api.spacemesh.network';
-const BITS_PER_LABEL = process.env.REACT_APP_BITS_PER_LABEL || 128;
+const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://configs.spacemesh.network/networks.json';
+const BITS_PER_LABEL = 128;
 const LABELS_PER_UNIT = process.env.REACT_APP_LABELS_PER_UNIT || 1024;
 
 export default class Store {
@@ -26,7 +24,7 @@ export default class Store {
 
   networks = [];
 
-  postUnitSize = (BITS_PER_LABEL * LABELS_PER_UNIT) / 8;
+  postUnitSize = null;
 
   network = { value: null, label: null, explorer: null, dash: null };
 
@@ -40,9 +38,7 @@ export default class Store {
 
   nodeStatus: V2alpha1NodeStatusResponse = null;
 
-  apiConf = new Configuration({
-    basePath: API_BASE_URL,
-  });
+  apiConf = null;
 
   api = {
     account: new AccountServiceApi(this.apiConf),
@@ -64,7 +60,7 @@ export default class Store {
     num_units: 0,
   };
 
-  statsApiUrl = STATS_API_URL;
+  statsApiUrl = null;
 
   constructor() {
     makeAutoObservable(this, {
@@ -77,9 +73,9 @@ export default class Store {
       overview: observable,
       netInfo: observable,
       nodeStatus: observable,
+      postUnitSize: observable,
 
       setNetwork: action,
-      getNetworkInfo: action,
       showSearchResult: action,
       setNetInfo: action,
       setNodeStatus: action,
@@ -95,10 +91,6 @@ export default class Store {
     document.documentElement.classList.add(`theme-${this.theme}`);
   }
 
-  // setNetworks(data) {
-  //   this.networks = data;
-  // }
-
   setNetwork(data) {
     this.network = this.networks.find((item) => item.value === data.value);
     this.network.value += this.network.value.endsWith('/') ? '' : '/';
@@ -106,6 +98,7 @@ export default class Store {
 
   setNetInfo(data) {
     this.netInfo = data;
+    this.postUnitSize = (BITS_PER_LABEL * LABELS_PER_UNIT) / 8;
   }
 
   setNodeStatus(data) {
@@ -116,16 +109,34 @@ export default class Store {
     this.overview = data;
   }
 
+  setNetworks(data) {
+    this.networks = data;
+  }
+
   async bootstrap() {
-    // try {
-    //   const response = await this.fetch(DISCOVERY_SERVICE_URL);
-    //   const networks = reMappingNetworkArray(response);
-    //   this.setNetworks(networks);
-    //   this.setNetwork(networks[0]);
-    //   await this.getNetworkInfo();
-    // } catch (e) {
-    //   console.log('Error: ', e.message);
-    // }
+    try {
+      const response = await fetch(DISCOVERY_SERVICE_URL);
+      const data = await response.json();
+      const networks = data.map((network) => (
+        {
+          value: network.dashAPI,
+          label: network.netName,
+          explorer: network.explorer,
+          statsAPI: network.statsAPI,
+          grpcAPI: network.grpcAPI,
+        }
+      ));
+      this.setNetworks(networks);
+      this.setNetwork(networks[0]);
+
+      this.apiConf = new Configuration({
+        basePath: networks[0].grpcAPI,
+      });
+      this.statsApiUrl = networks[0].statsAPI.replace(/\/$/, '');
+    } catch (e) {
+      console.log('Error: ', e.message);
+    }
+
     try {
       this.setNodeStatus(await this.api.node.nodeServiceStatus({}));
     } catch (e) {
