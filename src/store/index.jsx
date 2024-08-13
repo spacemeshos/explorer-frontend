@@ -18,6 +18,7 @@ import {
 const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://configs.spacemesh.network/networks.json';
 const BITS_PER_LABEL = 128;
 const LABELS_PER_UNIT = process.env.REACT_APP_LABELS_PER_UNIT || 1024;
+const PUBLIC_API = process.env.REACT_APP_PUBLIC_API || null;
 
 export default class Store {
   theme = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light';
@@ -40,15 +41,7 @@ export default class Store {
 
   apiConf = null;
 
-  api = {
-    account: new AccountServiceApi(this.apiConf),
-    activation: new ActivationServiceApi(this.apiConf),
-    layer: new LayerServiceApi(this.apiConf),
-    network: new NetworkServiceApi(this.apiConf),
-    node: new NodeServiceApi(this.apiConf),
-    reward: new RewardServiceApi(this.apiConf),
-    transaction: new TransactionServiceApi(this.apiConf),
-  };
+  api = {};
 
   overview = {
     transactions_count: 0,
@@ -129,9 +122,24 @@ export default class Store {
       this.setNetworks(networks);
       this.setNetwork(networks[0]);
 
-      this.apiConf = new Configuration({
-        basePath: networks[0].grpcAPI,
-      });
+      if (PUBLIC_API === null) {
+        this.apiConf = new Configuration({
+          basePath: networks[0].grpcAPI.replace(/\/$/, ''),
+        });
+      } else {
+        this.apiConf = new Configuration({
+          basePath: PUBLIC_API.replace(/\/$/, ''),
+        });
+      }
+      this.api = {
+        account: new AccountServiceApi(this.apiConf),
+        activation: new ActivationServiceApi(this.apiConf),
+        layer: new LayerServiceApi(this.apiConf),
+        network: new NetworkServiceApi(this.apiConf),
+        node: new NodeServiceApi(this.apiConf),
+        reward: new RewardServiceApi(this.apiConf),
+        transaction: new TransactionServiceApi(this.apiConf),
+      };
       this.statsApiUrl = networks[0].statsAPI.replace(/\/$/, '');
     } catch (e) {
       console.log('Error: ', e.message);
