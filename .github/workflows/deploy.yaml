@@ -40,15 +40,15 @@ jobs:
       - name: Upload to Dev Explorer
         run: gsutil -m rsync -r -d ./build gs://spacemesh-explorer-dev
 
-      - name: Build to testnet-13 Explorer
+      - name: Build to testnet-14 Explorer
         env:
-          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-testnet-13.json
+          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-testnet-14.json
         run: |
           yarn
           yarn build
 
-      - name: Upload to testnet-13 Explorer
-        run: gsutil -m rsync -r -d ./build gs://testnet-13-explorer.spacemesh.network
+      - name: Upload to testnet-14 Explorer
+        run: gsutil -m rsync -r -d ./build gs://testnet-14-explorer.spacemesh.network
 
       - name: Build to testnet-atxmerge Explorer
         env:
