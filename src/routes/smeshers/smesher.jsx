@@ -25,6 +25,7 @@ const Smesher = () => {
   if (error) throw error;
 
   useEffect(() => {
+    if (store.statsApiUrl === null) return;
     fetch(`${store.statsApiUrl}/smesher/${params.id}`).then(async (res) => {
       if (res.ok) {
         const r = await res.json();
@@ -37,7 +38,7 @@ const Smesher = () => {
       err.id = params.id;
       setError(err);
     });
-  }, [params.id]);
+  }, [store.statsApiUrl, params.id]);
 
   return (
     <>

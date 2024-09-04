@@ -19,6 +19,7 @@ const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'ht
 const BITS_PER_LABEL = 128;
 const LABELS_PER_UNIT = process.env.REACT_APP_LABELS_PER_UNIT || 1024;
 const PUBLIC_API = process.env.REACT_APP_PUBLIC_API || null;
+const STATS_API = process.env.REACT_APP_STATS_API || null;
 
 export default class Store {
   theme = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light';
@@ -106,6 +107,14 @@ export default class Store {
     this.networks = data;
   }
 
+  setStatsApiUrl(url) {
+    this.statsApiUrl = url;
+  }
+
+  setApiConf(conf) {
+    this.apiConf = conf;
+  }
+
   async bootstrap() {
     try {
       const response = await fetch(DISCOVERY_SERVICE_URL);
@@ -123,13 +132,13 @@ export default class Store {
       this.setNetwork(networks[0]);
 
       if (PUBLIC_API === null) {
-        this.apiConf = new Configuration({
+        this.setApiConf(new Configuration({
           basePath: networks[0].grpcAPI.replace(/\/$/, ''),
-        });
+        }));
       } else {
-        this.apiConf = new Configuration({
+        this.setApiConf(new Configuration({
           basePath: PUBLIC_API.replace(/\/$/, ''),
-        });
+        }));
       }
       this.api = {
         account: new AccountServiceApi(this.apiConf),
@@ -140,7 +149,11 @@ export default class Store {
         reward: new RewardServiceApi(this.apiConf),
         transaction: new TransactionServiceApi(this.apiConf),
       };
-      this.statsApiUrl = networks[0].statsAPI.replace(/\/$/, '');
+      if (STATS_API === null) {
+        this.setStatsApiUrl(networks[0].statsAPI.replace(/\/$/, ''));
+      } else {
+        this.setStatsApiUrl(STATS_API.replace(/\/$/, ''));
+      }
     } catch (e) {
       console.log('Error: ', e.message);
     }

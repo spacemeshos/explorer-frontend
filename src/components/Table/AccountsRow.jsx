@@ -22,27 +22,15 @@ const AccountsRow = ({ data }: Props) => {
   const [stats, setStats] = useState({});
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (data && data.length > 0) {
-        try {
-          const promises = data.map(async (item) => {
-            const response = await fetch(`${store.statsApiUrl}/account/${item.address}`);
-            if (!response.ok) {
-              throw new Error(`Error fetching data for item ${item.address}`);
-            }
-            const res = await response.json();
-            return { [item.address]: res };
-          });
-
-          const allStats = await Promise.all(promises);
-          const combinedStats = allStats.reduce((acc, result) => ({ ...acc, ...result }), {});
-          setStats(combinedStats);
-        } catch (error) {
+    if (data && data.length > 0) {
+      for (const item of data) {
+        fetch(`${store.statsApiUrl}/account/${item.address}`).then((res) => res.json()).then((res) => {
+          setStats((prev) => ({ ...prev, [item.address]: res }));
+        }).catch((error) => {
           console.error(error);
-        }
+        });
       }
-    };
-    fetchData();
+    }
   }, [data]);
 
   return data && data.map((item: Spacemeshv2alpha1Account) => (

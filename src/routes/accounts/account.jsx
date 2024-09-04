@@ -29,6 +29,7 @@ const Account = () => {
   if (error) throw error;
 
   useEffect(() => {
+    if (store.netInfo === null) return;
     store.api.account.accountServiceList({
       addresses: [params.id],
       limit: 1,
@@ -40,9 +41,10 @@ const Account = () => {
       err.id = params.id;
       setError(err);
     });
-  }, [params.id]);
+  }, [store.netInfo, params.id]);
 
   useEffect(() => {
+    if (store.netInfo === null) return;
     fetch(`${store.statsApiUrl}/account/${params.id}`).then(async (res) => {
       if (res.ok) {
         const r = await res.json();
@@ -57,7 +59,7 @@ const Account = () => {
       err.id = params.id;
       setError(err);
     });
-  }, [params.id]);
+  }, [store.netInfo, params.id]);
 
   return (
     <>

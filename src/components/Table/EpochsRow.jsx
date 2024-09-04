@@ -20,27 +20,15 @@ const EpochsRow = ({ data }) => {
   const [stats, setStats] = useState({});
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (data && data.length > 0) {
-        try {
-          const promises = data.map(async (item) => {
-            const response = await fetch(`${store.statsApiUrl}/epoch/${item.number}`);
-            if (!response.ok) {
-              throw new Error(`Error fetching data for item ${item.number}`);
-            }
-            const res = await response.json();
-            return { [item.number]: res };
-          });
-
-          const allStats = await Promise.all(promises);
-          const combinedStats = allStats.reduce((acc, result) => ({ ...acc, ...result }), {});
-          setStats(combinedStats);
-        } catch (error) {
+    if (data && data.length > 0) {
+      for (const item of data) {
+        fetch(`${store.statsApiUrl}/epoch/${item.number}`).then((res) => res.json()).then((res) => {
+          setStats((prev) => ({ ...prev, [item.number]: res }));
+        }).catch((error) => {
           console.error(error);
-        }
+        });
       }
-    };
-    fetchData();
+    }
   }, [data]);
 
   return data && data.map((item) => {
