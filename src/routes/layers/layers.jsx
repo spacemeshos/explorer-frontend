@@ -13,13 +13,14 @@ const Layers = ({ customPageWrap }) => {
   const [layer, setLayer] = useState(0);
 
   useEffect(() => {
+    if (store.api.layer === undefined) return;
     store.api.layer.layerServiceList({
       limit: 1,
       sort_order: 1,
     }).then((data) => {
       setLayer(data.layers[0].number);
     });
-  }, []);
+  }, [store.api.layer]);
 
   if (layer === 0) {
     return <Loader size={100} />;

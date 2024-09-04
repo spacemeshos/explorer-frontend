@@ -7,6 +7,7 @@ import { getColorByPageName } from '../../helper/getColorByPageName';
 import RightSideBlock from '../../components/CountBlock/RightSideBlock';
 import { useStore } from '../../store';
 import Table from '../../components/Table';
+import Loader from '../../components/Loader';
 
 const EpochLayers = () => {
   const store = useStore();
@@ -15,9 +16,14 @@ const EpochLayers = () => {
   const [start, setStart] = useState(0);
 
   useEffect(() => {
+    if (store.netInfo === null || store.netInfo.layersPerEpoch === null) return;
     const epochStart = params.id * store.netInfo.layersPerEpoch;
     setStart(store.layerTimestamp(epochStart));
   }, [store.netInfo]);
+
+  if (!store.netInfo) {
+    return <Loader size={100} />;
+  }
 
   return (
     <>

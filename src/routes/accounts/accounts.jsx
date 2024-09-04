@@ -12,6 +12,7 @@ const Accounts = () => {
   const [recentActivity, setRecentActivity] = useState(0);
 
   useEffect(() => {
+    if (store.netInfo === null) return;
     store.api.account.accountServiceList({
       limit: 1,
     }).then((res) => {

@@ -19,6 +19,7 @@ const LayerTxns = () => {
   if (error) throw error;
 
   useEffect(() => {
+    if (store.statsApiUrl === null) return;
     fetch(`${store.statsApiUrl}/layer/${params.id}`).then(async (res) => {
       if (res.ok) {
         const r = await res.json();
@@ -31,7 +32,7 @@ const LayerTxns = () => {
       err.id = params.id;
       setError(err);
     });
-  }, [params.id]);
+  }, [store.statsApiUrl, params.id]);
 
   if (!stats) {
     return <Loader size={100} />;
