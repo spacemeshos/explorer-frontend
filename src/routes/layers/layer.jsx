@@ -93,7 +93,7 @@ const Layer = () => {
               <li className="item">
                 <span className="item-name">Transactions</span>
                 <span className="item-value">
-                  <Link to={`/${LAYERS}/${data.number}/${TXNS}`}>{stats.transactions_count}</Link>
+                  <Link to={`/${LAYERS}/${data.number}/${TXNS}`}>{stats.transactions_count || 0}</Link>
                 </span>
               </li>
               <li className="item">
@@ -126,7 +126,7 @@ const Layer = () => {
               <li className="item">
                 <span className="item-name">Block</span>
                 <span className="item-value">
-                  {base64ToHex(data.block?.id)}
+                  {data.block ? base64ToHex(data.block?.id) : '---'}
                 </span>
               </li>
             </ul>
