@@ -21,10 +21,11 @@ const Account = () => {
   const params = useParams();
 
   const [data, setData] = useState <Spacemeshv2alpha1Account>();
-  const [totalRewards, setTotalRewards] = useState(0);
-  const [totalTransactions, setTotalTransactions] = useState(0);
-  const [rewardsSum, setRewardsSum] = useState(0);
+  const [totalRewards, setTotalRewards] = useState(null);
+  const [totalTransactions, setTotalTransactions] = useState(null);
+  const [rewardsSum, setRewardsSum] = useState(null);
   const [smidge, setSmidge] = useState({ value: 0, unit: 'SMH' });
+  const [activity, setActivity] = useState(null);
   const [error, setError] = useState();
   if (error) throw error;
 
@@ -36,6 +37,7 @@ const Account = () => {
     }).then((res) => {
       setData(res.accounts[0]);
       setSmidge(parseSmidge(res.accounts[0].current.balance));
+      setActivity(store.layerTimestamp(res.accounts[0].current.layer));
     }).catch(() => {
       const err = new Error('Account not found');
       err.id = params.id;
@@ -75,7 +77,7 @@ const Account = () => {
               color={getColorByPageName(name)}
               number={smidge && smidge.value}
               unit={`${smidge && smidge.unit} Balance`}
-              startTime={0}
+              startTime={activity}
             />
           </div>
           <div className="details" style={{ marginBottom: '20px' }}>
@@ -95,20 +97,15 @@ const Account = () => {
                 <span className="item-name">Rewards</span>
                 <span className="item-value">
                   <Link to={`/${ACCOUNTS}/${data.address}/${REWARDS}`}>
-                    {totalRewards}
-                    {' '}
-                    (
-                    {rewardsSum}
-                    )
+                    {totalRewards && rewardsSum
+                      ? `${totalRewards} (${rewardsSum})` : <Loader size={20} />}
                   </Link>
                 </span>
               </li>
               <li className="item">
                 <span className="item-name">Transactions</span>
                 <span className="item-value">
-                  <Link to={`/${ACCOUNTS}/${data.address}/${TXNS}`}>
-                    {totalTransactions}
-                  </Link>
+                  {totalTransactions || <Loader size={20} />}
                 </span>
               </li>
             </ul>
