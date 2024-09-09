@@ -62,7 +62,7 @@ const Smesher = () => {
               color={getColorByPageName(SMESHER, store.theme)}
               number={data?.atxs}
               unit="atxs"
-              startTime={0}
+              disableRightColumnData
             />
           </div>
           <div className="details" style={{ marginBottom: '20px' }}>

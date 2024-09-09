@@ -50,7 +50,8 @@ const SmesherRewards = () => {
           color={getColorByPageName(SMESHER, store.theme)}
           number={data.rewards_count}
           unit="total rewards"
-          startTime={0}
+          coins={data.rewards_sum}
+          coinCaption="Total sum"
         />
       </div>
       <Table name={SMESHER} subPage={REWARDS} id={params.id} />

@@ -14,10 +14,12 @@ type Props = {
   coinCaption?: string,
   coins?: string,
   label?: string,
+  disableRightColumnData?: boolean,
 };
 
 const RightSideBlock = (props: Props) => {
-  const { color, unit, number, startTime, coinCaption, coins, label, rewards } = props;
+  const { color, unit, number, startTime, coinCaption,
+    coins, label, rewards, disableRightColumnData } = props;
 
   const blockWithTime = () => (
     <div style={{ backgroundColor: color.bgColor }} className="amountBlock">
@@ -64,10 +66,12 @@ const RightSideBlock = (props: Props) => {
         {commaNumber(number) || '000'}
       </div>
       <div className="rightColumn-desc">{unit}</div>
-      <div className="rightColumn-data">
-        <p>{`${coinCaption}`}</p>
-        <p>{`${formatSmidge(coins)}`}</p>
-      </div>
+      {!disableRightColumnData && (
+        <div className="rightColumn-data">
+          <p>{`${coinCaption}`}</p>
+          <p>{`${formatSmidge(coins)}`}</p>
+        </div>
+      )}
     </div>
   );
   return (startTime || startTime === 0 ? blockWithTime() : blockWithCoin());
