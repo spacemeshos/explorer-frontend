@@ -34,6 +34,7 @@ const Tx = () => {
   if (error) throw error;
 
   useEffect(() => {
+    if (store.netInfo === null) return;
     store.api.transaction.transactionServiceList({
       txid: [hexToBase64(params.id)],
       limit: 1,

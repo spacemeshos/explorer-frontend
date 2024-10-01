@@ -20,8 +20,7 @@ const Txns = () => {
           color={getColorByPageName(TXNS)}
           number={store.overview.transactions_count || 0}
           unit="txns since genesis"
-          coinCaption="Value Since Genesis"
-          coins={0}
+          disableRightColumnData
         />
       </div>
       <Table name={TXNS} />

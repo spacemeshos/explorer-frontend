@@ -83,20 +83,20 @@ const Epoch = () => {
               <span className="item-name">Rewards</span>
               <span className="item-value">
                 <Link to={`/${EPOCHS}/${params.id}/${REWARDS}`}>
-                  {stats ? `${stats.rewards_count} (${formatSmidge(stats.rewards_sum)})` : <Loader size={20} />}
+                  {stats ? `${stats.rewards_count || 0} (${formatSmidge(stats.rewards_sum || 0)})` : <Loader size={20} />}
                 </Link>
               </span>
             </li>
             <li className="item">
               <span className="item-name">Smeshers</span>
               <span className="item-value">
-                <Link to={`/${EPOCHS}/${params.id}/${SMESHER}`}>{stats ? stats.smeshers_count : <Loader size={20} />}</Link>
+                <Link to={`/${EPOCHS}/${params.id}/${SMESHER}`}>{stats ? stats.smeshers_count || 0 : <Loader size={20} />}</Link>
               </span>
             </li>
             <li className="item">
               <span className="item-name">Transactions</span>
               <span className="item-value">
-                <Link to={`/${EPOCHS}/${params.id}/${TXNS}`}>{stats ? stats.transactions_count : <Loader size={20} />}</Link>
+                <Link to={`/${EPOCHS}/${params.id}/${TXNS}`}>{stats ? stats.transactions_count || 0 : <Loader size={20} />}</Link>
               </span>
             </li>
           </ul>

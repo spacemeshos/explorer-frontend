@@ -48,12 +48,12 @@ const EpochsRow = ({ data }) => {
         </div>
         <div className="td">
           <Link to={`/${EPOCHS}/${item.number}/${TXNS}`}>
-            {stats[item.number] ? stats[item.number]?.transactions_count : <Loader size={20} />}
+            {stats[item.number] ? stats[item.number]?.transactions_count || 0 : <Loader size={20} />}
           </Link>
         </div>
         <div className="td">
           <Link to={`/${EPOCHS}/${item.number}/${SMESHER}`}>
-            {stats[item.number] ? stats[item.number]?.activations_count : <Loader size={20} />}
+            {stats[item.number] ? stats[item.number]?.activations_count || 0 : <Loader size={20} />}
           </Link>
         </div>
         <div className="td" style={{ flexGrow: 2 }}>

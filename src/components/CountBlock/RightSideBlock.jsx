@@ -52,6 +52,7 @@ const RightSideBlock = (props: Props) => {
 
   const blockWithCoinStyle = { backgroundColor: color.bgColor };
   if (rewards) blockWithCoinStyle['grid-template-columns'] = '1fr 1fr 2fr';
+  if (disableRightColumnData) blockWithCoinStyle['grid-template-columns'] = '1fr 1fr';
 
   const blockWithCoin = () => (
     <div className="rightColumn" style={blockWithCoinStyle}>
