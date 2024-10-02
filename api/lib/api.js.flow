@@ -98,6 +98,13 @@ export type GooglerpcStatus = {
  * @export
  * @enum {string}
  */
+export type MalfeasanceProofMalfeasanceDomain = 'DOMAIN_UNSPECIFIED';
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
 export type NodeStatusResponseSyncStatus = 'SYNC_STATUS_UNSPECIFIED' | 'SYNC_STATUS_OFFLINE' | 'SYNC_STATUS_SYNCING' | 'SYNC_STATUS_SYNCED';
 
 /**
@@ -138,6 +145,12 @@ export type Spacemeshv2alpha1Account = {
      * @memberof Spacemeshv2alpha1Account
      */
     projected?: Spacemeshv2alpha1AccountState;
+    /**
+     * 
+     * @type {string}
+     * @memberof Spacemeshv2alpha1Account
+     */
+    template?: string;
 }
 
 /**
@@ -306,6 +319,62 @@ export type Spacemeshv2alpha1LayerLayerStatus = 'LAYER_STATUS_UNSPECIFIED' | 'LA
  * 
  * @export
  */
+export type Spacemeshv2alpha1MalfeasanceProof = {
+    /**
+     * 
+     * @type {MalfeasanceProofMalfeasanceDomain}
+     * @memberof Spacemeshv2alpha1MalfeasanceProof
+     */
+    domain?: MalfeasanceProofMalfeasanceDomain;
+    /**
+     * 
+     * @type {{ [key: string]: string; }}
+     * @memberof Spacemeshv2alpha1MalfeasanceProof
+     */
+    properties?: { [key: string]: string; };
+    /**
+     * 
+     * @type {string}
+     * @memberof Spacemeshv2alpha1MalfeasanceProof
+     */
+    smesher?: string;
+    /**
+     * for legacy proofs the types are   1 - Double publish of ATX   2 - Multiple ballots for a layer by same smesher   3 - Hare Equivocation (currently unused)   4 - ATX with invalid PoST proof publised   5 - ATX referencing an invalid previous ATX published
+     * @type {number}
+     * @memberof Spacemeshv2alpha1MalfeasanceProof
+     */
+    type?: number;
+}
+
+/**
+ * 
+ * @export
+ */
+export type Spacemeshv2alpha1MalfeasanceRequest = {
+    /**
+     * 
+     * @type {string}
+     * @memberof Spacemeshv2alpha1MalfeasanceRequest
+     */
+    limit?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Spacemeshv2alpha1MalfeasanceRequest
+     */
+    offset?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof Spacemeshv2alpha1MalfeasanceRequest
+     */
+    smesherId?: Array<string>;
+}
+
+/**
+ * 
+ * @export
+ */
 export type Spacemeshv2alpha1NetworkInfoResponse = {
     /**
      * 
@@ -331,6 +400,12 @@ export type Spacemeshv2alpha1NetworkInfoResponse = {
      * @memberof Spacemeshv2alpha1NetworkInfoResponse
      */
     hrp?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Spacemeshv2alpha1NetworkInfoResponse
+     */
+    labelsPerUnit?: string;
     /**
      * 
      * @type {string}
@@ -908,6 +983,19 @@ export type V2alpha1LayerRequest = {
  * 
  * @export
  */
+export type V2alpha1MalfeasanceList = {
+    /**
+     * 
+     * @type {Array<Spacemeshv2alpha1MalfeasanceProof>}
+     * @memberof V2alpha1MalfeasanceList
+     */
+    proofs?: Array<Spacemeshv2alpha1MalfeasanceProof>;
+}
+
+/**
+ * 
+ * @export
+ */
 export type V2alpha1NodeStatusResponse = {
     /**
      * 
@@ -1407,6 +1495,73 @@ export const LayerServiceApi = function(configuration?: Configuration, fetch: Fe
 
 
 /**
+ * MalfeasanceServiceApi - fetch parameter creator
+ * @export
+ */
+export const MalfeasanceServiceApiFetchParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @throws {RequiredError}
+         */
+        malfeasanceServiceList(body: Spacemeshv2alpha1MalfeasanceRequest, options: RequestOptions): FetchArgs {
+            // verify required parameter 'body' is not null or undefined
+            if (body === null || body === undefined) {
+                throw new RequiredError('body','Required parameter body was null or undefined when calling malfeasanceServiceList.');
+            }
+            const localVarPath = `/spacemesh.v2alpha1.MalfeasanceService/List`;
+            const localVarUrlObj = url.parse(localVarPath, true);
+            const localVarRequestOptions: RequestOptions = Object.assign({}, { method: 'POST' }, options);
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            localVarUrlObj.search = null;
+            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body != null ? body : {}) : (((body:any):string) || "");
+
+            return {
+                url: url.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+export type MalfeasanceServiceApiType = { 
+    malfeasanceServiceList(body: Spacemeshv2alpha1MalfeasanceRequest, options?: RequestOptions): Promise<V2alpha1MalfeasanceList>,
+}
+
+/**
+ * MalfeasanceServiceApi - factory function to inject configuration 
+ * @export
+ */
+export const MalfeasanceServiceApi = function(configuration?: Configuration, fetch: FetchAPI = portableFetch): MalfeasanceServiceApiType {
+    const basePath: string = (configuration && configuration.basePath) || BASE_PATH;
+    return {
+        /**
+         * 
+         * @throws {RequiredError}
+         */
+        malfeasanceServiceList(body: Spacemeshv2alpha1MalfeasanceRequest, options?: RequestOptions = {}): Promise<V2alpha1MalfeasanceList> {
+            const localVarFetchArgs = MalfeasanceServiceApiFetchParamCreator(configuration).malfeasanceServiceList(body, options);
+            return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        },
+    }
+};
+
+
+/**
  * NetworkServiceApi - fetch parameter creator
  * @export
  */
@@ -1815,6 +1970,8 @@ export type ApiTypes = {
     ActivationServiceApi: ActivationServiceApiType,
 
     LayerServiceApi: LayerServiceApiType,
+
+    MalfeasanceServiceApi: MalfeasanceServiceApiType,
 
     NetworkServiceApi: NetworkServiceApiType,
 

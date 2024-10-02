@@ -2,6 +2,7 @@ import { observer } from 'mobx-react';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { nanoid } from 'nanoid';
+import { Spacemeshv2alpha1MalfeasanceProof } from 'api';
 import TitleBlock from '../../components/TitleBlock';
 import { getColorByPageName } from '../../helper/getColorByPageName';
 import {
@@ -11,7 +12,9 @@ import RightSideBlock from '../../components/CountBlock/RightSideBlock';
 import { useStore } from '../../store';
 import longFormHash from '../../helper/longFormHash';
 import Loader from '../../components/Loader';
-import { byteConverter, formatSmidge } from '../../helper/converter';
+import {
+  byteConverter, formatSmidge, hexToBase64,
+} from '../../helper/converter';
 import CopyButton from '../../components/CopyButton';
 import MalfeasanceBlock from '../../components/MalfeasanceBlock';
 import Table from '../../components/Table';
@@ -22,6 +25,8 @@ const Smesher = () => {
 
   const [data, setData] = useState();
   const [error, setError] = useState();
+  const [proofs: Array<Spacemeshv2alpha1MalfeasanceProof>, setProofs] = useState([]);
+
   if (error) throw error;
 
   useEffect(() => {
@@ -40,16 +45,24 @@ const Smesher = () => {
     });
   }, [store.statsApiUrl, params.id]);
 
+  useEffect(() => {
+    if (store.netInfo === null) return;
+    store.api.malfeasance.malfeasanceServiceList({
+      smesherId: [hexToBase64(params.id)],
+      limit: 100,
+    }).then((res) => {
+      setProofs(res.proofs);
+    });
+  }, [store.netInfo, params.id]);
+
   return (
     <>
       {data ? (
         <>
-          {data.proofs && data.proofs.length > 0 && data?.proofs.map((item) => (
+          {proofs.length > 0 && proofs.map((item) => (
             <MalfeasanceBlock
               key={`proof-${nanoid()}`}
-              layer={item.layer}
-              kind={item.kind}
-              debugInfo={item.debugInfo}
+              proof={item}
             />
           ))}
           <div className="page-wrap">

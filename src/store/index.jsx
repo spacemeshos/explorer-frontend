@@ -13,6 +13,7 @@ import {
   TransactionServiceApi,
   Spacemeshv2alpha1NetworkInfoResponse,
   V2alpha1NodeStatusResponse,
+  MalfeasanceServiceApi,
 } from 'api';
 
 const DISCOVERY_SERVICE_URL = process.env.REACT_APP_DISCOVERY_SERVICE_URL || 'https://configs.spacemesh.network/networks.json';
@@ -148,6 +149,7 @@ export default class Store {
         node: new NodeServiceApi(this.apiConf),
         reward: new RewardServiceApi(this.apiConf),
         transaction: new TransactionServiceApi(this.apiConf),
+        malfeasance: new MalfeasanceServiceApi(this.apiConf),
       };
       if (STATS_API === null) {
         this.setStatsApiUrl(networks[0].statsAPI.replace(/\/$/, ''));

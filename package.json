@@ -23,6 +23,7 @@
     "reactjs-dropdown-component": "^1.1.3",
     "sass": "^1.30.0",
     "sheet-router": "^4.2.3",
+    "spacemesh_api": "./api",
     "url": "^0.11.3",
     "web-vitals": "^0.2.4"
   },
