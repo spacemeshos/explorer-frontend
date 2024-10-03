@@ -69,3 +69,13 @@ jobs:
       
       - name: Upload to testnet-atxmerge3 Explorer
         run: gsutil -m rsync -r -d ./build gs://testnet-atxmerge3-explorer.spacemesh.network
+      
+      - name: Build to testnet-hare-4 Explorer
+        env:
+          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-testnet-hare-4.json
+        run: |
+          yarn
+          yarn build
+      
+      - name: Upload to testnet-hare-4 Explorer
+        run: gsutil -m rsync -r -d ./build gs://testnet-hare-4-explorer.spacemesh.network
