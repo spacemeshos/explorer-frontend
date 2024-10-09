@@ -65,7 +65,10 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
           setData(res.transactions);
           setStatus(STATUS_SUCCESS);
           setIsFetching(false);
-        }).catch(() => {
+        }).catch((err) => {
+          if (err.status === 429) {
+            store.showThrottlePopup();
+          }
           setStatus(STATUS_ERROR);
         });
         break;
@@ -81,7 +84,10 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
             setData(res.rewards);
             setStatus(STATUS_SUCCESS);
             setIsFetching(false);
-          }).catch(() => {
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
             setStatus(STATUS_ERROR);
           });
         } else if (subPage === TXNS) {
@@ -97,7 +103,10 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
             setData(res.transactions);
             setStatus(STATUS_SUCCESS);
             setIsFetching(false);
-          }).catch(() => {
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
             setStatus(STATUS_ERROR);
           });
         } else {
@@ -109,7 +118,10 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
             setData(res.layers);
             setStatus(STATUS_SUCCESS);
             setIsFetching(false);
-          }).catch(() => {
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
             setStatus(STATUS_ERROR);
           });
         }
@@ -123,7 +135,10 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
           setData(res.rewards);
           setStatus(STATUS_SUCCESS);
           setIsFetching(false);
-        }).catch(() => {
+        }).catch((err) => {
+          if (err.status === 429) {
+            store.showThrottlePopup();
+          }
           setStatus(STATUS_ERROR);
         });
         break;
@@ -140,7 +155,10 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
             setData(res.transactions);
             setStatus(STATUS_SUCCESS);
             setIsFetching(false);
-          }).catch(() => {
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
             setStatus(STATUS_ERROR);
           });
         } else if (subPage === REWARDS) {
@@ -153,7 +171,10 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
             setData(res.rewards);
             setStatus(STATUS_SUCCESS);
             setIsFetching(false);
-          }).catch(() => {
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
             setStatus(STATUS_ERROR);
           });
         } else {
@@ -164,7 +185,10 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
             setData(res.accounts);
             setStatus(STATUS_SUCCESS);
             setIsFetching(false);
-          }).catch(() => {
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
             setStatus(STATUS_ERROR);
           });
         }
@@ -172,7 +196,13 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
       case EPOCHS:
         if (subPage === SMESHER) {
           fetch(`${store.statsApiUrl}/smeshers/${id}?limit=${pageSize}&offset=${offset}`)
-            .then((res) => res.json())
+            .then((res) => {
+              if (res.status === 429) {
+                store.showThrottlePopup();
+                throw new Error('Too Many Requests');
+              }
+              return res.json();
+            })
             .then((res) => {
               setData(res.smeshers);
               setStatus(STATUS_SUCCESS);
@@ -191,7 +221,10 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
             setData(res.transactions);
             setStatus(STATUS_SUCCESS);
             setIsFetching(false);
-          }).catch(() => {
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
             setStatus(STATUS_ERROR);
           });
         } else if (subPage === LAYERS) {
@@ -205,7 +238,10 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
             setData(res.layers);
             setStatus(STATUS_SUCCESS);
             setIsFetching(false);
-          }).catch(() => {
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
             setStatus(STATUS_ERROR);
           });
         } else if (subPage === REWARDS) {
@@ -219,7 +255,10 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
             setData(res.rewards);
             setStatus(STATUS_SUCCESS);
             setIsFetching(false);
-          }).catch(() => {
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
             setStatus(STATUS_ERROR);
           });
         } else {
@@ -241,7 +280,10 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
             setData(res.activations);
             setStatus(STATUS_SUCCESS);
             setIsFetching(false);
-          }).catch(() => {
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
             setStatus(STATUS_ERROR);
           });
         } else if (subPage === REWARDS) {
@@ -254,12 +296,21 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
             setData(res.rewards);
             setStatus(STATUS_SUCCESS);
             setIsFetching(false);
-          }).catch(() => {
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
             setStatus(STATUS_ERROR);
           });
         } else {
           fetch(`${store.statsApiUrl}/smeshers?limit=${pageSize}&offset=${offset}`)
-            .then((res) => res.json())
+            .then((res) => {
+              if (res.status === 429) {
+                store.showThrottlePopup();
+                throw new Error('Too Many Requests');
+              }
+              return res.json();
+            })
             .then((res) => {
               setData(res.smeshers);
               setStatus(STATUS_SUCCESS);

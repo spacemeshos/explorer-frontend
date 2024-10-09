@@ -19,6 +19,10 @@ const Accounts = () => {
       if (res.accounts.length === 1) {
         setRecentActivity(store.layerTimestamp(res.accounts[0].current.layer));
       }
+    }).catch((err) => {
+      if (err.status === 429) {
+        store.showThrottlePopup();
+      }
     });
   }, [store.netInfo]);
 

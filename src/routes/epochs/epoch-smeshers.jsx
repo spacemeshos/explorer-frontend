@@ -17,7 +17,13 @@ const EpochSmeshers = () => {
 
   useEffect(() => {
     if (store.netInfo === null) return;
-    fetch(`${store.statsApiUrl}/epoch/${params.id}`).then((res) => res.json()).then((res) => {
+    fetch(`${store.statsApiUrl}/epoch/${params.id}`).then((res) => {
+      if (res.status === 429) {
+        store.showThrottlePopup();
+        throw new Error('Too Many Requests');
+      }
+      return res.json();
+    }).then((res) => {
       setStats(res);
       const epochStart = params.id * store.netInfo.layersPerEpoch;
       setStart(epochStart);

@@ -22,7 +22,13 @@ const EpochsRow = ({ data }) => {
   useEffect(() => {
     if (data && data.length > 0) {
       for (const item of data) {
-        fetch(`${store.statsApiUrl}/epoch/${item.number}`).then((res) => res.json()).then((res) => {
+        fetch(`${store.statsApiUrl}/epoch/${item.number}`).then((res) => {
+          if (res.status === 429) {
+            store.showThrottlePopup();
+            throw new Error('Too Many Requests');
+          }
+          return res.json();
+        }).then((res) => {
           setStats((prev) => ({ ...prev, [item.number]: res }));
         }).catch((error) => {
           console.error(error);

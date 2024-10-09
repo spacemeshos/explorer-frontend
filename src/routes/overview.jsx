@@ -30,12 +30,20 @@ const Overview = () => {
       const layers = await store.api.layer.layerServiceList({
         limit: 1,
         sort_order: 1,
+      }).catch((err) => {
+        if (err.status === 429) {
+          store.showThrottlePopup();
+        }
       });
       setLayer(layers.layers[0].number);
       const epoch = calculateEpoch(layers.layers[0].number, store.netInfo.layersPerEpoch);
       setCurrentEpoch(epoch);
 
       const res = await fetch(`${store.statsApiUrl}/epoch/${epoch}`);
+      if (res.status === 429) {
+        store.showThrottlePopup();
+        return;
+      }
       const data = await res.json();
       setEpochInfo(data);
     };

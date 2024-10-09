@@ -43,10 +43,14 @@ const RewardV2 = () => {
     }).then((res) => {
       setData(res.rewards[0]);
       setSmidge(parseSmidge(res.rewards[0].layerReward));
-    }).catch(() => {
-      const err = new Error('Not found');
-      err.id = params.smesherId;
-      setError(err);
+    }).catch((err) => {
+      if (err.status === 429) {
+        store.showThrottlePopup();
+        return;
+      }
+      const err2 = new Error('Not found');
+      err2.id = params.smesherId;
+      setError(err2);
     });
   }, [store.netInfo, params.smesherId, params.layer]);
 

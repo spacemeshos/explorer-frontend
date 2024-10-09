@@ -47,10 +47,14 @@ const Tx = () => {
       const tx = res.transactions[0];
       setData(tx);
       setSmidge(parseSmidge(tx?.tx.contents.send?.amount || 0));
-    }).catch(() => {
-      const err = new Error('Transaction not found');
-      err.id = params.id;
-      setError(err);
+    }).catch((err) => {
+      if (err.status === 429) {
+        store.showThrottlePopup();
+        return;
+      }
+      const err2 = new Error('Transaction not found');
+      err2.id = params.id;
+      setError(err2);
     });
   }, [params.id, store.netInfo]);
 

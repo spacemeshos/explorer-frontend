@@ -20,6 +20,10 @@ const AccountRewards = () => {
   useEffect(() => {
     if (store.netInfo === null) return;
     fetch(`${store.statsApiUrl}/account/${params.id}`).then(async (res) => {
+      if (res.status === 429) {
+        store.showThrottlePopup();
+        throw new Error('Too Many Requests');
+      }
       if (res.ok) {
         const r = await res.json();
         setTotal(r.rewards_count);
@@ -27,10 +31,12 @@ const AccountRewards = () => {
       } else {
         throw new Error();
       }
-    }).catch(() => {
-      const err = new Error('Account not found');
-      err.id = params.id;
-      setError(err);
+    }).catch((err) => {
+      if (err.message === 'Too Many Requests') return;
+
+      const err2 = new Error('Account not found');
+      err2.id = params.id;
+      setError(err2);
     });
   }, [store.netInfo, params.id]);
 

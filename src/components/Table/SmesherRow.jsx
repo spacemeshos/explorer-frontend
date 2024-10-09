@@ -32,10 +32,12 @@ const SmesherRow = ({ data }) => {
           const allStats = await Promise.all(promises);
           const combinedStats = allStats.reduce((acc, result) => ({ ...acc, ...result }), {});
           setAtxs(combinedStats);
-        } catch (error) {
-          console.error(error);
-        } finally {
           setIsFetching(false);
+        } catch (error) {
+          if (error.status === 429) {
+            store.showThrottlePopup();
+          }
+          console.error(error);
         }
       }
     };

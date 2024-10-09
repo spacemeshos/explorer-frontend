@@ -19,6 +19,10 @@ const Layers = ({ customPageWrap }) => {
       sort_order: 1,
     }).then((data) => {
       setLayer(data.layers[0].number);
+    }).catch((err) => {
+      if (err.status === 429) {
+        store.showThrottlePopup();
+      }
     });
   }, [store.api.layer]);
 

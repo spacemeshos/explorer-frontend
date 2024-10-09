@@ -24,7 +24,13 @@ const AccountsRow = ({ data }: Props) => {
   useEffect(() => {
     if (data && data.length > 0) {
       for (const item of data) {
-        fetch(`${store.statsApiUrl}/account/${item.address}`).then((res) => res.json()).then((res) => {
+        fetch(`${store.statsApiUrl}/account/${item.address}`).then((res) => {
+          if (res.status === 429) {
+            store.showThrottlePopup();
+            throw new Error('Too Many Requests');
+          }
+          return res.json();
+        }).then((res) => {
           setStats((prev) => ({ ...prev, [item.address]: res }));
         }).catch((error) => {
           console.error(error);

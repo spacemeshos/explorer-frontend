@@ -24,7 +24,13 @@ const Epoch = () => {
 
   useEffect(() => {
     if (store.netInfo === null || store.netInfo.layersPerEpoch === null) return;
-    fetch(`${store.statsApiUrl}/epoch/${params.id}`).then((res) => res.json()).then((res) => {
+    fetch(`${store.statsApiUrl}/epoch/${params.id}`).then((res) => {
+      if (res.status === 429) {
+        store.showThrottlePopup();
+        throw new Error('Too Many Requests');
+      }
+      return res.json();
+    }).then((res) => {
       setStats(res);
     });
 

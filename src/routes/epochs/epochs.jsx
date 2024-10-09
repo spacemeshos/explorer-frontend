@@ -33,6 +33,10 @@ const Epochs = () => {
         }]);
       }
       setIsFetching(false);
+    }).catch((err) => {
+      if (err.status === 429) {
+        store.showThrottlePopup();
+      }
     });
   }, [store.netInfo]);
 

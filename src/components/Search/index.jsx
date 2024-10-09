@@ -29,6 +29,10 @@ const Search = () => {
           limit: 1,
           includeResult: false,
           includeState: false,
+        }).catch((err) => {
+          if (err.status === 429) {
+            store.showThrottlePopup();
+          }
         });
         if (tx.transactions.length > 0) {
           navigate(`/txs/${searchValue}`);
@@ -38,6 +42,10 @@ const Search = () => {
         const atx = await store.api.activation.activationServiceList({
           id: [hexToBase64(searchValue)],
           limit: 1,
+        }).catch((err) => {
+          if (err.status === 429) {
+            store.showThrottlePopup();
+          }
         });
         if (atx.activations.length > 0) {
           navigate(`/atxs/${searchValue}`);
@@ -45,7 +53,9 @@ const Search = () => {
         }
 
         const response = await fetch(`${store.statsApiUrl}/smesher/${searchValue}`);
-        if (!response.ok) {
+        if (response.status === 429) {
+          store.showThrottlePopup();
+        } else if (!response.ok) {
           const err = new Error('Not found');
           err.id = searchValue;
           setError(err);

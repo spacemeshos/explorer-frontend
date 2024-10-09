@@ -21,16 +21,21 @@ const SmesherRewards = () => {
   useEffect(() => {
     if (store.statsApiUrl === null) return;
     fetch(`${store.statsApiUrl}/smesher/${params.id}`).then(async (res) => {
+      if (res.status === 429) {
+        store.showThrottlePopup();
+        throw new Error('Too Many Requests');
+      }
       if (res.ok) {
         const r = await res.json();
         setData(r);
       } else {
         throw new Error();
       }
-    }).catch(() => {
-      const err = new Error('Smesher not found');
-      err.id = params.id;
-      setError(err);
+    }).catch((err) => {
+      if (err.message === 'Too Many Requests') return;
+      const err2 = new Error('Smesher not found');
+      err2.id = params.id;
+      setError(err2);
     });
   }, [store.statsApiUrl, params.id]);
 

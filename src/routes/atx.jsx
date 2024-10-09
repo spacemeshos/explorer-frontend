@@ -37,10 +37,14 @@ const Atx = () => {
       if (res.activations[0] !== undefined) {
         setCSize(byteConverter(res.activations[0].numUnits * store.postUnitSize, true));
       }
-    }).catch(() => {
-      const err = new Error('Activation not found');
-      err.id = params.id;
-      setError(err);
+    }).catch((err) => {
+      if (err.status === 429) {
+        store.showThrottlePopup();
+        return;
+      }
+      const err2 = new Error('Activation not found');
+      err2.id = params.id;
+      setError(err2);
     });
   }, [store.netInfo, params.id]);
 

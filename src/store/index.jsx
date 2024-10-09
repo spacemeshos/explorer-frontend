@@ -25,6 +25,8 @@ const STATS_API = process.env.REACT_APP_STATS_API || null;
 export default class Store {
   theme = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light';
 
+  isThrottlePopupOpen: boolean = false;
+
   networks = [];
 
   postUnitSize = null;
@@ -69,14 +71,25 @@ export default class Store {
       netInfo: observable,
       nodeStatus: observable,
       postUnitSize: observable,
+      isThrottlePopupOpen: observable,
 
       setNetwork: action,
       showSearchResult: action,
       setNetInfo: action,
       setNodeStatus: action,
+      showThrottlePopup: action,
+      hideThrottlePopup: action,
     }, { autoBind: true });
     document.documentElement.classList.add(`theme-${this.theme}`);
     // this.bootstrap();
+  }
+
+  showThrottlePopup() {
+    this.isThrottlePopupOpen = true;
+  }
+
+  hideThrottlePopup() {
+    this.isThrottlePopupOpen = false;
   }
 
   changeTheme(e) {
@@ -163,18 +176,24 @@ export default class Store {
     try {
       this.setNodeStatus(await this.api.node.nodeServiceStatus({}));
     } catch (e) {
+      if (e.status === 429) {
+        this.showThrottlePopup();
+      }
       console.log('Error: ', e.message);
     }
 
     try {
       this.setNetInfo(await this.api.network.networkServiceInfo({}));
     } catch (e) {
+      if (e.status === 429) {
+        this.showThrottlePopup();
+      }
       console.log('Error: ', e.message);
     }
 
     try {
       const response = await fetch(`${this.statsApiUrl}/overview`);
-      if (!response.ok) {
+      if (!response.ok || response.status === 429) {
         throw new Error('Error fetching data');
       }
       const res = await response.json();

@@ -19,6 +19,7 @@ import CustomTimeAgo from '../../components/CustomTimeAgo';
 import { fullDate } from '../../helper/formatter';
 
 const Layer = () => {
+  const store = useStore();
   const { api, netInfo, layerTimestamp, layerEndTimestamp, statsApiUrl } = useStore();
   const params = useParams();
 
@@ -46,7 +47,13 @@ const Layer = () => {
   }, [params.id, netInfo]);
 
   useEffect(() => {
-    fetch(`${statsApiUrl}/layer/${params.id}`).then((res) => res.json()).then((res) => {
+    fetch(`${statsApiUrl}/layer/${params.id}`).then((res) => {
+      if (res.status === 429) {
+        store.showThrottlePopup();
+        throw new Error('Too Many Requests');
+      }
+      return res.json();
+    }).then((res) => {
       setStats(res);
       setRewards(parseSmidge(res.rewards_sum));
     });
