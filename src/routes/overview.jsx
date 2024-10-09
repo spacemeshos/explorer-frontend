@@ -1,25 +1,65 @@
 import { observer } from 'mobx-react';
+import { useEffect, useState } from 'react';
 import InfoBlock from '../components/InfoBlock';
 import TitleBlock from '../components/TitleBlock';
 import { getColorByPageName } from '../helper/getColorByPageName';
 import { OVERVIEW, TXNS } from '../config/constants';
-import RightSideBlock from '../components/CountBlock/RightSideBlock';
-import { useStore } from '../store';
 import Table from '../components/Table';
+import { useStore } from '../store';
+import { calculateEpoch } from '../helper/converter';
+import RightCountBlock from '../components/CountBlock/RightCountBlock';
 
+// TODO: cumulative stats
 const Overview = () => {
   const store = useStore();
-  const { epoch, layer } = store.networkInfo;
+
+  const [layer, setLayer] = useState(0);
+  const [currentEpoch, setCurrentEpoch] = useState(0);
+  const [epochInfo, setEpochInfo] = useState({
+    transactions_count: 0,
+    activations_count: 0,
+    rewards_count: 0,
+    rewards_sum: 0,
+    num_units: 0,
+    smeshers_count: 0,
+  });
+
+  useEffect(() => {
+    if (store.netInfo === null) return;
+    const fetchInfo = async () => {
+      const layers = await store.api.layer.layerServiceList({
+        limit: 1,
+        sort_order: 1,
+      }).catch((err) => {
+        if (err.status === 429) {
+          store.showThrottlePopup();
+        }
+      });
+      setLayer(layers.layers[0].number);
+      const epoch = calculateEpoch(layers.layers[0].number, store.netInfo.layersPerEpoch);
+      setCurrentEpoch(epoch);
+
+      const res = await fetch(`${store.statsApiUrl}/epoch/${epoch}`);
+      if (res.status === 429) {
+        store.showThrottlePopup();
+        return;
+      }
+      const data = await res.json();
+      setEpochInfo(data);
+    };
+
+    fetchInfo();
+  }, [store.netInfo]);
 
   return (
     <>
       <InfoBlock
-        accounts={epoch && epoch.stats.cumulative.accounts}
-        rewards={epoch && epoch.stats.cumulative.rewards}
-        security={epoch && epoch.stats.current.security}
-        epoch={epoch && epoch.number}
-        layer={epoch && layer.number}
-        smeshers={epoch && epoch.stats.cumulative.smeshers}
+        accounts={store.overview?.accounts_count}
+        rewards={epochInfo.rewards_sum}
+        security={epochInfo.num_units * store.postUnitSize}
+        epoch={currentEpoch}
+        layer={layer}
+        smeshers={epochInfo.smeshers_count}
       />
       <div className="page-wrap">
         <TitleBlock
@@ -27,12 +67,10 @@ const Overview = () => {
           color={getColorByPageName(TXNS)}
           desc="Recent transactions"
         />
-        <RightSideBlock
+        <RightCountBlock
           color={getColorByPageName(TXNS)}
-          number={epoch && epoch.stats.cumulative.transactions}
-          unit="txns since genesis"
-          coinCaption="Coin transferred"
-          coins={epoch && epoch.stats.cumulative.txsamount}
+          number={store.overview?.transactions_count || 0}
+          caption="transactions since genesis"
         />
       </div>
       <Table name={OVERVIEW} />

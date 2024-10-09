@@ -6,43 +6,34 @@ import { SMESHER } from '../../config/constants';
 import RightSideBlock from '../../components/CountBlock/RightSideBlock';
 import { useStore } from '../../store';
 import Table from '../../components/Table';
-import { fetchAPI } from '../../api/fetchAPI';
-import Loader from '../../components/Loader';
 
 const Smeshers = () => {
   const store = useStore();
 
-  const [dataTimeCreation, setDataTimeCreation] = useState([]);
-  const [data, setData] = useState();
+  const [genesisTime, setGenesisTime] = useState(0);
 
   useEffect(() => {
-    if (store.network.value === null) return;
-    fetchAPI(`${store.network.value}${SMESHER}`).then((res) => {
-      const creation = res.data && res.data.length && res.data.length > 0 && res.data[0].timestamp;
-      setDataTimeCreation(creation);
-      setData(res);
-    });
-  }, [store.network.value]);
+    if (store.netInfo === null) return;
+    setGenesisTime(new Date(store.netInfo.genesisTime || 0).getTime() / 1000);
+  }, [store.netInfo]);
 
   return (
-    data ? (
-      <>
-        <div className="page-wrap">
-          <TitleBlock
-            title="Smeshers"
-            color={getColorByPageName(SMESHER)}
-            desc=""
-          />
-          <RightSideBlock
-            color={getColorByPageName(SMESHER, store.theme)}
-            number={data.pagination?.totalCount}
-            unit="TOTAL SMESHERS"
-            startTime={dataTimeCreation}
-          />
-        </div>
-        <Table name={SMESHER} results={data} />
-      </>
-    ) : <Loader size={100} />
+    <>
+      <div className="page-wrap">
+        <TitleBlock
+          title="Smeshers"
+          color={getColorByPageName(SMESHER)}
+          desc=""
+        />
+        <RightSideBlock
+          color={getColorByPageName(SMESHER, store.theme)}
+          number={store.overview.smeshers_count}
+          unit="TOTAL SMESHERS"
+          startTime={genesisTime}
+        />
+      </div>
+      <Table name={SMESHER} />
+    </>
   );
 };
 

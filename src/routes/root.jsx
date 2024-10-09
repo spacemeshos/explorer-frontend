@@ -11,6 +11,7 @@ import {
   LAYERS, OVERVIEW, TXNS,
 } from '../config/constants';
 import TimeBlock from '../components/TimeBlock';
+import ThrottleWarningPopup from '../components/ThrottleWarningPopup';
 
 const Root = ({ errorElement }) => {
   const { pathname } = useLocation();
@@ -23,6 +24,7 @@ const Root = ({ errorElement }) => {
       <Search />
 
       <div className="container">
+        <ThrottleWarningPopup />
         <div className="grid">
           <aside className="sidebar">
             <SidebarMenu />

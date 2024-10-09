@@ -1,24 +1,26 @@
 import { observer } from 'mobx-react';
-import { useEffect, useState } from 'react';
 import TitleBlock from '../components/TitleBlock';
 import { getColorByPageName } from '../helper/getColorByPageName';
 import { REWARDS } from '../config/constants';
 import RightSideBlock from '../components/CountBlock/RightSideBlock';
 import { useStore } from '../store';
 import Table from '../components/Table';
-import { fetchAPI } from '../api/fetchAPI';
 
 const Rewards = () => {
   const store = useStore();
-  const { epoch } = store.networkInfo;
-  const [data, setData] = useState();
 
-  useEffect(() => {
-    if (store.network.value === null) return;
-    fetchAPI(`${store.network.value}rewards/total`).then((res) => {
-      setData(res.data);
-    });
-  }, [store.network.value]);
+  // prepare func which will take an integer and convert it to a string like 29 million
+  const formatNumber = (num) => {
+    const numString = num.toString();
+    const numLength = numString.length;
+    if (numLength <= 6) {
+      return numString;
+    }
+    if (numLength <= 9) {
+      return `${numString.slice(0, numLength - 6)}mil`;
+    }
+    return `${numString.slice(0, numLength - 9)}bil`;
+  };
 
   return (
     <>
@@ -30,10 +32,10 @@ const Rewards = () => {
         />
         <RightSideBlock
           color={getColorByPageName(REWARDS)}
-          number={epoch?.stats.cumulative.rewardsnumber}
+          number={formatNumber(store.overview.rewards_count || 0)}
           unit="rewards distributed"
           coinCaption="Rewards value since genesis"
-          coins={data?.rewards}
+          coins={store.overview.rewards_sum}
           rewards
         />
       </div>

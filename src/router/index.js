@@ -6,18 +6,17 @@ import NotFound from '../routes/not-found';
 import Txs from '../routes/txns';
 import Tx from '../routes/tx';
 import Rewards from '../routes/rewards';
-import Reward from '../routes/reward';
 import {
-  Epoch, EpochAtxs, EpochLayers, EpochRewards, Epochs, EpochSmeshers, EpochTxns,
+  Epoch, EpochLayers, EpochRewards, Epochs, EpochSmeshers, EpochTxns,
 } from '../routes/epochs';
 import {
-  Layer, LayerAtxs, LayerBlocks, LayerRewards, Layers, LayerSmeshers, LayerTxns,
+  Layer, LayerRewards, Layers, LayerTxns,
 } from '../routes/layers';
 import {
-  Account, AccountRewards, Accounts, AccountTxns,
+  Account, AccountRewards, Accounts,
 } from '../routes/accounts';
 import {
-  Smesher, SmesherAtxs, SmesherRewards, Smeshers,
+  Smesher, SmesherRewards, Smeshers,
 } from '../routes/smeshers';
 import Atx from '../routes/atx';
 import RewardV2 from '../routes/rewardv2';
@@ -46,20 +45,8 @@ const router = createBrowserRouter([
         element: <Layer />,
       },
       {
-        path: '/layers/:id/atxs',
-        element: <LayerAtxs />,
-      },
-      {
-        path: '/layers/:id/blocks',
-        element: <LayerBlocks />,
-      },
-      {
         path: '/layers/:id/rewards',
         element: <LayerRewards />,
-      },
-      {
-        path: '/layers/:id/smeshers',
-        element: <LayerSmeshers />,
       },
       {
         path: '/layers/:id/txs',
@@ -82,10 +69,6 @@ const router = createBrowserRouter([
       {
         path: '/accounts/:id',
         element: <Account />,
-      },
-      {
-        path: '/accounts/:id/txs',
-        element: <AccountTxns />,
       },
       {
         path: '/accounts/:id/rewards',
@@ -113,10 +96,6 @@ const router = createBrowserRouter([
         element: <EpochSmeshers />,
       },
       {
-        path: '/epochs/:id/atxs',
-        element: <EpochAtxs />,
-      },
-      {
         path: '/epochs/:id/rewards',
         element: <EpochRewards />,
       },
@@ -130,10 +109,6 @@ const router = createBrowserRouter([
         element: <Smesher />,
       },
       {
-        path: '/smeshers/:id/atxs',
-        element: <SmesherAtxs />,
-      },
-      {
         path: '/smeshers/:id/rewards',
         element: <SmesherRewards />,
       },
@@ -141,10 +116,6 @@ const router = createBrowserRouter([
       {
         path: '/rewards',
         element: <Rewards />,
-      },
-      {
-        path: '/rewards/:id',
-        element: <Reward />,
       },
       {
         path: '/v2/rewards/:smesherId/:layer',

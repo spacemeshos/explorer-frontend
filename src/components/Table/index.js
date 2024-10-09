@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { observer } from 'mobx-react';
 
-import ReactPaginate from 'react-paginate';
 import { useLocation } from 'react-router-dom';
 import TransactionsRow from './TransactionsRow';
 import AccountTxsRow from './AccountTxsRow';
@@ -18,7 +17,6 @@ import {
   LAYERS,
   OVERVIEW,
   REWARDS,
-  SMART_WALLET,
   SMESHER,
   TXNS,
   ATXS,
@@ -29,87 +27,307 @@ import tableFieldConfig from './config/tableFieldConfig';
 import LayersRow from './LayersRow';
 import AtxsRow from './AtxsRow';
 import BlocksRow from './BlocksRow';
-import AppRow from './AppRow';
 import Loader from '../Loader';
 import NoData from '../NoData';
 import { useStore } from '../../store';
-import { fetchAPI } from '../../api/fetchAPI';
+import { hexToBase64 } from '../../helper/converter';
 
-const Table = ({ name, subPage, id, results }) => {
+type Props = {
+  name: string,
+  subPage?: string,
+  id?: string,
+  epochs?: any,
+}
+
+const Table = ({ name, subPage, id, epochs }: Props) => {
   const store = useStore();
   const { pathname } = useLocation();
-  const [data, setData] = useState(results?.data);
+  const [data, setData] = useState([]);
   const [status, setStatus] = useState(STATUS_LOADING);
-  const [currentNetwork, setCurrentNetwork] = useState(store.network.value);
 
   const tableConfigName = subPage || name;
   const pageSize = 20;
-  const pages = Math.ceil((results?.pagination.totalCount || 0) / pageSize);
-  const [page, setPage] = useState(1);
-  const [pageCount, setPageCount] = useState(pages);
-  const [isFetching, setIsFetching] = useState(false);
 
-  const getUri = () => {
-    let pathName = name;
+  const [currentOffset, setCurrentOffset] = useState(0);
+  const [isFetching, setIsFetching] = useState(true);
 
-    if (subPage && id) {
-      pathName = `${name}/${id}/${subPage}`;
+  const getData = (offset) => {
+    switch (name) {
+      case OVERVIEW:
+      case TXNS:
+        store.api.transaction.transactionServiceList({
+          limit: pageSize,
+          offset,
+          sort_order: 1,
+          includeState: true,
+          includeResult: true,
+        }).then((res) => {
+          setData(res.transactions);
+          setStatus(STATUS_SUCCESS);
+          setIsFetching(false);
+        }).catch((err) => {
+          if (err.status === 429) {
+            store.showThrottlePopup();
+          }
+          setStatus(STATUS_ERROR);
+        });
+        break;
+      case LAYERS:
+        if (subPage === REWARDS) {
+          store.api.reward.rewardServiceList({
+            startLayer: id,
+            endLayer: id,
+            limit: pageSize,
+            offset,
+            sort_order: 1,
+          }).then((res) => {
+            setData(res.rewards);
+            setStatus(STATUS_SUCCESS);
+            setIsFetching(false);
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
+            setStatus(STATUS_ERROR);
+          });
+        } else if (subPage === TXNS) {
+          store.api.transaction.transactionServiceList({
+            startLayer: id,
+            endLayer: id,
+            limit: pageSize,
+            offset,
+            sort_order: 1,
+            includeState: true,
+            includeResult: true,
+          }).then((res) => {
+            setData(res.transactions);
+            setStatus(STATUS_SUCCESS);
+            setIsFetching(false);
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
+            setStatus(STATUS_ERROR);
+          });
+        } else {
+          store.api.layer.layerServiceList({
+            limit: pageSize,
+            offset,
+            sort_order: 1,
+          }).then((res) => {
+            setData(res.layers);
+            setStatus(STATUS_SUCCESS);
+            setIsFetching(false);
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
+            setStatus(STATUS_ERROR);
+          });
+        }
+        break;
+      case REWARDS:
+        store.api.reward.rewardServiceList({
+          limit: pageSize,
+          offset,
+          sort_order: 1,
+        }).then((res) => {
+          setData(res.rewards);
+          setStatus(STATUS_SUCCESS);
+          setIsFetching(false);
+        }).catch((err) => {
+          if (err.status === 429) {
+            store.showThrottlePopup();
+          }
+          setStatus(STATUS_ERROR);
+        });
+        break;
+      case ACCOUNTS:
+        if (subPage === TXNS) {
+          store.api.transaction.transactionServiceList({
+            address: id,
+            limit: pageSize,
+            offset,
+            sort_order: 1,
+            includeState: true,
+            includeResult: true,
+          }).then((res) => {
+            setData(res.transactions);
+            setStatus(STATUS_SUCCESS);
+            setIsFetching(false);
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
+            setStatus(STATUS_ERROR);
+          });
+        } else if (subPage === REWARDS) {
+          store.api.reward.rewardServiceList({
+            coinbase: id,
+            limit: pageSize,
+            offset,
+            sort_order: 1,
+          }).then((res) => {
+            setData(res.rewards);
+            setStatus(STATUS_SUCCESS);
+            setIsFetching(false);
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
+            setStatus(STATUS_ERROR);
+          });
+        } else {
+          store.api.account.accountServiceList({
+            limit: pageSize,
+            offset,
+          }).then((res) => {
+            setData(res.accounts);
+            setStatus(STATUS_SUCCESS);
+            setIsFetching(false);
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
+            setStatus(STATUS_ERROR);
+          });
+        }
+        break;
+      case EPOCHS:
+        if (subPage === SMESHER) {
+          fetch(`${store.statsApiUrl}/smeshers/${id}?limit=${pageSize}&offset=${offset}`)
+            .then((res) => {
+              if (res.status === 429) {
+                store.showThrottlePopup();
+                throw new Error('Too Many Requests');
+              }
+              return res.json();
+            })
+            .then((res) => {
+              setData(res.smeshers);
+              setStatus(STATUS_SUCCESS);
+              setIsFetching(false);
+            });
+        } else if (subPage === TXNS) {
+          store.api.transaction.transactionServiceList({
+            limit: pageSize,
+            offset,
+            sort_order: 1,
+            includeState: true,
+            includeResult: true,
+            startLayer: store.netInfo.layersPerEpoch * id,
+            endLayer: store.netInfo.layersPerEpoch * id + store.netInfo.layersPerEpoch - 1,
+          }).then((res) => {
+            setData(res.transactions);
+            setStatus(STATUS_SUCCESS);
+            setIsFetching(false);
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
+            setStatus(STATUS_ERROR);
+          });
+        } else if (subPage === LAYERS) {
+          store.api.layer.layerServiceList({
+            limit: pageSize,
+            offset,
+            sort_order: 1,
+            startLayer: store.netInfo.layersPerEpoch * id,
+            endLayer: store.netInfo.layersPerEpoch * id + store.netInfo.layersPerEpoch - 1,
+          }).then((res) => {
+            setData(res.layers);
+            setStatus(STATUS_SUCCESS);
+            setIsFetching(false);
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
+            setStatus(STATUS_ERROR);
+          });
+        } else if (subPage === REWARDS) {
+          store.api.reward.rewardServiceList({
+            limit: pageSize,
+            offset,
+            sort_order: 1,
+            startLayer: store.netInfo.layersPerEpoch * id,
+            endLayer: store.netInfo.layersPerEpoch * id + store.netInfo.layersPerEpoch - 1,
+          }).then((res) => {
+            setData(res.rewards);
+            setStatus(STATUS_SUCCESS);
+            setIsFetching(false);
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
+            setStatus(STATUS_ERROR);
+          });
+        } else {
+          if (!epochs) {
+            break;
+          }
+          setData(epochs.slice(offset, offset + pageSize));
+          setStatus(STATUS_SUCCESS);
+          setIsFetching(false);
+        }
+        break;
+      case SMESHER:
+        if (subPage === ATXS) {
+          store.api.activation.activationServiceList({
+            smesherId: [hexToBase64(id)],
+            limit: pageSize,
+            offset,
+          }).then((res) => {
+            setData(res.activations);
+            setStatus(STATUS_SUCCESS);
+            setIsFetching(false);
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
+            setStatus(STATUS_ERROR);
+          });
+        } else if (subPage === REWARDS) {
+          store.api.reward.rewardServiceList({
+            smesher: hexToBase64(id),
+            limit: pageSize,
+            offset,
+            sort_order: 1,
+          }).then((res) => {
+            setData(res.rewards);
+            setStatus(STATUS_SUCCESS);
+            setIsFetching(false);
+          }).catch((err) => {
+            if (err.status === 429) {
+              store.showThrottlePopup();
+            }
+            setStatus(STATUS_ERROR);
+          });
+        } else {
+          fetch(`${store.statsApiUrl}/smeshers?limit=${pageSize}&offset=${offset}`)
+            .then((res) => {
+              if (res.status === 429) {
+                store.showThrottlePopup();
+                throw new Error('Too Many Requests');
+              }
+              return res.json();
+            })
+            .then((res) => {
+              setData(res.smeshers);
+              setStatus(STATUS_SUCCESS);
+              setIsFetching(false);
+            });
+        }
+
+        break;
+      default:
+        break;
     }
-
-    if (name === OVERVIEW) {
-      pathName = TXNS;
-    }
-
-    if (subPage === ACCOUNTS_TXNS) {
-      pathName = `${name}/${id}/${TXNS}`;
-    }
-
-    return pathName;
   };
-
-  const getRewardsData = (d) => d.map((item) => ({ ...item, displayName: `0x${item._id}` }));
 
   useEffect(() => {
-    if (store.network.value === null) return;
-    if (data !== null && data !== undefined && (Object.entries(data).length > 0) && currentNetwork === store.network.value) {
-      if (name === REWARDS || subPage === REWARDS) {
-        setData(getRewardsData(data));
-      }
-      return;
-    }
-    setCurrentNetwork(store.network.value);
-
-    fetchAPI(`${store.network.value}${getUri()}`).then((result) => {
-      if (name === REWARDS || subPage === REWARDS) {
-        setData(getRewardsData(result.data));
-      } else {
-        setData(result.data);
-      }
-      const totalPages = Math.ceil(result.pagination.totalCount / pageSize);
-      setPageCount(totalPages);
-      setStatus(STATUS_SUCCESS);
-    });
-  }, [store.network.value]);
-
-  const getPaginationData = (pageNumber) => {
-    if (name === OVERVIEW) return;
-    fetchAPI(`${store.network.value}${getUri()}?page=${pageNumber}&pagesize=${pageSize}`).then(
-      (result) => {
-        if (name === REWARDS || subPage === REWARDS) {
-          setData(getRewardsData(result.data));
-        } else {
-          setData(result.data);
-        }
-        setStatus(STATUS_SUCCESS);
-        setIsFetching(false);
-      },
-      (error) => {
-        console.log(error);
-        setIsFetching(false);
-        setStatus(STATUS_ERROR);
-      },
-    );
-  };
+    if (store.netInfo === null) return;
+    getData(0);
+  }, [store.netInfo]);
 
   const renderTableData = () => {
     if (isFetching) {
@@ -166,14 +384,6 @@ const Table = ({ name, subPage, id, results }) => {
             config={tableFieldConfig[tableConfigName]}
           />
         );
-      case SMART_WALLET:
-        return (
-          <AppRow
-            key={nanoid()}
-            data={data}
-            config={tableFieldConfig[tableConfigName]}
-          />
-        );
       case SMESHER:
         return (
           <SmesherRow
@@ -212,12 +422,29 @@ const Table = ({ name, subPage, id, results }) => {
     }
   };
 
-  const handlePageClick = (event) => {
+  const handlePrevClick = () => {
+    if (currentOffset === 0) {
+      return;
+    }
     setIsFetching(true);
-    const nextPage = event.selected + 1;
-    setPage(nextPage);
-    getPaginationData(nextPage);
+    const prevOffset = currentOffset - pageSize;
+    setCurrentOffset(prevOffset);
+    getData(prevOffset);
   };
+
+  const handleNextClick = () => {
+    if (data.length < pageSize) {
+      return;
+    }
+    setIsFetching(true);
+    const nextOffset = currentOffset + pageSize;
+    setCurrentOffset(nextOffset);
+    getData(nextOffset);
+  };
+
+  if (isFetching) {
+    return <Loader size={100} />;
+  }
 
   return (
     <>
@@ -230,29 +457,30 @@ const Table = ({ name, subPage, id, results }) => {
               </div>
             ))}
           </div>
-          {data ? renderTableData() : <Loader size={100} />}
+          {data && data.length > 0 && renderTableData()}
           {status === STATUS_SUCCESS && data.length === 0 && <NoData />}
         </div>
       </div>
-      {(pageCount && name !== OVERVIEW) && (
+      {(name !== OVERVIEW) && (
         <div className="pagination-wrap">
-          <ReactPaginate
-            containerClassName="pagination"
-            previousLinkClassName="pagination_link"
-            nextLinkClassName="pagination_link"
-            disabledClassName="pagination_link--disabled"
-            activeClassName="pagination_link--active"
-            pageLinkClassName="pagination_link"
-            breakClassName="pagination_break"
-            onPageChange={handlePageClick}
-            pageCount={pageCount}
-            forcePage={page - 1}
-            pageRangeDisplayed={2}
-            disableInitialCallback
-            nextLabel="»"
-            previousLabel="«"
-            renderOnZeroPageCount={null}
-          />
+          <span className="pagination">
+            <span className={currentOffset === 0 ? 'pagination_link--disabled' : ''}>
+              <a
+                className="pagination_link"
+                onClick={handlePrevClick}
+              >
+                « previous
+              </a>
+            </span>
+            <span className={data.length < pageSize ? 'pagination_link--disabled' : ''}>
+              <a
+                className="pagination_link"
+                onClick={handleNextClick}
+              >
+                next »
+              </a>
+            </span>
+          </span>
         </div>
       )}
     </>

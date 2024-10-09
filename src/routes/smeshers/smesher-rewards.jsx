@@ -8,40 +8,59 @@ import { getColorByPageName } from '../../helper/getColorByPageName';
 import RightSideBlock from '../../components/CountBlock/RightSideBlock';
 import { useStore } from '../../store';
 import Table from '../../components/Table';
-import { fetchAPI } from '../../api/fetchAPI';
 import Loader from '../../components/Loader';
 
 const SmesherRewards = () => {
   const store = useStore();
   const params = useParams();
+
   const [data, setData] = useState();
+  const [error, setError] = useState();
+  if (error) throw error;
 
   useEffect(() => {
-    if (store.network.value === null) return;
-    fetchAPI(`${store.network.value}${SMESHER}/${params.id}/${REWARDS}`).then((result) => {
-      setData(result);
+    if (store.statsApiUrl === null) return;
+    fetch(`${store.statsApiUrl}/smesher/${params.id}`).then(async (res) => {
+      if (res.status === 429) {
+        store.showThrottlePopup();
+        throw new Error('Too Many Requests');
+      }
+      if (res.ok) {
+        const r = await res.json();
+        setData(r);
+      } else {
+        throw new Error();
+      }
+    }).catch((err) => {
+      if (err.message === 'Too Many Requests') return;
+      const err2 = new Error('Smesher not found');
+      err2.id = params.id;
+      setError(err2);
     });
-  }, [store.network.value]);
+  }, [store.statsApiUrl, params.id]);
+
+  if (!data) {
+    return <Loader size={100} />;
+  }
 
   return (
-    data ? (
-      <>
-        <div className="page-wrap">
-          <TitleBlock
-            title={`Smesher ${longFormHash(params.id)} - Details`}
-            color={getColorByPageName(SMESHER)}
-            desc="Smesher rewards"
-          />
-          <RightSideBlock
-            color={getColorByPageName(SMESHER, store.theme)}
-            number={data.pagination && data.pagination.totalCount}
-            unit="total rewards"
-            startTime={data.data && data.data.length > 0 ? data.data[0].timestamp : 0}
-          />
-        </div>
-        <Table name={SMESHER} subPage={REWARDS} id={params.id} results={data} />
-      </>
-    ) : <Loader size={100} />
+    <>
+      <div className="page-wrap">
+        <TitleBlock
+          title={`Smesher ${longFormHash(params.id)} - Details`}
+          color={getColorByPageName(SMESHER)}
+          desc="Smesher rewards"
+        />
+        <RightSideBlock
+          color={getColorByPageName(SMESHER, store.theme)}
+          number={data.rewards_count}
+          unit="total rewards"
+          coins={data.rewards_sum}
+          coinCaption="Total sum"
+        />
+      </div>
+      <Table name={SMESHER} subPage={REWARDS} id={params.id} />
+    </>
   );
 };
 
