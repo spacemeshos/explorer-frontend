@@ -26,21 +26,34 @@ const RewardV2 = () => {
   const [smidge, setSmidge] = useState({ value: 0, unit: 'SMH' });
 
   const [error, setError] = useState();
-  if (error) throw error;
+  const [validatedLayer, setValidatedLayer] = useState(null);
 
   useEffect(() => {
     if (store.netInfo === null) return;
+
     if (!params.smesherId.startsWith('0x')) {
-      const err = new Error('Smesher ID should start with \'0x\'');
-      err.id = params.smesherId;
-      setError(err);
+      setError(new Error('Smesher ID should start with \'0x\''));
+      return;
     }
+
+    const layerNum = parseInt(params.layer, 10);
+    if (isNaN(layerNum) || layerNum < 0) {
+      setError(new Error('Invalid layer number'));
+      return;
+    }
+
+    setValidatedLayer(layerNum);
+    setError(null);
 
     store.api.reward.rewardServiceList({
       smesher: hexToBase64(params.smesherId),
-      layer: params.layer,
+      layer: layerNum,
       limit: 1,
     }).then((res) => {
+      if (res.rewards.length === 0) {
+        setError(new Error('No rewards found for this smesher and layer'));
+        return;
+      }
       setData(res.rewards[0]);
       setSmidge(parseSmidge(res.rewards[0].layerReward));
     }).catch((err) => {
@@ -48,11 +61,18 @@ const RewardV2 = () => {
         store.showThrottlePopup();
         return;
       }
-      const err2 = new Error('Not found');
-      err2.id = params.smesherId;
-      setError(err2);
+      setError(new Error('Not found'));
     });
   }, [store.netInfo, params.smesherId, params.layer]);
+
+  if (error) {
+    return (
+      <div className="error-message">
+        <h2>Error</h2>
+        <p>{error.message}</p>
+      </div>
+    );
+  }
 
   if (!data) {
     return <Loader size={100} />;
@@ -63,7 +83,7 @@ const RewardV2 = () => {
       <>
         <div className="page-wrap">
           <TitleBlock
-            title={`Reward layer ${params.layer} smesher ${shortFormHash(params.smesherId)}`}
+            title={`Reward layer ${validatedLayer} smesher ${shortFormHash(params.smesherId)}`}
             color={getColorByPageName(name)}
             desc="Details"
           />
