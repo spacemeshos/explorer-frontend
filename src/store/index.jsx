@@ -137,6 +137,7 @@ export default class Store {
         {
           value: network.dashAPI,
           label: network.netName,
+          dash: network.dash,
           explorer: network.explorer,
           statsAPI: network.statsAPI,
           grpcAPI: network.grpcAPI,

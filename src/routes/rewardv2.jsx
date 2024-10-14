@@ -36,9 +36,18 @@ const RewardV2 = () => {
       setError(err);
     }
 
+    const layerNum = parseInt(params.layer, 10);
+    if (Number.isNaN(layerNum) || layerNum < 0) {
+      const err = new Error('Invalid layer number');
+      err.id = params.layer;
+      setError(err);
+      return;
+    }
+
     store.api.reward.rewardServiceList({
       smesher: hexToBase64(params.smesherId),
-      layer: params.layer,
+      startLayer: params.layer,
+      endLayer: params.layer,
       limit: 1,
     }).then((res) => {
       setData(res.rewards[0]);

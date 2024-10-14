@@ -11,12 +11,15 @@ import {
   ACCOUNTS, LAYERS, TXNS,
 } from '../../config/constants';
 import { base64ToHex, formatSmidge } from '../../helper/converter';
-import { typeOfTransaction, mapTxResult } from '../../helper/tx';
+import {
+  typeOfTransaction, mapTxResult, amount, destination,
+} from '../../helper/tx';
 
 type Props = {
   data: V2alpha1TransactionResponse[],
   pathname: string
 }
+
 const TransactionsRow = ({ data, pathname }: Props) => (
   data && data.map((item: V2alpha1TransactionResponse) => (
     <div key={nanoid()} className="tr">
@@ -31,7 +34,7 @@ const TransactionsRow = ({ data, pathname }: Props) => (
           {item.txResult?.layer}
         </Link>
       </div>
-      <div className="td">{formatSmidge(item.tx.contents?.send?.amount || 0)}</div>
+      <div className="td">{formatSmidge(amount(item))}</div>
       <div className="td">
         {
           pathname === `/${ACCOUNTS}/${item.tx.principal}` ? longFormHash(item.tx.principal) : (
@@ -44,10 +47,10 @@ const TransactionsRow = ({ data, pathname }: Props) => (
       </div>
       <div className="td">
         {
-          pathname === `/${ACCOUNTS}/${item.tx.contents.send?.destination || item.tx.principal}`
-            ? longFormHash(item.tx.contents.send?.destination || item.tx.principal) : (
-              <Link to={`/${ACCOUNTS}/${item.tx.contents.send?.destination || item.tx.principal}`}>
-                {longFormHash(item.tx.contents.send?.destination || item.tx.principal)}
+          pathname === `/${ACCOUNTS}/${destination(item)}`
+            ? longFormHash(destination(item)) : (
+              <Link to={`/${ACCOUNTS}/${destination(item)}`}>
+                {longFormHash(destination(item))}
               </Link>
             )
         }

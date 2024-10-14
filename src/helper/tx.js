@@ -47,3 +47,27 @@ export const mapTxResult = (state: Spacemeshv2alpha1TransactionState, result: Sp
 
   return res === null ? status : res;
 };
+
+export const amount = (tx) => {
+  switch (tx.tx.type) {
+    case 'TRANSACTION_TYPE_DRAIN_VAULT':
+      return tx.tx.contents.drainVault.amount;
+    case 'TRANSACTION_TYPE_MULTI_SIG_SEND':
+    case 'TRANSACTION_TYPE_SINGLE_SIG_SEND':
+      return tx.tx.contents.send.amount;
+    default:
+      return 0;
+  }
+};
+
+export const destination = (tx) => {
+  switch (tx.tx.type) {
+    case 'TRANSACTION_TYPE_DRAIN_VAULT':
+      return tx.tx.contents.drainVault.destination;
+    case 'TRANSACTION_TYPE_MULTI_SIG_SEND':
+    case 'TRANSACTION_TYPE_SINGLE_SIG_SEND':
+      return tx.tx.contents.send.destination;
+    default:
+      return tx.tx.principal;
+  }
+};

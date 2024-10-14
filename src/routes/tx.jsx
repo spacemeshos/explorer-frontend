@@ -33,6 +33,18 @@ const Tx = () => {
   const [error, setError] = useState();
   if (error) throw error;
 
+  const amount = (tx) => {
+    switch (tx.tx.type) {
+      case 'TRANSACTION_TYPE_DRAIN_VAULT':
+        return tx.tx.contents.drainVault.amount;
+      case 'TRANSACTION_TYPE_MULTI_SIG_SEND':
+      case 'TRANSACTION_TYPE_SINGLE_SIG_SEND':
+        return tx.tx.contents.send.amount;
+      default:
+        return 0;
+    }
+  };
+
   useEffect(() => {
     if (store.netInfo === null) return;
     store.api.transaction.transactionServiceList({
@@ -46,7 +58,7 @@ const Tx = () => {
       }
       const tx = res.transactions[0];
       setData(tx);
-      setSmidge(parseSmidge(tx?.tx.contents.send?.amount || 0));
+      setSmidge(parseSmidge(amount(tx)));
     }).catch((err) => {
       if (err.status === 429) {
         store.showThrottlePopup();
@@ -57,6 +69,18 @@ const Tx = () => {
       setError(err2);
     });
   }, [params.id, store.netInfo]);
+
+  const destination = (tx) => {
+    switch (tx.tx.type) {
+      case 'TRANSACTION_TYPE_DRAIN_VAULT':
+        return tx.tx.contents.drainVault.destination;
+      case 'TRANSACTION_TYPE_MULTI_SIG_SEND':
+      case 'TRANSACTION_TYPE_SINGLE_SIG_SEND':
+        return tx.tx.contents.send.destination;
+      default:
+        return tx.tx.principal;
+    }
+  };
 
   return (
     <>
@@ -88,15 +112,15 @@ const Tx = () => {
               </li>
               <li className="item">
                 <span className="item-name">Type</span>
-                <span className="item-value">{typeOfTransaction(data.tx.method)}</span>
+                <span className="item-value">{typeOfTransaction(data.tx.type)}</span>
               </li>
               <li className="item">
                 <span className="item-name">To</span>
                 <span className="item-value">
-                  <Link to={`/${ACCOUNTS}/${data.tx.contents.send?.destination || data.tx.principal}`}>
-                    {data.tx.contents.send?.destination || data.tx.principal}
+                  <Link to={`/${ACCOUNTS}/${destination(data)}`}>
+                    {destination(data)}
                   </Link>
-                  <CopyButton value={data.tx.contents.send?.destination || data.tx.principal} />
+                  <CopyButton value={destination(data)} />
                 </span>
               </li>
               <li className="item">
@@ -122,7 +146,7 @@ const Tx = () => {
               </li>
               <li className="item">
                 <span className="item-name">Value</span>
-                <span className="item-value">{formatSmidge(data?.tx.contents.send?.amount || 0)}</span>
+                <span className="item-value">{formatSmidge(amount(data))}</span>
               </li>
               <li className="item">
                 <span className="item-name">Counter</span>
@@ -138,16 +162,12 @@ const Tx = () => {
                   <Link to={`/${LAYERS}/${data.txResult.layer}/blocks`}>{base64ToHex(data.txResult.block)}</Link>
                 </span>
               </li>
-              <li className="item">
-                <span className="item-name">Position in block</span>
-                <span className="item-value">---</span>
-              </li>
-              {data.type === 7 && (
+              {data.tx.type === 'TRANSACTION_TYPE_DRAIN_VAULT' && (
                 <li className="item">
                   <span className="item-name">Vault</span>
                   <span className="item-value">
-                    <Link to={`/${ACCOUNTS}/${data.vault}`}>{data.vault}</Link>
-                    <CopyButton value={data.vault} />
+                    <Link to={`/${ACCOUNTS}/${data.tx.contents.drainVault.vault}`}>{data.tx.contents.drainVault.vault}</Link>
+                    <CopyButton value={data.tx.contents.drainVault.vault} />
                   </span>
                 </li>
               )}
