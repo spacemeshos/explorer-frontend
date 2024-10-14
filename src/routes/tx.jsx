@@ -19,7 +19,9 @@ import {
   formatSmidge, hexToBase64, parseSmidge,
 } from '../helper/converter';
 import CopyButton from '../components/CopyButton';
-import { typeOfTransaction } from '../helper/tx';
+import {
+  amount, destination, typeOfTransaction,
+} from '../helper/tx';
 import CustomTimeAgo from '../components/CustomTimeAgo';
 import { fullDate } from '../helper/formatter';
 
@@ -32,18 +34,6 @@ const Tx = () => {
   const [smidge, setSmidge] = useState({ value: 0, unit: 'SMH' });
   const [error, setError] = useState();
   if (error) throw error;
-
-  const amount = (tx) => {
-    switch (tx.tx.type) {
-      case 'TRANSACTION_TYPE_DRAIN_VAULT':
-        return tx.tx.contents.drainVault.amount;
-      case 'TRANSACTION_TYPE_MULTI_SIG_SEND':
-      case 'TRANSACTION_TYPE_SINGLE_SIG_SEND':
-        return tx.tx.contents.send.amount;
-      default:
-        return 0;
-    }
-  };
 
   useEffect(() => {
     if (store.netInfo === null) return;
@@ -69,18 +59,6 @@ const Tx = () => {
       setError(err2);
     });
   }, [params.id, store.netInfo]);
-
-  const destination = (tx) => {
-    switch (tx.tx.type) {
-      case 'TRANSACTION_TYPE_DRAIN_VAULT':
-        return tx.tx.contents.drainVault.destination;
-      case 'TRANSACTION_TYPE_MULTI_SIG_SEND':
-      case 'TRANSACTION_TYPE_SINGLE_SIG_SEND':
-        return tx.tx.contents.send.destination;
-      default:
-        return tx.tx.principal;
-    }
-  };
 
   return (
     <>
