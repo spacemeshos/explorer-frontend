@@ -26,6 +26,9 @@ jobs:
       - name: Upload to Mainnet Explorer
         run: gsutil -m rsync -r -d ./build gs://spacemesh-explorer
 
+      - name: Set cache-control headers for Mainnet Explorer
+        run: gsutil -m setmeta -h "Cache-Control:public, max-age=0, no-transform" -r gs://spacemesh-explorer/index.html
+
       - name: Remove build dir
         run: rm -rf ./build
 
