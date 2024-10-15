@@ -51,18 +51,19 @@ const Smesher = () => {
   }, [store.statsApiUrl, params.id]);
 
   useEffect(() => {
-    if (store.netInfo === null) return;
+    if (store.netInfo === null || store.api.malfeasance === null) return;
     store.api.malfeasance.malfeasanceServiceList({
       smesherId: [hexToBase64(params.id)],
       limit: 100,
     }).then((res) => {
+      console.log(res);
       setProofs(res.proofs);
     }).catch((err) => {
       if (err.status === 429) {
         store.showThrottlePopup();
       }
     });
-  }, [store.netInfo, params.id]);
+  }, [store.netInfo, store.api.malfeasance, params.id]);
 
   return (
     <>

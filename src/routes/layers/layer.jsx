@@ -20,7 +20,7 @@ import { fullDate } from '../../helper/formatter';
 
 const Layer = () => {
   const store = useStore();
-  const { api, netInfo, layerTimestamp, layerEndTimestamp, statsApiUrl } = useStore();
+  const { api, netInfo, layerTimestamp, layerEndTimestamp } = useStore();
   const params = useParams();
 
   const [data, setData] = useState<Spacemeshv2alpha1Layer>();
@@ -31,7 +31,7 @@ const Layer = () => {
   if (error) throw error;
 
   useEffect(() => {
-    if (netInfo === null) return;
+    if (store.netInfo === null || store.statsApiUrl === null) return;
     api.layer.layerServiceList({
       startLayer: params.id,
       endLayer: params.id,
@@ -47,7 +47,8 @@ const Layer = () => {
   }, [params.id, netInfo]);
 
   useEffect(() => {
-    fetch(`${statsApiUrl}/layer/${params.id}`).then((res) => {
+    if (store.netInfo === null || store.statsApiUrl === null) return;
+    fetch(`${store.statsApiUrl}/layer/${params.id}`).then((res) => {
       if (res.status === 429) {
         store.showThrottlePopup();
         throw new Error('Too Many Requests');
@@ -57,7 +58,7 @@ const Layer = () => {
       setStats(res);
       setRewards(parseSmidge(res.rewards_sum));
     });
-  }, [params.id]);
+  }, [store.netInfo, store.statsApiUrl, params.id]);
 
   return (
     <>

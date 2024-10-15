@@ -23,7 +23,7 @@ const MalfeasanceBlock = (props: Props) => {
       case 4:
         return `Smesher published ATX ${proof.properties.atx} with invalid PoST index ${proof.properties.index}.`;
       case 5:
-        return `Smesher published ATX ${proof.properties.atx1} with invalid previous ATX ${proof.properties.atx2}.`;
+        return `Smesher published ATX ${proof.properties.atx1} and ${proof.properties.atx2} with the same previous ATX ${proof.properties.prev_atx}.`;
       default:
         return '';
     }

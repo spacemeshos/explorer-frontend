@@ -61,7 +61,7 @@ const Search = () => {
           setError(err);
           break;
         }
-        navigate(`/smesher/${searchValue}`);
+        navigate(`/smeshers/${searchValue}`);
         break;
       default:
         const id = parseInt(searchValue, 10);

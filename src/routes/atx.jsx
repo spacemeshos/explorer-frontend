@@ -26,6 +26,7 @@ const Atx = () => {
   if (error) throw error;
 
   useEffect(() => {
+    if (store.api.activation === undefined) return;
     store.api.activation.activationServiceList({
       id: [hexToBase64(params.id)],
       limit: 1,

@@ -29,7 +29,7 @@ const RewardV2 = () => {
   if (error) throw error;
 
   useEffect(() => {
-    if (store.netInfo === null) return;
+    if (store.api.reward === undefined) return;
     if (!params.smesherId.startsWith('0x')) {
       const err = new Error('Smesher ID should start with \'0x\'');
       err.id = params.smesherId;

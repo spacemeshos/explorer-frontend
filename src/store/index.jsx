@@ -129,6 +129,10 @@ export default class Store {
     this.apiConf = conf;
   }
 
+  setApi(api) {
+    this.api = api;
+  }
+
   async bootstrap() {
     try {
       const response = await fetch(DISCOVERY_SERVICE_URL);
@@ -155,7 +159,7 @@ export default class Store {
           basePath: PUBLIC_API.replace(/\/$/, ''),
         }));
       }
-      this.api = {
+      this.setApi({
         account: new AccountServiceApi(this.apiConf),
         activation: new ActivationServiceApi(this.apiConf),
         layer: new LayerServiceApi(this.apiConf),
@@ -164,7 +168,7 @@ export default class Store {
         reward: new RewardServiceApi(this.apiConf),
         transaction: new TransactionServiceApi(this.apiConf),
         malfeasance: new MalfeasanceServiceApi(this.apiConf),
-      };
+      });
       if (STATS_API === null) {
         this.setStatsApiUrl(networks[0].statsAPI.replace(/\/$/, ''));
       } else {
