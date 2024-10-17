@@ -8,96 +8,106 @@ import {
 } from '../../config/constants';
 import RightSideBlock from '../../components/CountBlock/RightSideBlock';
 import { useStore } from '../../store';
-import { fetchAPI } from '../../api/fetchAPI';
-import Loader from '../../components/Loader';
 import { formatSmidge } from '../../helper/converter';
 import CustomTimeAgo from '../../components/CustomTimeAgo';
 import { fullDate } from '../../helper/formatter';
-import getValueFromStatsObject from '../../helper/getValueFromStatsObject';
+import Loader from '../../components/Loader';
 
 const Epoch = () => {
   const store = useStore();
   const name = EPOCHS;
   const params = useParams();
 
-  const [data, setData] = useState();
-  const [stats, setStats] = useState({});
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(0);
+  const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    if (store.network.value === null) return;
-    fetchAPI(`${store.network.value}${name}/${params.id}`).then((res) => {
-      setData(res.data[0]);
-      setStats(getValueFromStatsObject(res.data[0].stats));
+    if (store.netInfo === null || store.netInfo.layersPerEpoch === null) return;
+    fetch(`${store.statsApiUrl}/epoch/${params.id}`).then((res) => {
+      if (res.status === 429) {
+        store.showThrottlePopup();
+        throw new Error('Too Many Requests');
+      }
+      return res.json();
+    }).then((res) => {
+      setStats(res);
     });
-  }, [store.network.value]);
+
+    const epochStart = params.id * store.netInfo.layersPerEpoch;
+    setStart(epochStart);
+    setEnd(epochStart + store.netInfo.layersPerEpoch - 1);
+  }, [store.netInfo]);
 
   return (
     <>
-      {data ? (
-        <>
-          <div className="page-wrap">
-            <TitleBlock
-              title={`Epoch ${params.id}`}
-              color={getColorByPageName(name)}
-              desc="Epoch details"
-            />
-            <RightSideBlock
-              color={getColorByPageName(name)}
-              number={data.layers}
-              unit="layers"
-              startTime={data.start}
-            />
-          </div>
-          <div className="details">
-            <ul className="details-list">
-              <li className="item">
-                <span className="item-name">Number</span>
-                <span className="item-value">{data.number}</span>
-              </li>
-              <li className="item">
-                <span className="item-name">Started</span>
-                <span className="item-value">
-                  <CustomTimeAgo time={data.start} />
-                  {`${fullDate(data.start)}`}
-                </span>
-              </li>
-              <li className="item">
-                <span className="item-name">{ Math.floor(Date.now() / 1000) > data.end ? 'Ended' : 'Ends'}</span>
-                <span className="item-value">
-                  <CustomTimeAgo time={data.end} />
-                  {`${fullDate(data.end)}`}
-                </span>
-              </li>
-              <li className="item">
-                <span className="item-name">Layers</span>
-                <span className="item-value">
-                  <Link to={`/${EPOCHS}/${data.number}/${LAYERS}`}>{data.layers}</Link>
-                </span>
-              </li>
-              <li className="item">
-                <span className="item-name">Rewards</span>
-                <span className="item-value">
-                  <Link to={`/${EPOCHS}/${data.number}/${REWARDS}`}>
-                    {`${stats.rewardsnumber} (${formatSmidge(stats.rewards)})`}
-                  </Link>
-                </span>
-              </li>
-              <li className="item">
-                <span className="item-name">Smeshers</span>
-                <span className="item-value">
-                  <Link to={`/${EPOCHS}/${data.number}/${SMESHER}`}>{stats.smeshers}</Link>
-                </span>
-              </li>
-              <li className="item">
-                <span className="item-name">Transactions</span>
-                <span className="item-value">
-                  <Link to={`/${EPOCHS}/${data.number}/${TXNS}`}>{stats.transactions}</Link>
-                </span>
-              </li>
-            </ul>
-          </div>
-        </>
-      ) : (<Loader size={100} />)}
+      <>
+        <div className="page-wrap">
+          <TitleBlock
+            title={`Epoch ${params.id}`}
+            color={getColorByPageName(name)}
+            desc="Epoch details"
+          />
+          <RightSideBlock
+            color={getColorByPageName(name)}
+            number={store.netInfo?.layersPerEpoch || 0}
+            unit="layers"
+            startTime={store.layerTimestamp(start)}
+          />
+        </div>
+        <div className="details">
+          <ul className="details-list">
+            <li className="item">
+              <span className="item-name">Number</span>
+              <span className="item-value">{params.id}</span>
+            </li>
+            <li className="item">
+              <span className="item-name">Started</span>
+              <span className="item-value">
+                <CustomTimeAgo time={store.layerTimestamp(start)} />
+                {`${fullDate(store.layerTimestamp(start))}`}
+              </span>
+            </li>
+            <li className="item">
+              <span
+                className="item-name"
+              >
+                {Math.floor(Date.now() / 1000) > store.layerEndTimestamp(end) ? 'Ended' : 'Ends'}
+              </span>
+              <span className="item-value">
+                <CustomTimeAgo time={store.layerEndTimestamp(end)} />
+                {`${fullDate(store.layerEndTimestamp(end))}`}
+              </span>
+            </li>
+            <li className="item">
+              <span className="item-name">Layers</span>
+              <span className="item-value">
+                <Link to={`/${EPOCHS}/${params.id}/${LAYERS}`}>{store.netInfo?.layersPerEpoch || 0}</Link>
+              </span>
+            </li>
+            <li className="item">
+              <span className="item-name">Rewards</span>
+              <span className="item-value">
+                <Link to={`/${EPOCHS}/${params.id}/${REWARDS}`}>
+                  {stats ? `${stats.rewards_count || 0} (${formatSmidge(stats.rewards_sum || 0)})` : <Loader size={20} />}
+                </Link>
+              </span>
+            </li>
+            <li className="item">
+              <span className="item-name">Smeshers</span>
+              <span className="item-value">
+                <Link to={`/${EPOCHS}/${params.id}/${SMESHER}`}>{stats ? stats.smeshers_count || 0 : <Loader size={20} />}</Link>
+              </span>
+            </li>
+            <li className="item">
+              <span className="item-name">Transactions</span>
+              <span className="item-value">
+                <Link to={`/${EPOCHS}/${params.id}/${TXNS}`}>{stats ? stats.transactions_count || 0 : <Loader size={20} />}</Link>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </>
     </>
   );
 };

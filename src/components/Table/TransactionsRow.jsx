@@ -3,35 +3,43 @@ import { observer } from 'mobx-react';
 import { nanoid } from 'nanoid';
 
 import { Link } from 'react-router-dom';
+import type { V2alpha1TransactionResponse } from 'api';
 import StatusIcon from '../StatusIcon';
 import longFormHash from '../../helper/longFormHash';
 
 import {
   ACCOUNTS, LAYERS, TXNS,
 } from '../../config/constants';
-import { formatSmidge } from '../../helper/converter';
-import { typeOfTransaction, mapTxResult } from '../../helper/tx';
+import { base64ToHex, formatSmidge } from '../../helper/converter';
+import {
+  typeOfTransaction, mapTxResult, amount, destination,
+} from '../../helper/tx';
 
-const TransactionsRow = ({ data, pathname }) => (
-  data && data.map((item) => (
+type Props = {
+  data: V2alpha1TransactionResponse[],
+  pathname: string
+}
+
+const TransactionsRow = ({ data, pathname }: Props) => (
+  data && data.map((item: V2alpha1TransactionResponse) => (
     <div key={nanoid()} className="tr">
       <div className="td">
-        <StatusIcon status={mapTxResult(item.state, item.result)} />
-        <Link to={`/${TXNS}/${item.id}`}>
-          {longFormHash(item.id)}
+        <StatusIcon status={mapTxResult(item.txState, item.txResult?.status)} />
+        <Link to={`/${TXNS}/${base64ToHex(item.tx.id)}`}>
+          {longFormHash(base64ToHex(item.tx.id))}
         </Link>
       </div>
       <div className="td">
-        <Link to={`/${LAYERS}/${item.layer}`}>
-          {item.layer}
+        <Link to={`/${LAYERS}/${item.txResult?.layer}`}>
+          {item.txResult?.layer}
         </Link>
       </div>
-      <div className="td">{formatSmidge(item.amount)}</div>
+      <div className="td">{formatSmidge(amount(item))}</div>
       <div className="td">
         {
-          pathname === `/${ACCOUNTS}/${item.sender}` ? longFormHash(item.sender) : (
-            <Link to={`/${ACCOUNTS}/${item.sender}`}>
-              {longFormHash(item.sender)}
+          pathname === `/${ACCOUNTS}/${item.tx.principal}` ? longFormHash(item.tx.principal) : (
+            <Link to={`/${ACCOUNTS}/${item.tx.principal}`}>
+              {longFormHash(item.tx.principal)}
             </Link>
           )
         }
@@ -39,14 +47,15 @@ const TransactionsRow = ({ data, pathname }) => (
       </div>
       <div className="td">
         {
-          pathname === `/${ACCOUNTS}/${item.receiver}` ? longFormHash(item.receiver) : (
-            <Link to={`/${ACCOUNTS}/${item.receiver}`}>
-              {longFormHash(item.receiver)}
-            </Link>
-          )
+          pathname === `/${ACCOUNTS}/${destination(item)}`
+            ? longFormHash(destination(item)) : (
+              <Link to={`/${ACCOUNTS}/${destination(item)}`}>
+                {longFormHash(destination(item))}
+              </Link>
+            )
         }
       </div>
-      <div className="td">{typeOfTransaction(item.type)}</div>
+      <div className="td">{typeOfTransaction(item.tx.type)}</div>
     </div>
   ))
 );

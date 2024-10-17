@@ -19,12 +19,16 @@ jobs:
       - name: Build to Mainnet Explorer
         env:
           REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks.json
+          REACT_APP_LABELS_PER_UNIT: 4294967296
         run: |
           yarn
           yarn build
 
       - name: Upload to Mainnet Explorer
         run: gsutil -m rsync -r -d ./build gs://spacemesh-explorer
+
+      - name: Set cache-control headers for Mainnet Explorer
+        run: gsutil -m setmeta -h "Cache-Control:public, max-age=0, no-transform" -r gs://spacemesh-explorer/index.html
 
       - name: Remove build dir
         run: rm -rf ./build
@@ -39,43 +43,3 @@ jobs:
 
       - name: Upload to Dev Explorer
         run: gsutil -m rsync -r -d ./build gs://spacemesh-explorer-dev
-
-      - name: Build to testnet-15 Explorer
-        env:
-          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-testnet-15.json
-        run: |
-          yarn
-          yarn build
-
-      - name: Upload to testnet-15 Explorer
-        run: gsutil -m rsync -r -d ./build gs://testnet-15-explorer.spacemesh.network
-
-      - name: Build to testnet-atxmerge2 Explorer
-        env:
-          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-testnet-atxmerge2.json
-        run: |
-          yarn
-          yarn build
-      
-      - name: Upload to testnet-atxmerge2 Explorer
-        run: gsutil -m rsync -r -d ./build gs://testnet-atxmerge2-explorer.spacemesh.network
-      
-      - name: Build to testnet-atxmerge3 Explorer
-        env:
-          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-testnet-atxmerge3.json
-        run: |
-          yarn
-          yarn build
-      
-      - name: Upload to testnet-atxmerge3 Explorer
-        run: gsutil -m rsync -r -d ./build gs://testnet-atxmerge3-explorer.spacemesh.network
-      
-      - name: Build to testnet-hare-4 Explorer
-        env:
-          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-testnet-hare-4.json
-        run: |
-          yarn
-          yarn build
-      
-      - name: Upload to testnet-hare-4 Explorer
-        run: gsutil -m rsync -r -d ./build gs://testnet-hare-4-explorer.spacemesh.network

@@ -11,7 +11,10 @@ jobs:
 
       - name: Build
         env:
-          REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks.json
+          REACT_APP_API_BASE_URL: https://localhost:9094
+          REACT_APP_CUSTOM_API_URL: http://localhost:5001
+          REACT_APP_BITS_PER_LABEL: 128
+          REACT_APP_LABELS_PER_UNIT: 1024
         run: |
           yarn
           yarn build

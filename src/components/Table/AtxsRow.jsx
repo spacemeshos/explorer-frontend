@@ -3,34 +3,30 @@ import { nanoid } from 'nanoid';
 import { Link } from 'react-router-dom';
 import StatusIcon from '../StatusIcon';
 import shortFormHash from '../../helper/shortFormHash';
-import longFormHash from '../../helper/longFormHash';
 import { ATXS, EPOCHS } from '../../config/constants';
-import { byteConverter } from '../../helper/converter';
+import { base64ToHex, byteConverter } from '../../helper/converter';
+import { useStore } from '../../store';
 
-const AtxsRow = ({ data }) => (
-  data.map((item) => (
+const AtxsRow = ({ data }) => {
+  const store = useStore();
+  return data.map((item) => (
     <div key={nanoid()} className="tr">
       <div className="td">
         <StatusIcon status="confirmed" />
-        <Link to={`/${ATXS}/${item.id}`}>
-          {shortFormHash(item.id)}
+        <Link to={`/${ATXS}/${base64ToHex(item.id)}`}>
+          {shortFormHash(base64ToHex(item.id))}
         </Link>
       </div>
       <div className="td">
-        {byteConverter(item.commitmentSize)}
+        {byteConverter(item.numUnits * store.postUnitSize)}
       </div>
       <div className="td">
-        <Link to={`/${EPOCHS}/${item.targetEpoch}`}>
-          {item.targetEpoch}
-        </Link>
-      </div>
-      <div className="td">
-        <Link to={`/${ATXS}/${item.prevAtx}`}>
-          {longFormHash(item.prevAtx)}
+        <Link to={`/${EPOCHS}/${item.publishEpoch + 1}`}>
+          {item.publishEpoch + 1}
         </Link>
       </div>
     </div>
-  ))
-);
+  ));
+};
 
 export default AtxsRow;

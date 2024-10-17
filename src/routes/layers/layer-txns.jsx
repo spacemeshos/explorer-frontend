@@ -6,7 +6,6 @@ import TitleBlock from '../../components/TitleBlock';
 import { getColorByPageName } from '../../helper/getColorByPageName';
 import { useStore } from '../../store';
 import Table from '../../components/Table';
-import { fetchAPI } from '../../api/fetchAPI';
 import RightCountBlock from '../../components/CountBlock/RightCountBlock';
 import { formatSmidge } from '../../helper/converter';
 import Loader from '../../components/Loader';
@@ -15,51 +14,53 @@ const LayerTxns = () => {
   const store = useStore();
   const params = useParams();
 
-  const [data, setData] = useState();
-  const [info, setInfo] = useState({
-    txs: 0,
-    txsamount: 0,
-  });
+  const [stats, setStats] = useState({});
+  const [error, setError] = useState();
+  if (error) throw error;
 
   useEffect(() => {
-    if (store.network.value === null) return;
-    fetchAPI(`${store.network.value}${LAYERS}/${params.id}/${TXNS}`).then((result) => {
-      setData(result);
-    });
-  }, [store.network.value]);
-
-  useEffect(() => {
-    if (store.network.value === null) return;
-    fetchAPI(`${store.network.value}${LAYERS}/${params.id}`).then((result) => {
-      if (result.data && result.data[0]) {
-        setInfo({
-          txs: result.data[0].txs,
-          txsamount: result.data[0].txsamount,
-        });
+    if (store.statsApiUrl === null) return;
+    fetch(`${store.statsApiUrl}/layer/${params.id}`).then(async (res) => {
+      if (res.status === 429) {
+        store.showThrottlePopup();
+        throw new Error('Too Many Requests');
       }
+      if (res.ok) {
+        const r = await res.json();
+        setStats(r);
+      } else {
+        throw new Error();
+      }
+    }).catch((err) => {
+      if (err.message === 'Too Many Requests') return;
+      const err2 = new Error('Layer not found');
+      err2.id = params.id;
+      setError(err2);
     });
-  }, [store.network.value]);
+  }, [store.statsApiUrl, params.id]);
+
+  if (!stats) {
+    return <Loader size={100} />;
+  }
 
   return (
-    data ? (
-      <>
-        <div className="page-wrap">
-          <TitleBlock
-            title={`Layer ${params.id} - Txns`}
-            color={getColorByPageName(LAYERS)}
-            desc=""
-          />
-          <RightCountBlock
-            color={getColorByPageName(LAYERS)}
-            number={info.txs}
-            caption="txns"
-            coinCaption="Transactions Value"
-            coins={formatSmidge(info.txsamount)}
-          />
-        </div>
-        <Table name={LAYERS} subPage={TXNS} id={params.id} results={data} />
-      </>
-    ) : <Loader size={100} />
+    <>
+      <div className="page-wrap">
+        <TitleBlock
+          title={`Layer ${params.id} - Txns`}
+          color={getColorByPageName(LAYERS)}
+          desc=""
+        />
+        <RightCountBlock
+          color={getColorByPageName(LAYERS)}
+          number={stats.transactions_count}
+          caption="txns"
+          coinCaption="Transactions Value"
+          coins={formatSmidge(stats.transactions_sum)}
+        />
+      </div>
+      <Table name={LAYERS} subPage={TXNS} id={params.id} />
+    </>
   );
 };
 
