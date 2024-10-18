@@ -19,6 +19,8 @@ const Search = () => {
 
   const onClickHandler = async () => {
     switch (searchValue.length) {
+      case 0:
+        break;
       case addressLength:
       case addressTestLength:
         navigate(`/accounts/${searchValue}`);
