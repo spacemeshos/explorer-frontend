@@ -1,10 +1,14 @@
 // @flow
+
+import { getStatusText } from '../../helper/tx';
+
 type Props = {
-  status: string;
+    status: string;
+    message: string;
 };
 
 const StatusIcon = (props: Props) => {
-  const { status } = props;
+  const { status, message } = props;
 
   let icon = '';
 
@@ -200,7 +204,13 @@ const StatusIcon = (props: Props) => {
   }
 
   return (
-    <span className="statusIcon">{icon}</span>
+    <span
+      className="statusIcon"
+      data-tooltip-id="status"
+      data-tooltip-content={`Transaction ${status === 'failure' ? `${getStatusText(status)} - ${message}` : getStatusText(status)}`}
+    >
+      {icon}
+    </span>
   );
 };
 

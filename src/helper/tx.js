@@ -71,3 +71,19 @@ export const destination = (tx) => {
       return tx.tx.principal;
   }
 };
+
+export const getStatusText = (data) => {
+  switch (data) {
+    case 'approved':
+    case 'success':
+      return 'success';
+    case 'failure':
+      return 'failure';
+    case 'invalid':
+      return 'invalid';
+    case 'pending':
+      return 'pending';
+    default:
+      break;
+  }
+};
