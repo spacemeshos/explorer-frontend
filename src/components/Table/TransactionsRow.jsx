@@ -24,7 +24,7 @@ const TransactionsRow = ({ data, pathname }: Props) => (
   data && data.map((item: V2alpha1TransactionResponse) => (
     <div key={nanoid()} className="tr">
       <div className="td">
-        <StatusIcon status={mapTxResult(item.txState, item.txResult?.status)} />
+        <StatusIcon status={mapTxResult(item.txState, item.txResult?.status)} message={item.txResult?.message} />
         <Link to={`/${TXNS}/${base64ToHex(item.tx.id)}`}>
           {longFormHash(base64ToHex(item.tx.id))}
         </Link>

@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import { observer } from 'mobx-react';
 
 import { useLocation } from 'react-router-dom';
+import { Tooltip } from 'react-tooltip';
 import TransactionsRow from './TransactionsRow';
 import AccountTxsRow from './AccountTxsRow';
 import EpochsRow from './EpochsRow';
@@ -461,6 +462,7 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
           {status === STATUS_SUCCESS && data.length === 0 && <NoData />}
         </div>
       </div>
+      <Tooltip id="status" />
       {(name !== OVERVIEW) && (
         <div className="pagination-wrap">
           <span className="pagination">
