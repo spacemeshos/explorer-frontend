@@ -15,7 +15,7 @@ const InfoBlock = ({ accounts, security, epoch, layer, rewards, smeshers }) => (
         <p
           className="infoBlock-item-number"
           data-tooltip-id="overview-tooltip"
-          data-tooltip-content="Cumulative count of accounts since the genesis block."
+          data-tooltip-content="This shows the cumulative count of accounts since the genesis block."
           data-tooltip-place="bottom"
         >
           <Link to={`/${ACCOUNTS}`}>
@@ -28,7 +28,7 @@ const InfoBlock = ({ accounts, security, epoch, layer, rewards, smeshers }) => (
         <p
           className="infoBlock-item-number"
           data-tooltip-id="overview-tooltip"
-          data-tooltip-content="Rewards value for the current epoch."
+          data-tooltip-content="This shows the total combined value of all rewards distributed in SMH for the current epoch."
           data-tooltip-place="bottom"
         >
           <Link to={`/${REWARDS}`}>
@@ -41,7 +41,7 @@ const InfoBlock = ({ accounts, security, epoch, layer, rewards, smeshers }) => (
         <p
           className="infoBlock-item-number"
           data-tooltip-id="overview-tooltip"
-          data-tooltip-content="Amount of storage commited by all active smeshers in the previous epoch."
+          data-tooltip-content="This shows the amount of storage committed by all active smeshers in the previous epoch."
           data-tooltip-place="bottom"
         >
           {security ? byteConverter(security) : (<Loader size={20} />)}
@@ -52,7 +52,7 @@ const InfoBlock = ({ accounts, security, epoch, layer, rewards, smeshers }) => (
         <p
           className="infoBlock-item-number"
           data-tooltip-id="overview-tooltip"
-          data-tooltip-content="Current epoch number."
+          data-tooltip-content="This shows the current epoch number."
           data-tooltip-place="bottom"
         >
           <Link to={`/${EPOCHS}/${epoch}`}>
@@ -65,7 +65,7 @@ const InfoBlock = ({ accounts, security, epoch, layer, rewards, smeshers }) => (
         <p
           className="infoBlock-item-number"
           data-tooltip-id="overview-tooltip"
-          data-tooltip-content="Current layer number."
+          data-tooltip-content="This shows the current layer number."
           data-tooltip-place="bottom"
         >
           <Link to={`/${LAYERS}/${layer}`}>
@@ -78,7 +78,7 @@ const InfoBlock = ({ accounts, security, epoch, layer, rewards, smeshers }) => (
         <p
           className="infoBlock-item-number"
           data-tooltip-id="overview-tooltip"
-          data-tooltip-content="Count of active smeshers in the current epoch."
+          data-tooltip-content="This shows the count of active smeshers in the current epoch."
           data-tooltip-place="bottom"
         >
           <Link to={`/${SMESHER}`}>
