@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react';
+import { Tooltip } from 'react-tooltip';
 import TitleBlock from '../components/TitleBlock';
 import { getColorByPageName } from '../helper/getColorByPageName';
 import { REWARDS } from '../config/constants';
@@ -37,8 +38,19 @@ const Rewards = () => {
           coinCaption="Rewards value since genesis"
           coins={store.overview.rewards_sum}
           rewards
+          tooltip1={{
+            'data-tooltip-id': 'rewards-tooltip',
+            'data-tooltip-html': 'This shows the total number of individual rewards distributed.<br/> Each reward represents a separate payout made to participants.',
+            'data-tooltip-place': 'bottom',
+          }}
+          tooltip2={{
+            'data-tooltip-id': 'rewards-tooltip',
+            'data-tooltip-html': 'This shows the total combined value of all rewards distributed in SMH.<br/> It represents the sum of all individual rewards.',
+            'data-tooltip-place': 'bottom',
+          }}
         />
       </div>
+      <Tooltip id="rewards-tooltip" multiline />
       <Table name={REWARDS} />
     </>
   );

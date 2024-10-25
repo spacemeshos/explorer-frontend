@@ -15,11 +15,13 @@ type Props = {
   coins?: string,
   label?: string,
   disableRightColumnData?: boolean,
+  tooltip1?: any,
+  tooltip2?: any,
 };
 
 const RightSideBlock = (props: Props) => {
   const { color, unit, number, startTime, coinCaption,
-    coins, label, rewards, disableRightColumnData } = props;
+    coins, label, rewards, disableRightColumnData, tooltip1, tooltip2 } = props;
 
   const blockWithTime = () => (
     <div style={{ backgroundColor: color.bgColor }} className="amountBlock">
@@ -63,12 +65,13 @@ const RightSideBlock = (props: Props) => {
           fontSize: setFontSize(number),
           lineHeight: setLineHeight(number),
         }}
+        {...tooltip1}
       >
         {commaNumber(number) || '000'}
       </div>
       <div className="rightColumn-desc">{unit}</div>
       {!disableRightColumnData && (
-        <div className="rightColumn-data">
+        <div className="rightColumn-data" {...tooltip2}>
           <p>{`${coinCaption}`}</p>
           <p>{`${formatSmidge(coins)}`}</p>
         </div>
