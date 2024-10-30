@@ -16,6 +16,8 @@ const Epochs = () => {
   const [epochs, setEpochs] = useState([]);
 
   useEffect(() => {
+    setIsFetching(true);
+    setEpochs([]);
     if (store.netInfo === null) return;
     setGenesisTime(new Date(store.netInfo.genesisTime || 0).getTime() / 1000);
 
@@ -38,7 +40,7 @@ const Epochs = () => {
         store.showThrottlePopup();
       }
     });
-  }, [store.netInfo]);
+  }, [store.network, store.netInfo]);
 
   if (isFetching) {
     return <Loader size={100} />;

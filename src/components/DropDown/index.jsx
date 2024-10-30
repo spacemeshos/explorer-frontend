@@ -15,7 +15,7 @@ const DropDown = (props: Props) => {
     <Dropdown
       options={options}
       onChange={handleChange}
-      value={selectedItem.value}
+      value={selectedItem.label}
       placeholder="Select network"
     />
   );
