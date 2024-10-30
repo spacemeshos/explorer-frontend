@@ -36,6 +36,7 @@ jobs:
       - name: Build to Dev Explorer
         env:
           REACT_APP_DISCOVERY_SERVICE_URL: https://configs.spacemesh.network/networks-dev.json
+          REACT_APP_LABELS_PER_UNIT: 1024
           PUBLIC_URL: /spacemesh-explorer-dev/
         run: |
           yarn
@@ -43,3 +44,6 @@ jobs:
 
       - name: Upload to Dev Explorer
         run: gsutil -m rsync -r -d ./build gs://spacemesh-explorer-dev
+
+      - name: Set cache-control headers for Dev Explorer
+        run: gsutil -m setmeta -h "Cache-Control:public, max-age=0, no-transform" -r gs://spacemesh-explorer-dev/index.html

@@ -1,5 +1,5 @@
 import {
-  action, makeAutoObservable, observable, toJS,
+  action, makeAutoObservable, observable,
 } from 'mobx';
 import React from 'react';
 import {
@@ -144,38 +144,41 @@ export default class Store {
           dash: network.dash,
           explorer: network.explorer,
           statsAPI: network.statsAPI,
-          grpcAPI: network.grpcAPI,
+          jsonAPI: network.jsonAPI,
         }
       ));
       this.setNetworks(networks);
       this.setNetwork(networks[0]);
-
-      if (PUBLIC_API === null) {
-        this.setApiConf(new Configuration({
-          basePath: networks[0].grpcAPI.replace(/\/$/, ''),
-        }));
-      } else {
-        this.setApiConf(new Configuration({
-          basePath: PUBLIC_API.replace(/\/$/, ''),
-        }));
-      }
-      this.setApi({
-        account: new AccountServiceApi(this.apiConf),
-        activation: new ActivationServiceApi(this.apiConf),
-        layer: new LayerServiceApi(this.apiConf),
-        network: new NetworkServiceApi(this.apiConf),
-        node: new NodeServiceApi(this.apiConf),
-        reward: new RewardServiceApi(this.apiConf),
-        transaction: new TransactionServiceApi(this.apiConf),
-        malfeasance: new MalfeasanceServiceApi(this.apiConf),
-      });
-      if (STATS_API === null) {
-        this.setStatsApiUrl(networks[0].statsAPI.replace(/\/$/, ''));
-      } else {
-        this.setStatsApiUrl(STATS_API.replace(/\/$/, ''));
-      }
+      await this.processNetworkInfo();
     } catch (e) {
       console.log('Error: ', e.message);
+    }
+  }
+
+  async processNetworkInfo() {
+    if (PUBLIC_API === null) {
+      this.setApiConf(new Configuration({
+        basePath: this.network.jsonAPI.replace(/\/$/, ''),
+      }));
+    } else {
+      this.setApiConf(new Configuration({
+        basePath: PUBLIC_API.replace(/\/$/, ''),
+      }));
+    }
+    this.setApi({
+      account: new AccountServiceApi(this.apiConf),
+      activation: new ActivationServiceApi(this.apiConf),
+      layer: new LayerServiceApi(this.apiConf),
+      network: new NetworkServiceApi(this.apiConf),
+      node: new NodeServiceApi(this.apiConf),
+      reward: new RewardServiceApi(this.apiConf),
+      transaction: new TransactionServiceApi(this.apiConf),
+      malfeasance: new MalfeasanceServiceApi(this.apiConf),
+    });
+    if (STATS_API === null) {
+      this.setStatsApiUrl(this.network.statsAPI.replace(/\/$/, ''));
+    } else {
+      this.setStatsApiUrl(STATS_API.replace(/\/$/, ''));
     }
 
     try {
@@ -196,28 +199,12 @@ export default class Store {
       console.log('Error: ', e.message);
     }
 
-    try {
-      const response = await fetch(`${this.statsApiUrl}/overview`);
-      if (!response.ok || response.status === 429) {
-        throw new Error('Error fetching data');
-      }
-      const res = await response.json();
-      this.setOverview(res);
-    } catch (e) {
-      console.log('Error: ', e.message);
+    const response = await fetch(`${this.statsApiUrl}/overview`);
+    if (!response.ok || response.status === 429) {
+      throw new Error('Error fetching data');
     }
-  }
-
-  processNetworkInfo() {
-    const { network } = toJS(this.networkInfo);
-
-    if ((network.lastlayer + 24) < network.lastapprovedlayer || network.issynced === false) {
-      this.color = 'red';
-    } else if (network.lastlayerts < ((Math.floor(Date.now() / 1000)) - (network.duration))) {
-      this.color = 'orange';
-    } else {
-      this.color = 'green';
-    }
+    const res = await response.json();
+    this.setOverview(res);
   }
 
   layerTimestamp(layer: number) {
