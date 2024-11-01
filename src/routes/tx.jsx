@@ -74,7 +74,7 @@ const Tx = () => {
               badgeType="coin"
               amount={smidge.value}
               unit={smidge.unit}
-              startTime={data && store.layerTimestamp(data.txResult.layer)}
+              startTime={data && store.layerTimestamp(data.txResult?.layer)}
               color={getColorByPageName(name)}
             />
           </div>
@@ -110,16 +110,20 @@ const Tx = () => {
               </li>
               <li className="item">
                 <span className="item-name">Timestamp</span>
-                <span className="item-value">
-                  <CustomTimeAgo time={store.layerTimestamp(data.txResult.layer)} />
-                                    &nbsp;
-                  {`${fullDate(store.layerTimestamp(data.txResult.layer))}`}
-                </span>
+                { data.txResult?.layer ? (
+                  <span className="item-value">
+                    <CustomTimeAgo time={store.layerTimestamp(data.txResult.layer)} />
+                    &nbsp;
+                    {`${fullDate(store.layerTimestamp(data.txResult.layer))}`}
+                  </span>
+                ) : (<span className="item-value">-</span>)}
               </li>
               <li className="item">
                 <span className="item-name">Layer</span>
                 <span className="item-value">
-                  <Link to={`/${LAYERS}/${data.txResult.layer}`}>{data.txResult.layer}</Link>
+                  { data.txResult?.layer ? (
+                    <Link to={`/${LAYERS}/${data.txResult.layer}`}>{data.txResult.layer}</Link>
+                  ) : ('-')}
                 </span>
               </li>
               <li className="item">
@@ -132,12 +136,14 @@ const Tx = () => {
               </li>
               <li className="item">
                 <span className="item-name">Fee</span>
-                <span className="item-value">{formatSmidge(data.txResult.fee)}</span>
+                <span className="item-value">{formatSmidge(data.txResult?.fee || 0)}</span>
               </li>
               <li className="item">
                 <span className="item-name">Block</span>
                 <span className="item-value">
-                  <Link to={`/${LAYERS}/${data.txResult.layer}/blocks`}>{base64ToHex(data.txResult.block)}</Link>
+                  { data.txResult?.layer ? (
+                    <Link to={`/${LAYERS}/${data.txResult.layer}/blocks`}>{base64ToHex(data.txResult.block)}</Link>
+                  ) : ('-')}
                 </span>
               </li>
               {data.tx.type === 'TRANSACTION_TYPE_DRAIN_VAULT' && (
