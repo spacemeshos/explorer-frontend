@@ -45,4 +45,4 @@ jobs:
         run: gsutil -m rsync -r -d ./build gs://explorer-dev.spacemesh.network
 
       - name: Set cache-control headers for Dev Explorer
-        run: gsutil -m setmeta -h "Cache-Control:public, max-age=0, no-transform" -r gs://explorer-dev.spacemesh.network.network/index.html
+        run: gsutil -m setmeta -h "Cache-Control:public, max-age=0, no-transform" -r gs://explorer-dev.spacemesh.network/index.html
