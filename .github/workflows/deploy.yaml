@@ -8,13 +8,20 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     steps:
       - uses: actions/checkout@v2
 
-      - name: Init gcloud
-        run: |
-          echo "${{ secrets.GCLOUD_KEY }}" | base64 -d > key.json
-          gcloud auth activate-service-account --key-file=key.json
+      - name: Setup gcloud authentication
+        uses: google-github-actions/auth@v2
+        id: 'auth'
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          workload_identity_provider: ${{ secrets.WIP }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT }}
+          token_format: access_token
 
       - name: Build to Mainnet Explorer
         env:
