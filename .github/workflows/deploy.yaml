@@ -22,6 +22,11 @@ jobs:
           workload_identity_provider: ${{ secrets.GCP_WIP }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
           token_format: access_token
+        
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          version: "469.0.0"
 
       - name: Build to Mainnet Explorer
         env:
