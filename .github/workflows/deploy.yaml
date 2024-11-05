@@ -19,8 +19,8 @@ jobs:
         id: 'auth'
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          workload_identity_provider: ${{ secrets.WIP }}
-          service_account: ${{ secrets.SERVICE_ACCOUNT }}
+          workload_identity_provider: ${{ secrets.GCP_WIP }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
           token_format: access_token
 
       - name: Build to Mainnet Explorer
