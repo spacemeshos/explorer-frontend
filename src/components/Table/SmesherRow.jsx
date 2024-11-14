@@ -56,7 +56,7 @@ const SmesherRow = ({ data }) => {
         </Link>
       </div>
       <div className="td">
-        <Link to={`/${ACCOUNTS}/${item.coinbase}`}>
+        <Link to={`/${ACCOUNTS}/${atxs[item.pubkey].activations[atxs[item.pubkey].activations.length - 1].coinbase}`}>
           {shortFormHash(atxs[item.pubkey].activations[atxs[item.pubkey].activations.length - 1].coinbase)}
         </Link>
       </div>
