@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { observer } from 'mobx-react';
 
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import TransactionsRow from './TransactionsRow';
 import AccountTxsRow from './AccountTxsRow';
@@ -43,6 +43,8 @@ type Props = {
 const Table = ({ name, subPage, id, epochs }: Props) => {
   const store = useStore();
   const { pathname } = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [data, setData] = useState([]);
   const [status, setStatus] = useState(STATUS_LOADING);
 
@@ -50,8 +52,9 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
   const pageSize = 20;
 
   const [isFetching, setIsFetching] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
   const [maxPage, setMaxPage] = useState(0);
+
+  const currentPage = parseInt(searchParams.get('page') || '1', 10);
 
   const getData = (offset): Promise<number> => {
     switch (name) {
@@ -211,7 +214,7 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
 
   useEffect(() => {
     if (store.netInfo === null) return;
-    getData(0).then((res) => {
+    getData((currentPage - 1) * pageSize).then((res) => {
       setData(res);
       setStatus(STATUS_SUCCESS);
       setIsFetching(false);
@@ -221,8 +224,8 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
       }
       setStatus(STATUS_ERROR);
     });
-    calcMaxPage(pageSize * 10);
-  }, [store.netInfo]);
+    calcMaxPage((currentPage + 9) * pageSize);
+  }, [store.netInfo, searchParams]);
 
   const renderTableData = () => {
     if (isFetching) {
@@ -318,6 +321,9 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
   };
 
   const handlePageClick = (page) => {
+    if (page === currentPage) {
+      return;
+    }
     setIsFetching(true);
     const offset = (page - 1) * pageSize;
     getData(offset).then((res) => {
@@ -336,7 +342,7 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
       }
       setStatus(STATUS_ERROR);
     });
-    setCurrentPage(page);
+    setSearchParams({ page: String(page) }, { preventScrollReset: true });
   };
 
   const handlePrevClick = () => {
@@ -382,7 +388,7 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
                 « previous
               </a>
             </span>
-            <span className={currentPage === 1 && maxPage === 1 ? 'pagination_link--disabled' : ''}>
+            <span>
               {
                 Array.from({ length: Math.min(10, maxPage) }, (_, i) => {
                   const startPage = Math.min(
