@@ -399,7 +399,7 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
                 « previous
               </a>
             </span>
-            <span>
+            <span className="pagination-pages">
               {
                 Array.from({ length: Math.min(10, maxPage) }, (_, i) => {
                   const startPage = Math.min(
