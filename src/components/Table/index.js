@@ -1,5 +1,7 @@
 // @flow
-import { useState, useEffect } from 'react';
+import {
+  useState, useEffect, useMemo,
+} from 'react';
 import { nanoid } from 'nanoid';
 import { observer } from 'mobx-react';
 
@@ -54,7 +56,11 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
   const [isFetching, setIsFetching] = useState(true);
   const [maxPage, setMaxPage] = useState(0);
 
-  const currentPage = parseInt(searchParams.get('page') || '1', 10);
+  const currentPage = useMemo(() => {
+    const pageParam = searchParams.get('page');
+    const parsedPage = parseInt(pageParam || '1', 10);
+    return Number.isNaN(parsedPage) || parsedPage < 1 ? 1 : parsedPage; // Default to 1 if invalid
+  }, [searchParams]);
 
   const getData = (offset): Promise<number> => {
     switch (name) {
@@ -215,8 +221,13 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
   useEffect(() => {
     if (store.netInfo === null) return;
     getData((currentPage - 1) * pageSize).then((res) => {
-      setData(res);
-      setStatus(STATUS_SUCCESS);
+      if (res.length > 0) {
+        setData(res);
+        setStatus(STATUS_SUCCESS);
+      } else {
+        setSearchParams({ page: '1' }, { preventScrollReset: true });
+        return;
+      }
       setIsFetching(false);
     }).catch((err) => {
       if (err.status === 429) {
