@@ -19,7 +19,8 @@ $themes: (
                 countBlockTextColor: $countBlockTextColor,
                 detailsPageTextColorValue: $hashColor,
                 detailsPageTextColorName: $textColor,
-                futureEpoch: $futureEpochLight
+                futureEpoch: $futureEpochLight,
+                paginationBackground: $paginationBackgroundLight
         ),
         dark: (
                 backgroundColor: $dark,
@@ -41,6 +42,7 @@ $themes: (
                 countBlockTextColor: $white,
                 detailsPageTextColorValue: $white,
                 detailsPageTextColorName: $white,
-                futureEpoch: $futureEpochDark
+                futureEpoch: $futureEpochDark,
+                paginationBackground: $paginationBackgroundDark
         )
 );

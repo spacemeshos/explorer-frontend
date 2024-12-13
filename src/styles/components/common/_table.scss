@@ -101,7 +101,7 @@
 
 .pagination-wrap {
   padding: 15px 15px;
-  @include theme-aware('background-color', 'backgroundInfoBlock');
+  @include theme-aware('background-color', 'paginationBackground');
 }
 
 .pagination {
@@ -137,7 +137,7 @@
 }
 
 .pagination_link:hover {
-  background-color: $secondGrey;
+  background-color: #D4D4D4;
   transform: scale(1.1);
 }
 
