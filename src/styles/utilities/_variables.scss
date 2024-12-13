@@ -77,6 +77,10 @@ $tile_title_bottom_border: rgba(215, 215, 215, 1);
 $main-font-family: 'NeubauGrotesk', sans-serif;
 $code-pro-font-family: 'Source Code Pro', monospace;
 
+// Pagination
+$paginationBackgroundDark: #2A2928;
+$paginationBackgroundLight: #E0E0E0;
+
 
 :export {
   overviewColor: $overviewColor;
