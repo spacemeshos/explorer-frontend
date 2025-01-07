@@ -206,6 +206,11 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
   };
 
   const calcMaxPage = (offset) => {
+    if (offset <= 0) {
+      setMaxPage(1);
+      return;
+    }
+
     getData(offset).then((res) => {
       if (res.length > 0) {
         const totalItems = offset + res.length;
@@ -226,7 +231,6 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
         setStatus(STATUS_SUCCESS);
       } else {
         setSearchParams({ page: '1' }, { preventScrollReset: true });
-        return;
       }
       setIsFetching(false);
     }).catch((err) => {
@@ -384,7 +388,7 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
             ))}
           </div>
           {data && data.length > 0 && renderTableData()}
-          {status === STATUS_SUCCESS && data.length === 0 && <NoData />}
+          {status !== STATUS_SUCCESS && data.length === 0 && <NoData />}
         </div>
       </div>
       <Tooltip id="status" />
