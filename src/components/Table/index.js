@@ -229,11 +229,10 @@ const Table = ({ name, subPage, id, epochs }: Props) => {
       if (res.length > 0) {
         setData(res);
         setStatus(STATUS_SUCCESS);
-        setIsFetching(false);
       } else {
         setSearchParams({ page: '1' }, { preventScrollReset: true });
-        setIsFetching(false);
       }
+      setIsFetching(false);
     }).catch((err) => {
       if (err.status === 429) {
         store.showThrottlePopup();
