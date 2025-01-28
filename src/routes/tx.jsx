@@ -155,6 +155,12 @@ const Tx = () => {
                   </span>
                 </li>
               )}
+              {data.tx.type === 'TRANSACTION_TYPE_DEPLOY' && (
+                <li className="item">
+                  <span className="item-name">Template</span>
+                  <span className="item-value">{data.tx.contents.deploy.template}</span>
+                </li>
+              )}
             </ul>
           </div>
         </>
