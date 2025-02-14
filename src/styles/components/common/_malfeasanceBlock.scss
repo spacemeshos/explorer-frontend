@@ -2,7 +2,6 @@
   display: flex;
   flex: 2;
   justify-content: space-between;
-  height: 136px;
   @include theme-aware('background-color', 'backgroundInfoBlock');
 
   &-wrap {
