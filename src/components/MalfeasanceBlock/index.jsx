@@ -28,35 +28,36 @@ const MalfeasanceBlock = (props: Props) => {
         return (
           <div
             style={{
-              display: "grid",
-              position: "relative",
+              display: 'grid',
+              position: 'relative',
               zIndex: 1,
             }}
           >
             <table
               style={{
-                width: "100%",
-                borderCollapse: "collapse",
-                marginTop: "15px",
+                width: '100%',
+                borderCollapse: 'collapse',
+                marginTop: '15px',
               }}
             >
               <tbody>
                 {Object.entries(proof.properties).map(([key, value]) => (
-                  <tr key={key} style={{ borderBottom: "1px solid #ddd" }}>
+                  <tr key={key} style={{ borderBottom: '1px solid #ddd' }}>
                     <td
                       style={{
-                        padding: "12px 16px",
-                        fontWeight: "bold",
-                        width: "30%",
-                        verticalAlign: "top",
+                        padding: '12px 16px',
+                        fontWeight: 'bold',
+                        width: '30%',
+                        verticalAlign: 'top',
                       }}
                     >
-                      {key}:
+                      {key}
+                      :
                     </td>
                     <td
                       style={{
-                        padding: "12px 16px",
-                        wordBreak: "break-all",
+                        padding: '12px 16px',
+                        wordBreak: 'break-all',
                       }}
                     >
                       {value.toString()}
@@ -73,10 +74,10 @@ const MalfeasanceBlock = (props: Props) => {
   return (
     <div
       style={{
-        display: "grid",
-        paddingBottom: "20px",
-        marginBottom: "0px",
-        position: "relative",
+        display: 'grid',
+        paddingBottom: '20px',
+        marginBottom: '0px',
+        position: 'relative',
         zIndex: 1,
       }}
     >
