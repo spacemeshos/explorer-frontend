@@ -16,6 +16,8 @@ export const typeOfTransaction = (type) => {
       return 'Vault.Spawn';
     case 'TRANSACTION_TYPE_DRAIN_VAULT':
       return 'Vault.Drain';
+    case 'TRANSACTION_TYPE_DEPLOY':
+      return 'Deploy';
     default:
       return 'Unspecified';
   }

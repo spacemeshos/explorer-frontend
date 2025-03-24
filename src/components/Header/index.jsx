@@ -16,10 +16,6 @@ const Header = () => {
       href: 'https://spacemesh.io/start/',
       title: 'join the network',
     },
-    {
-      href: store.network.dash,
-      title: 'dashboard',
-    },
   ];
 
   return (

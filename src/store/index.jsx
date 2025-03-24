@@ -101,7 +101,7 @@ export default class Store {
 
   setNetwork(data) {
     this.network = this.networks.find((item) => item.value === data.value);
-    this.network.value += this.network.value.endsWith('/') ? '' : '/';
+    // this.network.value += this.network.value.endsWith('/') ? '' : '/';
   }
 
   setNetInfo(data) {
@@ -139,7 +139,6 @@ export default class Store {
       const data = await response.json();
       const networks = data.map((network) => (
         {
-          value: network.dashAPI,
           label: network.netName,
           dash: network.dash,
           explorer: network.explorer,
